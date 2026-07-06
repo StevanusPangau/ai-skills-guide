@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { createFileRoute, Link, notFound } from '@tanstack/react-router'
 import { skills } from '@/data/skills'
 import { getOfficialTitle, getWhenNotToUse } from '@/types/skill'
@@ -8,9 +9,13 @@ import { useDocumentTitle } from '@/lib/use-document-title'
 
 export const Route = createFileRoute('/skills/$skillName')({
   loader: ({ params }) => {
-    const skill = skills.find((s) => s.name === params.skillName)
-    if (!skill) throw notFound()
-    return { skill }
+    const index = skills.findIndex((s) => s.name === params.skillName)
+    if (index === -1) throw notFound()
+    return {
+      skill: skills[index],
+      prev: index > 0 ? skills[index - 1] : null,
+      next: index < skills.length - 1 ? skills[index + 1] : null,
+    }
   },
   component: SkillPage,
   notFoundComponent: SkillNotFound,
@@ -24,9 +29,15 @@ function borderColor(skill: Skill): string {
 }
 
 function SkillPage() {
-  const { skill } = Route.useLoaderData()
+  const { skill, prev, next } = Route.useLoaderData()
   const whenNotToUse = getWhenNotToUse(skill)
   useDocumentTitle(`/${skill.name}`)
+
+  // Navigasi antar-skill memakai route pattern yang sama, jadi komponen tidak
+  // unmount — reset scroll ke atas secara eksplisit setiap ganti skill.
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' })
+  }, [skill.name])
 
   return (
     <main className="flex-1 min-w-0 pt-14">
@@ -182,6 +193,38 @@ function SkillPage() {
         )}
 
         <Separator />
+
+        {/* Prev / Next navigation */}
+        <nav className="grid grid-cols-2 gap-3">
+          {prev ? (
+            <Link
+              to="/skills/$skillName"
+              params={{ skillName: prev.name }}
+              className="group rounded-lg border border-border p-3 hover:border-primary transition-colors"
+            >
+              <span className="block text-xs text-muted-foreground">← Sebelumnya</span>
+              <span className="block font-mono text-sm mt-0.5 group-hover:text-primary transition-colors">
+                /{prev.name}
+              </span>
+            </Link>
+          ) : (
+            <span />
+          )}
+          {next ? (
+            <Link
+              to="/skills/$skillName"
+              params={{ skillName: next.name }}
+              className="group rounded-lg border border-border p-3 text-right hover:border-primary transition-colors"
+            >
+              <span className="block text-xs text-muted-foreground">Berikutnya →</span>
+              <span className="block font-mono text-sm mt-0.5 group-hover:text-primary transition-colors">
+                /{next.name}
+              </span>
+            </Link>
+          ) : (
+            <span />
+          )}
+        </nav>
 
         <Link to="/" hash="skills" className="inline-flex items-center gap-1 text-sm text-primary hover:underline">
           ← Kembali ke daftar skill
