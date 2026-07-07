@@ -9,9 +9,15 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as MattpocockRouteImport } from './routes/mattpocock'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as SkillsSkillNameRouteImport } from './routes/skills.$skillName'
 
+const MattpocockRoute = MattpocockRouteImport.update({
+  id: '/mattpocock',
+  path: '/mattpocock',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -25,32 +31,43 @@ const SkillsSkillNameRoute = SkillsSkillNameRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/mattpocock': typeof MattpocockRoute
   '/skills/$skillName': typeof SkillsSkillNameRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/mattpocock': typeof MattpocockRoute
   '/skills/$skillName': typeof SkillsSkillNameRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/mattpocock': typeof MattpocockRoute
   '/skills/$skillName': typeof SkillsSkillNameRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/skills/$skillName'
+  fullPaths: '/' | '/mattpocock' | '/skills/$skillName'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/skills/$skillName'
-  id: '__root__' | '/' | '/skills/$skillName'
+  to: '/' | '/mattpocock' | '/skills/$skillName'
+  id: '__root__' | '/' | '/mattpocock' | '/skills/$skillName'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  MattpocockRoute: typeof MattpocockRoute
   SkillsSkillNameRoute: typeof SkillsSkillNameRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/mattpocock': {
+      id: '/mattpocock'
+      path: '/mattpocock'
+      fullPath: '/mattpocock'
+      preLoaderRoute: typeof MattpocockRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -70,6 +87,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  MattpocockRoute: MattpocockRoute,
   SkillsSkillNameRoute: SkillsSkillNameRoute,
 }
 export const routeTree = rootRouteImport

@@ -48,8 +48,8 @@ function SkillPage() {
             Beranda
           </Link>
           <span className="mx-2">/</span>
-          <Link to="/" hash="skills" className="hover:text-primary transition-colors">
-            Skills
+          <Link to="/mattpocock" hash="skills" className="hover:text-primary transition-colors">
+            Matt Pocock
           </Link>
           <span className="mx-2">/</span>
           <span className="text-foreground font-mono">{skill.name}</span>
@@ -226,7 +226,7 @@ function SkillPage() {
           )}
         </nav>
 
-        <Link to="/" hash="skills" className="inline-flex items-center gap-1 text-sm text-primary hover:underline">
+        <Link to="/mattpocock" hash="skills" className="inline-flex items-center gap-1 text-sm text-primary hover:underline">
           ← Kembali ke daftar skill
         </Link>
       </div>
@@ -242,7 +242,7 @@ function SkillNotFound() {
         <p className="text-sm text-muted-foreground">
           Skill yang kamu cari tidak ada dalam katalog.
         </p>
-        <Link to="/" hash="skills" className="inline-flex items-center gap-1 text-sm text-primary hover:underline">
+        <Link to="/mattpocock" hash="skills" className="inline-flex items-center gap-1 text-sm text-primary hover:underline">
           ← Kembali ke daftar skill
         </Link>
       </div>
