@@ -57,13 +57,22 @@ src/
 
 ## Deployment
 
-Project ini murni **static SPA** — hasil `npm run build` di folder `dist/` bisa di-host di mana saja: Cloudflare Pages/Workers, Netlify, Vercel, GitHub Pages, atau static file server apa pun.
+Project ini di-deploy ke **Cloudflare Workers** (static assets), pakai config di [`wrangler.jsonc`](./wrangler.jsonc). Karena murni client-rendered SPA, tak ada Worker script — assets di-serve langsung dari edge Cloudflare (zero billable Worker invocation).
 
-Satu-satunya syarat: aktifkan **SPA fallback** (semua route yang tidak ketemu diarahkan ke `index.html`) agar deep-link seperti `/skills/tdd` berfungsi saat di-refresh. Contoh:
+```bash
+npx wrangler login        # sekali saja (OAuth ke akun Cloudflare)
+npm run deploy            # build + wrangler deploy
+```
 
-- **Cloudflare Workers/Pages** — set `not_found_handling: "single-page-application"`
-- **Netlify** — redirect rule `/* /index.html 200`
-- **nginx** — `try_files $uri /index.html;`
+Detail config:
+
+- `not_found_handling: "single-page-application"` — semua route tak dikenal di-rewrite ke `/index.html` (200), jadi deep-link `/skills/tdd` jalan saat di-refresh.
+- [`public/_headers`](./public/_headers) — security headers (HSTS, nosniff, X-Frame DENY, Referrer-Policy, Permissions-Policy) + caching immutable untuk `/assets/*`.
+- [`public/.well-known/security.txt`](./public/.well-known/security.txt) — kontak security disclosure.
+
+Custom domain (`skills.stevanuspangau.cloud`) dipasang lewat **Workers → Settings → Domains & Routes** di dashboard Cloudflare.
+
+> Karena SPA murni, project juga portable ke Netlify (`/* /index.html 200`), Vercel, atau static server lain (nginx: `try_files $uri /index.html;`).
 
 ## Kredit
 
