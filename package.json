@@ -1,8 +1,25 @@
 {
-  "name": "mattpocock-skills-guide",
+  "name": "ai-skills-guide",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
+  "description": "Panduan interaktif 19 AI coding skills dari Matt Pocock — alur kerja ide hingga ship untuk pengembangan software berbasis AI agent. Vite + React 19 + TanStack Router.",
+  "license": "MIT",
+  "author": "Stevanus Pangau",
+  "homepage": "https://skills.stevanuspangau.cloud",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/StevanusPangau/ai-skills-guide.git"
+  },
+  "keywords": [
+    "ai-skills",
+    "ai-agent",
+    "coding-workflow",
+    "matt-pocock",
+    "react",
+    "vite",
+    "tanstack-router"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
