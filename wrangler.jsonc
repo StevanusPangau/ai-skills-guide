@@ -1,0 +1,17 @@
+{
+  // Cloudflare Workers — static assets only (no Worker script).
+  // Pure client-rendered SPA: zero billable Worker invocations, assets served
+  // directly from Cloudflare's edge. Docs: https://developers.cloudflare.com/workers/static-assets/
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "ai-skills-guide",
+  "compatibility_date": "2026-07-07",
+  "assets": {
+    "directory": "./dist/",
+    // Serve /index.html (200) for any unmatched route so deep-links like
+    // /skills/tdd work on refresh. https://developers.cloudflare.com/workers/static-assets/routing/single-page-application/
+    "not_found_handling": "single-page-application"
+  },
+  "observability": {
+    "enabled": true
+  }
+}

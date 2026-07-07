@@ -24,7 +24,10 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "oxlint",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "deploy": "npm run build && wrangler deploy",
+    "cf:dev": "wrangler dev",
+    "cf:versions": "wrangler versions list"
   },
   "dependencies": {
     "@base-ui/react": "^1.6.0",
@@ -50,6 +53,7 @@
     "oxlint": "^1.71.0",
     "tailwindcss": "^4.3.2",
     "typescript": "~6.0.2",
-    "vite": "^8.1.1"
+    "vite": "^8.1.1",
+    "wrangler": "^4.107.0"
   }
 }

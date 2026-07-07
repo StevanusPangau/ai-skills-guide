@@ -1,0 +1,14 @@
+# Cloudflare Workers static-assets header rules.
+# Docs: https://developers.cloudflare.com/workers/static-assets/headers/
+# Mirrors the security headers previously served by Caddy on the VPS.
+
+/*
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: geolocation=(), microphone=(), camera=()
+  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+
+# Fingerprinted build assets (hashed filenames) — cache aggressively & immutably.
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
