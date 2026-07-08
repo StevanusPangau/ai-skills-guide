@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { createFileRoute, Link, notFound } from '@tanstack/react-router'
+import { RiLightbulbLine } from '@remixicon/react'
 import { skills } from '@/data/skills'
 import { getOfficialTitle, getWhenNotToUse } from '@/types/skill'
 import type { Skill } from '@/types/skill'
@@ -166,7 +167,7 @@ function SkillPage() {
             <ul className="space-y-1">
               {skill.tips!.map((tip, i) => (
                 <li key={i} className="text-sm flex items-start gap-2">
-                  <span className="text-orange-600 shrink-0">💡</span>
+                  <RiLightbulbLine className="size-4 text-orange-600 shrink-0 mt-0.5" />
                   {tip}
                 </li>
               ))}

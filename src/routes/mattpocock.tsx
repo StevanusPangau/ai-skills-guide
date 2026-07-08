@@ -6,6 +6,7 @@ import { MainFlow } from '@/features/main-flow'
 import { SkillsSection } from '@/features/skills/skills-section'
 import { Workflows } from '@/features/workflows'
 import { Concepts } from '@/features/concepts'
+import { Installation } from '@/features/installation'
 import { Separator } from '@/components/ui/separator'
 import { Button } from '@/components/ui/button'
 import { useDocumentTitle } from '@/lib/use-document-title'
@@ -46,6 +47,8 @@ function MattPocockPage() {
           <Workflows />
           <Separator />
           <Concepts />
+          <Separator />
+          <Installation />
 
           <footer className="pt-8 pb-4 border-t border-border">
             <p className="text-xs text-muted-foreground text-center">

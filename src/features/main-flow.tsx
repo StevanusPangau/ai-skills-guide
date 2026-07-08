@@ -1,5 +1,17 @@
 import { useState } from 'react'
 import { Card, CardContent } from '@/components/ui/card'
+import {
+  RiSearchEyeLine,
+  RiQuestionLine,
+  RiFileList3Line,
+  RiListCheck,
+  RiCodeSSlashLine,
+  RiTestTubeLine,
+  RiEyeLine,
+  RiCheckboxCircleLine,
+  RiBugLine,
+  RiBuilding2Line,
+} from '@remixicon/react'
 
 type NodeId =
   | 'grill'
@@ -26,17 +38,17 @@ const nodeDescriptions: Record<NodeId, string> = {
   improve: 'ON-RAMP: Scan peluang shallow→deep, lalu implement.',
 }
 
-const nodeIcons: Record<NodeId, string> = {
-  grill: '🔍',
-  multi: '❓',
-  'to-prd': '📄',
-  'to-issues': '📋',
-  implement: '⚙️',
-  tdd: '🧪',
-  'code-review': '👀',
-  commit: '✅',
-  triage: '🐛',
-  improve: '🏗️',
+const nodeIcons: Record<NodeId, React.ReactNode> = {
+  grill: <RiSearchEyeLine className="size-5" />,
+  multi: <RiQuestionLine className="size-5" />,
+  'to-prd': <RiFileList3Line className="size-5" />,
+  'to-issues': <RiListCheck className="size-5" />,
+  implement: <RiCodeSSlashLine className="size-5" />,
+  tdd: <RiTestTubeLine className="size-5" />,
+  'code-review': <RiEyeLine className="size-5" />,
+  commit: <RiCheckboxCircleLine className="size-5" />,
+  triage: <RiBugLine className="size-5" />,
+  improve: <RiBuilding2Line className="size-5" />,
 }
 
 export function MainFlow() {
@@ -114,7 +126,7 @@ export function MainFlow() {
               onClick={() => setActive('triage')}
             >
               <CardContent className="p-4 flex items-center gap-3">
-                <span className="text-xl">{nodeIcons.triage}</span>
+                <span className="text-primary">{nodeIcons.triage}</span>
                 <div>
                   <p className="text-sm font-semibold font-mono">/triage</p>
                   <p className="text-xs text-muted-foreground">Bug masuk → state machine → main flow</p>
@@ -126,7 +138,7 @@ export function MainFlow() {
               onClick={() => setActive('improve')}
             >
               <CardContent className="p-4 flex items-center gap-3">
-                <span className="text-xl">{nodeIcons.improve}</span>
+                <span className="text-primary">{nodeIcons.improve}</span>
                 <div>
                   <p className="text-sm font-semibold font-mono">/improve-codebase-architecture</p>
                   <p className="text-xs text-muted-foreground">Scan code rot → perbaiki → main flow</p>
@@ -141,7 +153,7 @@ export function MainFlow() {
       {active && (
         <div className="border-l-4 border-primary rounded-r-lg p-4 bg-primary/5 transition-all">
           <div className="flex items-center gap-2 mb-1">
-            <span className="text-lg">{nodeIcons[active]}</span>
+            <span className="text-primary">{nodeIcons[active]}</span>
             <p className="font-mono text-sm font-semibold">/{active}</p>
           </div>
           <p className="text-sm text-muted-foreground">{nodeDescriptions[active]}</p>
@@ -176,7 +188,7 @@ function FlowNode({
           : 'bg-card border-border hover:border-primary/50 hover:shadow-sm'}
       `}
     >
-      <span className="text-base">{nodeIcons[id]}</span>
+      <span className={isActive ? '' : 'text-primary'}>{nodeIcons[id]}</span>
       {label}
     </button>
   )

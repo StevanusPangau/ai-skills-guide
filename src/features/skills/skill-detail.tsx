@@ -1,5 +1,6 @@
 import { Link } from '@tanstack/react-router'
 import { Badge } from '@/components/ui/badge'
+import { RiLightbulbLine } from '@remixicon/react'
 import type { Skill } from '@/types/skill'
 
 export function SkillDetail({ skill }: { skill: Skill }) {
@@ -58,7 +59,7 @@ export function SkillDetail({ skill }: { skill: Skill }) {
           <ul className="space-y-1">
             {skill.tips!.map((tip, i) => (
               <li key={i} className="text-sm flex items-start gap-2">
-                <span className="text-orange-600 shrink-0">💡</span>
+                <RiLightbulbLine className="size-4 text-orange-600 shrink-0 mt-0.5" />
                 {tip}
               </li>
             ))}

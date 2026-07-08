@@ -55,7 +55,7 @@ export const skills: Skill[] = [
       'Mengeksplorasi codebase untuk menjawab pertanyaannya sendiri',
       'ADR tetap jarang — tidak rubber-stamp reversible choices',
     ],
-    workflow: '★ grill-with-docs → to-prd → to-issues → implement → code-review',
+    workflow: '▸ grill-with-docs → to-prd → to-issues → implement → code-review',
     tips: [
       'Gunakan di AWAL sebelum kode apapun ditulis',
       'Jika plan sudah clear dan hanya perlu pin terminology, gunakan /domain-modeling saja',
@@ -195,7 +195,7 @@ export const skills: Skill[] = [
       'Dependencies antar slices jelas',
       'Setiap completed slice bisa di-demo atau diverifikasi sendiri',
     ],
-    workflow: 'grill-with-docs → to-prd → ★ to-issues → implement → code-review',
+    workflow: 'grill-with-docs → to-prd → ▸ to-issues → implement → code-review',
     tips: [
       'JANGAN split by layer (semua DB dulu, lalu semua API)',
       'Prefer AFK slices — agent bisa langsung kerjakan',
@@ -232,7 +232,7 @@ export const skills: Skill[] = [
       'Testing decisions menyebut seams yang jelas',
       'Out of scope didefinisikan eksplisit',
     ],
-    workflow: 'grill-with-docs → ★ to-prd → to-issues → implement → code-review',
+    workflow: 'grill-with-docs → ▸ to-prd → to-issues → implement → code-review',
     tips: [
       'Jangan tulis PRD sebelum grilling selesai — hasilnya akan vague',
       'User stories harus PANJANG dan detailed, bukan 3-4 generic',
@@ -378,7 +378,7 @@ export const skills: Skill[] = [
       'Expected values adalah literals dari spec, bukan computed',
       'Internal rename tidak break test apapun',
     ],
-    workflow: 'grill-with-docs → to-prd → to-issues → implement (drives ★ tdd) → code-review',
+    workflow: 'grill-with-docs → to-prd → to-issues → implement (drives ▸ tdd) → code-review',
     tips: [
       'Anti-pattern: implementation-coupled = mock internal collaborators, test private methods',
       'Anti-pattern: tautological = assertion recomputes expected value cara yang sama dengan code',
@@ -489,7 +489,7 @@ export const skills: Skill[] = [
       'Spec findings mengutip line dari spec',
       'Skip hal yang sudah di-enforce tooling',
     ],
-    workflow: 'grill-with-docs → to-prd → to-issues → implement → ★ code-review',
+    workflow: 'grill-with-docs → to-prd → to-issues → implement → ▸ code-review',
     tips: [
       'Repo standard ALWAYS wins over Fowler baseline — jika repo endorses sesuatu, suppress smell',
       'Setiap smell = judgement call, bukan hard violation',
