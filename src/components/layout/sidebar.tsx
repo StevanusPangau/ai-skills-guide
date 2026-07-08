@@ -7,6 +7,7 @@ const sections = [
   { id: 'skills', label: '19 Skills' },
   { id: 'workflows', label: 'Pola Kerja' },
   { id: 'concepts', label: 'Konsep Kunci' },
+  { id: 'installation', label: 'Instalasi' },
 ]
 
 interface SidebarProps {
