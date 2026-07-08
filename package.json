@@ -22,7 +22,7 @@
   ],
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "paraglide-js compile --project ./project.inlang --outdir ./src/paraglide && tsc -b && vite build",
     "lint": "oxlint",
     "preview": "vite preview",
     "deploy": "npm run build && wrangler deploy",
