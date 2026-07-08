@@ -1,4 +1,5 @@
 import { skills } from '@/data/skills'
+import { m } from '@/paraglide/messages.js'
 
 export type CollectionStatus = 'available' | 'coming-soon'
 
@@ -19,19 +20,26 @@ export type Collection = {
   tags: string[]
 }
 
-export const collections: Collection[] = [
-  {
-    slug: 'mattpocock',
-    to: '/mattpocock',
-    author: 'Matt Pocock',
-    title: 'AI Coding Skills',
-    description:
-      'Workflow terstruktur dari ide hingga ship untuk pengembangan software berbasis AI agent. Main build chain, on-ramps, dan konsep Smart Zone.',
-    skillCount: skills.length,
-    status: 'available',
-    source: 'github.com/mattpocock/skills',
-    tags: ['engineering', 'workflow', 'agentic'],
-  },
-]
+export function getCollections(): Collection[] {
+  return [
+    {
+      slug: 'mattpocock',
+      to: '/mattpocock',
+      author: 'Matt Pocock',
+      title: 'AI Coding Skills',
+      description: m.collection_mattpocock_description(),
+      skillCount: skills.length,
+      status: 'available',
+      source: 'github.com/mattpocock/skills',
+      tags: ['engineering', 'workflow', 'agentic'],
+    },
+  ]
+}
 
-export const availableCollections = collections.filter((c) => c.status === 'available')
+export function getAvailableCollections() {
+  return getCollections().filter((c) => c.status === 'available')
+}
+
+// Keep backward-compatible exports (re-evaluated per call for locale reactivity)
+export const collections = getCollections()
+export const availableCollections = getAvailableCollections()
