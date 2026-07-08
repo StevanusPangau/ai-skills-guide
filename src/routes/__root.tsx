@@ -1,15 +1,17 @@
 import { useState, useEffect } from 'react'
 import { createRootRoute, Link, Outlet } from '@tanstack/react-router'
-import { RiGithubFill, RiMoonLine, RiSunLine } from '@remixicon/react'
+import { RiGithubFill, RiGlobalLine, RiMoonLine, RiSunLine } from '@remixicon/react'
 import { Button } from '@/components/ui/button'
+import { m } from '@/paraglide/messages.js'
+import { getLocale, setLocale } from '@/paraglide/runtime.js'
 
 export const Route = createRootRoute({
   component: RootLayout,
 })
 
 const navItems = [
-  { to: '/', label: 'Home', exact: true },
-  { to: '/mattpocock', label: 'Matt Pocock', exact: false },
+  { to: '/', labelKey: 'nav_home' as const, exact: true },
+  { to: '/mattpocock', labelKey: 'nav_matt_pocock' as const, exact: false },
 ] as const
 
 function RootLayout() {
@@ -24,6 +26,18 @@ function RootLayout() {
     localStorage.setItem('theme', dark ? 'dark' : 'light')
   }, [dark])
 
+  const navLabels: Record<string, string> = {
+    nav_home: m.nav_home(),
+    nav_matt_pocock: m.nav_matt_pocock(),
+  }
+
+  const toggleLocale = () => {
+    const current = getLocale()
+    setLocale(current === 'id' ? 'en' : 'id', { reload: false })
+    // Force re-render by toggling a dummy state
+    window.location.reload()
+  }
+
   return (
     <div className="flex min-h-screen flex-col">
       <header className="fixed top-0 right-0 left-0 z-50 h-14 border-b border-border bg-background/80 backdrop-blur">
@@ -33,7 +47,7 @@ function RootLayout() {
               to="/"
               className="font-heading text-sm font-bold tracking-tight transition-colors hover:text-primary"
             >
-              AI Skills Guide
+              {m.nav_ai_skills_guide()}
             </Link>
 
             <nav className="flex items-center gap-1">
@@ -48,7 +62,7 @@ function RootLayout() {
                       'rounded-lg px-3 py-1.5 text-sm font-medium text-foreground bg-muted',
                   }}
                 >
-                  {item.label}
+                  {navLabels[item.labelKey]}
                 </Link>
               ))}
             </nav>
@@ -60,7 +74,7 @@ function RootLayout() {
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex h-9 w-9 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
-              aria-label="GitHub repository"
+              aria-label={m.github_repo()}
             >
               <RiGithubFill className="size-5" />
             </a>
@@ -69,9 +83,19 @@ function RootLayout() {
               variant="ghost"
               size="icon"
               onClick={() => setDark(!dark)}
-              aria-label="Toggle dark mode"
+              aria-label={m.toggle_dark_mode()}
             >
               {dark ? <RiSunLine /> : <RiMoonLine />}
+            </Button>
+
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={toggleLocale}
+              aria-label={m.toggle_language()}
+              title={getLocale() === 'id' ? 'English' : 'Indonesia'}
+            >
+              <RiGlobalLine className="size-5" />
             </Button>
           </div>
         </div>

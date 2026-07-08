@@ -1,14 +1,17 @@
 import { useState, useEffect } from 'react'
 import { Button } from '@/components/ui/button'
+import { m } from '@/paraglide/messages.js'
 
-const sections = [
-  { id: 'overview', label: 'Ringkasan' },
-  { id: 'flow', label: 'Alur Utama' },
-  { id: 'skills', label: '19 Skills' },
-  { id: 'workflows', label: 'Pola Kerja' },
-  { id: 'concepts', label: 'Konsep Kunci' },
-  { id: 'installation', label: 'Instalasi' },
-]
+function useSections() {
+  return [
+    { id: 'overview', label: m.sidebar_overview() },
+    { id: 'flow', label: m.sidebar_flow() },
+    { id: 'skills', label: m.sidebar_skills() },
+    { id: 'workflows', label: m.sidebar_workflows() },
+    { id: 'concepts', label: m.sidebar_concepts() },
+    { id: 'installation', label: m.sidebar_installation() },
+  ]
+}
 
 interface SidebarProps {
   open: boolean
@@ -16,14 +19,12 @@ interface SidebarProps {
 }
 
 export function Sidebar({ open, onClose }: SidebarProps) {
+  const sections = useSections()
   const [active, setActive] = useState<string>('overview')
 
   useEffect(() => {
-    // Scroll-spy: pilih section terakhir yang bagian atasnya sudah melewati
-    // garis trigger (di bawah header). Ini menangani section terakhir dengan
-    // benar meskipun tidak pernah mencapai puncak viewport.
     const onScroll = () => {
-      const trigger = 56 + 96 // tinggi header (h-14) + offset
+      const trigger = 56 + 96
       let current = sections[0].id
       for (const s of sections) {
         const el = document.getElementById(s.id)
@@ -31,7 +32,6 @@ export function Sidebar({ open, onClose }: SidebarProps) {
           current = s.id
         }
       }
-      // Jika sudah scroll mepet ke bawah, aktifkan section terakhir
       if (
         window.innerHeight + window.scrollY >=
         document.body.offsetHeight - 4
@@ -48,7 +48,7 @@ export function Sidebar({ open, onClose }: SidebarProps) {
       window.removeEventListener('scroll', onScroll)
       window.removeEventListener('resize', onScroll)
     }
-  }, [])
+  }, [sections])
 
   const handleClick = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
@@ -77,7 +77,7 @@ export function Sidebar({ open, onClose }: SidebarProps) {
         <div className="p-6 h-full flex flex-col">
           <div className="mb-8">
             <p className="text-xs text-muted-foreground mt-1">
-              Matt Pocock's workflow
+              {m.sidebar_subtitle()}
             </p>
           </div>
 
@@ -103,7 +103,7 @@ export function Sidebar({ open, onClose }: SidebarProps) {
 
           <div className="pt-4 border-t border-border">
             <p className="text-xs text-muted-foreground">
-              19 skills · 5 pola kerja
+              {m.sidebar_stats()}
             </p>
           </div>
         </div>

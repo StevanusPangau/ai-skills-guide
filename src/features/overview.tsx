@@ -1,29 +1,30 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
+import { m } from '@/paraglide/messages.js'
 
 export function Overview() {
   const failureModes = [
     {
-      title: 'Agent tidak mengerjakan yang diminta',
-      description: 'Agent salah interpretasi atau tidak fokus pada requirement yang diberikan.',
+      title: m.overview_problem_1_title(),
+      description: m.overview_problem_1_description(),
       fix: ['/grill-me', '/grill-with-docs'],
       borderClass: 'border-l-4 border-orange-600',
     },
     {
-      title: 'Agent terlalu verbose',
-      description: 'Output terlalu panjang, tidak ada domain model yang jelas, cognitive load tinggi.',
+      title: m.overview_problem_2_title(),
+      description: m.overview_problem_2_description(),
       fix: ['/domain-modeling', 'CONTEXT.md'],
       borderClass: 'border-l-4 border-sky-600',
     },
     {
-      title: 'Kode tidak berfungsi',
-      description: 'Bug yang sulit dilacak, tidak ada test, approach trial-and-error.',
+      title: m.overview_problem_3_title(),
+      description: m.overview_problem_3_description(),
       fix: ['/tdd', '/diagnosing-bugs'],
       borderClass: 'border-l-4 border-red-600',
     },
     {
-      title: 'Codebase jadi ball of mud',
-      description: 'Arsitektur yang tidak jelas, module boundaries buruk, technical debt menumpuk.',
+      title: m.overview_problem_4_title(),
+      description: m.overview_problem_4_description(),
       fix: ['/improve-codebase-architecture', '/codebase-design'],
       borderClass: 'border-l-4 border-emerald-600',
     },
@@ -32,25 +33,20 @@ export function Overview() {
   return (
     <section id="overview" className="space-y-8">
       <div>
-        <h2 className="text-2xl font-bold tracking-tight">Ringkasan</h2>
+        <h2 className="text-2xl font-bold tracking-tight">{m.overview_title()}</h2>
         <p className="text-muted-foreground mt-2 max-w-2xl">
-          Sistem AI Skills dari Matt Pocock adalah workflow terstruktur untuk
-          pengembangan software berbasis AI. Terdiri dari 19 skill yang composable
-          dan bisa digunakan di agent manapun.
+          {m.overview_description()}
         </p>
       </div>
 
       {/* Main Build Chain */}
       <Card className="border-2 border-primary/30 bg-primary/5">
         <CardHeader>
-          <CardTitle className="text-base">Main Build Chain</CardTitle>
+          <CardTitle className="text-base">{m.overview_build_chain_title()}</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <p className="text-sm text-muted-foreground">
-            Ini adalah pipeline utama dari ide hingga kode yang siap merge.
-            Setiap step menghasilkan artifact yang menjadi input step berikutnya.
-            Seluruh sistem dirancang agar agent tetap berada di "Smart Zone" — tidak pernah
-            melampaui ~120k token context di mana kualitas output mulai menurun.
+            {m.overview_build_chain_description()}
           </p>
           <div className="flex flex-wrap items-center gap-2 font-mono text-xs">
             <Badge variant="default" className="text-xs px-3 py-1">grill-with-docs</Badge>
@@ -91,45 +87,42 @@ export function Overview() {
       {/* Smart Zone */}
       <Card className="border border-border">
         <CardHeader>
-          <CardTitle className="text-base">Smart Zone & Context Management</CardTitle>
+          <CardTitle className="text-base">{m.overview_smart_zone_title()}</CardTitle>
         </CardHeader>
         <CardContent className="space-y-3">
           <p className="text-sm text-muted-foreground">
-            "AI is not a super-powered developer. It's a new starter with no memory."
-            — Matt Pocock. Context window besar (1M tokens) bukan berarti semuanya berguna.
-            Setelah ~120k tokens, perhatian agent mulai terdifusi dan output menurun.
-            Seluruh skill system dirancang untuk menjaga agent tetap di Smart Zone.
+            {m.overview_smart_zone_description()}
           </p>
           <div className="space-y-2">
             <div className="flex justify-between text-xs text-muted-foreground">
-              <span>0</span>
-              <span className="font-semibold">~120k (Smart Zone)</span>
-              <span>200k+ (Dumb Zone)</span>
+              <span>{m.overview_smart_zone_start()}</span>
+              <span className="font-semibold">{m.overview_smart_zone_limit()}</span>
+              <span>{m.overview_smart_zone_dumb()}</span>
             </div>
             <div className="h-4 rounded-full bg-secondary overflow-hidden relative">
               <div className="absolute inset-y-0 left-0 w-[60%] bg-gradient-to-r from-emerald-500 to-primary rounded-full" />
               <div className="absolute inset-y-0 left-[60%] right-0 bg-gradient-to-r from-primary to-red-500 rounded-full opacity-60" />
             </div>
             <div className="flex text-xs">
-              <span className="text-emerald-600 dark:text-emerald-400 w-[60%]">Fokus tajam, output berkualitas</span>
-              <span className="text-red-500">Drift, halusinasi, missed details</span>
+              <span className="text-emerald-600 dark:text-emerald-400 w-[60%]">{m.overview_smart_zone_good()}</span>
+              <span className="text-red-500">{m.overview_smart_zone_bad()}</span>
             </div>
           </div>
           <div className="grid grid-cols-2 gap-3 mt-3">
             <div className="text-xs border border-border rounded p-2">
-              <span className="font-semibold text-foreground">/compact</span>
-              <p className="text-muted-foreground mt-1">Summarize session saat ini → kembali ke Smart Zone. Untuk single-threaded long work.</p>
+              <span className="font-semibold text-foreground">{m.overview_compact_title()}</span>
+              <p className="text-muted-foreground mt-1">{m.overview_compact_description()}</p>
             </div>
             <div className="text-xs border border-border rounded p-2">
-              <span className="font-semibold text-foreground">/handoff</span>
-              <p className="text-muted-foreground mt-1">Split ke session baru → keep session saat ini pure. Untuk parallel concerns.</p>
+              <span className="font-semibold text-foreground">{m.overview_handoff_title()}</span>
+              <p className="text-muted-foreground mt-1">{m.overview_handoff_description()}</p>
             </div>
           </div>
         </CardContent>
       </Card>
 
       <div>
-        <h3 className="text-lg font-semibold mb-4">4 Masalah Utama yang Dipecahkan</h3>
+        <h3 className="text-lg font-semibold mb-4">{m.overview_problems_title()}</h3>
         <div className="grid gap-4 sm:grid-cols-2">
           {failureModes.map((mode) => (
             <Card key={mode.title} className={`${mode.borderClass}`}>
@@ -157,18 +150,18 @@ export function Overview() {
 
       {/* User-invoked vs Model-invoked */}
       <div className="space-y-3">
-        <h3 className="text-lg font-semibold">Tipe Invokasi</h3>
+        <h3 className="text-lg font-semibold">{m.overview_invocation_title()}</h3>
         <p className="text-sm text-muted-foreground">
-          Skills dibagi menjadi dua tipe berdasarkan siapa yang memanggilnya:
+          {m.overview_invocation_description()}
         </p>
         <div className="flex flex-wrap gap-4">
           <div className="flex items-center gap-2">
             <Badge variant="default" className="text-xs">User-invoked</Badge>
-            <span className="text-sm text-muted-foreground">— dipanggil langsung oleh user (misal: /grill-with-docs)</span>
+            <span className="text-sm text-muted-foreground">{m.overview_invocation_user()}</span>
           </div>
           <div className="flex items-center gap-2">
             <Badge variant="secondary" className="text-xs">Model-invoked</Badge>
-            <span className="text-sm text-muted-foreground">— dipanggil otomatis oleh agent saat dibutuhkan (misal: /tdd)</span>
+            <span className="text-sm text-muted-foreground">{m.overview_invocation_model()}</span>
           </div>
         </div>
       </div>

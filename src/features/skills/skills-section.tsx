@@ -3,6 +3,7 @@ import { Input } from '@/components/ui/input'
 import { Badge } from '@/components/ui/badge'
 import { SkillCard } from '@/features/skills/skill-card'
 import { skills } from '@/data/skills'
+import { m } from '@/paraglide/messages.js'
 
 type Filter = 'all' | 'engineering' | 'productivity' | 'user' | 'model'
 
@@ -30,7 +31,7 @@ export function SkillsSection() {
   }, [search, filter])
 
   const filters: { label: string; value: Filter }[] = [
-    { label: 'Semua', value: 'all' },
+    { label: m.skills_filter_all(), value: 'all' },
     { label: 'Engineering', value: 'engineering' },
     { label: 'Productivity', value: 'productivity' },
     { label: 'User-invoked', value: 'user' },
@@ -40,15 +41,15 @@ export function SkillsSection() {
   return (
     <section id="skills" className="space-y-6">
       <div>
-        <h2 className="text-2xl font-bold tracking-tight">Semua 19 Skills</h2>
+        <h2 className="text-2xl font-bold tracking-tight">{m.skills_title()}</h2>
         <p className="text-muted-foreground mt-1">
-          Cari dan filter katalog skill lengkap.
+          {m.skills_description()}
         </p>
       </div>
 
       <div className="space-y-3">
         <Input
-          placeholder="Cari skill..."
+          placeholder={m.skills_search_placeholder()}
           value={search}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearch(e.target.value)}
           className="max-w-sm"
@@ -70,7 +71,7 @@ export function SkillsSection() {
       <div className="space-y-4">
         {filtered.length === 0 ? (
           <p className="text-sm text-muted-foreground py-8 text-center">
-            Tidak ada skill yang cocok.
+            {m.skills_no_results()}
           </p>
         ) : (
           filtered.map((skill) => <SkillCard key={skill.name} skill={skill} />)
@@ -78,7 +79,7 @@ export function SkillsSection() {
       </div>
 
       <p className="text-xs text-muted-foreground">
-        Menampilkan {filtered.length} dari {skills.length} skills
+        {m.skills_showing({ count: String(filtered.length), total: String(skills.length) })}
       </p>
     </section>
   )

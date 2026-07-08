@@ -10,6 +10,7 @@ import { Installation } from '@/features/installation'
 import { Separator } from '@/components/ui/separator'
 import { Button } from '@/components/ui/button'
 import { useDocumentTitle } from '@/lib/use-document-title'
+import { m } from '@/paraglide/messages.js'
 
 export const Route = createFileRoute('/mattpocock')({
   component: MattPocockPage,
@@ -52,7 +53,7 @@ function MattPocockPage() {
 
           <footer className="pt-8 pb-4 border-t border-border">
             <p className="text-xs text-muted-foreground text-center">
-              Berdasarkan sistem AI Skills dari Matt Pocock. Panduan referensi.
+              {m.footer_mattpocock()}
             </p>
           </footer>
         </div>

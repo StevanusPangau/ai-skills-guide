@@ -1,5 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
+import { m } from '@/paraglide/messages.js'
 
 const agents = [
   {
@@ -12,13 +13,13 @@ const agents = [
       'hermes skills install StevanusPangau/ai-skills-guide/skills/hermes/engineering/tdd',
     ],
     altMethod: {
-      label: 'Atau via external_dirs (semua aktif langsung):',
+      get label() { return m.installation_alt_label() },
       code: `# ~/.hermes/config.yaml
 skills:
   external_dirs:
     - ~/Development/Project/Tools/ai-skills-guide/skills/hermes`,
     },
-    notes: 'Pilih install per skill (tap) atau aktifkan semua sekaligus (external_dirs).',
+    get notes() { return m.installation_notes_hermes() },
   },
   {
     name: 'Claude Code',
@@ -29,21 +30,21 @@ skills:
       '# Pilih skills yang diinginkan, pastikan pilih /setup-matt-pocock-skills',
       '# Jalankan /setup-matt-pocock-skills di agent untuk konfigurasi awal',
     ],
-    notes: 'Format asli Matt Pocock — repo ini memang dibuat untuk Claude Code. Install langsung dari sumbernya.',
+    get notes() { return m.installation_notes_claude() },
   },
   {
     name: 'OpenAI Codex',
     status: 'planned' as const,
     method: 'TBD',
     steps: [],
-    notes: 'Coming soon — akan diadaptasi ke format Codex.',
+    get notes() { return m.installation_notes_codex() },
   },
   {
     name: 'OpenCode',
     status: 'planned' as const,
     method: 'TBD',
     steps: [],
-    notes: 'Coming soon — akan diadaptasi ke format OpenCode.',
+    get notes() { return m.installation_notes_opencode() },
   },
 ]
 
@@ -51,10 +52,9 @@ export function Installation() {
   return (
     <section id="installation" className="space-y-8">
       <div>
-        <h2 className="text-2xl font-bold tracking-tight">Instalasi</h2>
+        <h2 className="text-2xl font-bold tracking-tight">{m.installation_title()}</h2>
         <p className="text-muted-foreground mt-2 max-w-2xl">
-          Skills ini tersedia untuk beberapa AI coding agent. Pilih agent yang kamu gunakan
-          dan ikuti langkah instalasinya.
+          {m.installation_description()}
         </p>
       </div>
 
@@ -98,7 +98,7 @@ export function Installation() {
       <Card className="bg-muted/50">
         <CardContent className="pt-4">
           <p className="text-sm text-muted-foreground">
-            <strong className="text-foreground">Attribution:</strong> Skills diadaptasi dari{' '}
+            <strong className="text-foreground">{m.installation_attribution()}</strong>{' '}
             <a
               href="https://github.com/mattpocock/skills"
               target="_blank"
@@ -107,7 +107,7 @@ export function Installation() {
             >
               mattpocock/skills
             </a>{' '}
-            (MIT License). Konten asli dijaga utuh — hanya format frontmatter yang disesuaikan per agent.
+            {m.installation_attribution_suffix()}
           </p>
         </CardContent>
       </Card>

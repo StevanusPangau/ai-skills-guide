@@ -2,6 +2,7 @@ import { Link } from '@tanstack/react-router'
 import { Badge } from '@/components/ui/badge'
 import { RiLightbulbLine } from '@remixicon/react'
 import type { Skill } from '@/types/skill'
+import { m } from '@/paraglide/messages.js'
 
 export function SkillDetail({ skill }: { skill: Skill }) {
   return (
@@ -18,7 +19,7 @@ export function SkillDetail({ skill }: { skill: Skill }) {
       {/* How it works */}
       {(skill.howItWorks ?? []).length > 0 && (
         <div>
-          <h4 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-2">Cara Kerja</h4>
+          <h4 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-2">{m.skill_detail_how_it_works()}</h4>
           <ol className="space-y-1.5 list-decimal list-inside">
             {skill.howItWorks!.map((step, i) => (
               <li key={i} className="text-sm">{step}</li>
@@ -30,7 +31,7 @@ export function SkillDetail({ skill }: { skill: Skill }) {
       {/* It's working if */}
       {(skill.itsWorkingIf ?? []).length > 0 && (
         <div>
-          <h4 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-2">Tanda Berjalan dengan Benar</h4>
+          <h4 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-2">{m.skill_detail_its_working_if()}</h4>
           <ul className="space-y-1">
             {skill.itsWorkingIf!.map((sign, i) => (
               <li key={i} className="text-sm flex items-start gap-2">
@@ -45,7 +46,7 @@ export function SkillDetail({ skill }: { skill: Skill }) {
       {/* Workflow */}
       {skill.workflow && (
         <div>
-          <h4 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-2">Posisi dalam Alur</h4>
+          <h4 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-2">{m.skill_detail_workflow()}</h4>
           <div className="bg-secondary/50 rounded-md p-3 font-mono text-xs">
             {skill.workflow}
           </div>
@@ -55,7 +56,7 @@ export function SkillDetail({ skill }: { skill: Skill }) {
       {/* Tips */}
       {(skill.tips ?? []).length > 0 && (
         <div>
-          <h4 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-2">Tips Praktis</h4>
+          <h4 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-2">{m.skill_detail_tips()}</h4>
           <ul className="space-y-1">
             {skill.tips!.map((tip, i) => (
               <li key={i} className="text-sm flex items-start gap-2">
@@ -70,7 +71,7 @@ export function SkillDetail({ skill }: { skill: Skill }) {
       {/* Pairs well with */}
       {(skill.pairsWellWith ?? []).length > 0 && (
         <div>
-          <h4 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-2">Cocok Dipasangkan dengan</h4>
+          <h4 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-2">{m.skill_detail_pairs_well_with()}</h4>
           <div className="flex flex-wrap gap-1.5">
             {skill.pairsWellWith!.map((name) => (
               <Link key={name} to="/skills/$skillName" params={{ skillName: name }}>
@@ -90,7 +91,7 @@ export function SkillDetail({ skill }: { skill: Skill }) {
           params={{ skillName: skill.name }}
           className="inline-flex items-center gap-1 text-sm text-primary hover:underline"
         >
-          Lihat halaman lengkap →
+          {m.skill_detail_view_full()} →
         </Link>
       </div>
     </div>

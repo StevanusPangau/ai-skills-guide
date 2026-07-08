@@ -12,6 +12,7 @@ import {
   RiBugLine,
   RiBuilding2Line,
 } from '@remixicon/react'
+import { m } from '@/paraglide/messages.js'
 
 type NodeId =
   | 'grill'
@@ -24,19 +25,6 @@ type NodeId =
   | 'commit'
   | 'triage'
   | 'improve'
-
-const nodeDescriptions: Record<NodeId, string> = {
-  grill: 'Interview mendalam + domain modeling. Update CONTEXT.md dan ADRs.',
-  multi: 'Apakah ini project multi-session atau fitur cepat?',
-  'to-prd': 'Sintesis ke PRD: Problem Statement, Solution, User Stories, Decisions, Out of Scope.',
-  'to-issues': 'Pecah PRD jadi vertical slices. Setiap issue memotong SEMUA layer end-to-end.',
-  implement: 'Tulis kode, didorong oleh /tdd untuk test-first development.',
-  tdd: 'Red → Green → Refactor. Test di seams (public interfaces).',
-  'code-review': 'Dua axis: Standards (Fowler smells) + Spec (sesuai issue/PRD?).',
-  commit: 'Kode lolos kedua review axis. Merge dan ship.',
-  triage: 'ON-RAMP: Bug masuk melalui state machine ke main flow.',
-  improve: 'ON-RAMP: Scan peluang shallow→deep, lalu implement.',
-}
 
 const nodeIcons: Record<NodeId, React.ReactNode> = {
   grill: <RiSearchEyeLine className="size-5" />,
@@ -51,15 +39,31 @@ const nodeIcons: Record<NodeId, React.ReactNode> = {
   improve: <RiBuilding2Line className="size-5" />,
 }
 
+function getNodeDescriptions(): Record<NodeId, string> {
+  return {
+    grill: m.flow_node_grill(),
+    multi: m.flow_node_multi(),
+    'to-prd': m.flow_node_to_prd(),
+    'to-issues': m.flow_node_to_issues(),
+    implement: m.flow_node_implement(),
+    tdd: m.flow_node_tdd(),
+    'code-review': m.flow_node_code_review(),
+    commit: m.flow_node_commit(),
+    triage: m.flow_node_triage(),
+    improve: m.flow_node_improve(),
+  }
+}
+
 export function MainFlow() {
   const [active, setActive] = useState<NodeId | null>(null)
+  const nodeDescriptions = getNodeDescriptions()
 
   return (
     <section id="flow" className="space-y-6">
       <div>
-        <h2 className="text-2xl font-bold tracking-tight">Alur Utama: Ide → Ship</h2>
+        <h2 className="text-2xl font-bold tracking-tight">{m.flow_title()}</h2>
         <p className="text-muted-foreground mt-1">
-          Klik node untuk melihat detail. Ini adalah pipeline utama untuk semua feature work.
+          {m.flow_description()}
         </p>
       </div>
 
@@ -118,7 +122,7 @@ export function MainFlow() {
         {/* On-ramps */}
         <div className="mt-8 pt-6 border-t border-border">
           <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-4">
-            On-ramps
+            {m.flow_on_ramps()}
           </p>
           <div className="grid gap-3 sm:grid-cols-2">
             <Card
@@ -129,7 +133,7 @@ export function MainFlow() {
                 <span className="text-primary">{nodeIcons.triage}</span>
                 <div>
                   <p className="text-sm font-semibold font-mono">/triage</p>
-                  <p className="text-xs text-muted-foreground">Bug masuk → state machine → main flow</p>
+                  <p className="text-xs text-muted-foreground">{m.flow_triage_description()}</p>
                 </div>
               </CardContent>
             </Card>
@@ -141,7 +145,7 @@ export function MainFlow() {
                 <span className="text-primary">{nodeIcons.improve}</span>
                 <div>
                   <p className="text-sm font-semibold font-mono">/improve-codebase-architecture</p>
-                  <p className="text-xs text-muted-foreground">Scan code rot → perbaiki → main flow</p>
+                  <p className="text-xs text-muted-foreground">{m.flow_improve_description()}</p>
                 </div>
               </CardContent>
             </Card>
