@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { createRootRoute, Link, Outlet } from '@tanstack/react-router'
-import { RiMoonLine, RiSunLine } from '@remixicon/react'
+import { RiGithubFill, RiMoonLine, RiSunLine } from '@remixicon/react'
 import { Button } from '@/components/ui/button'
 
 export const Route = createRootRoute({
@@ -54,14 +54,26 @@ function RootLayout() {
             </nav>
           </div>
 
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => setDark(!dark)}
-            aria-label="Toggle dark mode"
-          >
-            {dark ? <RiSunLine /> : <RiMoonLine />}
-          </Button>
+          <div className="flex items-center gap-1">
+            <a
+              href="https://github.com/StevanusPangau/ai-skills-guide"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex h-9 w-9 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+              aria-label="GitHub repository"
+            >
+              <RiGithubFill className="size-5" />
+            </a>
+
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => setDark(!dark)}
+              aria-label="Toggle dark mode"
+            >
+              {dark ? <RiSunLine /> : <RiMoonLine />}
+            </Button>
+          </div>
         </div>
       </header>
 
