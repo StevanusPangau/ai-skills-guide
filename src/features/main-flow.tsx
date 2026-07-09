@@ -17,8 +17,8 @@ import { m } from '@/paraglide/messages.js'
 type NodeId =
   | 'grill'
   | 'multi'
-  | 'to-prd'
-  | 'to-issues'
+  | 'to-spec'
+  | 'to-tickets'
   | 'implement'
   | 'tdd'
   | 'code-review'
@@ -29,8 +29,8 @@ type NodeId =
 const nodeIcons: Record<NodeId, React.ReactNode> = {
   grill: <RiSearchEyeLine className="size-5" />,
   multi: <RiQuestionLine className="size-5" />,
-  'to-prd': <RiFileList3Line className="size-5" />,
-  'to-issues': <RiListCheck className="size-5" />,
+  'to-spec': <RiFileList3Line className="size-5" />,
+  'to-tickets': <RiListCheck className="size-5" />,
   implement: <RiCodeSSlashLine className="size-5" />,
   tdd: <RiTestTubeLine className="size-5" />,
   'code-review': <RiEyeLine className="size-5" />,
@@ -43,8 +43,8 @@ function getNodeDescriptions(): Record<NodeId, string> {
   return {
     grill: m.flow_node_grill(),
     multi: m.flow_node_multi(),
-    'to-prd': m.flow_node_to_prd(),
-    'to-issues': m.flow_node_to_issues(),
+    'to-spec': m.flow_node_to_spec(),
+    'to-tickets': m.flow_node_to_tickets(),
     implement: m.flow_node_implement(),
     tdd: m.flow_node_tdd(),
     'code-review': m.flow_node_code_review(),
@@ -92,9 +92,9 @@ export function MainFlow() {
               <span className="text-xs font-semibold px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-400 mb-2">
                 YES
               </span>
-              <FlowNode id="to-prd" label="/to-prd" active={active} onClick={setActive} />
+              <FlowNode id="to-spec" label="/to-spec" active={active} onClick={setActive} />
               <Arrow />
-              <FlowNode id="to-issues" label="/to-issues" active={active} onClick={setActive} />
+              <FlowNode id="to-tickets" label="/to-tickets" active={active} onClick={setActive} />
               <Arrow />
               <FlowNode id="implement" label="/implement" active={active} onClick={setActive} />
               <span className="text-xs text-muted-foreground my-1 italic">drives ↓</span>

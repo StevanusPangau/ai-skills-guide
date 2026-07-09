@@ -8,7 +8,7 @@ function getWorkflows() {
       title: m.workflow_1_title(),
       description: m.workflow_1_description(),
       mengapa: m.workflow_1_why(),
-      steps: ['grill-with-docs', 'to-prd', 'to-issues', 'implement (tdd)', 'code-review'],
+      steps: ['grill-with-docs', 'to-spec', 'to-tickets', 'implement (tdd)', 'code-review'],
     },
     {
       title: m.workflow_2_title(),
@@ -20,7 +20,7 @@ function getWorkflows() {
       title: m.workflow_3_title(),
       description: m.workflow_3_description(),
       mengapa: m.workflow_3_why(),
-      steps: ['improve-codebase-architecture', 'pilih candidate', 'to-issues', 'implement', 'code-review'],
+      steps: ['improve-codebase-architecture', 'pilih candidate', 'to-tickets', 'implement', 'code-review'],
     },
     {
       title: m.workflow_4_title(),

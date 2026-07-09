@@ -1,7 +1,7 @@
 ---
 name: codebase-design
-description: "Shared vocabulary for designing deep modules. Use when the user wants to design or improve a module's interface, find..."
-version: 1.0.0
+description: "Shared vocabulary for designing deep modules. Use when the user wants to design or improve a module's interface, find deepening opportunities, decide where a seam goes, make code more testable or AI-navigable, or when another skill needs the deep-module vocabulary."
+version: 1.1.0
 author: Matt Pocock (adapted for Hermes)
 license: MIT
 platforms: [macos, linux, windows]
@@ -41,11 +41,11 @@ Use these terms exactly — don't substitute "component," "service," "API," or "
 
 ```
 ┌─────────────────────┐
-│ Small Interface │ ← Few methods, simple params
+│   Small Interface   │  ← Few methods, simple params
 ├─────────────────────┤
-│ │
-│ Deep Implementation│ ← Complex logic hidden
-│ │
+│                     │
+│  Deep Implementation│  ← Complex logic hidden
+│                     │
 └─────────────────────┘
 ```
 
@@ -53,9 +53,9 @@ Use these terms exactly — don't substitute "component," "service," "API," or "
 
 ```
 ┌─────────────────────────────────┐
-│ Large Interface │ ← Many methods, complex params
+│       Large Interface           │  ← Many methods, complex params
 ├─────────────────────────────────┤
-│ Thin Implementation │ ← Just passes through
+│  Thin Implementation            │  ← Just passes through
 └─────────────────────────────────┘
 ```
 
@@ -78,27 +78,27 @@ Good interfaces make testing natural:
 
 1. **Accept dependencies, don't create them.**
 
- ```typescript
- // Testable
- function processOrder(order, paymentGateway) {}
+   ```typescript
+   // Testable
+   function processOrder(order, paymentGateway) {}
 
- // Hard to test
- function processOrder(order) {
- const gateway = new StripeGateway();
- }
- ```
+   // Hard to test
+   function processOrder(order) {
+     const gateway = new StripeGateway();
+   }
+   ```
 
 2. **Return results, don't produce side effects.**
 
- ```typescript
- // Testable
- function calculateDiscount(cart): Discount {}
+   ```typescript
+   // Testable
+   function calculateDiscount(cart): Discount {}
 
- // Hard to test
- function applyDiscount(cart): void {
- cart.total -= discount;
- }
- ```
+   // Hard to test
+   function applyDiscount(cart): void {
+     cart.total -= discount;
+   }
+   ```
 
 3. **Small surface area.** Fewer methods = fewer tests needed. Fewer params = simpler test setup.
 

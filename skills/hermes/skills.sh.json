@@ -1,40 +1,37 @@
 {
   "name": "mattpocock-skills-hermes",
   "description": "Matt Pocock's engineering skills adapted for Hermes Agent",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "groupings": [
     {
       "title": "Engineering",
       "skills": [
+        "ask-matt",
+        "grill-with-docs",
+        "wayfinder",
+        "triage",
+        "setup-matt-pocock-skills",
+        "research",
+        "prototype",
+        "to-spec",
+        "to-tickets",
+        "implement",
         "tdd",
+        "code-review",
         "diagnosing-bugs",
-        "diagnose",
         "domain-modeling",
         "codebase-design",
-        "code-review",
-        "to-prd",
-        "to-issues",
-        "triage",
-        "implement",
-        "prototype",
-        "research",
         "improve-codebase-architecture",
-        "design-an-interface",
-        "request-refactor-plan",
-        "zoom-out",
-        "qa",
-        "grill-with-docs",
-        "ask-matt"
+        "resolving-merge-conflicts"
       ]
     },
     {
       "title": "Productivity",
       "skills": [
-        "grilling",
         "grill-me",
+        "grilling",
         "handoff",
         "teach",
-        "ubiquitous-language",
         "writing-great-skills"
       ]
     }

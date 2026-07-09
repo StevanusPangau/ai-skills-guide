@@ -1,6 +1,6 @@
 # AI Skills Guide
 
-Panduan interaktif untuk 19 AI coding skills dari [Matt Pocock](https://github.com/mattpocock/skills). Situs ini menjelaskan alur kerja lengkap dari ide hingga ship, pola kerja, dan konsep kunci untuk pengembangan software berbasis AI agent.
+Panduan interaktif untuk 22 AI coding skills dari [Matt Pocock](https://github.com/mattpocock/skills) (selaras dengan rilis v1.1). Situs ini menjelaskan alur kerja lengkap dari ide hingga ship, pola kerja, dan konsep kunci untuk pengembangan software berbasis AI agent.
 
 🔗 **Live:** https://skills.stevanuspangau.cloud
 
@@ -8,9 +8,9 @@ Panduan interaktif untuk 19 AI coding skills dari [Matt Pocock](https://github.c
 
 ## Fitur
 
-- **Ringkasan alur** — main build chain (grill-with-docs → to-prd → to-issues → implement → code-review)
-- **Diagram alur interaktif** — ide → ship, termasuk on-ramps (triage, improve-codebase-architecture)
-- **Katalog 19 skills** — cari & filter, tiap skill punya halaman detail sendiri
+- **Ringkasan alur** — main build chain (grill-with-docs → to-spec → to-tickets → implement → code-review)
+- **Diagram alur interaktif** — ide → ship, termasuk on-ramps (triage, improve-codebase-architecture, wayfinder)
+- **Katalog 22 skills** — cari & filter, tiap skill punya halaman detail sendiri
 - **Halaman detail per skill** — URL shareable (`/skills/tdd`), penjelasan lengkap: cara kerja, tanda berjalan benar, tips, dan skill yang cocok dipasangkan
 - **Pola kerja & konsep kunci** — Smart Zone, context management, dsb.
 - Dark mode, sidebar scroll-spy, responsif
@@ -45,7 +45,7 @@ src/
 ├── router.tsx                   # konfigurasi router (type-safe)
 ├── routeTree.gen.ts             # auto-generated (jangan diedit)
 ├── types/skill.ts               # tipe Skill + helper (getOfficialTitle, dst.)
-├── data/skills.ts               # data 19 skills
+├── data/skills.ts               # data 22 skills
 ├── features/                    # komponen per domain
 │   ├── overview / main-flow / workflows / concepts
 │   └── skills/                  # skills-section, skill-card, skill-detail
