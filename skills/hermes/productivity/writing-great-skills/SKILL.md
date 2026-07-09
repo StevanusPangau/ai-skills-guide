@@ -1,7 +1,7 @@
 ---
 name: writing-great-skills
 description: "Reference for writing and editing skills well — the vocabulary and principles that make a skill predictable."
-version: 1.0.0
+version: 1.1.0
 author: Matt Pocock (adapted for Hermes)
 license: MIT
 platforms: [macos, linux, windows]

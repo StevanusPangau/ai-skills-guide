@@ -1,7 +1,7 @@
 ---
 name: grill-me
 description: "A relentless interview to sharpen a plan or design."
-version: 1.0.0
+version: 1.1.0
 author: Matt Pocock (adapted for Hermes)
 license: MIT
 platforms: [macos, linux, windows]

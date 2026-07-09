@@ -51,9 +51,9 @@ export function Overview() {
           <div className="flex flex-wrap items-center gap-2 font-mono text-xs">
             <Badge variant="default" className="text-xs px-3 py-1">grill-with-docs</Badge>
             <span className="text-muted-foreground">→</span>
-            <Badge variant="default" className="text-xs px-3 py-1">to-prd</Badge>
+            <Badge variant="default" className="text-xs px-3 py-1">to-spec</Badge>
             <span className="text-muted-foreground">→</span>
-            <Badge variant="default" className="text-xs px-3 py-1">to-issues</Badge>
+            <Badge variant="default" className="text-xs px-3 py-1">to-tickets</Badge>
             <span className="text-muted-foreground">→</span>
             <Badge variant="default" className="text-xs px-3 py-1">implement (tdd)</Badge>
             <span className="text-muted-foreground">→</span>
@@ -65,20 +65,20 @@ export function Overview() {
               <span>Interview relentless → shared understanding + CONTEXT.md glossary + ADRs</span>
             </div>
             <div className="flex gap-2">
-              <span className="font-semibold text-foreground shrink-0">2. to-prd:</span>
-              <span>Synthesize (TANPA interview ulang) → PRD dengan user stories, decisions, out-of-scope</span>
+              <span className="font-semibold text-foreground shrink-0">2. to-spec:</span>
+              <span>Synthesize (TANPA interview ulang) → spec dengan user stories, decisions, out-of-scope</span>
             </div>
             <div className="flex gap-2">
-              <span className="font-semibold text-foreground shrink-0">3. to-issues:</span>
-              <span>Break PRD → vertical slices (tracer bullets), mark AFK vs HITL</span>
+              <span className="font-semibold text-foreground shrink-0">3. to-tickets:</span>
+              <span>Break spec → tracer-bullet tickets dengan blocking edges (tickets.md atau tracker)</span>
             </div>
             <div className="flex gap-2">
               <span className="font-semibold text-foreground shrink-0">4. implement:</span>
-              <span>Red→Green→Refactor per slice, test at seams, one behavior at a time</span>
+              <span>Red→Green per slice via /tdd, test at seams; refactor diserahkan ke code-review</span>
             </div>
             <div className="flex gap-2">
               <span className="font-semibold text-foreground shrink-0">5. code-review:</span>
-              <span>Two-axis: Standards (Fowler smells) ∥ Spec (matches PRD?)</span>
+              <span>Two-axis: Standards (Fowler smells) ∥ Spec (matches spec/ticket?)</span>
             </div>
           </div>
         </CardContent>

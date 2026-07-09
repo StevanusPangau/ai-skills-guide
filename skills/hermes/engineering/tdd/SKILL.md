@@ -1,7 +1,7 @@
 ---
 name: tdd
-description: "Test-driven development. Use when the user wants to build features or fix bugs test-first, mentions 'red-green-refact..."
-version: 1.0.0
+description: "Test-driven development. Use when the user wants to build features or fix bugs test-first, mentions \"red-green-refactor\", or wants integration tests."
+version: 1.1.0
 author: Matt Pocock (adapted for Hermes)
 license: MIT
 platforms: [macos, linux, windows]
