@@ -1,14 +1,14 @@
-# Cloudflare Workers static-assets header rules.
-# Docs: https://developers.cloudflare.com/workers/static-assets/headers/
-# Mirrors the security headers previously served by Caddy on the VPS.
+# HTML pages — always revalidate (so new deploys are picked up immediately)
+/
+  Cache-Control: public, max-age=0, must-revalidate
 
-/*
-  X-Content-Type-Options: nosniff
-  X-Frame-Options: DENY
-  Referrer-Policy: strict-origin-when-cross-origin
-  Permissions-Policy: geolocation=(), microphone=(), camera=()
-  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+/*.html
+  Cache-Control: public, max-age=0, must-revalidate
 
-# Fingerprinted build assets (hashed filenames) — cache aggressively & immutably.
+# Hashed assets — immutable (filename changes on content change)
 /assets/*
   Cache-Control: public, max-age=31536000, immutable
+
+# Service worker / manifest — short cache
+/site.webmanifest
+  Cache-Control: public, max-age=0, must-revalidate
