@@ -1,31 +1,26 @@
 import { useState, useEffect } from 'react'
 import { Button } from '@/components/ui/button'
-import { m } from '@/paraglide/messages.js'
 
-function useSections() {
-  return [
-    { id: 'overview', label: m.sidebar_overview() },
-    { id: 'flow', label: m.sidebar_flow() },
-    { id: 'skills', label: m.sidebar_skills() },
-    { id: 'workflows', label: m.sidebar_workflows() },
-    { id: 'concepts', label: m.sidebar_concepts() },
-    { id: 'installation', label: m.sidebar_installation() },
-  ]
+export type SidebarSection = {
+  id: string
+  label: string
 }
 
 interface SidebarProps {
   open: boolean
   onClose: () => void
+  sections: SidebarSection[]
+  subtitle: string
+  stats: string
 }
 
-export function Sidebar({ open, onClose }: SidebarProps) {
-  const sections = useSections()
-  const [active, setActive] = useState<string>('overview')
+export function Sidebar({ open, onClose, sections, subtitle, stats }: SidebarProps) {
+  const [active, setActive] = useState<string>(sections[0]?.id ?? '')
 
   useEffect(() => {
     const onScroll = () => {
       const trigger = 56 + 96
-      let current = sections[0].id
+      let current = sections[0]?.id ?? ''
       for (const s of sections) {
         const el = document.getElementById(s.id)
         if (el && el.getBoundingClientRect().top <= trigger) {
@@ -36,7 +31,7 @@ export function Sidebar({ open, onClose }: SidebarProps) {
         window.innerHeight + window.scrollY >=
         document.body.offsetHeight - 4
       ) {
-        current = sections[sections.length - 1].id
+        current = sections[sections.length - 1]?.id ?? current
       }
       setActive(current)
     }
@@ -58,7 +53,6 @@ export function Sidebar({ open, onClose }: SidebarProps) {
 
   return (
     <>
-      {/* Overlay for mobile */}
       {open && (
         <div
           className="fixed inset-0 bg-black/50 z-40 lg:hidden"
@@ -76,9 +70,7 @@ export function Sidebar({ open, onClose }: SidebarProps) {
       >
         <div className="p-6 h-full flex flex-col">
           <div className="mb-8">
-            <p className="text-xs text-muted-foreground mt-1">
-              {m.sidebar_subtitle()}
-            </p>
+            <p className="text-xs text-muted-foreground mt-1">{subtitle}</p>
           </div>
 
           <nav className="space-y-1 flex-1">
@@ -102,9 +94,7 @@ export function Sidebar({ open, onClose }: SidebarProps) {
           </nav>
 
           <div className="pt-4 border-t border-border">
-            <p className="text-xs text-muted-foreground">
-              {m.sidebar_stats()}
-            </p>
+            <p className="text-xs text-muted-foreground">{stats}</p>
           </div>
         </div>
       </aside>

@@ -1,4 +1,5 @@
 import { skills } from '@/data/skills'
+import { davidondrejSkills } from '@/data/davidondrej-skills'
 import { m } from '@/paraglide/messages.js'
 
 export type CollectionStatus = 'available' | 'coming-soon'
@@ -32,6 +33,17 @@ export function getCollections(): Collection[] {
       status: 'available',
       source: 'github.com/mattpocock/skills',
       tags: ['engineering', 'workflow', 'agentic'],
+    },
+    {
+      slug: 'davidondrej',
+      to: '/davidondrej',
+      author: 'David Ondrej',
+      title: 'Personal Agent Skills',
+      description: m.collection_davidondrej_description(),
+      skillCount: davidondrejSkills.length,
+      status: 'available',
+      source: 'github.com/davidondrej/skills',
+      tags: ['orchestration', 'research', 'authoring'],
     },
   ]
 }

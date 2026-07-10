@@ -1,209 +1,147 @@
-import { useState } from 'react'
-import { Card, CardContent } from '@/components/ui/card'
-import {
-  RiSearchEyeLine,
-  RiQuestionLine,
-  RiFileList3Line,
-  RiListCheck,
-  RiCodeSSlashLine,
-  RiTestTubeLine,
-  RiEyeLine,
-  RiCheckboxCircleLine,
-  RiBugLine,
-  RiBuilding2Line,
-} from '@remixicon/react'
+import { useMemo, useState } from 'react'
+import { FlowCanvas } from '@/features/flow/flow-canvas'
+import type { FlowGraphEdge, FlowGraphNode } from '@/features/flow/types'
 import { m } from '@/paraglide/messages.js'
 
-type NodeId =
-  | 'grill'
-  | 'multi'
-  | 'to-spec'
-  | 'to-tickets'
-  | 'implement'
-  | 'tdd'
-  | 'code-review'
-  | 'commit'
-  | 'triage'
-  | 'improve'
-
-const nodeIcons: Record<NodeId, React.ReactNode> = {
-  grill: <RiSearchEyeLine className="size-5" />,
-  multi: <RiQuestionLine className="size-5" />,
-  'to-spec': <RiFileList3Line className="size-5" />,
-  'to-tickets': <RiListCheck className="size-5" />,
-  implement: <RiCodeSSlashLine className="size-5" />,
-  tdd: <RiTestTubeLine className="size-5" />,
-  'code-review': <RiEyeLine className="size-5" />,
-  commit: <RiCheckboxCircleLine className="size-5" />,
-  triage: <RiBugLine className="size-5" />,
-  improve: <RiBuilding2Line className="size-5" />,
-}
-
-function getNodeDescriptions(): Record<NodeId, string> {
-  return {
-    grill: m.flow_node_grill(),
-    multi: m.flow_node_multi(),
-    'to-spec': m.flow_node_to_spec(),
-    'to-tickets': m.flow_node_to_tickets(),
-    implement: m.flow_node_implement(),
-    tdd: m.flow_node_tdd(),
-    'code-review': m.flow_node_code_review(),
-    commit: m.flow_node_commit(),
-    triage: m.flow_node_triage(),
-    improve: m.flow_node_improve(),
-  }
-}
+// Main build chain + official on-ramps (Matt's recommended path).
 
 export function MainFlow() {
-  const [active, setActive] = useState<NodeId | null>(null)
-  const nodeDescriptions = getNodeDescriptions()
+  const [active, setActive] = useState<string | null>(null)
+
+  const nodes: FlowGraphNode[] = useMemo(
+    () => [
+      {
+        id: 'grill',
+        kind: 'skill',
+        label: '/grill-with-docs',
+        description: m.flow_node_grill(),
+        position: { x: 250, y: 0 },
+      },
+      {
+        id: 'multi',
+        kind: 'decision',
+        label: 'Multi-session?',
+        description: m.flow_node_multi(),
+        position: { x: 260, y: 140 },
+      },
+      // YES branch
+      {
+        id: 'to-spec',
+        kind: 'skill',
+        label: '/to-spec',
+        description: m.flow_node_to_spec(),
+        subtitle: 'YES · multi-session',
+        position: { x: 20, y: 300 },
+      },
+      {
+        id: 'to-tickets',
+        kind: 'skill',
+        label: '/to-tickets',
+        description: m.flow_node_to_tickets(),
+        position: { x: 20, y: 440 },
+      },
+      {
+        id: 'implement-yes',
+        kind: 'skill',
+        label: '/implement',
+        description: m.flow_node_implement(),
+        position: { x: 20, y: 580 },
+      },
+      {
+        id: 'tdd',
+        kind: 'skill',
+        label: '/tdd',
+        description: m.flow_node_tdd(),
+        subtitle: 'drives implement',
+        position: { x: 20, y: 720 },
+      },
+      {
+        id: 'code-review-yes',
+        kind: 'skill',
+        label: '/code-review',
+        description: m.flow_node_code_review(),
+        position: { x: 20, y: 860 },
+      },
+      {
+        id: 'commit-yes',
+        kind: 'commit',
+        label: 'commit ✓',
+        description: m.flow_node_commit(),
+        position: { x: 20, y: 1000 },
+      },
+      // NO branch
+      {
+        id: 'implement-no',
+        kind: 'skill',
+        label: '/implement',
+        description: m.flow_node_implement(),
+        subtitle: 'NO · single session',
+        position: { x: 460, y: 300 },
+      },
+      {
+        id: 'code-review-no',
+        kind: 'skill',
+        label: '/code-review',
+        description: m.flow_node_code_review(),
+        position: { x: 460, y: 460 },
+      },
+      {
+        id: 'commit-no',
+        kind: 'commit',
+        label: 'commit ✓',
+        description: m.flow_node_commit(),
+        position: { x: 460, y: 620 },
+      },
+      // On-ramps (no reverse edges — avoids long looping lines)
+      {
+        id: 'triage',
+        kind: 'onramp',
+        label: '/triage',
+        description: m.flow_node_triage(),
+        subtitle: m.flow_triage_description(),
+        position: { x: 40, y: 1160 },
+      },
+      {
+        id: 'improve',
+        kind: 'onramp',
+        label: '/improve-codebase-architecture',
+        description: m.flow_node_improve(),
+        subtitle: m.flow_improve_description(),
+        position: { x: 360, y: 1160 },
+      },
+    ],
+    [],
+  )
+
+  const edges: FlowGraphEdge[] = useMemo(
+    () => [
+      { id: 'e-grill-multi', source: 'grill', target: 'multi' },
+      { id: 'e-multi-spec', source: 'multi', target: 'to-spec', label: 'YES' },
+      { id: 'e-spec-tickets', source: 'to-spec', target: 'to-tickets' },
+      { id: 'e-tickets-impl', source: 'to-tickets', target: 'implement-yes' },
+      { id: 'e-impl-tdd', source: 'implement-yes', target: 'tdd' },
+      { id: 'e-tdd-review', source: 'tdd', target: 'code-review-yes' },
+      { id: 'e-review-commit-yes', source: 'code-review-yes', target: 'commit-yes' },
+      { id: 'e-multi-impl-no', source: 'multi', target: 'implement-no', label: 'NO' },
+      { id: 'e-impl-review-no', source: 'implement-no', target: 'code-review-no' },
+      { id: 'e-review-commit-no', source: 'code-review-no', target: 'commit-no' },
+    ],
+    [],
+  )
 
   return (
-    <section id="flow" className="space-y-6">
+    <section id="flow" className="scroll-mt-20 space-y-6">
       <div>
         <h2 className="text-2xl font-bold tracking-tight">{m.flow_title()}</h2>
-        <p className="text-muted-foreground mt-1">
-          {m.flow_description()}
-        </p>
+        <p className="mt-1 text-muted-foreground">{m.flow_description()}</p>
       </div>
 
-      <div className="border border-border rounded-lg p-6 bg-card">
-        {/* Main flow */}
-        <div className="flex flex-col items-center gap-0">
-          <FlowNode
-            id="grill"
-            label="/grill-with-docs"
-            active={active}
-            onClick={setActive}
-          />
-          <Arrow />
-          <FlowNode
-            id="multi"
-            label="Multi-session?"
-            active={active}
-            onClick={setActive}
-            diamond
-          />
-
-          {/* Branches */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full mt-4">
-            {/* YES branch */}
-            <div className="flex flex-col items-center gap-0">
-              <span className="text-xs font-semibold px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-400 mb-2">
-                YES
-              </span>
-              <FlowNode id="to-spec" label="/to-spec" active={active} onClick={setActive} />
-              <Arrow />
-              <FlowNode id="to-tickets" label="/to-tickets" active={active} onClick={setActive} />
-              <Arrow />
-              <FlowNode id="implement" label="/implement" active={active} onClick={setActive} />
-              <span className="text-xs text-muted-foreground my-1 italic">drives ↓</span>
-              <FlowNode id="tdd" label="/tdd" active={active} onClick={setActive} />
-              <Arrow />
-              <FlowNode id="code-review" label="/code-review" active={active} onClick={setActive} />
-              <Arrow />
-              <FlowNode id="commit" label="commit ✓" active={active} onClick={setActive} />
-            </div>
-
-            {/* NO branch */}
-            <div className="flex flex-col items-center gap-0">
-              <span className="text-xs font-semibold px-3 py-1 rounded-full bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-400 mb-2">
-                NO
-              </span>
-              <FlowNode id="implement" label="/implement" active={active} onClick={setActive} />
-              <Arrow />
-              <FlowNode id="code-review" label="/code-review" active={active} onClick={setActive} />
-              <Arrow />
-              <FlowNode id="commit" label="commit ✓" active={active} onClick={setActive} />
-            </div>
-          </div>
-        </div>
-
-        {/* On-ramps */}
-        <div className="mt-8 pt-6 border-t border-border">
-          <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-4">
-            {m.flow_on_ramps()}
-          </p>
-          <div className="grid gap-3 sm:grid-cols-2">
-            <Card
-              className="cursor-pointer border-muted hover:border-primary/50 transition-colors"
-              onClick={() => setActive('triage')}
-            >
-              <CardContent className="p-4 flex items-center gap-3">
-                <span className="text-primary">{nodeIcons.triage}</span>
-                <div>
-                  <p className="text-sm font-semibold font-mono">/triage</p>
-                  <p className="text-xs text-muted-foreground">{m.flow_triage_description()}</p>
-                </div>
-              </CardContent>
-            </Card>
-            <Card
-              className="cursor-pointer border-muted hover:border-primary/50 transition-colors"
-              onClick={() => setActive('improve')}
-            >
-              <CardContent className="p-4 flex items-center gap-3">
-                <span className="text-primary">{nodeIcons.improve}</span>
-                <div>
-                  <p className="text-sm font-semibold font-mono">/improve-codebase-architecture</p>
-                  <p className="text-xs text-muted-foreground">{m.flow_improve_description()}</p>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </div>
-
-      {/* Description panel */}
-      {active && (
-        <div className="border-l-4 border-primary rounded-r-lg p-4 bg-primary/5 transition-all">
-          <div className="flex items-center gap-2 mb-1">
-            <span className="text-primary">{nodeIcons[active]}</span>
-            <p className="font-mono text-sm font-semibold">/{active}</p>
-          </div>
-          <p className="text-sm text-muted-foreground">{nodeDescriptions[active]}</p>
-        </div>
-      )}
+      <FlowCanvas
+        nodes={nodes}
+        edges={edges}
+        activeId={active}
+        onSelect={setActive}
+      />
     </section>
-  )
-}
-
-function FlowNode({
-  id,
-  label,
-  active,
-  onClick,
-  diamond,
-}: {
-  id: NodeId
-  label: string
-  active: NodeId | null
-  onClick: (id: NodeId) => void
-  diamond?: boolean
-}) {
-  const isActive = active === id
-  return (
-    <button
-      onClick={() => onClick(id)}
-      className={`
-        px-4 py-2.5 text-sm font-mono border transition-all cursor-pointer flex items-center gap-2
-        ${diamond ? 'border-dashed rounded-md' : 'rounded-md'}
-        ${isActive
-          ? 'bg-primary text-primary-foreground border-primary shadow-sm'
-          : 'bg-card border-border hover:border-primary/50 hover:shadow-sm'}
-      `}
-    >
-      <span className={isActive ? '' : 'text-primary'}>{nodeIcons[id]}</span>
-      {label}
-    </button>
-  )
-}
-
-function Arrow() {
-  return (
-    <div className="h-7 w-px bg-border relative">
-      <svg className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-[2px]" width="10" height="8" viewBox="0 0 10 8" fill="none">
-        <path d="M5 8L0 0H10L5 8Z" className="fill-border" />
-      </svg>
-    </div>
   )
 }

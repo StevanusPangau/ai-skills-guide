@@ -1,99 +1,124 @@
-import { Link } from '@tanstack/react-router'
 import { Badge } from '@/components/ui/badge'
+import { SkillInstallBlock } from '@/components/skill-install-block'
 import { RiLightbulbLine } from '@remixicon/react'
 import type { Skill } from '@/types/skill'
+import { getOfficialTitle, getWhenNotToUse } from '@/types/skill'
 import { m } from '@/paraglide/messages.js'
 
-export function SkillDetail({ skill }: { skill: Skill }) {
+/** Full skill body — used inside the catalog modal. */
+export function SkillDetailBody({ skill }: { skill: Skill }) {
+  const whenNotToUse = getWhenNotToUse(skill)
+
   return (
-    <div className="space-y-5 pt-2">
-      {/* Detailed description */}
+    <div className="space-y-5">
+      <p className="text-sm text-muted-foreground">{getOfficialTitle(skill)}</p>
+      <p className="text-sm leading-relaxed">{skill.description}</p>
+
       {skill.detailedDescription && (
-        <div>
-          <p className="text-sm leading-relaxed text-muted-foreground whitespace-pre-line">
-            {skill.detailedDescription}
-          </p>
-        </div>
+        <p className="text-sm leading-relaxed text-muted-foreground whitespace-pre-line">
+          {skill.detailedDescription}
+        </p>
       )}
 
-      {/* How it works */}
+      <Section title={m.skill_detail_when_to_use()}>
+        <p className="text-sm leading-relaxed">{skill.whenToUse}</p>
+      </Section>
+
+      {whenNotToUse && (
+        <Section title={m.skill_detail_when_not_to_use()}>
+          <p className="text-sm leading-relaxed">{whenNotToUse}</p>
+        </Section>
+      )}
+
+      {skill.keyBehaviors.length > 0 && (
+        <Section title={m.skill_detail_key_behaviors()}>
+          <ul className="space-y-1">
+            {skill.keyBehaviors.map((b, i) => (
+              <li key={i} className="flex items-start gap-2 text-sm">
+                <span className="shrink-0 text-primary">•</span>
+                {b}
+              </li>
+            ))}
+          </ul>
+        </Section>
+      )}
+
       {(skill.howItWorks ?? []).length > 0 && (
-        <div>
-          <h4 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-2">{m.skill_detail_how_it_works()}</h4>
-          <ol className="space-y-1.5 list-decimal list-inside">
+        <Section title={m.skill_detail_how_it_works()}>
+          <ol className="list-inside list-decimal space-y-1.5">
             {skill.howItWorks!.map((step, i) => (
-              <li key={i} className="text-sm">{step}</li>
+              <li key={i} className="text-sm">
+                {step}
+              </li>
             ))}
           </ol>
-        </div>
+        </Section>
       )}
 
-      {/* It's working if */}
       {(skill.itsWorkingIf ?? []).length > 0 && (
-        <div>
-          <h4 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-2">{m.skill_detail_its_working_if()}</h4>
+        <Section title={m.skill_detail_its_working_if()}>
           <ul className="space-y-1">
             {skill.itsWorkingIf!.map((sign, i) => (
-              <li key={i} className="text-sm flex items-start gap-2">
-                <span className="text-emerald-600 shrink-0">✓</span>
+              <li key={i} className="flex items-start gap-2 text-sm">
+                <span className="shrink-0 text-emerald-600">✓</span>
                 {sign}
               </li>
             ))}
           </ul>
-        </div>
+        </Section>
       )}
 
-      {/* Workflow */}
       {skill.workflow && (
-        <div>
-          <h4 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-2">{m.skill_detail_workflow()}</h4>
-          <div className="bg-secondary/50 rounded-md p-3 font-mono text-xs">
+        <Section title={m.skill_detail_workflow()}>
+          <div className="rounded-md bg-secondary/50 p-3 font-mono text-xs">
             {skill.workflow}
           </div>
-        </div>
+        </Section>
       )}
 
-      {/* Tips */}
       {(skill.tips ?? []).length > 0 && (
-        <div>
-          <h4 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-2">{m.skill_detail_tips()}</h4>
+        <Section title={m.skill_detail_tips()}>
           <ul className="space-y-1">
             {skill.tips!.map((tip, i) => (
-              <li key={i} className="text-sm flex items-start gap-2">
-                <RiLightbulbLine className="size-4 text-orange-600 shrink-0 mt-0.5" />
+              <li key={i} className="flex items-start gap-2 text-sm">
+                <RiLightbulbLine className="mt-0.5 size-4 shrink-0 text-orange-600" />
                 {tip}
               </li>
             ))}
           </ul>
-        </div>
+        </Section>
       )}
 
-      {/* Pairs well with */}
       {(skill.pairsWellWith ?? []).length > 0 && (
-        <div>
-          <h4 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-2">{m.skill_detail_pairs_well_with()}</h4>
+        <Section title={m.skill_detail_pairs_well_with()}>
           <div className="flex flex-wrap gap-1.5">
             {skill.pairsWellWith!.map((name) => (
-              <Link key={name} to="/skills/$skillName" params={{ skillName: name }}>
-                <Badge variant="outline" className="font-mono text-xs cursor-pointer hover:border-primary transition-colors">
-                  /{name}
-                </Badge>
-              </Link>
+              <Badge key={name} variant="outline" className="font-mono text-xs">
+                /{name}
+              </Badge>
             ))}
           </div>
-        </div>
+        </Section>
       )}
 
-      {/* Link to full page */}
-      <div className="pt-2">
-        <Link
-          to="/skills/$skillName"
-          params={{ skillName: skill.name }}
-          className="inline-flex items-center gap-1 text-sm text-primary hover:underline"
-        >
-          {m.skill_detail_view_full()} →
-        </Link>
-      </div>
+      <SkillInstallBlock source="mattpocock/skills" skillName={skill.name} />
+    </div>
+  )
+}
+
+function Section({
+  title,
+  children,
+}: {
+  title: string
+  children: React.ReactNode
+}) {
+  return (
+    <div>
+      <h4 className="mb-2 text-xs font-semibold tracking-wide text-muted-foreground uppercase">
+        {title}
+      </h4>
+      {children}
     </div>
   )
 }

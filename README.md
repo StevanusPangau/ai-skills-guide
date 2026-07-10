@@ -1,87 +1,136 @@
 # AI Skills Guide
 
-Interactive guide for 22 AI coding skills by [Matt Pocock](https://github.com/mattpocock/skills) (aligned with v1.1 release). This site explains the complete workflow from idea to ship, work patterns, and key concepts for AI agent-based software development.
+[![Live](https://img.shields.io/badge/live-skills.stevanuspangau.cloud-f97316)](https://skills.stevanuspangau.cloud)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
 
-🔗 **Live:** https://skills.stevanuspangau.cloud
+Interactive **multi-collection** reference for AI-agent software-development skills: practitioner collections, workflows, concepts, and installable Hermes skill bundles.
 
-> **Language:** Guide content is written in Indonesian (technical terms kept in English). The UI supports language switching (Indonesian + English).
+**Live:** https://skills.stevanuspangau.cloud
+
+> UI shell: **Indonesian** (base) + **English**. Long skill copy is mostly Indonesian; technical terms stay English.
+
+## What this repo is
+
+A growing catalog of skill **collections** (one practitioner or upstream repo each), not a single-author skill dump.
+
+| Product | Path | Purpose |
+|---|---|---|
+| **Guide SPA** | `src/` | Landing, per-collection guides, diagrams, search/filter, skill detail |
+| **Hermes bundles** | `skills/<collection>/` | Adapted installable `SKILL.md` files per collection |
+
+Each collection has its own route, data model, optional Hermes bundle, and upstream attribution. Collections are added over time — the landing page lists what is available now and leaves room for more.
+
+This is a **reference guide + adapted bundles**, not a replacement for upstream. Prefer each upstream repo for the latest source skills.
+
+## Current collections
+
+Snapshot of what ships today (counts/pins change as collections grow):
+
+| Collection | Route | Upstream | Catalog | Hermes bundle |
+|---|---|---|---|---|
+| Matt Pocock — AI Coding Skills | [`/mattpocock`](https://skills.stevanuspangau.cloud/mattpocock) | [mattpocock/skills](https://github.com/mattpocock/skills) `v1.1.0` | 22 | `skills/hermes/` (22) |
+| David Ondrej — Personal Agent Skills | [`/davidondrej`](https://skills.stevanuspangau.cloud/davidondrej) | [davidondrej/skills](https://github.com/davidondrej/skills) pin `2f70c586…` | 28 (+ compat/risk) | `skills/davidondrej/` first-wave 9 |
+
+Some collections document upstream more broadly than they ship as a Hermes first-wave. Per-collection pages and `skills/*/UPSTREAM.md` / `ATTRIBUTION.md` (when present) are the source of truth for pins and scope.
 
 ## Features
 
-- **Flow summary** — main build chain (grill-with-docs → to-spec → to-tickets → implement → code-review)
-- **Interactive flow diagram** — idea → ship, including on-ramps (triage, improve-codebase-architecture, wayfinder)
-- **Catalog of 22 skills** — search & filter, each skill has its own detail page
-- **Skill detail pages** — shareable URLs (`/skills/tdd`), full explanation: how it works, signs it's working, tips, and skills that pair well
-- **Work patterns & key concepts** — Smart Zone, context management, etc.
-- Dark mode, sidebar scroll-spy, responsive
+- Multi-collection landing (available now + room for future collections)
+- Shared collection shell: overview, interactive flow, catalog, workflows, concepts, install
+- Modal skill catalog; deep-link skill pages secondary
+- Dark mode, responsive layout, bilingual UI
+- Install paths: **Hermes** (this repo’s bundles) · **other agents** via [skills.sh](https://skills.sh/) using each collection’s upstream
 
-## Tech Stack
+## Tech stack
 
-- **Vite** + **React 19** + **TypeScript** (strict)
-- **TanStack Router** — file-based routing, type-safe, auto code-splitting (remains a static SPA)
-- **Tailwind CSS v4** + **shadcn/ui** (Base UI)
-- **oxlint** for linting
+Vite 8 · React 19 · TypeScript · TanStack Router · Tailwind CSS v4 · shadcn/ui · Paraglide JS · `@xyflow/react` · oxlint · Cloudflare Workers (static assets)
 
-## Getting Started
+## Getting started
 
-Prerequisites: **Node.js 20+** (or Bun). Examples below use npm.
+**Requires:** Node.js **20+**. Canonical package manager: **npm** (`package-lock.json`). Do not commit `bun.lock`.
 
 ```bash
+git clone https://github.com/StevanusPangau/ai-skills-guide.git
+cd ai-skills-guide
 npm install
-npm run dev        # dev server (Vite + HMR)
-npm run build      # paraglide compile + tsc -b + vite build → dist/
-npm run preview    # preview built output
-npm run lint       # oxlint
+npm run dev
 ```
 
-## Project Structure
+```bash
+npm run build      # paraglide + tsc + vite → dist/
+npm run preview
+npm run lint
+npm run deploy     # build + wrangler deploy (Cloudflare auth required)
+```
 
+## Install skills
+
+Prefer the **Installation** section on each collection page — commands and bundle scope differ per collection.
+
+### skills.sh (most agents)
+
+Point at the **upstream** skill repo for that collection, for example:
+
+```bash
+npx skills@latest add <owner/repo>
+npx skills@latest add <owner/repo> --skill <name>
 ```
-src/
-├── routes/                      # file-based routing (TanStack Router)
-│   ├── __root.tsx               # layout shell (header + dark mode toggle)
-│   ├── index.tsx                # /            → full guide (scroll page)
-│   └── skills.$skillName.tsx    # /skills/:name → skill detail page
-├── router.tsx                   # router configuration (type-safe)
-├── routeTree.gen.ts             # auto-generated (do not edit)
-├── types/skill.ts               # Skill type + helpers (getOfficialTitle, etc.)
-├── data/skills.ts               # data for 22 skills
-├── features/                    # domain components
-│   ├── overview / main-flow / workflows / concepts
-│   └── skills/                  # skills-section, skill-card, skill-detail
-├── components/
-│   ├── layout/                  # sidebar
-│   └── ui/                      # shadcn/ui (do not edit manually)
-└── lib/                         # utils, hooks (useDocumentTitle)
+
+Browse: https://skills.sh/
+
+### Hermes Agent (adapted bundles in this repo)
+
+Bundles live under `skills/<collection>/`. Use the live site install section or [Hermes docs](https://hermes-agent.nousresearch.com/docs) for current `hermes skills` commands (CLI surface changes across releases).
+
+## Project structure
+
+```text
+messages/                 # i18n source (id, en)
+project.inlang/           # Paraglide project (settings.json)
+public/                   # static assets, _headers, security.txt
+skills/                   # one subdirectory per Hermes-adapted collection
+src/routes/               # landing + per-collection routes + skill deep links
+src/data/                 # collections registry + per-collection skill records
+src/features/             # shared shell + per-collection UI
+src/components/           # layout, install helpers, shadcn/ui
 ```
+
+Generated — do not hand-edit: `src/routeTree.gen.ts`, `src/paraglide/*`.
+
+New collections typically add: a `src/data/*` record set, routes under `src/routes/`, features under `src/features/`, optional `skills/<name>/`, and a row in `src/data/collections.ts`.
 
 ## Deployment
 
-This project is deployed to **Cloudflare Workers** (static assets) using the config in [`wrangler.jsonc`](./wrangler.jsonc). Since it's a purely client-rendered SPA, there's no Worker script — assets are served directly from Cloudflare's edge (zero billable Worker invocations).
+**Cloudflare Workers** static assets only (`wrangler.jsonc`, no Worker script).
 
 ```bash
-npx wrangler login        # one-time (OAuth to Cloudflare account)
-npm run deploy            # build + wrangler deploy
+npx wrangler login
+npm run deploy
 ```
 
-Configuration details:
+SPA fallback is enabled so deep links work on refresh. Security headers live in [`public/_headers`](./public/_headers). Portable to any static host with SPA fallback.
 
-- `not_found_handling: "single-page-application"` — all unknown routes rewrite to `/index.html` (200), so deep-links like `/skills/tdd` work on refresh.
-- [`public/_headers`](./public/_headers) — security headers (HSTS, nosniff, X-Frame DENY, Referrer-Policy, Permissions-Policy) + immutable caching for `/assets/*`.
-- [`public/.well-known/security.txt`](./public/.well-known/security.txt) — security disclosure contact.
+## Contributing
 
-Custom domain (`skills.stevanuspangau.cloud`) is configured via **Workers → Settings → Domains & Routes** in the Cloudflare dashboard.
+PRs welcome for the guide shell, new collections, and Hermes adaptations.
 
-> Since this is a pure SPA, the project is also portable to Netlify (`/* /index.html 200`), Vercel, or any static server (nginx: `try_files $uri /index.html;`).
+1. Keep diffs small and **collection-scoped**.
+2. Skill changes that ship in a bundle: update that collection’s guide data **and** `skills/<collection>/**/SKILL.md`.
+3. Keep `messages/id.json` and `messages/en.json` key sets in sync.
+4. Run `npm run lint && npm run build` before opening a PR.
+5. No secrets, personal absolute paths, or dual lockfiles (`bun.lock`).
+6. Preserve upstream attribution (`ATTRIBUTION.md` / `UPSTREAM.md` when the collection has a pin).
 
-## Credits
+History: [`CHANGELOG.md`](./CHANGELOG.md) ([Keep a Changelog](https://keepachangelog.com/)).
 
-- Skill content is sourced from the official **Matt Pocock** documentation — repo [mattpocock/skills](https://github.com/mattpocock/skills) and [aihero.dev](https://aihero.dev).
-- This is a **reference guide**, not the skill repo itself. To use the skills:
-  ```bash
-  npx skills add mattpocock/skills -y -g
-  ```
+## Credits & license
 
-## License
+Skill content belongs to each collection’s **upstream authors**. This site adapts and documents; it does not claim ownership of upstream material.
 
-Site code is released under the [MIT](./LICENSE) license. Descriptive skill content references the work of Matt Pocock — respect the license/attribution of the original source when reusing.
+Per-collection attribution lives next to each bundle (e.g. `skills/*/ATTRIBUTION.md`). Always respect the upstream license when reusing skill text.
+
+Site code © 2026 Stevanus Pangau — [MIT](./LICENSE).
+
+## Security
+
+Report vulnerabilities via [`public/.well-known/security.txt`](./public/.well-known/security.txt). Prefer private disclosure over public issues for sensitive reports.

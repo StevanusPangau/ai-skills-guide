@@ -1,0 +1,43 @@
+{
+  "name": "davidondrej-skills-hermes",
+  "description": "Curated first wave of David Ondrej's personal agent skills, adapted for Hermes Agent",
+  "version": "1.0.0",
+  "source": "github.com/davidondrej/skills",
+  "source_commit": "2f70c586205a20523a4caecbc701128a30554628",
+  "groupings": [
+    {
+      "title": "Agent Orchestration",
+      "skills": [
+        "agent-self-scheduling",
+        "goal-loop"
+      ]
+    },
+    {
+      "title": "Ops & Setup",
+      "skills": [
+        "anti-sleep",
+        "setup-help"
+      ]
+    },
+    {
+      "title": "Research & Web",
+      "skills": [
+        "research-prompt"
+      ]
+    },
+    {
+      "title": "Skill Authoring",
+      "skills": [
+        "effective-agent-skills",
+        "folder-specific-claude-and-agents-md"
+      ]
+    },
+    {
+      "title": "Thinking & Docs",
+      "skills": [
+        "brain-to-docs",
+        "level-up"
+      ]
+    }
+  ]
+}

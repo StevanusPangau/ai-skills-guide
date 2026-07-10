@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { createRootRoute, Link, Outlet } from '@tanstack/react-router'
-import { RiGithubFill, RiGlobalLine, RiMoonLine, RiSunLine } from '@remixicon/react'
+import { RiGithubFill, RiMoonLine, RiSunLine } from '@remixicon/react'
 import { Button } from '@/components/ui/button'
 import { m } from '@/paraglide/messages.js'
 import { getLocale, setLocale } from '@/paraglide/runtime.js'
@@ -12,6 +12,7 @@ export const Route = createRootRoute({
 const navItems = [
   { to: '/', labelKey: 'nav_home' as const, exact: true },
   { to: '/mattpocock', labelKey: 'nav_matt_pocock' as const, exact: false },
+  { to: '/davidondrej', labelKey: 'nav_david_ondrej' as const, exact: false },
 ] as const
 
 function RootLayout() {
@@ -29,6 +30,7 @@ function RootLayout() {
   const navLabels: Record<string, string> = {
     nav_home: m.nav_home(),
     nav_matt_pocock: m.nav_matt_pocock(),
+    nav_david_ondrej: m.nav_david_ondrej(),
   }
 
   const toggleLocale = () => {
@@ -94,8 +96,11 @@ function RootLayout() {
               onClick={toggleLocale}
               aria-label={m.toggle_language()}
               title={getLocale() === 'id' ? 'English' : 'Indonesia'}
+              className="text-muted-foreground hover:text-foreground"
             >
-              <RiGlobalLine className="size-5" />
+              <span className="text-xs font-semibold tracking-wide uppercase">
+                {getLocale() === 'id' ? 'ID' : 'EN'}
+              </span>
             </Button>
           </div>
         </div>
