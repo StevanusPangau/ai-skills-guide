@@ -5,6 +5,32 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+## [v1.2.0] - 2026-07-10
+
+### Added
+- **David Ondrej collection** — educational catalog of 28 personal agent skills (`/davidondrej`), with compatibility / bundle / risk metadata and a curated Hermes first-wave subset
+- **Hermes first-wave bundle** under `skills/davidondrej/` (9 skills): agent-self-scheduling, goal-loop, anti-sleep, setup-help, research-prompt, effective-agent-skills, folder-specific-claude-and-agents-md, brain-to-docs, level-up — plus `skills.sh.json`, `ATTRIBUTION.md`, and pinned `UPSTREAM.md` (SHA `2f70c586…`)
+- **Collection shell parity** — shared reusable sidebar, hero (linked source repo + version/SHA pin + stats), overview, workflows, concepts, and installation for both Matt and David
+- **React Flow guide diagrams** (`@xyflow/react`) — document-like interactive main path (fixed zoom, no mini-map chrome); shared `src/features/flow/*`
+- **Modal skill catalog** — bordered ScrollArea cards + Dialog detail (risk/compat/bundle only inside modal); full-page skill routes remain secondary deep links
+- **skills.sh install UX** — non-Hermes install via `npx skills@latest add <owner/repo>` (+ per-skill `--skill`); shared `CodeBlock`, `CopyButton`, `SkillInstallBlock`
+- shadcn/ui **Dialog** primitive
+- Matt source pin constants (`MATTPOCOCK_SOURCE_*`) next to catalog data
+- README rewrite for multi-collection product + OSS sections
+
+### Changed
+- Matt overview / main-flow / skills section aligned to the multi-collection shell (hero pin, React Flow path, modal catalog)
+- Installation section: Hermes tap/install kept; Planned stubs for other agents replaced by a single skills.sh path
+- Header locale control shows plain `ID` / `EN` text (muted header colors) instead of a globe icon
+- Catalog card chrome: neutral borders only (no colored left accents)
+- Matt guide copy polish: `itsWorkingIf` rewritten as observable signals; internal history noise trimmed from a few long descriptions
+- `.gitignore` hardened for public OSS: env/secrets, Wrangler local state, caches, agent editor dirs, and dual Bun lockfiles (`bun.lock` / `bun.lockb`); npm `package-lock.json` stays canonical
+
+### Dependencies
+- Added `@xyflow/react` for interactive guide flows
+
 ## [v1.1.0] - 2026-07-09
 
 ### Added
@@ -50,5 +76,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Deployed to Cloudflare Workers (static SPA)
 - Security headers, SPA fallback routing, immutable asset caching
 
+[Unreleased]: https://github.com/StevanusPangau/ai-skills-guide/compare/v1.2.0...HEAD
+[v1.2.0]: https://github.com/StevanusPangau/ai-skills-guide/compare/v1.1.0...v1.2.0
 [v1.1.0]: https://github.com/StevanusPangau/ai-skills-guide/compare/v1.0.0...v1.1.0
 [v1.0.0]: https://github.com/StevanusPangau/ai-skills-guide/releases/tag/v1.0.0

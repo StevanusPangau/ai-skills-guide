@@ -7,18 +7,53 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+# Dependencies & build output
 node_modules
 dist
 dist-ssr
-*.local
+*.tsbuildinfo
 
-# Editor directories and files
+# Lockfile policy: npm (`package-lock.json`) is canonical.
+# Bun may generate bun.lock locally; do not commit dual lockfiles.
+bun.lock
+bun.lockb
+
+# Environment & secrets (public repo — never commit values)
+.env
+.env.*
+.dev.vars
+*.pem
+*.key
+
+# Cloudflare Wrangler local state
+.wrangler
+.dev.vars.*
+
+# Tooling caches / temp
+.cache
+.vite
+.turbo
+.eslintcache
+.oxlintcache
+coverage
+.nyc_output
+.tanstack
+
+# Local AI / editor agent dirs (machine-specific)
+.claude
+.cursor
+.opencode
+.hermes
+
+# Editor & OS
 .vscode/*
 !.vscode/extensions.json
 .idea
 .DS_Store
+Thumbs.db
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
+*.local

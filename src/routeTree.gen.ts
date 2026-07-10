@@ -10,12 +10,20 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as MattpocockRouteImport } from './routes/mattpocock'
+import { Route as DavidondrejRouteImport } from './routes/davidondrej'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as DavidondrejIndexRouteImport } from './routes/davidondrej.index'
 import { Route as SkillsSkillNameRouteImport } from './routes/skills.$skillName'
+import { Route as DavidondrejSkillsSkillNameRouteImport } from './routes/davidondrej.skills.$skillName'
 
 const MattpocockRoute = MattpocockRouteImport.update({
   id: '/mattpocock',
   path: '/mattpocock',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DavidondrejRoute = DavidondrejRouteImport.update({
+  id: '/davidondrej',
+  path: '/davidondrej',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -23,38 +31,76 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DavidondrejIndexRoute = DavidondrejIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => DavidondrejRoute,
+} as any)
 const SkillsSkillNameRoute = SkillsSkillNameRouteImport.update({
   id: '/skills/$skillName',
   path: '/skills/$skillName',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DavidondrejSkillsSkillNameRoute =
+  DavidondrejSkillsSkillNameRouteImport.update({
+    id: '/skills/$skillName',
+    path: '/skills/$skillName',
+    getParentRoute: () => DavidondrejRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/davidondrej': typeof DavidondrejRouteWithChildren
   '/mattpocock': typeof MattpocockRoute
   '/skills/$skillName': typeof SkillsSkillNameRoute
+  '/davidondrej/': typeof DavidondrejIndexRoute
+  '/davidondrej/skills/$skillName': typeof DavidondrejSkillsSkillNameRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/mattpocock': typeof MattpocockRoute
   '/skills/$skillName': typeof SkillsSkillNameRoute
+  '/davidondrej': typeof DavidondrejIndexRoute
+  '/davidondrej/skills/$skillName': typeof DavidondrejSkillsSkillNameRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/davidondrej': typeof DavidondrejRouteWithChildren
   '/mattpocock': typeof MattpocockRoute
   '/skills/$skillName': typeof SkillsSkillNameRoute
+  '/davidondrej/': typeof DavidondrejIndexRoute
+  '/davidondrej/skills/$skillName': typeof DavidondrejSkillsSkillNameRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/mattpocock' | '/skills/$skillName'
+  fullPaths:
+    | '/'
+    | '/davidondrej'
+    | '/mattpocock'
+    | '/skills/$skillName'
+    | '/davidondrej/'
+    | '/davidondrej/skills/$skillName'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/mattpocock' | '/skills/$skillName'
-  id: '__root__' | '/' | '/mattpocock' | '/skills/$skillName'
+  to:
+    | '/'
+    | '/mattpocock'
+    | '/skills/$skillName'
+    | '/davidondrej'
+    | '/davidondrej/skills/$skillName'
+  id:
+    | '__root__'
+    | '/'
+    | '/davidondrej'
+    | '/mattpocock'
+    | '/skills/$skillName'
+    | '/davidondrej/'
+    | '/davidondrej/skills/$skillName'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  DavidondrejRoute: typeof DavidondrejRouteWithChildren
   MattpocockRoute: typeof MattpocockRoute
   SkillsSkillNameRoute: typeof SkillsSkillNameRoute
 }
@@ -68,12 +114,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MattpocockRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/davidondrej': {
+      id: '/davidondrej'
+      path: '/davidondrej'
+      fullPath: '/davidondrej'
+      preLoaderRoute: typeof DavidondrejRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/davidondrej/': {
+      id: '/davidondrej/'
+      path: '/'
+      fullPath: '/davidondrej/'
+      preLoaderRoute: typeof DavidondrejIndexRouteImport
+      parentRoute: typeof DavidondrejRoute
     }
     '/skills/$skillName': {
       id: '/skills/$skillName'
@@ -82,11 +142,33 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SkillsSkillNameRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/davidondrej/skills/$skillName': {
+      id: '/davidondrej/skills/$skillName'
+      path: '/skills/$skillName'
+      fullPath: '/davidondrej/skills/$skillName'
+      preLoaderRoute: typeof DavidondrejSkillsSkillNameRouteImport
+      parentRoute: typeof DavidondrejRoute
+    }
   }
 }
 
+interface DavidondrejRouteChildren {
+  DavidondrejIndexRoute: typeof DavidondrejIndexRoute
+  DavidondrejSkillsSkillNameRoute: typeof DavidondrejSkillsSkillNameRoute
+}
+
+const DavidondrejRouteChildren: DavidondrejRouteChildren = {
+  DavidondrejIndexRoute: DavidondrejIndexRoute,
+  DavidondrejSkillsSkillNameRoute: DavidondrejSkillsSkillNameRoute,
+}
+
+const DavidondrejRouteWithChildren = DavidondrejRoute._addFileChildren(
+  DavidondrejRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  DavidondrejRoute: DavidondrejRouteWithChildren,
   MattpocockRoute: MattpocockRoute,
   SkillsSkillNameRoute: SkillsSkillNameRoute,
 }

@@ -1,5 +1,13 @@
 import type { Skill } from '@/types/skill'
 
+// Koleksi Matt Pocock — mattpocock/skills v1.1.
+// Sumber: https://github.com/mattpocock/skills (MIT)
+// Tag v1.1.0 = commit di bawah (cek ulang saat sync upstream).
+
+export const MATTPOCOCK_SOURCE_REPO = 'github.com/mattpocock/skills'
+export const MATTPOCOCK_SOURCE_VERSION = 'v1.1.0'
+export const MATTPOCOCK_SOURCE_SHA = 'd574778f94cf620fcc8ce741584093bc650a61d3'
+
 export const skills: Skill[] = [
   {
     name: 'ask-matt',
@@ -50,10 +58,10 @@ export const skills: Skill[] = [
       'Berlanjut sampai shared understanding tercapai',
     ],
     itsWorkingIf: [
-      'Bertanya satu per satu dan menunggu jawaban',
-      'Term ditulis ke CONTEXT.md saat itu juga, bukan di-batch di akhir',
-      'Mengeksplorasi codebase untuk menjawab pertanyaannya sendiri',
-      'ADR tetap jarang — tidak rubber-stamp reversible choices',
+      'Transcript Q&A: satu pertanyaan, tunggu jawaban, baru lanjut',
+      'CONTEXT.md bertambah term baru mid-session (bukan dump akhir)',
+      'Agent buka file/repo sebelum tanya fakta yang sudah ada di code',
+      'Jumlah ADR << jumlah keputusan; hanya hard-to-reverse + trade-off nyata',
     ],
     workflow: '▸ grill-with-docs → to-spec → to-tickets → implement → code-review',
     tips: [
@@ -219,7 +227,7 @@ export const skills: Skill[] = [
       'Publish: tickets.md lokal (edges as text) ATAU tracker (native blocking links)',
     ],
     related: ['to-spec', 'implement', 'tdd'],
-    detailedDescription: 'to-tickets memecah plan, spec, atau conversation menjadi set tickets — tracer-bullet vertical slices, masing-masing mendeklarasikan tickets yang MEMBLOKIR-nya. (Ini merge dari skill lama /to-plan + /to-issues; nama "tickets" lebih general daripada "issues" yang bias ke GitHub/Linear.)\n\nHorizontal breakdown (build schema → build API → build UI → add tests) menciptakan handoff problems. Vertical slice memotong seluruh stack end-to-end sehingga bisa di-demo begitu selesai.\n\nSatu artifact, dua bacaan tergantung tracker: (1) tickets.md lokal — blocking edges ditulis sebagai teks, dikerjakan top-to-bottom manual; (2) tracker nyata (GitHub/Linear) — edges jadi native blocking links, ticket yang blocker-nya selesai masuk FRONTIER dan beberapa agent bisa jalan paralel.\n\nPengecualian: wide refactor (satu perubahan mekanis dengan blast radius besar) di-sequence sebagai expand–contract, bukan dipaksa jadi tracer bullet.',
+    detailedDescription: 'to-tickets memecah plan, spec, atau conversation menjadi set tickets — tracer-bullet vertical slices, masing-masing mendeklarasikan tickets yang MEMBLOKIR-nya.\n\nHorizontal breakdown (build schema → build API → build UI → add tests) menciptakan handoff problems. Vertical slice memotong seluruh stack end-to-end sehingga bisa di-demo begitu selesai.\n\nSatu artifact, dua bacaan tergantung tracker: (1) tickets.md lokal — blocking edges ditulis sebagai teks, dikerjakan top-to-bottom manual; (2) tracker nyata (GitHub/Linear) — edges jadi native blocking links, ticket yang blocker-nya selesai masuk FRONTIER dan beberapa agent bisa jalan paralel.\n\nPengecualian: wide refactor (satu perubahan mekanis dengan blast radius besar) di-sequence sebagai expand–contract, bukan dipaksa jadi tracer bullet.',
     howItWorks: [
       'Kumpulkan context: dari conversation, atau fetch spec/issue reference',
       'Explore codebase (opsional) + cari peluang prefactor lebih dulu',
@@ -228,10 +236,10 @@ export const skills: Skill[] = [
       'Publish dalam dependency order: tickets.md ATAU issue per ticket dengan native blocking',
     ],
     itsWorkingIf: [
-      'Setiap slice memotong semua layer (schema, API, UI, tests)',
-      'Tidak ada horizontal splitting',
-      'Setiap ticket punya "Blocked by" yang jelas',
-      'Setiap completed slice bisa di-demo atau diverifikasi sendiri',
+      'Demo path end-to-end jalan per ticket yang closed',
+      'Tracker/tickets.md menampilkan frontier (blocker selesai = ready)',
+      'Tidak ada ticket "schema only" / "API only" / "UI only"',
+      'Wide refactor memakai expand–contract, bukan dipaksa tracer bullet',
     ],
     workflow: 'grill-with-docs → to-spec → ▸ to-tickets → implement → code-review',
     tips: [
@@ -257,7 +265,7 @@ export const skills: Skill[] = [
       'Panggil /code-review sebelum commit',
     ],
     related: ['to-tickets', 'tdd', 'code-review'],
-    detailedDescription: 'implement adalah skill yang sengaja SANGAT sederhana — hampir tidak dibuat karena begitu simpel, tapi banyak orang bertanya "apa flow-nya?" jadi ia jadi endpoint yang jelas: begitu punya tickets, tinggal implement tiap satu di coding session terpisah.\n\nIsinya ringkas: implement pekerjaan yang dideskripsikan di spec atau tickets. Gunakan /tdd where possible di seams yang sudah pre-agreed. Run typechecking rutin, single test files rutin, full test suite sekali di akhir. Setelah selesai, panggil /code-review untuk review kerja sebelum commit.\n\nSkill ini sebagian besar mengandalkan priors agent dan apa yang diajarkan file agents.md kamu. Ia mendorong /tdd sebagai red-green engine internal, dan menutup dengan /code-review yang menangani fase refactor (yang di v1.1 dikeluarkan dari loop TDD).',
+    detailedDescription: 'Endpoint eksekusi main flow: satu ticket/spec per session. Drive /tdd di seams pre-agreed, typecheck + single-test rutin, full suite sekali di akhir, lalu /code-review sebelum commit. Mengandalkan priors agent + agents.md; refactor ditangani di code-review (keluar dari loop TDD v1.1).',
     howItWorks: [
       'Ambil satu ticket atau spec yang akan dikerjakan',
       'Implement, drive /tdd di seams yang disepakati',
@@ -267,10 +275,10 @@ export const skills: Skill[] = [
       'Commit ke current branch',
     ],
     itsWorkingIf: [
-      'Bekerja dari spec/ticket, bukan dari nol',
-      'TDD dipakai di seams yang sudah pre-agreed',
-      'Test suite penuh dijalankan sebelum selesai',
-      'Code-review dipanggil sebelum commit',
+      'Diff/commit merujuk ticket/spec, bukan ad-hoc scope creep',
+      'Log test: red dulu, green setelah minimal code',
+      'Full suite hijau sekali di akhir (bukan tiap edit)',
+      'Code-review jalan sebelum commit muncul',
     ],
     workflow: 'grill-with-docs → to-spec → to-tickets → ▸ implement → code-review',
     tips: [
@@ -441,7 +449,7 @@ export const skills: Skill[] = [
       'Anti-pattern: implementation-coupled, tautological, horizontal slicing',
     ],
     related: ['codebase-design', 'code-review'],
-    detailedDescription: 'tdd membangun fitur atau fix bug test-first, satu behavior per waktu, melalui red-green loop. TIDAK menulis semua test di awal — batching tests first (horizontal slicing) menghasilkan tests of imagined behavior yang numb terhadap real changes.\n\nPerubahan v1.1: skill ini kini reference material, TIDAK lagi menspesifikasi langkah yang minta konfirmasi tiap step (dulu awkward untuk AFK agent). Ia hanya menegaskan urutan esensial: (1) Red — tulis failing test, (2) Green — buat test pass, (3) Refactor — DIKELUARKAN dari loop, ditangani di fase code-review. Ini menjaga implementation session tetap fokus dan tidak overloaded oleh concern refactoring.\n\nVertical slices: satu test, lalu just enough code untuk pass, lalu test berikutnya — setiap cycle informed oleh cycle sebelumnya. First cycle = tracer bullet: satu test yang prove satu path works end-to-end.\n\nDua aturan keep tests honest: (1) Good test reads like specification dan exercise real code paths through public API. (2) Expected values dari independent source of truth — known-good literal, worked example, spec — BUKAN recomputed the way code computes them (= tautological test).',
+    detailedDescription: 'tdd = red→green test-first, satu behavior per cycle (bukan batch test dulu). v1.1: reference material AFK-friendly — refactor keluar dari loop, ditangani di /code-review.\n\nFirst cycle = tracer bullet end-to-end. Test jujur: (1) baca seperti spec lewat public API/seams, (2) expected value dari sumber independen (literal/spec), bukan recompute cara code.',
     howItWorks: [
       'Confirm seams under test dengan user',
       'Tulis SATU failing test (red)',
@@ -450,10 +458,10 @@ export const skills: Skill[] = [
       'Refactor TIDAK di sini — diserahkan ke /code-review',
     ],
     itsWorkingIf: [
-      'Tulis satu test, pass, baru tulis test berikutnya — bukan batch',
-      'Test menamai behaviors, bukan internals',
-      'Expected values adalah literals dari spec, bukan computed',
-      'Internal rename tidak break test apapun',
+      'History: satu failing test, baru minimal code pass — bukan suite kosong dulu',
+      'Nama test = behavior/spec, bukan method privat',
+      'Assert pakai literal/worked example; bukan mirror formula production',
+      'Rename internal/private tidak merusak suite',
     ],
     workflow: 'grill-with-docs → to-spec → to-tickets → implement (drives ▸ tdd) → code-review',
     tips: [
@@ -489,10 +497,10 @@ export const skills: Skill[] = [
       'Offer ADR sparingly (hanya jika 3 syarat terpenuhi)',
     ],
     itsWorkingIf: [
-      'Term ambigu langsung di-challenge',
-      'CONTEXT.md tetap murni glossary',
-      'Contradictions antara code dan claims di-surface',
-      'ADR tetap jarang',
+      'Term kabur diganti canonical term di transcript + glossary',
+      'CONTEXT.md tidak memuat langkah implementasi / narasi spec',
+      'Kontradiksi code vs claim muncul sebagai pertanyaan eksplisit',
+      'ADR hanya muncul saat 3 syarat terpenuhi (bukan setiap keputusan)',
     ],
     workflow: 'Berjalan di dalam /grill-with-docs, atau standalone untuk maintain vocabulary',
     tips: [

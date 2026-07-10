@@ -3,6 +3,8 @@
 @import "shadcn/tailwind.css";
 @import "@fontsource-variable/geist";
 @import "@fontsource-variable/inter";
+/* React Flow styles after Tailwind so utility classes win (docs Tailwind v4). */
+@import "@xyflow/react/dist/style.css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -134,4 +136,32 @@
   html {
     @apply font-sans;
     }
+}
+
+/* Guide flow: hide connection handles (React Flow still needs them for edges). */
+.react-flow__handle {
+  opacity: 0 !important;
+  pointer-events: none !important;
+  width: 1px !important;
+  height: 1px !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+}
+
+/* Blend React Flow surface with page background (no floating canvas). */
+.react-flow-guide .react-flow,
+.react-flow-guide .react-flow__renderer,
+.react-flow-guide .react-flow__pane {
+  background: transparent !important;
+}
+
+.react-flow-guide .react-flow__node.selected {
+  outline: none;
+}
+
+/* No grab cursor — this is a static diagram, not a pannable map. */
+.react-flow-guide .react-flow__pane {
+  cursor: default !important;
 }

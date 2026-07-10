@@ -1,33 +1,37 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { CodeBlock } from '@/components/code-block'
+import { davidondrejSkills } from '@/data/davidondrej-skills'
 import { m } from '@/paraglide/messages.js'
+
+const firstWave = davidondrejSkills.filter((s) => s.bundleStatus === 'first-wave')
 
 const HERMES_STEPS = [
   'hermes skills tap add StevanusPangau/ai-skills-guide',
   'hermes skills browse --source github',
-  'hermes skills install StevanusPangau/ai-skills-guide/skills/hermes/engineering/tdd',
+  'hermes skills install StevanusPangau/ai-skills-guide/skills/davidondrej/thinking-and-docs/brain-to-docs',
 ].join('\n')
 
 const HERMES_ALT = `# ~/.hermes/config.yaml
 skills:
   external_dirs:
-    - ~/Development/Project/Tools/ai-skills-guide/skills/hermes`
+    - ~/Development/Project/Tools/ai-skills-guide/skills/davidondrej`
 
-// skills.sh CLI — installs to Claude Code, Codex, OpenCode, Cursor, and more.
+// Upstream via skills.sh — install full davidondrej/skills for non-Hermes agents.
 const SKILLS_SH_STEPS = [
-  'npx skills@latest add mattpocock/skills',
-  '# Pilih skills di prompt; pastikan pilih /setup-matt-pocock-skills',
-  '# Lalu jalankan /setup-matt-pocock-skills di agent untuk setup awal',
+  'npx skills@latest add davidondrej/skills',
+  '# Pilih skill di prompt; cek prasyarat & agent target sebelum install massal',
 ].join('\n')
 
-export function Installation() {
+export function DavidInstall() {
   return (
     <section id="installation" className="scroll-mt-20 space-y-8">
       <div>
-        <h2 className="text-2xl font-bold tracking-tight">{m.installation_title()}</h2>
+        <h2 className="font-heading text-2xl font-bold tracking-tight">
+          {m.david_install_title()}
+        </h2>
         <p className="mt-2 max-w-2xl text-muted-foreground">
-          {m.installation_description()}
+          {m.david_install_description()}
         </p>
       </div>
 
@@ -45,7 +49,19 @@ export function Installation() {
               <p className="text-xs text-muted-foreground">{m.installation_alt_label()}</p>
               <CodeBlock code={HERMES_ALT} />
             </div>
-            <p className="text-sm text-muted-foreground">{m.installation_notes_hermes()}</p>
+            <p className="text-sm text-muted-foreground">
+              {m.david_install_notes_hermes()}
+            </p>
+            <div className="flex flex-wrap gap-1.5 pt-1">
+              {firstWave.map((s) => (
+                <span
+                  key={s.name}
+                  className="rounded-full border border-border px-2.5 py-0.5 font-mono text-[11px] text-muted-foreground"
+                >
+                  /{s.name}
+                </span>
+              ))}
+            </div>
           </CardContent>
         </Card>
 
@@ -61,17 +77,17 @@ export function Installation() {
           <CardContent className="space-y-3">
             <CodeBlock code={SKILLS_SH_STEPS} shell />
             <p className="text-sm text-muted-foreground">
-              {m.installation_notes_skills_sh()}
+              {m.david_install_notes_skills_sh()}
             </p>
             <p className="text-xs text-muted-foreground">
               {m.installation_skills_sh_ref()}{' '}
               <a
-                href="https://skills.sh/mattpocock/skills"
+                href="https://skills.sh/davidondrej/skills"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="underline hover:text-foreground"
               >
-                skills.sh/mattpocock/skills
+                skills.sh/davidondrej/skills
               </a>
             </p>
           </CardContent>
@@ -83,14 +99,14 @@ export function Installation() {
           <p className="text-sm text-muted-foreground">
             <strong className="text-foreground">{m.installation_attribution()}</strong>{' '}
             <a
-              href="https://github.com/mattpocock/skills"
+              href="https://github.com/davidondrej/skills"
               target="_blank"
               rel="noopener noreferrer"
               className="underline hover:text-foreground"
             >
-              mattpocock/skills
+              davidondrej/skills
             </a>{' '}
-            {m.installation_attribution_suffix()}
+            {m.david_install_attribution_suffix()}
           </p>
         </CardContent>
       </Card>
