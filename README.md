@@ -3,6 +3,8 @@
 [![Live](https://img.shields.io/badge/live-skills.stevanuspangau.cloud-f97316)](https://skills.stevanuspangau.cloud)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
 
+**English** · [Bahasa Indonesia](./README.id.md)
+
 Interactive **multi-collection** reference for AI-agent software-development skills: practitioner collections, workflows, concepts, and installable Hermes skill bundles.
 
 **Live:** https://skills.stevanuspangau.cloud

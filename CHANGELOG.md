@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v1.2.0] - 2026-07-10
+
 ### Added
 - **David Ondrej collection** — educational catalog of 28 personal agent skills (`/davidondrej`), with compatibility / bundle / risk metadata and a curated Hermes first-wave subset
 - **Hermes first-wave bundle** under `skills/davidondrej/` (9 skills): agent-self-scheduling, goal-loop, anti-sleep, setup-help, research-prompt, effective-agent-skills, folder-specific-claude-and-agents-md, brain-to-docs, level-up — plus `skills.sh.json`, `ATTRIBUTION.md`, and pinned `UPSTREAM.md` (SHA `2f70c586…`)
@@ -74,6 +76,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Deployed to Cloudflare Workers (static SPA)
 - Security headers, SPA fallback routing, immutable asset caching
 
-[Unreleased]: https://github.com/StevanusPangau/ai-skills-guide/compare/v1.1.0...HEAD
+[Unreleased]: https://github.com/StevanusPangau/ai-skills-guide/compare/v1.2.0...HEAD
+[v1.2.0]: https://github.com/StevanusPangau/ai-skills-guide/compare/v1.1.0...v1.2.0
 [v1.1.0]: https://github.com/StevanusPangau/ai-skills-guide/compare/v1.0.0...v1.1.0
 [v1.0.0]: https://github.com/StevanusPangau/ai-skills-guide/releases/tag/v1.0.0

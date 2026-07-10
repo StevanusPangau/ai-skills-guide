@@ -21,7 +21,6 @@ bun.lockb
 # Environment & secrets (public repo — never commit values)
 .env
 .env.*
-!.env.example
 .dev.vars
 *.pem
 *.key
