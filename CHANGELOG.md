@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v1.3.0] - 2026-07-17
+
 ### Added
 - **Collections hub** (`/collections`) — dedicated catalog page listing every skill collection (rank, author, source, skill count) with primary nav pointing at Collections instead of each guide
 - **Skill detail “On this page” TOC** — sticky right-rail section nav for Matt and David skill pages, with hash links, scroll-spy, and native smooth scroll that respects `prefers-reduced-motion`
@@ -109,7 +111,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Deployed to Cloudflare Workers (static SPA)
 - Security headers, SPA fallback routing, immutable asset caching
 
-[Unreleased]: https://github.com/StevanusPangau/ai-skills-guide/compare/v1.2.0...HEAD
+[Unreleased]: https://github.com/StevanusPangau/ai-skills-guide/compare/v1.3.0...HEAD
+[v1.3.0]: https://github.com/StevanusPangau/ai-skills-guide/compare/v1.2.0...v1.3.0
 [v1.2.0]: https://github.com/StevanusPangau/ai-skills-guide/compare/v1.1.0...v1.2.0
 [v1.1.0]: https://github.com/StevanusPangau/ai-skills-guide/compare/v1.0.0...v1.1.0
 [v1.0.0]: https://github.com/StevanusPangau/ai-skills-guide/releases/tag/v1.0.0
