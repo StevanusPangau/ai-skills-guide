@@ -6,12 +6,19 @@ import {
   type Node,
   type NodeMouseHandler,
 } from '@xyflow/react'
+/* Loaded with this module so landing/skill routes never pay for xyflow CSS. */
+import '@xyflow/react/dist/style.css'
 import { GuideNode } from './nodes'
 import type { FlowGraphEdge, FlowGraphNode, FlowNodeData } from './types'
+import { prefersReducedMotion } from '@/lib/motion'
 import { cn } from '@/lib/utils'
 import { m } from '@/paraglide/messages.js'
 
 const nodeTypes = { guide: GuideNode }
+
+const DEFAULT_VIEWPORT = { x: 0, y: 0, zoom: 1 }
+const PRO_OPTIONS = { hideAttribution: true }
+const DEFAULT_EDGE_OPTIONS = { type: 'smoothstep' as const }
 
 /** Rough node box for height calculation (matches GuideNode max size). */
 const NODE_W = 240
@@ -65,7 +72,11 @@ function toNodes(graph: FlowGraphNode[], activeId: string | null): Node<FlowNode
   }))
 }
 
-function toEdges(graph: FlowGraphEdge[], activeId: string | null): Edge[] {
+function toEdges(
+  graph: FlowGraphEdge[],
+  activeId: string | null,
+  reduceMotion: boolean,
+): Edge[] {
   return graph.map((e) => {
     const related = activeId != null && (e.source === activeId || e.target === activeId)
     // muted-foreground is readable in light+dark; plain --border is nearly invisible on dark.
@@ -78,7 +89,7 @@ function toEdges(graph: FlowGraphEdge[], activeId: string | null): Edge[] {
       target: e.target,
       label: e.label,
       type: 'smoothstep',
-      animated: related,
+      animated: related && !reduceMotion,
       zIndex: related ? 5 : 0,
       style: {
         stroke,
@@ -122,6 +133,7 @@ export function FlowCanvas({
   className,
 }: FlowCanvasProps) {
   const colorMode = useColorMode()
+  const reduceMotion = useMemo(() => prefersReducedMotion(), [])
   const size = useMemo(() => graphSize(graphNodes), [graphNodes])
 
   const nodes = useMemo(
@@ -129,8 +141,8 @@ export function FlowCanvas({
     [graphNodes, activeId],
   )
   const edges = useMemo(
-    () => toEdges(graphEdges, activeId),
-    [graphEdges, activeId],
+    () => toEdges(graphEdges, activeId, reduceMotion),
+    [graphEdges, activeId, reduceMotion],
   )
 
   const onNodeClick: NodeMouseHandler = useCallback(
@@ -140,10 +152,8 @@ export function FlowCanvas({
     [onSelect],
   )
 
-  const activeDescription = useMemo(() => {
-    if (!activeId) return null
-    return graphNodes.find((n) => n.id === activeId) ?? null
-  }, [activeId, graphNodes])
+  const activeDescription =
+    activeId == null ? null : (graphNodes.find((n) => n.id === activeId) ?? null)
 
   return (
     <div className={cn('space-y-4', className)}>
@@ -161,7 +171,7 @@ export function FlowCanvas({
           nodeTypes={nodeTypes}
           onNodeClick={onNodeClick}
           colorMode={colorMode}
-          defaultViewport={{ x: 0, y: 0, zoom: 1 }}
+          defaultViewport={DEFAULT_VIEWPORT}
           minZoom={1}
           maxZoom={1}
           nodesDraggable={false}
@@ -173,8 +183,8 @@ export function FlowCanvas({
           zoomOnPinch={false}
           zoomOnDoubleClick={false}
           preventScrolling={false}
-          proOptions={{ hideAttribution: true }}
-          defaultEdgeOptions={{ type: 'smoothstep' }}
+          proOptions={PRO_OPTIONS}
+          defaultEdgeOptions={DEFAULT_EDGE_OPTIONS}
           nodesFocusable
           edgesFocusable={false}
           selectNodesOnDrag={false}
@@ -187,7 +197,7 @@ export function FlowCanvas({
       </div>
 
       {activeDescription ? (
-        <div className="rounded-r-lg border-l-4 border-primary bg-primary/5 p-4 transition-all">
+        <div className="rounded-r-lg border-l-4 border-primary bg-primary/5 p-4 transition-[color,background-color,border-color,opacity]">
           <p className="font-mono text-sm font-semibold">
             {activeDescription.label}
           </p>

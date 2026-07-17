@@ -1,6 +1,10 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { CodeBlock } from '@/components/code-block'
+import {
+  externalLinkAriaLabel,
+  externalTextLinkClass,
+} from '@/lib/external-link'
 import { m } from '@/paraglide/messages.js'
 
 const HERMES_STEPS = [
@@ -25,7 +29,9 @@ export function Installation() {
   return (
     <section id="installation" className="scroll-mt-20 space-y-8">
       <div>
-        <h2 className="text-2xl font-bold tracking-tight">{m.installation_title()}</h2>
+        <h2 className="text-2xl font-bold tracking-tight text-balance">
+          {m.installation_title()}
+        </h2>
         <p className="mt-2 max-w-2xl text-muted-foreground">
           {m.installation_description()}
         </p>
@@ -35,24 +41,30 @@ export function Installation() {
         <Card className="border-primary/40">
           <CardHeader className="pb-3">
             <div className="flex items-center gap-3">
-              <CardTitle className="text-base">Hermes Agent</CardTitle>
+              <CardTitle as="h3" className="text-base">
+                Hermes Agent
+              </CardTitle>
               <Badge variant="default">Available</Badge>
             </div>
           </CardHeader>
           <CardContent className="space-y-3">
             <CodeBlock code={HERMES_STEPS} shell />
             <div className="space-y-1.5">
-              <p className="text-xs text-muted-foreground">{m.installation_alt_label()}</p>
+              <p className="text-xs text-muted-foreground">
+                {m.installation_alt_label()}
+              </p>
               <CodeBlock code={HERMES_ALT} />
             </div>
-            <p className="text-sm text-muted-foreground">{m.installation_notes_hermes()}</p>
+            <p className="text-sm text-muted-foreground">
+              {m.installation_notes_hermes()}
+            </p>
           </CardContent>
         </Card>
 
         <Card className="border-primary/40">
           <CardHeader className="pb-3">
             <div className="flex flex-wrap items-center gap-3">
-              <CardTitle className="text-base">
+              <CardTitle as="h3" className="text-base">
                 Claude Code · Codex · OpenCode · Cursor
               </CardTitle>
               <Badge variant="default">skills.sh</Badge>
@@ -69,7 +81,8 @@ export function Installation() {
                 href="https://skills.sh/mattpocock/skills"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="underline hover:text-foreground"
+                className={externalTextLinkClass}
+                aria-label={externalLinkAriaLabel('skills.sh/mattpocock/skills')}
               >
                 skills.sh/mattpocock/skills
               </a>
@@ -81,12 +94,15 @@ export function Installation() {
       <Card className="bg-muted/50">
         <CardContent className="pt-4">
           <p className="text-sm text-muted-foreground">
-            <strong className="text-foreground">{m.installation_attribution()}</strong>{' '}
+            <strong className="text-foreground">
+              {m.installation_attribution()}
+            </strong>{' '}
             <a
               href="https://github.com/mattpocock/skills"
               target="_blank"
               rel="noopener noreferrer"
-              className="underline hover:text-foreground"
+              className={externalTextLinkClass}
+              aria-label={externalLinkAriaLabel('mattpocock/skills')}
             >
               mattpocock/skills
             </a>{' '}

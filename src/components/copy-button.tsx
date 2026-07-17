@@ -31,21 +31,28 @@ export function CopyButton({ text, className }: CopyButtonProps) {
     }
   }
 
+  const label = copied ? m.copy_done() : m.copy_to_clipboard()
+
   return (
-    <Button
-      type="button"
-      variant="ghost"
-      size="icon-sm"
-      onClick={onCopy}
-      className={className}
-      aria-label={copied ? m.copy_done() : m.copy_to_clipboard()}
-      title={copied ? m.copy_done() : m.copy_to_clipboard()}
-    >
-      {copied ? (
-        <RiCheckLine className="size-4 text-emerald-600" />
-      ) : (
-        <RiFileCopyLine className="size-4" />
-      )}
-    </Button>
+    <>
+      <Button
+        type="button"
+        variant="ghost"
+        size="icon-sm"
+        onClick={onCopy}
+        className={className}
+        aria-label={label}
+        title={label}
+      >
+        {copied ? (
+          <RiCheckLine className="size-4 text-emerald-600" aria-hidden="true" />
+        ) : (
+          <RiFileCopyLine className="size-4" aria-hidden="true" />
+        )}
+      </Button>
+      <span className="sr-only" aria-live="polite">
+        {copied ? m.copy_done() : ''}
+      </span>
+    </>
   )
 }

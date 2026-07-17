@@ -1,7 +1,10 @@
-import { useMemo, useState } from 'react'
-import { FlowCanvas } from '@/features/flow/flow-canvas'
+import { lazy, Suspense, useMemo, useState } from 'react'
 import type { FlowGraphEdge, FlowGraphNode } from '@/features/flow/types'
 import { m } from '@/paraglide/messages.js'
+
+const FlowCanvas = lazy(() =>
+  import('@/features/flow/flow-canvas').then((mod) => ({ default: mod.FlowCanvas })),
+)
 
 // First-wave only on the recommended path.
 // first-wave: folder-specific…, setup-help, brain-to-docs, level-up,
@@ -110,7 +113,7 @@ export function DavidMainFlow() {
   return (
     <section id="flow" className="scroll-mt-20 space-y-6">
       <div>
-        <h2 className="font-heading text-2xl font-bold tracking-tight">
+        <h2 className="font-heading text-2xl font-bold tracking-tight text-balance">
           {m.david_flow_title()}
         </h2>
         <p className="mt-1 text-muted-foreground">{m.david_flow_description()}</p>
@@ -119,12 +122,23 @@ export function DavidMainFlow() {
         </p>
       </div>
 
-      <FlowCanvas
-        nodes={nodes}
-        edges={edges}
-        activeId={active}
-        onSelect={setActive}
-      />
+      <Suspense
+        fallback={
+          <div
+            className="flex min-h-[20rem] items-center justify-center rounded-lg border border-dashed border-border bg-muted/20 text-sm text-muted-foreground"
+            role="status"
+          >
+            {m.flow_loading()}
+          </div>
+        }
+      >
+        <FlowCanvas
+          nodes={nodes}
+          edges={edges}
+          activeId={active}
+          onSelect={setActive}
+        />
+      </Suspense>
     </section>
   )
 }

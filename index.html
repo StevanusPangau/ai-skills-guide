@@ -13,8 +13,27 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <!-- PWA Manifest -->
     <link rel="manifest" href="/site.webmanifest" />
-    <meta name="theme-color" content="#000000" />
+    <!-- Default dark; boot script + React keep theme-color in sync -->
+    <meta name="theme-color" content="#252525" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Apply stored theme before paint to avoid light/dark FOUC (default: dark) -->
+    <script>
+      try {
+        var t = localStorage.getItem('theme')
+        // Explicit light only when user chose light; otherwise dark.
+        var dark = t !== 'light'
+        if (dark) {
+          document.documentElement.classList.add('dark')
+        } else {
+          document.documentElement.classList.remove('dark')
+          var meta = document.querySelector('meta[name="theme-color"]')
+          if (meta) meta.setAttribute('content', '#ffffff')
+        }
+      } catch (e) {
+        document.documentElement.classList.add('dark')
+      }
+    </script>
 
     <title>Panduan AI Skills — Matt Pocock Workflow</title>
     <meta

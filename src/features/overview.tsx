@@ -1,12 +1,16 @@
 import { RiGithubFill } from '@remixicon/react'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { AuthorAvatar } from '@/components/author-avatar'
+import { XHandleLink } from '@/components/x-handle-link'
 import { Badge } from '@/components/ui/badge'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { getCollectionBySlug } from '@/data/collections'
 import {
   MATTPOCOCK_SOURCE_REPO,
   MATTPOCOCK_SOURCE_SHA,
   MATTPOCOCK_SOURCE_VERSION,
   skills,
 } from '@/data/skills'
+import { externalLinkAriaLabel } from '@/lib/external-link'
 import { m } from '@/paraglide/messages.js'
 
 export function Overview() {
@@ -14,6 +18,7 @@ export function Overview() {
   const engineering = skills.filter((s) => s.category === 'engineering').length
   const productivity = skills.filter((s) => s.category === 'productivity').length
   const shortSha = MATTPOCOCK_SOURCE_SHA.slice(0, 10)
+  const author = getCollectionBySlug('mattpocock')
 
   const failureModes = [
     {
@@ -50,13 +55,39 @@ export function Overview() {
           href="https://github.com/mattpocock/skills"
           target="_blank"
           rel="noopener noreferrer"
-          className="text-xs font-medium tracking-wide text-muted-foreground uppercase transition-colors hover:text-primary"
+          className="rounded-sm text-xs font-medium tracking-wide text-muted-foreground uppercase transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50"
+          aria-label={externalLinkAriaLabel(MATTPOCOCK_SOURCE_REPO)}
         >
           {MATTPOCOCK_SOURCE_REPO}
         </a>
-        <h1 className="font-heading mt-2 text-3xl font-bold tracking-tight text-balance sm:text-4xl">
-          {m.matt_hero_title()}
-        </h1>
+        <div className="mt-3 flex items-start gap-4">
+          {author?.avatarSrc ? (
+            <AuthorAvatar
+              src={author.avatarSrc}
+              name={author.author}
+              size="lg"
+              className="mt-1"
+            />
+          ) : null}
+          <div className="min-w-0">
+            <h1 className="font-heading text-3xl font-bold tracking-tight text-balance sm:text-4xl">
+              {m.matt_hero_title()}
+            </h1>
+            {author ? (
+              <p className="mt-1.5 text-sm text-muted-foreground">
+                <span className="font-medium text-foreground/90">
+                  {author.author}
+                </span>
+                {author.xHandle ? (
+                  <>
+                    <span className="text-muted-foreground/50"> · </span>
+                    <XHandleLink handle={author.xHandle} />
+                  </>
+                ) : null}
+              </p>
+            ) : null}
+          </div>
+        </div>
         <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted-foreground">
           {m.matt_hero_description()}
         </p>
@@ -65,9 +96,12 @@ export function Overview() {
           href={`https://github.com/mattpocock/skills/tree/${MATTPOCOCK_SOURCE_SHA}`}
           target="_blank"
           rel="noopener noreferrer"
-          className="mt-4 inline-flex items-center gap-1.5 text-sm text-primary hover:underline"
+          className="mt-4 inline-flex items-center gap-1.5 rounded-sm text-sm text-primary hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50"
+          aria-label={externalLinkAriaLabel(
+            `${m.matt_source_pinned()} ${MATTPOCOCK_SOURCE_VERSION} · ${shortSha}`,
+          )}
         >
-          <RiGithubFill className="size-4" />
+          <RiGithubFill className="size-4" aria-hidden="true" />
           {m.matt_source_pinned()}{' '}
           <span className="font-mono">
             {MATTPOCOCK_SOURCE_VERSION} · {shortSha}
@@ -85,7 +119,9 @@ export function Overview() {
       {/* Main Build Chain */}
       <Card className="border-2 border-primary/30 bg-primary/5">
         <CardHeader>
-          <CardTitle className="text-base">{m.overview_build_chain_title()}</CardTitle>
+          <CardTitle as="h2" className="text-base text-balance">
+            {m.overview_build_chain_title()}
+          </CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <p className="text-sm text-muted-foreground">
@@ -150,7 +186,9 @@ export function Overview() {
       {/* Smart Zone */}
       <Card className="border border-border">
         <CardHeader>
-          <CardTitle className="text-base">{m.overview_smart_zone_title()}</CardTitle>
+          <CardTitle as="h2" className="text-base text-balance">
+            {m.overview_smart_zone_title()}
+          </CardTitle>
         </CardHeader>
         <CardContent className="space-y-3">
           <p className="text-sm text-muted-foreground">
@@ -187,12 +225,14 @@ export function Overview() {
       </Card>
 
       <div>
-        <h3 className="mb-4 text-lg font-semibold">{m.overview_problems_title()}</h3>
+        <h2 className="mb-4 text-lg font-semibold text-balance">{m.overview_problems_title()}</h2>
         <div className="grid gap-4 sm:grid-cols-2">
           {failureModes.map((mode) => (
             <Card key={mode.title} className={mode.borderClass}>
               <CardHeader className="pb-2">
-                <CardTitle className="text-sm font-semibold">{mode.title}</CardTitle>
+                <CardTitle as="h3" className="text-sm font-semibold">
+                  {mode.title}
+                </CardTitle>
               </CardHeader>
               <CardContent className="space-y-2">
                 <p className="text-sm text-muted-foreground">{mode.description}</p>
@@ -211,14 +251,14 @@ export function Overview() {
 
       {/* User-invoked vs Model-invoked */}
       <div className="space-y-3">
-        <h3 className="text-lg font-semibold">{m.overview_invocation_title()}</h3>
+        <h2 className="text-lg font-semibold text-balance">{m.overview_invocation_title()}</h2>
         <p className="text-sm text-muted-foreground">
           {m.overview_invocation_description()}
         </p>
         <div className="flex flex-wrap gap-4">
           <div className="flex items-center gap-2">
             <Badge variant="default" className="text-xs">
-              User-invoked
+              {m.skills_filter_user()}
             </Badge>
             <span className="text-sm text-muted-foreground">
               {m.overview_invocation_user()}
@@ -226,7 +266,7 @@ export function Overview() {
           </div>
           <div className="flex items-center gap-2">
             <Badge variant="secondary" className="text-xs">
-              Model-invoked
+              {m.skills_filter_model()}
             </Badge>
             <span className="text-sm text-muted-foreground">
               {m.overview_invocation_model()}
@@ -241,7 +281,7 @@ export function Overview() {
 function Stat({ value, label }: { value: string; label: string }) {
   return (
     <div className="flex flex-col">
-      <span className="font-heading text-2xl font-bold tracking-tight text-foreground">
+      <span className="font-heading text-2xl font-bold tracking-tight text-foreground tabular-nums">
         {value}
       </span>
       <span className="text-xs text-muted-foreground">{label}</span>

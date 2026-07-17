@@ -1,5 +1,5 @@
-import { skills } from '@/data/skills'
-import { davidondrejSkills } from '@/data/davidondrej-skills'
+import { MATTPOCOCK_SKILL_COUNT } from '@/data/skills-meta'
+import { DAVIDONDREJ_SKILL_COUNT } from '@/data/davidondrej-skills-meta'
 import { m } from '@/paraglide/messages.js'
 
 export type CollectionStatus = 'available' | 'coming-soon'
@@ -10,6 +10,10 @@ export type Collection = {
   /** Route path untuk Link tujuan (undefined jika coming-soon) */
   to?: string
   author: string
+  /** Local path under public/ — X/Twitter profile snapshot, self-hosted */
+  avatarSrc?: string
+  /** X handle without @ */
+  xHandle?: string
   title: string
   description: string
   /** Jumlah skill; jika 0 dan status coming-soon, badge disembunyikan */
@@ -27,9 +31,11 @@ export function getCollections(): Collection[] {
       slug: 'mattpocock',
       to: '/mattpocock',
       author: 'Matt Pocock',
+      avatarSrc: '/avatars/mattpocock.jpg',
+      xHandle: 'mattpocockuk',
       title: 'AI Coding Skills',
       description: m.collection_mattpocock_description(),
-      skillCount: skills.length,
+      skillCount: MATTPOCOCK_SKILL_COUNT,
       status: 'available',
       source: 'github.com/mattpocock/skills',
       tags: ['engineering', 'workflow', 'agentic'],
@@ -38,14 +44,21 @@ export function getCollections(): Collection[] {
       slug: 'davidondrej',
       to: '/davidondrej',
       author: 'David Ondrej',
+      avatarSrc: '/avatars/davidondrej.jpg',
+      xHandle: 'DavidOndrej1',
       title: 'Personal Agent Skills',
       description: m.collection_davidondrej_description(),
-      skillCount: davidondrejSkills.length,
+      skillCount: DAVIDONDREJ_SKILL_COUNT,
       status: 'available',
       source: 'github.com/davidondrej/skills',
       tags: ['orchestration', 'research', 'authoring'],
     },
   ]
+}
+
+/** Stable lookup for skill pages / catalogs that need author branding. */
+export function getCollectionBySlug(slug: string): Collection | undefined {
+  return getCollections().find((c) => c.slug === slug)
 }
 
 export function getAvailableCollections() {

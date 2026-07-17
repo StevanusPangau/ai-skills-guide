@@ -53,9 +53,9 @@ export function Workflows() {
   const workflows = getWorkflows()
 
   return (
-    <section id="workflows" className="space-y-6">
+    <section id="workflows" className="scroll-mt-20 space-y-6">
       <div>
-        <h2 className="text-2xl font-bold tracking-tight">{m.workflows_title()}</h2>
+        <h2 className="text-2xl font-bold tracking-tight text-balance">{m.workflows_title()}</h2>
         <p className="text-muted-foreground mt-1">
           {m.workflows_description()}
         </p>

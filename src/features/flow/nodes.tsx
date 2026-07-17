@@ -1,23 +1,23 @@
 import { memo } from 'react'
 import { Handle, Position, type NodeProps, type Node } from '@xyflow/react'
-import type { FlowNodeData } from './types'
+import type { FlowNodeData, FlowNodeKind } from './types'
 import { cn } from '@/lib/utils'
 
 export type GuideNode = Node<FlowNodeData, 'guide'>
 
-function GuideNodeComponent({ data, selected }: NodeProps<GuideNode>) {
-  const isDecision = data.kind === 'decision'
-  const isOnramp = data.kind === 'onramp'
-  const isCommit = data.kind === 'commit'
+const kindClass: Record<FlowNodeKind, string> = {
+  skill: 'border-border',
+  decision: 'border-dashed border-amber-500/60',
+  onramp: 'border-sky-500/50',
+  commit: 'border-emerald-500/50',
+}
 
+function GuideNodeComponent({ data, selected }: NodeProps<GuideNode>) {
   return (
     <div
       className={cn(
-        'relative min-w-[188px] max-w-[240px] cursor-pointer rounded-lg border bg-card px-3.5 py-3 shadow-sm transition-all',
-        isDecision && 'border-dashed border-amber-500/60',
-        isOnramp && 'border-sky-500/50',
-        isCommit && 'border-emerald-500/50',
-        !isDecision && !isOnramp && !isCommit && 'border-border',
+        'relative min-w-[188px] max-w-[240px] cursor-pointer rounded-lg border bg-card px-3.5 py-3 shadow-sm transition-[color,background-color,border-color,box-shadow]',
+        kindClass[data.kind],
         selected && 'border-primary ring-2 ring-primary/30 shadow-md',
       )}
     >
@@ -31,7 +31,7 @@ function GuideNodeComponent({ data, selected }: NodeProps<GuideNode>) {
       <p
         className={cn(
           'text-sm font-semibold leading-snug',
-          isDecision ? 'font-sans' : 'font-mono',
+          data.kind === 'decision' ? 'font-sans' : 'font-mono',
         )}
       >
         {data.label}
