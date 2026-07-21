@@ -43,7 +43,6 @@ function MattPocockPage() {
   return (
     <CollectionGuideLayout
       sections={sections}
-      subtitle={m.sidebar_subtitle()}
       stats={m.sidebar_stats()}
       footer={
         <p className="text-center text-xs text-muted-foreground">

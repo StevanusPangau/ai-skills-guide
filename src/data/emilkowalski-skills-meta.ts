@@ -1,0 +1,1 @@
+export const EMILKOWALSKI_SKILL_COUNT = 6

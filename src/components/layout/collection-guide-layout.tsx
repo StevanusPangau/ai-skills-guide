@@ -5,7 +5,6 @@ import { m } from '@/paraglide/messages.js'
 
 type CollectionGuideLayoutProps = {
   sections: SidebarSection[]
-  subtitle: string
   stats: string
   footer: ReactNode
   children: ReactNode
@@ -13,7 +12,6 @@ type CollectionGuideLayoutProps = {
 
 export function CollectionGuideLayout({
   sections,
-  subtitle,
   stats,
   footer,
   children,
@@ -27,7 +25,6 @@ export function CollectionGuideLayout({
         open={sidebarOpen}
         onClose={() => setSidebarOpen(false)}
         sections={sections}
-        subtitle={subtitle}
         stats={stats}
         returnFocusRef={fabRef}
       />

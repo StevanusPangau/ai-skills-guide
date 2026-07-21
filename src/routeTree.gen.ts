@@ -10,16 +10,24 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as MattpocockRouteImport } from './routes/mattpocock'
+import { Route as EmilkowalskiRouteImport } from './routes/emilkowalski'
 import { Route as DavidondrejRouteImport } from './routes/davidondrej'
 import { Route as CollectionsRouteImport } from './routes/collections'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as EmilkowalskiIndexRouteImport } from './routes/emilkowalski.index'
 import { Route as DavidondrejIndexRouteImport } from './routes/davidondrej.index'
 import { Route as SkillsSkillNameRouteImport } from './routes/skills.$skillName'
+import { Route as EmilkowalskiSkillsSkillNameRouteImport } from './routes/emilkowalski.skills.$skillName'
 import { Route as DavidondrejSkillsSkillNameRouteImport } from './routes/davidondrej.skills.$skillName'
 
 const MattpocockRoute = MattpocockRouteImport.update({
   id: '/mattpocock',
   path: '/mattpocock',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EmilkowalskiRoute = EmilkowalskiRouteImport.update({
+  id: '/emilkowalski',
+  path: '/emilkowalski',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DavidondrejRoute = DavidondrejRouteImport.update({
@@ -37,6 +45,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EmilkowalskiIndexRoute = EmilkowalskiIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => EmilkowalskiRoute,
+} as any)
 const DavidondrejIndexRoute = DavidondrejIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -47,6 +60,12 @@ const SkillsSkillNameRoute = SkillsSkillNameRouteImport.update({
   path: '/skills/$skillName',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EmilkowalskiSkillsSkillNameRoute =
+  EmilkowalskiSkillsSkillNameRouteImport.update({
+    id: '/skills/$skillName',
+    path: '/skills/$skillName',
+    getParentRoute: () => EmilkowalskiRoute,
+  } as any)
 const DavidondrejSkillsSkillNameRoute =
   DavidondrejSkillsSkillNameRouteImport.update({
     id: '/skills/$skillName',
@@ -58,10 +77,13 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/collections': typeof CollectionsRoute
   '/davidondrej': typeof DavidondrejRouteWithChildren
+  '/emilkowalski': typeof EmilkowalskiRouteWithChildren
   '/mattpocock': typeof MattpocockRoute
   '/skills/$skillName': typeof SkillsSkillNameRoute
   '/davidondrej/': typeof DavidondrejIndexRoute
+  '/emilkowalski/': typeof EmilkowalskiIndexRoute
   '/davidondrej/skills/$skillName': typeof DavidondrejSkillsSkillNameRoute
+  '/emilkowalski/skills/$skillName': typeof EmilkowalskiSkillsSkillNameRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -69,17 +91,22 @@ export interface FileRoutesByTo {
   '/mattpocock': typeof MattpocockRoute
   '/skills/$skillName': typeof SkillsSkillNameRoute
   '/davidondrej': typeof DavidondrejIndexRoute
+  '/emilkowalski': typeof EmilkowalskiIndexRoute
   '/davidondrej/skills/$skillName': typeof DavidondrejSkillsSkillNameRoute
+  '/emilkowalski/skills/$skillName': typeof EmilkowalskiSkillsSkillNameRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/collections': typeof CollectionsRoute
   '/davidondrej': typeof DavidondrejRouteWithChildren
+  '/emilkowalski': typeof EmilkowalskiRouteWithChildren
   '/mattpocock': typeof MattpocockRoute
   '/skills/$skillName': typeof SkillsSkillNameRoute
   '/davidondrej/': typeof DavidondrejIndexRoute
+  '/emilkowalski/': typeof EmilkowalskiIndexRoute
   '/davidondrej/skills/$skillName': typeof DavidondrejSkillsSkillNameRoute
+  '/emilkowalski/skills/$skillName': typeof EmilkowalskiSkillsSkillNameRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -87,10 +114,13 @@ export interface FileRouteTypes {
     | '/'
     | '/collections'
     | '/davidondrej'
+    | '/emilkowalski'
     | '/mattpocock'
     | '/skills/$skillName'
     | '/davidondrej/'
+    | '/emilkowalski/'
     | '/davidondrej/skills/$skillName'
+    | '/emilkowalski/skills/$skillName'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -98,22 +128,28 @@ export interface FileRouteTypes {
     | '/mattpocock'
     | '/skills/$skillName'
     | '/davidondrej'
+    | '/emilkowalski'
     | '/davidondrej/skills/$skillName'
+    | '/emilkowalski/skills/$skillName'
   id:
     | '__root__'
     | '/'
     | '/collections'
     | '/davidondrej'
+    | '/emilkowalski'
     | '/mattpocock'
     | '/skills/$skillName'
     | '/davidondrej/'
+    | '/emilkowalski/'
     | '/davidondrej/skills/$skillName'
+    | '/emilkowalski/skills/$skillName'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CollectionsRoute: typeof CollectionsRoute
   DavidondrejRoute: typeof DavidondrejRouteWithChildren
+  EmilkowalskiRoute: typeof EmilkowalskiRouteWithChildren
   MattpocockRoute: typeof MattpocockRoute
   SkillsSkillNameRoute: typeof SkillsSkillNameRoute
 }
@@ -125,6 +161,13 @@ declare module '@tanstack/react-router' {
       path: '/mattpocock'
       fullPath: '/mattpocock'
       preLoaderRoute: typeof MattpocockRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/emilkowalski': {
+      id: '/emilkowalski'
+      path: '/emilkowalski'
+      fullPath: '/emilkowalski'
+      preLoaderRoute: typeof EmilkowalskiRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/davidondrej': {
@@ -148,6 +191,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/emilkowalski/': {
+      id: '/emilkowalski/'
+      path: '/'
+      fullPath: '/emilkowalski/'
+      preLoaderRoute: typeof EmilkowalskiIndexRouteImport
+      parentRoute: typeof EmilkowalskiRoute
+    }
     '/davidondrej/': {
       id: '/davidondrej/'
       path: '/'
@@ -161,6 +211,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/skills/$skillName'
       preLoaderRoute: typeof SkillsSkillNameRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/emilkowalski/skills/$skillName': {
+      id: '/emilkowalski/skills/$skillName'
+      path: '/skills/$skillName'
+      fullPath: '/emilkowalski/skills/$skillName'
+      preLoaderRoute: typeof EmilkowalskiSkillsSkillNameRouteImport
+      parentRoute: typeof EmilkowalskiRoute
     }
     '/davidondrej/skills/$skillName': {
       id: '/davidondrej/skills/$skillName'
@@ -186,10 +243,25 @@ const DavidondrejRouteWithChildren = DavidondrejRoute._addFileChildren(
   DavidondrejRouteChildren,
 )
 
+interface EmilkowalskiRouteChildren {
+  EmilkowalskiIndexRoute: typeof EmilkowalskiIndexRoute
+  EmilkowalskiSkillsSkillNameRoute: typeof EmilkowalskiSkillsSkillNameRoute
+}
+
+const EmilkowalskiRouteChildren: EmilkowalskiRouteChildren = {
+  EmilkowalskiIndexRoute: EmilkowalskiIndexRoute,
+  EmilkowalskiSkillsSkillNameRoute: EmilkowalskiSkillsSkillNameRoute,
+}
+
+const EmilkowalskiRouteWithChildren = EmilkowalskiRoute._addFileChildren(
+  EmilkowalskiRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CollectionsRoute: CollectionsRoute,
   DavidondrejRoute: DavidondrejRouteWithChildren,
+  EmilkowalskiRoute: EmilkowalskiRouteWithChildren,
   MattpocockRoute: MattpocockRoute,
   SkillsSkillNameRoute: SkillsSkillNameRoute,
 }
