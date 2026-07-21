@@ -31,6 +31,7 @@ Ringkasan yang tersedia hari ini (jumlah/pin berubah seiring koleksi bertumbuh):
 | Koleksi | Route | Upstream | Katalog | Bundle Hermes |
 |---|---|---|---|---|
 | Matt Pocock — AI Coding Skills | [`/mattpocock`](https://skills.stevanuspangau.cloud/mattpocock) | [mattpocock/skills](https://github.com/mattpocock/skills) `v1.1.0` | 22 | `skills/hermes/` (22) |
+| Emil Kowalski — Design Engineering Skills | [`/emilkowalski`](https://skills.stevanuspangau.cloud/emilkowalski) | [emilkowalski/skills](https://github.com/emilkowalski/skills) pin `6bf24434…` | 6 | Upstream via skills.sh |
 | David Ondrej — Personal Agent Skills | [`/davidondrej`](https://skills.stevanuspangau.cloud/davidondrej) | [davidondrej/skills](https://github.com/davidondrej/skills) pin `2f70c586…` | 28 (+ compat/risk) | `skills/davidondrej/` first-wave 9 |
 
 Beberapa koleksi mendokumentasikan upstream lebih luas dari yang di-ship sebagai first-wave Hermes. Halaman per-koleksi dan `skills/*/UPSTREAM.md` / `ATTRIBUTION.md` (jika ada) adalah sumber kebenaran untuk pin dan cakupan.

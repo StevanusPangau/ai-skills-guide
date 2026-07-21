@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- **Emil Kowalski collection** (`/emilkowalski`) — bilingual guide to six design-engineering and motion skills from `emilkowalski/skills`, pinned to commit `6bf24434…`, with nested skill detail routes and official skills.sh installation
+- **Interactive Preview Lab** — per-skill before/after demos for popover polish, gesture physics, animation vocabulary, motion-opportunity filtering, diff review, and audit-to-plan workflows; supports pointer, keyboard, replay/reset, and reduced motion
+- **Emil author branding** — self-hosted X profile avatar and `@emilkowalski` links across collection surfaces
+
+### Changed
+- Collection sidebar starts directly with section navigation; removed descriptive subtitle from Matt, David, and Emil guides
+- Emil guide labels, categories, invocation modes, preview controls, and skill navigation are localized in Indonesian and English
+- Emil source metadata, support-file links, output contracts, and read-only boundaries document upstream behavior more precisely
+
+### Fixed
+- Mobile sidebar content is no longer keyboard-focusable while the drawer is closed
+- Skill install heading level and Emil detail/list/navigation semantics are accessible and mobile-safe
+- Emil catalog cards retain full block borders after list-semantics markup
+
 ## [v1.3.0] - 2026-07-17
 
 ### Added

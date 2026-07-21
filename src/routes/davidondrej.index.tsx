@@ -43,7 +43,6 @@ function DavidPage() {
   return (
     <CollectionGuideLayout
       sections={sections}
-      subtitle={m.david_sidebar_subtitle()}
       stats={m.david_sidebar_stats()}
       footer={
         <p className="text-center text-xs text-muted-foreground">

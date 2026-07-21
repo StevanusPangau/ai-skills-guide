@@ -21,7 +21,6 @@ interface SidebarProps {
   open: boolean
   onClose: () => void
   sections: SidebarSection[]
-  subtitle: string
   stats: string
   /** Element to restore focus to when the mobile drawer closes (e.g. FAB). */
   returnFocusRef?: RefObject<HTMLElement | null>
@@ -34,7 +33,6 @@ export function Sidebar({
   open,
   onClose,
   sections,
-  subtitle,
   stats,
   returnFocusRef,
 }: SidebarProps) {
@@ -178,17 +176,13 @@ export function Sidebar({
           transform transition-transform duration-200 ease-in-out
           safe-left
           lg:sticky lg:top-14 lg:h-[calc(100vh-3.5rem)] lg:translate-x-0
-          ${open ? 'translate-x-0' : '-translate-x-full'}
+          ${open ? 'visible translate-x-0' : 'invisible -translate-x-full lg:visible'}
         `}
         role={open ? 'dialog' : undefined}
         aria-modal={open ? true : undefined}
         aria-label={open ? m.section_navigation() : undefined}
       >
         <div className="flex h-full flex-col p-6">
-          <div className="mb-8">
-            <p className="mt-1 text-xs text-muted-foreground">{subtitle}</p>
-          </div>
-
           <nav
             ref={navRef}
             className="flex-1 space-y-1"

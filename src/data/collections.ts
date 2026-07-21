@@ -1,5 +1,6 @@
 import { MATTPOCOCK_SKILL_COUNT } from '@/data/skills-meta'
 import { DAVIDONDREJ_SKILL_COUNT } from '@/data/davidondrej-skills-meta'
+import { EMILKOWALSKI_SKILL_COUNT } from '@/data/emilkowalski-skills-meta'
 import { m } from '@/paraglide/messages.js'
 
 export type CollectionStatus = 'available' | 'coming-soon'
@@ -39,6 +40,19 @@ export function getCollections(): Collection[] {
       status: 'available',
       source: 'github.com/mattpocock/skills',
       tags: ['engineering', 'workflow', 'agentic'],
+    },
+    {
+      slug: 'emilkowalski',
+      to: '/emilkowalski',
+      author: 'Emil Kowalski',
+      avatarSrc: '/avatars/emilkowalski.jpg',
+      xHandle: 'emilkowalski',
+      title: 'Design Engineering Skills',
+      description: m.collection_emilkowalski_description(),
+      skillCount: EMILKOWALSKI_SKILL_COUNT,
+      status: 'available',
+      source: 'github.com/emilkowalski/skills',
+      tags: ['design-engineering', 'animation', 'motion'],
     },
     {
       slug: 'davidondrej',

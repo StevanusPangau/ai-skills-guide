@@ -31,6 +31,7 @@ Snapshot of what ships today (counts/pins change as collections grow):
 | Collection | Route | Upstream | Catalog | Hermes bundle |
 |---|---|---|---|---|
 | Matt Pocock — AI Coding Skills | [`/mattpocock`](https://skills.stevanuspangau.cloud/mattpocock) | [mattpocock/skills](https://github.com/mattpocock/skills) `v1.1.0` | 22 | `skills/hermes/` (22) |
+| Emil Kowalski — Design Engineering Skills | [`/emilkowalski`](https://skills.stevanuspangau.cloud/emilkowalski) | [emilkowalski/skills](https://github.com/emilkowalski/skills) pin `6bf24434…` | 6 | Upstream via skills.sh |
 | David Ondrej — Personal Agent Skills | [`/davidondrej`](https://skills.stevanuspangau.cloud/davidondrej) | [davidondrej/skills](https://github.com/davidondrej/skills) pin `2f70c586…` | 28 (+ compat/risk) | `skills/davidondrej/` first-wave 9 |
 
 Some collections document upstream more broadly than they ship as a Hermes first-wave. Per-collection pages and `skills/*/UPSTREAM.md` / `ATTRIBUTION.md` (when present) are the source of truth for pins and scope.
