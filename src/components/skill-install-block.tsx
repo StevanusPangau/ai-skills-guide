@@ -1,4 +1,8 @@
 import { CodeBlock } from '@/components/code-block'
+import {
+  externalLinkAriaLabel,
+  externalTextLinkClass,
+} from '@/lib/external-link'
 import { m } from '@/paraglide/messages.js'
 
 type SkillInstallBlockProps = {
@@ -22,7 +26,10 @@ export function SkillInstallBlock({ source, skillName }: SkillInstallBlockProps)
         href={pageUrl}
         target="_blank"
         rel="noopener noreferrer"
-        className="inline-block text-xs text-muted-foreground underline hover:text-foreground"
+        className={`inline-block text-xs text-muted-foreground ${externalTextLinkClass}`}
+        aria-label={externalLinkAriaLabel(
+          `skills.sh/${source}/${skillName}`,
+        )}
       >
         skills.sh/{source}/{skillName}
       </a>

@@ -2,6 +2,10 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { CodeBlock } from '@/components/code-block'
 import { davidondrejSkills } from '@/data/davidondrej-skills'
+import {
+  externalLinkAriaLabel,
+  externalTextLinkClass,
+} from '@/lib/external-link'
 import { m } from '@/paraglide/messages.js'
 
 const firstWave = davidondrejSkills.filter((s) => s.bundleStatus === 'first-wave')
@@ -27,7 +31,7 @@ export function DavidInstall() {
   return (
     <section id="installation" className="scroll-mt-20 space-y-8">
       <div>
-        <h2 className="font-heading text-2xl font-bold tracking-tight">
+        <h2 className="font-heading text-2xl font-bold tracking-tight text-balance">
           {m.david_install_title()}
         </h2>
         <p className="mt-2 max-w-2xl text-muted-foreground">
@@ -39,14 +43,18 @@ export function DavidInstall() {
         <Card className="border-primary/40">
           <CardHeader className="pb-3">
             <div className="flex items-center gap-3">
-              <CardTitle className="text-base">Hermes Agent</CardTitle>
+              <CardTitle as="h3" className="text-base">
+                Hermes Agent
+              </CardTitle>
               <Badge variant="default">Available</Badge>
             </div>
           </CardHeader>
           <CardContent className="space-y-3">
             <CodeBlock code={HERMES_STEPS} shell />
             <div className="space-y-1.5">
-              <p className="text-xs text-muted-foreground">{m.installation_alt_label()}</p>
+              <p className="text-xs text-muted-foreground">
+                {m.installation_alt_label()}
+              </p>
               <CodeBlock code={HERMES_ALT} />
             </div>
             <p className="text-sm text-muted-foreground">
@@ -68,7 +76,7 @@ export function DavidInstall() {
         <Card className="border-primary/40">
           <CardHeader className="pb-3">
             <div className="flex flex-wrap items-center gap-3">
-              <CardTitle className="text-base">
+              <CardTitle as="h3" className="text-base">
                 Claude Code · Codex · OpenCode · Cursor
               </CardTitle>
               <Badge variant="default">skills.sh</Badge>
@@ -85,7 +93,10 @@ export function DavidInstall() {
                 href="https://skills.sh/davidondrej/skills"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="underline hover:text-foreground"
+                className={externalTextLinkClass}
+                aria-label={externalLinkAriaLabel(
+                  'skills.sh/davidondrej/skills',
+                )}
               >
                 skills.sh/davidondrej/skills
               </a>
@@ -97,12 +108,15 @@ export function DavidInstall() {
       <Card className="bg-muted/50">
         <CardContent className="pt-4">
           <p className="text-sm text-muted-foreground">
-            <strong className="text-foreground">{m.installation_attribution()}</strong>{' '}
+            <strong className="text-foreground">
+              {m.installation_attribution()}
+            </strong>{' '}
             <a
               href="https://github.com/davidondrej/skills"
               target="_blank"
               rel="noopener noreferrer"
-              className="underline hover:text-foreground"
+              className={externalTextLinkClass}
+              aria-label={externalLinkAriaLabel('davidondrej/skills')}
             >
               davidondrej/skills
             </a>{' '}

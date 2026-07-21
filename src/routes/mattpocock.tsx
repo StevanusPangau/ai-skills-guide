@@ -1,6 +1,6 @@
-import { useState } from 'react'
+import { useMemo, Fragment } from 'react'
 import { createFileRoute } from '@tanstack/react-router'
-import { Sidebar } from '@/components/layout/sidebar'
+import { CollectionGuideLayout } from '@/components/layout/collection-guide-layout'
 import { Overview } from '@/features/overview'
 import { MainFlow } from '@/features/main-flow'
 import { SkillsSection } from '@/features/skills/skills-section'
@@ -8,7 +8,6 @@ import { Workflows } from '@/features/workflows'
 import { Concepts } from '@/features/concepts'
 import { Installation } from '@/features/installation'
 import { Separator } from '@/components/ui/separator'
-import { Button } from '@/components/ui/button'
 import { useDocumentTitle } from '@/lib/use-document-title'
 import { m } from '@/paraglide/messages.js'
 
@@ -17,62 +16,47 @@ export const Route = createFileRoute('/mattpocock')({
 })
 
 function MattPocockPage() {
-  const [sidebarOpen, setSidebarOpen] = useState(false)
   useDocumentTitle('Matt Pocock')
 
-  const sections = [
-    { id: 'overview', label: m.sidebar_overview() },
-    { id: 'flow', label: m.sidebar_flow() },
-    { id: 'skills', label: m.sidebar_skills() },
-    { id: 'workflows', label: m.sidebar_workflows() },
-    { id: 'concepts', label: m.sidebar_concepts() },
-    { id: 'installation', label: m.sidebar_installation() },
+  // Locale switch reloads the page, so labels are stable for this mount.
+  const sections = useMemo(
+    () => [
+      { id: 'overview', label: m.sidebar_overview() },
+      { id: 'flow', label: m.sidebar_flow() },
+      { id: 'skills', label: m.sidebar_skills() },
+      { id: 'workflows', label: m.sidebar_workflows() },
+      { id: 'concepts', label: m.sidebar_concepts() },
+      { id: 'installation', label: m.sidebar_installation() },
+    ],
+    [],
+  )
+
+  const sectionsContent = [
+    <Overview key="overview" />,
+    <MainFlow key="flow" />,
+    <SkillsSection key="skills" />,
+    <Workflows key="workflows" />,
+    <Concepts key="concepts" />,
+    <Installation key="installation" />,
   ]
 
   return (
-    <div className="flex flex-1 pt-14">
-      <Sidebar
-        open={sidebarOpen}
-        onClose={() => setSidebarOpen(false)}
-        sections={sections}
-        subtitle={m.sidebar_subtitle()}
-        stats={m.sidebar_stats()}
-      />
-
-      {/* Mobile sidebar toggle */}
-      <Button
-        variant="outline"
-        size="icon"
-        className="fixed bottom-4 left-4 z-30 shadow-md lg:hidden"
-        onClick={() => setSidebarOpen(true)}
-        aria-label="Open navigation"
-      >
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2">
-          <path d="M3 5h14M3 10h14M3 15h14" />
-        </svg>
-      </Button>
-
-      <main className="min-w-0 flex-1">
-        <div className="mx-auto max-w-3xl space-y-16 px-6 py-12">
-          <Overview />
-          <Separator />
-          <MainFlow />
-          <Separator />
-          <SkillsSection />
-          <Separator />
-          <Workflows />
-          <Separator />
-          <Concepts />
-          <Separator />
-          <Installation />
-
-          <footer className="border-t border-border pt-8 pb-4">
-            <p className="text-center text-xs text-muted-foreground">
-              {m.footer_mattpocock()}
-            </p>
-          </footer>
-        </div>
-      </main>
-    </div>
+    <CollectionGuideLayout
+      sections={sections}
+      subtitle={m.sidebar_subtitle()}
+      stats={m.sidebar_stats()}
+      footer={
+        <p className="text-center text-xs text-muted-foreground">
+          {m.footer_mattpocock()}
+        </p>
+      }
+    >
+      {sectionsContent.map((section, i) => (
+        <Fragment key={section.key}>
+          {i > 0 ? <Separator /> : null}
+          {section}
+        </Fragment>
+      ))}
+    </CollectionGuideLayout>
   )
 }

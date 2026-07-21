@@ -1,17 +1,33 @@
-import { useEffect } from 'react'
-import { createFileRoute, Link, notFound } from '@tanstack/react-router'
-import { RiLightbulbLine } from '@remixicon/react'
-import { skills } from '@/data/skills'
-import { getOfficialTitle, getWhenNotToUse } from '@/types/skill'
-import type { Skill } from '@/types/skill'
+import { useEffect, useRef } from 'react'
+import {
+  createFileRoute,
+  Link,
+  notFound,
+  useNavigate,
+} from '@tanstack/react-router'
+import { AuthorAvatar } from '@/components/author-avatar'
+import { XHandleLink } from '@/components/x-handle-link'
 import { Badge } from '@/components/ui/badge'
 import { Separator } from '@/components/ui/separator'
+import { OnThisPage } from '@/components/layout/on-this-page'
+import { getCollectionBySlug } from '@/data/collections'
+import { skills } from '@/data/skills'
+import { SkillDetailBody } from '@/features/skills/skill-detail'
+import { getSkillTocItems } from '@/features/skills/skill-detail-toc'
+import { resetSkillDetailScroll } from '@/lib/scroll-to-section'
 import { useDocumentTitle } from '@/lib/use-document-title'
+import type { Skill } from '@/types/skill'
+import { getOfficialTitle } from '@/types/skill'
+import { m } from '@/paraglide/messages.js'
+
+const skillIndexByName = new Map(
+  skills.map((skill, index) => [skill.name, index] as const),
+)
 
 export const Route = createFileRoute('/skills/$skillName')({
   loader: ({ params }) => {
-    const index = skills.findIndex((s) => s.name === params.skillName)
-    if (index === -1) throw notFound()
+    const index = skillIndexByName.get(params.skillName)
+    if (index === undefined) throw notFound()
     return {
       skill: skills[index],
       prev: index > 0 ? skills[index - 1] : null,
@@ -23,213 +39,160 @@ export const Route = createFileRoute('/skills/$skillName')({
 })
 
 function borderColor(skill: Skill): string {
-  if (skill.category === 'engineering' && skill.invocation === 'user') return 'border-l-orange-700'
-  if (skill.category === 'engineering' && skill.invocation === 'model') return 'border-l-violet-600'
-  if (skill.category === 'productivity' && skill.invocation === 'user') return 'border-l-emerald-600'
+  if (skill.category === 'engineering' && skill.invocation === 'user')
+    return 'border-l-orange-700'
+  if (skill.category === 'engineering' && skill.invocation === 'model')
+    return 'border-l-violet-600'
+  if (skill.category === 'productivity' && skill.invocation === 'user')
+    return 'border-l-emerald-600'
   return 'border-l-sky-600'
 }
 
+const crumbLinkClass =
+  'rounded-sm transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50'
+const navCardClass =
+  'group rounded-lg border border-border p-3 transition-colors hover:border-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50'
+
 function SkillPage() {
   const { skill, prev, next } = Route.useLoaderData()
-  const whenNotToUse = getWhenNotToUse(skill)
+  const navigate = useNavigate()
   useDocumentTitle(`/${skill.name}`)
+  const author = getCollectionBySlug('mattpocock')
 
-  // Navigasi antar-skill memakai route pattern yang sama, jadi komponen tidak
-  // unmount — reset scroll ke atas secara eksplisit setiap ganti skill.
+  // Sibling detail pages share this route pattern, so the component does not
+  // unmount on navigation — reset scroll on skill change. Keep hash on first
+  // paint so OnThisPage can deep-link.
+  const prevSkillName = useRef<string | null>(null)
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'instant' })
-  }, [skill.name])
+    const prev = prevSkillName.current
+    prevSkillName.current = skill.name
+    void resetSkillDetailScroll(navigate, {
+      isFirstMount: prev === null,
+      skillChanged: prev !== null && prev !== skill.name,
+    })
+  }, [skill.name, navigate])
+
+  const tocItems = getSkillTocItems(skill)
 
   return (
-    <main className="flex-1 min-w-0 pt-14">
-      <div className="max-w-3xl mx-auto px-6 py-10 space-y-8">
-        {/* Breadcrumb */}
-        <div className="text-sm text-muted-foreground">
-          <Link to="/" className="hover:text-primary transition-colors">
-            Beranda
-          </Link>
-          <span className="mx-2">/</span>
-          <Link to="/mattpocock" hash="skills" className="hover:text-primary transition-colors">
-            Matt Pocock
-          </Link>
-          <span className="mx-2">/</span>
-          <span className="text-foreground font-mono">{skill.name}</span>
-        </div>
-
-        {/* Header */}
-        <div className={`border-l-4 ${borderColor(skill)} pl-4`}>
-          <h1 className="text-2xl font-bold tracking-tight font-mono">/{skill.name}</h1>
-          <p className="text-sm text-muted-foreground mt-1">{getOfficialTitle(skill)}</p>
-          <div className="flex items-center gap-2 flex-wrap mt-3">
-            <Badge variant="outline" className="text-xs">{skill.category}</Badge>
-            <Badge variant={skill.invocation === 'user' ? 'default' : 'secondary'} className="text-xs">
-              {skill.invocation}-invoked
-            </Badge>
+    <main id="main-content" className="min-w-0 flex-1 pt-14">
+      <div className="mx-auto flex max-w-6xl gap-10 px-6 py-10">
+        <div className="min-w-0 max-w-3xl flex-1 space-y-8">
+          <div className="text-sm text-muted-foreground">
+            <Link to="/" className={crumbLinkClass}>
+              {m.nav_home()}
+            </Link>
+            <span className="mx-2">/</span>
+            <Link to="/mattpocock" hash="skills" className={crumbLinkClass}>
+              {m.nav_matt_pocock()}
+            </Link>
+            <span className="mx-2">/</span>
+            <span className="font-mono text-foreground">{skill.name}</span>
           </div>
-          <p className="text-sm mt-4 leading-relaxed">{skill.description}</p>
+
+          <div className={`border-l-4 pl-4 ${borderColor(skill)}`}>
+            <div className="flex items-start gap-4">
+              {author?.avatarSrc ? (
+                <AuthorAvatar
+                  src={author.avatarSrc}
+                  name={author.author}
+                  size="lg"
+                  className="mt-0.5"
+                />
+              ) : null}
+              <div className="min-w-0 flex-1">
+                <h1 className="font-mono text-2xl font-bold tracking-tight text-balance">
+                  /{skill.name}
+                </h1>
+                <p className="mt-1 text-sm text-muted-foreground">
+                  {getOfficialTitle(skill)}
+                </p>
+                {author ? (
+                  <p className="mt-2 text-xs text-muted-foreground">
+                    <span className="font-medium text-foreground/90">
+                      {author.author}
+                    </span>
+                    {author.xHandle ? (
+                      <>
+                        <span className="text-muted-foreground/50"> · </span>
+                        <XHandleLink handle={author.xHandle} />
+                      </>
+                    ) : null}
+                  </p>
+                ) : null}
+                <div className="mt-3 flex flex-wrap items-center gap-2">
+                  <Badge variant="outline" className="text-xs">
+                    {skill.category}
+                  </Badge>
+                  <Badge
+                    variant={
+                      skill.invocation === 'user' ? 'default' : 'secondary'
+                    }
+                    className="text-xs"
+                  >
+                    {skill.invocation}-invoked
+                  </Badge>
+                </div>
+              </div>
+            </div>
+            <p className="mt-4 text-sm leading-relaxed">{skill.description}</p>
+          </div>
+
+          <Separator />
+
+          <SkillDetailBody skill={skill} />
+
+          <Separator />
+
+          <nav className="grid grid-cols-2 gap-3">
+            {prev ? (
+              <Link
+                to="/skills/$skillName"
+                params={{ skillName: prev.name }}
+                className={navCardClass}
+              >
+                <span className="block text-xs text-muted-foreground">
+                  {m.skill_detail_prev()}
+                </span>
+                <span className="mt-0.5 block font-mono text-sm transition-colors group-hover:text-primary group-focus-visible:text-primary">
+                  /{prev.name}
+                </span>
+              </Link>
+            ) : (
+              <span />
+            )}
+            {next ? (
+              <Link
+                to="/skills/$skillName"
+                params={{ skillName: next.name }}
+                className={`${navCardClass} text-right`}
+              >
+                <span className="block text-xs text-muted-foreground">
+                  {m.skill_detail_next()}
+                </span>
+                <span className="mt-0.5 block font-mono text-sm transition-colors group-hover:text-primary group-focus-visible:text-primary">
+                  /{next.name}
+                </span>
+              </Link>
+            ) : (
+              <span />
+            )}
+          </nav>
+
+          <Link
+            to="/mattpocock"
+            hash="skills"
+            className="inline-flex items-center gap-1 rounded-sm text-sm text-primary hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50"
+          >
+            {m.skill_detail_back()}
+          </Link>
         </div>
 
-        <Separator />
-
-        {/* Detailed description */}
-        {skill.detailedDescription && (
-          <section>
-            <p className="text-sm leading-relaxed text-muted-foreground whitespace-pre-line">
-              {skill.detailedDescription}
-            </p>
-          </section>
-        )}
-
-        {/* When to use */}
-        <section>
-          <h2 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-2">
-            Kapan Digunakan
-          </h2>
-          <p className="text-sm leading-relaxed">{skill.whenToUse}</p>
-        </section>
-
-        {/* When NOT to use */}
-        {whenNotToUse && (
-          <section>
-            <h2 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-2">
-              Kapan TIDAK Digunakan
-            </h2>
-            <p className="text-sm leading-relaxed">{whenNotToUse}</p>
-          </section>
-        )}
-
-        {/* Key behaviors */}
-        {skill.keyBehaviors.length > 0 && (
-          <section>
-            <h2 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-2">
-              Perilaku Utama
-            </h2>
-            <ul className="space-y-1">
-              {skill.keyBehaviors.map((b, i) => (
-                <li key={i} className="text-sm flex items-start gap-2">
-                  <span className="text-primary shrink-0">•</span>
-                  {b}
-                </li>
-              ))}
-            </ul>
-          </section>
-        )}
-
-        {/* How it works */}
-        {(skill.howItWorks ?? []).length > 0 && (
-          <section>
-            <h2 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-2">
-              Cara Kerja
-            </h2>
-            <ol className="space-y-1.5 list-decimal list-inside">
-              {skill.howItWorks!.map((step, i) => (
-                <li key={i} className="text-sm">{step}</li>
-              ))}
-            </ol>
-          </section>
-        )}
-
-        {/* It's working if */}
-        {(skill.itsWorkingIf ?? []).length > 0 && (
-          <section>
-            <h2 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-2">
-              Tanda Berjalan dengan Benar
-            </h2>
-            <ul className="space-y-1">
-              {skill.itsWorkingIf!.map((sign, i) => (
-                <li key={i} className="text-sm flex items-start gap-2">
-                  <span className="text-emerald-600 shrink-0">✓</span>
-                  {sign}
-                </li>
-              ))}
-            </ul>
-          </section>
-        )}
-
-        {/* Workflow */}
-        {skill.workflow && (
-          <section>
-            <h2 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-2">
-              Posisi dalam Alur
-            </h2>
-            <div className="bg-secondary/50 rounded-md p-3 font-mono text-xs">
-              {skill.workflow}
-            </div>
-          </section>
-        )}
-
-        {/* Tips */}
-        {(skill.tips ?? []).length > 0 && (
-          <section>
-            <h2 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-2">
-              Tips Praktis
-            </h2>
-            <ul className="space-y-1">
-              {skill.tips!.map((tip, i) => (
-                <li key={i} className="text-sm flex items-start gap-2">
-                  <RiLightbulbLine className="size-4 text-orange-600 shrink-0 mt-0.5" />
-                  {tip}
-                </li>
-              ))}
-            </ul>
-          </section>
-        )}
-
-        {/* Pairs well with */}
-        {skill.pairsWellWith.length > 0 && (
-          <section>
-            <h2 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-2">
-              Cocok Dipasangkan dengan
-            </h2>
-            <div className="flex flex-wrap gap-1.5">
-              {skill.pairsWellWith.map((name) => (
-                <Link key={name} to="/skills/$skillName" params={{ skillName: name }}>
-                  <Badge variant="outline" className="font-mono text-xs cursor-pointer hover:border-primary transition-colors">
-                    /{name}
-                  </Badge>
-                </Link>
-              ))}
-            </div>
-          </section>
-        )}
-
-        <Separator />
-
-        {/* Prev / Next navigation */}
-        <nav className="grid grid-cols-2 gap-3">
-          {prev ? (
-            <Link
-              to="/skills/$skillName"
-              params={{ skillName: prev.name }}
-              className="group rounded-lg border border-border p-3 hover:border-primary transition-colors"
-            >
-              <span className="block text-xs text-muted-foreground">← Sebelumnya</span>
-              <span className="block font-mono text-sm mt-0.5 group-hover:text-primary transition-colors">
-                /{prev.name}
-              </span>
-            </Link>
-          ) : (
-            <span />
-          )}
-          {next ? (
-            <Link
-              to="/skills/$skillName"
-              params={{ skillName: next.name }}
-              className="group rounded-lg border border-border p-3 text-right hover:border-primary transition-colors"
-            >
-              <span className="block text-xs text-muted-foreground">Berikutnya →</span>
-              <span className="block font-mono text-sm mt-0.5 group-hover:text-primary transition-colors">
-                /{next.name}
-              </span>
-            </Link>
-          ) : (
-            <span />
-          )}
-        </nav>
-
-        <Link to="/mattpocock" hash="skills" className="inline-flex items-center gap-1 text-sm text-primary hover:underline">
-          ← Kembali ke daftar skill
-        </Link>
+        <aside className="hidden w-52 shrink-0 xl:block">
+          <div className="sticky top-24">
+            <OnThisPage items={tocItems} />
+          </div>
+        </aside>
       </div>
     </main>
   )
@@ -237,14 +200,20 @@ function SkillPage() {
 
 function SkillNotFound() {
   return (
-    <main className="flex-1 min-w-0 pt-14">
-      <div className="max-w-3xl mx-auto px-6 py-20 text-center space-y-4">
-        <h1 className="text-2xl font-bold">Skill tidak ditemukan</h1>
+    <main id="main-content" className="min-w-0 flex-1 pt-14">
+      <div className="mx-auto max-w-3xl space-y-4 px-6 py-20 text-center">
+        <h1 className="text-2xl font-bold text-balance">
+          {m.skill_detail_not_found_title()}
+        </h1>
         <p className="text-sm text-muted-foreground">
-          Skill yang kamu cari tidak ada dalam katalog.
+          {m.skill_detail_not_found_body()}
         </p>
-        <Link to="/mattpocock" hash="skills" className="inline-flex items-center gap-1 text-sm text-primary hover:underline">
-          ← Kembali ke daftar skill
+        <Link
+          to="/mattpocock"
+          hash="skills"
+          className="inline-flex items-center gap-1 rounded-sm text-sm text-primary hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50"
+        >
+          {m.skill_detail_back()}
         </Link>
       </div>
     </main>

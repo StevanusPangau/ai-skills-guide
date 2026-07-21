@@ -7,6 +7,41 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v1.3.0] - 2026-07-17
+
+### Added
+- **Collections hub** (`/collections`) — dedicated catalog page listing every skill collection (rank, author, source, skill count) with primary nav pointing at Collections instead of each guide
+- **Skill detail “On this page” TOC** — sticky right-rail section nav for Matt and David skill pages, with hash links, scroll-spy, and native smooth scroll that respects `prefers-reduced-motion`
+- **Shared in-page scroll helpers** (`src/lib/scroll-to-section.ts`, `src/lib/motion.ts`) — TanStack Router hash update without router scroll, then one native `scrollIntoView` (avoids scroll-restoration races)
+- **Collection guide shell** (`CollectionGuideLayout`) — shared sidebar + mobile FAB + main column for Matt and David guide routes
+- **Author branding** — self-hosted avatars (`public/avatars/*`), `AuthorAvatar`, and `XHandleLink` on collection overviews / landing cards
+- **Landing polish** — skills.sh-inspired `SkillsGuideWordmark` (Fira Mono), “Try it now” install command, and richer collections preview
+- **Filter chips** — accessible pressed-state chips for skill catalog filters; Matt filters also cover user- vs model-invoked
+- **Accessibility basics** — skip-to-main link, primary/section/filter nav labels, dialog close label (i18n), external-link aria helper, copy-button live region, focus-visible rings on header controls
+- **Safe-area CSS utilities** for fixed chrome on notched devices
+- **Skill count meta modules** (`skills-meta.ts`, `davidondrej-skills-meta.ts`) so collection listings do not pull full skill catalogs
+- **Animation plans** under `plans/` (skill-detail TOC smooth-scroll plan marked DONE)
+
+### Changed
+- Header brand mark uses the app icon; nav simplified to Home + Collections
+- Theme defaults to **dark**; boot script in `index.html` applies stored theme before paint (no light/dark FOUC); `theme-color` meta stays in sync (`#252525` / `#ffffff`)
+- PWA manifest theme/background colors aligned to the dark identity
+- Router enables scroll restoration with `instant` behavior; in-page section jumps opt out and scroll natively
+- Skill detail layouts: section `id`s, prev/next + back navigation copy, not-found strings (id + en)
+- Catalog UI uses `FilterChip`; filter labels moved into i18n messages
+- Dialog close control always present with localized sr-only label; popup content can scroll when tall
+- `@xyflow/react` styles imported from the flow canvas chunk only (not global CSS)
+- Indonesian home label: “Beranda”; assorted a11y/i18n strings for both locales
+- `.gitignore` also ignores `.agents` and `skills-lock.json`
+
+### Fixed
+- In-page sidebar / TOC clicks no longer fight TanStack scroll restoration (smooth scroll works reliably)
+- Reduced-motion users get instant jumps and shortened transitions/animations site-wide
+- Copy-to-clipboard feedback announced to assistive tech via `aria-live`
+
+### Dependencies
+- Added `@fontsource/fira-mono` for the landing wordmark
+
 ## [v1.2.0] - 2026-07-10
 
 ### Added
@@ -76,7 +111,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Deployed to Cloudflare Workers (static SPA)
 - Security headers, SPA fallback routing, immutable asset caching
 
-[Unreleased]: https://github.com/StevanusPangau/ai-skills-guide/compare/v1.2.0...HEAD
+[Unreleased]: https://github.com/StevanusPangau/ai-skills-guide/compare/v1.3.0...HEAD
+[v1.3.0]: https://github.com/StevanusPangau/ai-skills-guide/compare/v1.2.0...v1.3.0
 [v1.2.0]: https://github.com/StevanusPangau/ai-skills-guide/compare/v1.1.0...v1.2.0
 [v1.1.0]: https://github.com/StevanusPangau/ai-skills-guide/compare/v1.0.0...v1.1.0
 [v1.0.0]: https://github.com/StevanusPangau/ai-skills-guide/releases/tag/v1.0.0

@@ -5,9 +5,9 @@ import { m } from '@/paraglide/messages.js'
 
 export function Concepts() {
   return (
-    <section id="concepts" className="space-y-8">
+    <section id="concepts" className="scroll-mt-20 space-y-8">
       <div>
-        <h2 className="text-2xl font-bold tracking-tight">{m.concepts_title()}</h2>
+        <h2 className="text-2xl font-bold tracking-tight text-balance">{m.concepts_title()}</h2>
         <p className="text-muted-foreground mt-1">
           {m.concepts_description()}
         </p>

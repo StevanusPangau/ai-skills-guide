@@ -44,6 +44,8 @@ coverage
 .cursor
 .opencode
 .hermes
+.agents
+skills-lock.json
 
 # Editor & OS
 .vscode/*
