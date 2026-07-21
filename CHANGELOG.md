@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v1.4.0] - 2026-07-21
+
 ### Added
 - **Emil Kowalski collection** (`/emilkowalski`) — bilingual guide to six design-engineering and motion skills from `emilkowalski/skills`, pinned to commit `6bf24434…`, with nested skill detail routes and official skills.sh installation
 - **Interactive Preview Lab** — per-skill before/after demos for popover polish, gesture physics, animation vocabulary, motion-opportunity filtering, diff review, and audit-to-plan workflows; supports pointer, keyboard, replay/reset, and reduced motion
@@ -126,7 +128,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Deployed to Cloudflare Workers (static SPA)
 - Security headers, SPA fallback routing, immutable asset caching
 
-[Unreleased]: https://github.com/StevanusPangau/ai-skills-guide/compare/v1.3.0...HEAD
+[Unreleased]: https://github.com/StevanusPangau/ai-skills-guide/compare/v1.4.0...HEAD
+[v1.4.0]: https://github.com/StevanusPangau/ai-skills-guide/compare/v1.3.0...v1.4.0
 [v1.3.0]: https://github.com/StevanusPangau/ai-skills-guide/compare/v1.2.0...v1.3.0
 [v1.2.0]: https://github.com/StevanusPangau/ai-skills-guide/compare/v1.1.0...v1.2.0
 [v1.1.0]: https://github.com/StevanusPangau/ai-skills-guide/compare/v1.0.0...v1.1.0
