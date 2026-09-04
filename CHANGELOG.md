@@ -8,6 +8,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- **Global Command Palette & Quick Search (`Cmd+K` / `Ctrl+K`)** — Instant full-text search indexed across all 100+ skills from 6 creators (Matt Pocock, David Ondrej, Emil Kowalski, Jakub Krehel, Brooklyn, Superpowers), featuring keyboard navigation (Up/Down/Enter/Escape) and direct routing to skill detail pages.
+- **"Copy as Agent Prompt" Feature** — Added `CopyAgentRuleButton` on all skill detail pages, enabling engineers to copy formatted system prompt directives (Description, When to Apply, Core Invariants, Execution Workflow) directly into `.cursorrules`, `CLAUDE.md`, or Hermes Agent session prompts.
+- **Dedicated Skill Detail Routes (46 new routes)** — Standalone detail pages for Jakub Krehel (`/jakubkrehel/skills/$skillName`), Brooklyn (`/brooklyn/skills/$skillName`), and Superpowers (`/superpowers/skills/$skillName`) matching the concise high-signal pattern of Matt Pocock.
+- **Key Concepts Visual Sections** — Concentric Radius Law & Optical Balance (Jakub), Git Worktree Isolation & PR Publication Hygiene (Brooklyn), and SDD Coordinator vs Worker Separation (Superpowers).
+- **Official Installation Guides** — Dedicated installation sections (`#installation`) for Jakub Krehel, Brooklyn, and Superpowers with one-click CLI (`skills.sh`) and Hermes Agent commands.
 - **Jakub Krehel collection** (`/jakubkrehel`) — 11 UI & Design Engineering skills (`better-ui`, `better-typography`, `better-colors`, `better-accessibility`, `better-layout`, `better-writing`, `better-interface`, `break`, `explain-interface`, `interface-review`, `variant`) from `jakubkrehel/skills` (Interfaces.dev)
 - **Interactive Micro-Details Lab** — Interactive calculator for mathematical concentric border radius ($R_{inner} = R_{outer} - Padding$) and live optical alignment centering on asymmetric controls
 - **Brooklyn collection** (`/brooklyn`) — 21 autonomous engineering and PR lifecycle skills (`cpr`, `babysit`, `work`, `no-tropes`, `pr-ready`, `stacked-pr`, `pr-triage`, `ticket-ship`, `clean`, `visual-verify`, `runtime-debug`) from `OutThisLife/brooklyn-skills`
