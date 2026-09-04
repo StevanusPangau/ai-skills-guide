@@ -1,5 +1,6 @@
 import { lazy, Suspense, useMemo, useState } from 'react'
 import type { FlowGraphEdge, FlowGraphNode } from '@/features/flow/types'
+import { m } from '@/paraglide/messages.js'
 
 const FlowCanvas = lazy(() =>
   import('@/features/flow/flow-canvas').then((mod) => ({ default: mod.FlowCanvas })),
@@ -96,10 +97,10 @@ export function JakubFlow() {
     <section id="flow" className="scroll-mt-20 space-y-4">
       <div>
         <h2 className="text-2xl font-bold tracking-tight text-balance">
-          Alur Polish UI & Design Engineering
+          {m.jakub_flow_title()}
         </h2>
         <p className="mt-1 text-muted-foreground text-sm">
-          Diagram alur penyempurnaan antarmuka dari audit meta hingga pengujian edge case menggunakan aturan desain presisi Jakub Krehel.
+          {m.jakub_flow_desc()}
         </p>
       </div>
 
@@ -107,7 +108,7 @@ export function JakubFlow() {
         <Suspense
           fallback={
             <div className="flex h-[520px] items-center justify-center text-sm text-muted-foreground">
-              Memuat diagram flow...
+              {m.flow_loading()}
             </div>
           }
         >

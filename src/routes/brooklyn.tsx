@@ -18,7 +18,7 @@ function BrooklynPage() {
   const sections = useMemo(
     () => [
       { id: 'overview', label: m.brooklyn_sidebar_overview() },
-      { id: 'flow', label: 'Alur Shipping (/cpr)' },
+      { id: 'flow', label: m.sidebar_flow_title() },
       { id: 'scanner', label: m.brooklyn_sidebar_scanner() },
       {
         id: 'skills',
@@ -47,8 +47,8 @@ function BrooklynPage() {
         collectionSlug="brooklyn"
         skills={brooklynSkills}
         categories={categories}
-        title={`Semua ${brooklynSkills.length} Skills`}
-        description="Katalog lengkap skill shipping otonom, PR hygiene, dan pemangkas AI-tropes dari Brooklyn."
+        title={m.brooklyn_catalog_title({ count: String(brooklynSkills.length) })}
+        description={m.brooklyn_catalog_desc()}
         repoUrl="github.com/OutThisLife/brooklyn-skills"
       />
     </CollectionGuideLayout>

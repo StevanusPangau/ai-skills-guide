@@ -1,5 +1,6 @@
 import { lazy, Suspense, useMemo, useState } from 'react'
 import type { FlowGraphEdge, FlowGraphNode } from '@/features/flow/types'
+import { m } from '@/paraglide/messages.js'
 
 const FlowCanvas = lazy(() =>
   import('@/features/flow/flow-canvas').then((mod) => ({ default: mod.FlowCanvas })),
@@ -104,10 +105,10 @@ export function BrooklynFlow() {
     <section id="flow" className="scroll-mt-20 space-y-4">
       <div>
         <h2 className="text-2xl font-bold tracking-tight text-balance">
-          Alur Autonomous Shipping (/cpr)
+          {m.brooklyn_flow_title()}
         </h2>
         <p className="mt-1 text-muted-foreground text-sm">
-          Diagram alur terintegrasi bagaimana Brooklyn mengelola isolasi cabang, review diff, pembersihan AI-tropes, hingga pemantauan CI otomatis.
+          {m.brooklyn_flow_desc()}
         </p>
       </div>
 
@@ -115,7 +116,7 @@ export function BrooklynFlow() {
         <Suspense
           fallback={
             <div className="flex h-[520px] items-center justify-center text-sm text-muted-foreground">
-              Memuat diagram flow...
+              {m.flow_loading()}
             </div>
           }
         >

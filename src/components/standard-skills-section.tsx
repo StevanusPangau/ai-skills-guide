@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { getCollectionBySlug } from '@/data/collections'
 import { RiGithubFill } from '@remixicon/react'
+import { m } from '@/paraglide/messages.js'
 
 const CATALOG_VIEWPORT_CLASS = 'h-[28rem] sm:h-[30rem]'
 
@@ -61,10 +62,10 @@ export function StandardSkillsSection({
   }, [skills, search, activeFilter])
 
   const allFilters = [
-    { label: 'Semua', value: 'all' },
+    { label: m.catalog_filter_all(), value: 'all' },
     ...categories,
-    { label: 'User-invoked', value: 'user' },
-    { label: 'Model-invoked', value: 'model' },
+    { label: m.skills_filter_user(), value: 'user' },
+    { label: m.skills_filter_model(), value: 'model' },
   ]
 
   return (
@@ -82,16 +83,16 @@ export function StandardSkillsSection({
           name="skill-search"
           autoComplete="off"
           spellCheck={false}
-          placeholder={`Cari dari ${skills.length} skills...`}
+          placeholder={m.catalog_search_placeholder({ count: String(skills.length) })}
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           className="max-w-sm"
-          aria-label="Cari skill"
+          aria-label={m.catalog_search_placeholder({ count: String(skills.length) })}
         />
         <div
           className="flex flex-wrap gap-2"
           role="group"
-          aria-label="Filter kategori skill"
+          aria-label={m.nav_filters()}
         >
           {allFilters.map((f) => (
             <FilterChip
@@ -108,7 +109,7 @@ export function StandardSkillsSection({
       {filtered.length === 0 ? (
         <div className="rounded-lg border border-border bg-card py-10 text-center">
           <p className="text-sm text-muted-foreground">
-            Tidak ada skill yang cocok dengan kriteria pencarian.
+            {m.catalog_no_results()}
           </p>
         </div>
       ) : (
@@ -147,8 +148,8 @@ export function StandardSkillsSection({
                             className="text-xs"
                           >
                             {skill.invocation === 'user'
-                              ? 'User-invoked'
-                              : 'Model-invoked'}
+                              ? m.skills_filter_user()
+                              : m.skills_filter_model()}
                           </Badge>
                         </div>
                         {skill.sourcePath ? (
@@ -159,7 +160,7 @@ export function StandardSkillsSection({
                             className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-primary transition-colors"
                           >
                             <RiGithubFill className="size-3.5" />
-                            <span>SKILL.md ↗</span>
+                            <span>{m.catalog_view_skill_md()}</span>
                           </a>
                         ) : null}
                       </div>
@@ -191,7 +192,10 @@ export function StandardSkillsSection({
         className="text-xs text-muted-foreground tabular-nums"
         aria-live="polite"
       >
-        Menampilkan {filtered.length} dari {skills.length} skills
+        {m.catalog_showing({
+          count: String(filtered.length),
+          total: String(skills.length),
+        })}
       </p>
     </section>
   )
