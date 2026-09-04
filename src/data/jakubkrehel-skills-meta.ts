@@ -1,0 +1,1 @@
+export const JAKUBKREHEL_SKILL_COUNT = 11

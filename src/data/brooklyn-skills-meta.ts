@@ -1,0 +1,1 @@
+export const BROOKLYN_SKILL_COUNT = 21

@@ -1,6 +1,9 @@
 import { MATTPOCOCK_SKILL_COUNT } from '@/data/skills-meta'
 import { DAVIDONDREJ_SKILL_COUNT } from '@/data/davidondrej-skills-meta'
 import { EMILKOWALSKI_SKILL_COUNT } from '@/data/emilkowalski-skills-meta'
+import { JAKUBKREHEL_SKILL_COUNT } from '@/data/jakubkrehel-skills-meta'
+import { BROOKLYN_SKILL_COUNT } from '@/data/brooklyn-skills-meta'
+import { SUPERPOWERS_SKILL_COUNT } from '@/data/superpowers-skills-meta'
 import { m } from '@/paraglide/messages.js'
 
 export type CollectionStatus = 'available' | 'coming-soon'
@@ -66,6 +69,44 @@ export function getCollections(): Collection[] {
       status: 'available',
       source: 'github.com/davidondrej/skills',
       tags: ['orchestration', 'research', 'authoring'],
+    },
+    {
+      slug: 'jakubkrehel',
+      to: '/jakubkrehel',
+      author: 'Jakub Krehel',
+      avatarSrc: '/avatars/jakubkrehel.jpg',
+      xHandle: 'jakubkrehel',
+      title: 'UI & Design Engineering Skills',
+      description: m.collection_jakubkrehel_description(),
+      skillCount: JAKUBKREHEL_SKILL_COUNT,
+      status: 'available',
+      source: 'github.com/jakubkrehel/skills',
+      tags: ['ui-polish', 'design-engineering', 'typography'],
+    },
+    {
+      slug: 'brooklyn',
+      to: '/brooklyn',
+      author: 'Brooklyn',
+      avatarSrc: '/avatars/brooklyn.jpg',
+      xHandle: 'imbabybrooklyn',
+      title: 'Autonomous Engineering & PR Skills',
+      description: m.collection_brooklyn_description(),
+      skillCount: BROOKLYN_SKILL_COUNT,
+      status: 'available',
+      source: 'github.com/OutThisLife/brooklyn-skills',
+      tags: ['pr-lifecycle', 'autonomous', 'engineering-hygiene'],
+    },
+    {
+      slug: 'superpowers',
+      to: '/superpowers',
+      author: 'Jesse Vincent',
+      avatarSrc: '/avatars/obra.jpg',
+      title: 'Agentic SDLC & Superpowers',
+      description: m.collection_superpowers_description(),
+      skillCount: SUPERPOWERS_SKILL_COUNT,
+      status: 'available',
+      source: 'github.com/obra/superpowers',
+      tags: ['subagent-sdd', 'methodology', 'framework'],
     },
   ]
 }

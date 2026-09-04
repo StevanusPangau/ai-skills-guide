@@ -9,10 +9,13 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SuperpowersRouteImport } from './routes/superpowers'
 import { Route as MattpocockRouteImport } from './routes/mattpocock'
+import { Route as JakubkrehelRouteImport } from './routes/jakubkrehel'
 import { Route as EmilkowalskiRouteImport } from './routes/emilkowalski'
 import { Route as DavidondrejRouteImport } from './routes/davidondrej'
 import { Route as CollectionsRouteImport } from './routes/collections'
+import { Route as BrooklynRouteImport } from './routes/brooklyn'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as EmilkowalskiIndexRouteImport } from './routes/emilkowalski.index'
 import { Route as DavidondrejIndexRouteImport } from './routes/davidondrej.index'
@@ -20,9 +23,19 @@ import { Route as SkillsSkillNameRouteImport } from './routes/skills.$skillName'
 import { Route as EmilkowalskiSkillsSkillNameRouteImport } from './routes/emilkowalski.skills.$skillName'
 import { Route as DavidondrejSkillsSkillNameRouteImport } from './routes/davidondrej.skills.$skillName'
 
+const SuperpowersRoute = SuperpowersRouteImport.update({
+  id: '/superpowers',
+  path: '/superpowers',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const MattpocockRoute = MattpocockRouteImport.update({
   id: '/mattpocock',
   path: '/mattpocock',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const JakubkrehelRoute = JakubkrehelRouteImport.update({
+  id: '/jakubkrehel',
+  path: '/jakubkrehel',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EmilkowalskiRoute = EmilkowalskiRouteImport.update({
@@ -38,6 +51,11 @@ const DavidondrejRoute = DavidondrejRouteImport.update({
 const CollectionsRoute = CollectionsRouteImport.update({
   id: '/collections',
   path: '/collections',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BrooklynRoute = BrooklynRouteImport.update({
+  id: '/brooklyn',
+  path: '/brooklyn',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -75,10 +93,13 @@ const DavidondrejSkillsSkillNameRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/brooklyn': typeof BrooklynRoute
   '/collections': typeof CollectionsRoute
   '/davidondrej': typeof DavidondrejRouteWithChildren
   '/emilkowalski': typeof EmilkowalskiRouteWithChildren
+  '/jakubkrehel': typeof JakubkrehelRoute
   '/mattpocock': typeof MattpocockRoute
+  '/superpowers': typeof SuperpowersRoute
   '/skills/$skillName': typeof SkillsSkillNameRoute
   '/davidondrej/': typeof DavidondrejIndexRoute
   '/emilkowalski/': typeof EmilkowalskiIndexRoute
@@ -87,8 +108,11 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/brooklyn': typeof BrooklynRoute
   '/collections': typeof CollectionsRoute
+  '/jakubkrehel': typeof JakubkrehelRoute
   '/mattpocock': typeof MattpocockRoute
+  '/superpowers': typeof SuperpowersRoute
   '/skills/$skillName': typeof SkillsSkillNameRoute
   '/davidondrej': typeof DavidondrejIndexRoute
   '/emilkowalski': typeof EmilkowalskiIndexRoute
@@ -98,10 +122,13 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/brooklyn': typeof BrooklynRoute
   '/collections': typeof CollectionsRoute
   '/davidondrej': typeof DavidondrejRouteWithChildren
   '/emilkowalski': typeof EmilkowalskiRouteWithChildren
+  '/jakubkrehel': typeof JakubkrehelRoute
   '/mattpocock': typeof MattpocockRoute
+  '/superpowers': typeof SuperpowersRoute
   '/skills/$skillName': typeof SkillsSkillNameRoute
   '/davidondrej/': typeof DavidondrejIndexRoute
   '/emilkowalski/': typeof EmilkowalskiIndexRoute
@@ -112,10 +139,13 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/brooklyn'
     | '/collections'
     | '/davidondrej'
     | '/emilkowalski'
+    | '/jakubkrehel'
     | '/mattpocock'
+    | '/superpowers'
     | '/skills/$skillName'
     | '/davidondrej/'
     | '/emilkowalski/'
@@ -124,8 +154,11 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/brooklyn'
     | '/collections'
+    | '/jakubkrehel'
     | '/mattpocock'
+    | '/superpowers'
     | '/skills/$skillName'
     | '/davidondrej'
     | '/emilkowalski'
@@ -134,10 +167,13 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/brooklyn'
     | '/collections'
     | '/davidondrej'
     | '/emilkowalski'
+    | '/jakubkrehel'
     | '/mattpocock'
+    | '/superpowers'
     | '/skills/$skillName'
     | '/davidondrej/'
     | '/emilkowalski/'
@@ -147,20 +183,37 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  BrooklynRoute: typeof BrooklynRoute
   CollectionsRoute: typeof CollectionsRoute
   DavidondrejRoute: typeof DavidondrejRouteWithChildren
   EmilkowalskiRoute: typeof EmilkowalskiRouteWithChildren
+  JakubkrehelRoute: typeof JakubkrehelRoute
   MattpocockRoute: typeof MattpocockRoute
+  SuperpowersRoute: typeof SuperpowersRoute
   SkillsSkillNameRoute: typeof SkillsSkillNameRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/superpowers': {
+      id: '/superpowers'
+      path: '/superpowers'
+      fullPath: '/superpowers'
+      preLoaderRoute: typeof SuperpowersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/mattpocock': {
       id: '/mattpocock'
       path: '/mattpocock'
       fullPath: '/mattpocock'
       preLoaderRoute: typeof MattpocockRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/jakubkrehel': {
+      id: '/jakubkrehel'
+      path: '/jakubkrehel'
+      fullPath: '/jakubkrehel'
+      preLoaderRoute: typeof JakubkrehelRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/emilkowalski': {
@@ -182,6 +235,13 @@ declare module '@tanstack/react-router' {
       path: '/collections'
       fullPath: '/collections'
       preLoaderRoute: typeof CollectionsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/brooklyn': {
+      id: '/brooklyn'
+      path: '/brooklyn'
+      fullPath: '/brooklyn'
+      preLoaderRoute: typeof BrooklynRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -259,10 +319,13 @@ const EmilkowalskiRouteWithChildren = EmilkowalskiRoute._addFileChildren(
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  BrooklynRoute: BrooklynRoute,
   CollectionsRoute: CollectionsRoute,
   DavidondrejRoute: DavidondrejRouteWithChildren,
   EmilkowalskiRoute: EmilkowalskiRouteWithChildren,
+  JakubkrehelRoute: JakubkrehelRoute,
   MattpocockRoute: MattpocockRoute,
+  SuperpowersRoute: SuperpowersRoute,
   SkillsSkillNameRoute: SkillsSkillNameRoute,
 }
 export const routeTree = rootRouteImport
