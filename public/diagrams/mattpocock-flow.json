@@ -1,0 +1,308 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "Matt Pocock \u2014 AI Coding Skills Pipeline (v1.2.3)",
+    "subtitle": "Idea to ship: main build chain, phase boundaries, on-ramps, and human limits",
+    "animation": "trace",
+    "visual_preset": "classic",
+    "quality_profile": "showcase",
+    "views": [
+      {
+        "id": "main-path",
+        "label": "Main Build Chain",
+        "focus": [
+          "grill",
+          "multi",
+          "tospec",
+          "totickets",
+          "implement",
+          "review",
+          "commit"
+        ],
+        "note": "Follow the primary route from fuzzy idea to verified git commit."
+      },
+      {
+        "id": "onramps-path",
+        "label": "On-Ramps & Detours",
+        "focus": [
+          "wayfinder",
+          "triage",
+          "improve",
+          "proto",
+          "wizard"
+        ],
+        "note": "Inspect entry on-ramps and the human-in-the-loop wizard boundary."
+      }
+    ]
+  },
+  "lanes": [
+    {
+      "id": "lane-spec",
+      "label": "1. Alignment & Specification"
+    },
+    {
+      "id": "lane-build",
+      "label": "2. Implementation & Quality Gates"
+    },
+    {
+      "id": "lane-onramp",
+      "label": "3. On-Ramps & Human Boundaries",
+      "variant": "exception"
+    }
+  ],
+  "phases": [
+    {
+      "id": "phase-clarify",
+      "label": "Phase A: Clarify & Model",
+      "fromCol": 0,
+      "toCol": 1
+    },
+    {
+      "id": "phase-contract",
+      "label": "Phase B: Specification Contract",
+      "fromCol": 2,
+      "toCol": 3,
+      "variant": "emphasis"
+    },
+    {
+      "id": "phase-deliver",
+      "label": "Phase C: Test-Driven Delivery",
+      "fromCol": 4,
+      "toCol": 5,
+      "variant": "dashed"
+    }
+  ],
+  "mainPath": [
+    "grill",
+    "multi",
+    "tospec",
+    "totickets",
+    "implement",
+    "review",
+    "commit"
+  ],
+  "nodes": [
+    {
+      "id": "grill",
+      "lane": "lane-spec",
+      "col": 0,
+      "type": "backend",
+      "label": "/grill-with-docs",
+      "sublabel": "Relentless interview",
+      "width": 140
+    },
+    {
+      "id": "multi",
+      "lane": "lane-spec",
+      "col": 1,
+      "type": "security",
+      "label": "Multi-Session?",
+      "sublabel": "Smart Zone evaluation",
+      "width": 140
+    },
+    {
+      "id": "tospec",
+      "lane": "lane-spec",
+      "col": 2,
+      "type": "backend",
+      "label": "/to-spec",
+      "sublabel": "Synthesize context",
+      "width": 140
+    },
+    {
+      "id": "totickets",
+      "lane": "lane-spec",
+      "col": 3,
+      "type": "backend",
+      "label": "/to-tickets",
+      "sublabel": "Blocking ticket graph",
+      "width": 140
+    },
+    {
+      "id": "implement",
+      "lane": "lane-build",
+      "col": 4,
+      "type": "frontend",
+      "label": "/implement",
+      "sublabel": "Drives /tdd red-green",
+      "width": 140
+    },
+    {
+      "id": "review",
+      "lane": "lane-build",
+      "col": 5,
+      "type": "security",
+      "label": "/code-review",
+      "sublabel": "Standards + Spec axes",
+      "width": 140,
+      "yOffset": -35
+    },
+    {
+      "id": "commit",
+      "lane": "lane-build",
+      "col": 5,
+      "type": "database",
+      "label": "Commit & Ship",
+      "sublabel": "Verified git cut",
+      "width": 140,
+      "yOffset": 45
+    },
+    {
+      "id": "proto",
+      "lane": "lane-onramp",
+      "col": 0,
+      "type": "cloud",
+      "label": "/prototype",
+      "sublabel": "Throwaway UI spike",
+      "width": 140
+    },
+    {
+      "id": "wayfinder",
+      "lane": "lane-onramp",
+      "col": 1,
+      "type": "messagebus",
+      "label": "/wayfinder",
+      "sublabel": "Foggy large effort",
+      "width": 140
+    },
+    {
+      "id": "triage",
+      "lane": "lane-onramp",
+      "col": 2,
+      "type": "messagebus",
+      "label": "/triage",
+      "sublabel": "Bug backlog intake",
+      "width": 140
+    },
+    {
+      "id": "improve",
+      "lane": "lane-onramp",
+      "col": 3,
+      "type": "messagebus",
+      "label": "/improve-arch",
+      "sublabel": "Deep module survey",
+      "width": 140
+    },
+    {
+      "id": "wizard",
+      "lane": "lane-onramp",
+      "col": 4,
+      "type": "cloud",
+      "label": "/wizard",
+      "sublabel": "Manual setup script",
+      "width": 140
+    }
+  ],
+  "edges": [
+    {
+      "id": "e-grill-multi",
+      "from": "grill",
+      "to": "multi",
+      "label": "aligned",
+      "variant": "default"
+    },
+    {
+      "id": "e-multi-spec",
+      "from": "multi",
+      "to": "tospec",
+      "label": "YES",
+      "variant": "emphasis"
+    },
+    {
+      "id": "e-multi-impl",
+      "from": "multi",
+      "to": "implement",
+      "label": "NO (single)",
+      "variant": "default"
+    },
+    {
+      "id": "e-spec-tickets",
+      "from": "tospec",
+      "to": "totickets",
+      "variant": "default"
+    },
+    {
+      "id": "e-tickets-impl",
+      "from": "totickets",
+      "to": "implement",
+      "label": "per ticket",
+      "variant": "emphasis"
+    },
+    {
+      "id": "e-impl-review",
+      "from": "implement",
+      "to": "review",
+      "variant": "default"
+    },
+    {
+      "id": "e-review-commit",
+      "from": "review",
+      "to": "commit",
+      "label": "approved",
+      "variant": "emphasis"
+    },
+    {
+      "id": "e-grill-proto",
+      "from": "grill",
+      "to": "proto",
+      "label": "fuzzy state",
+      "variant": "dashed"
+    },
+    {
+      "id": "e-wayfinder-spec",
+      "from": "wayfinder",
+      "to": "tospec",
+      "label": "map clear",
+      "variant": "default"
+    },
+    {
+      "id": "e-triage-impl",
+      "from": "triage",
+      "to": "implement",
+      "label": "agent-ready",
+      "variant": "default"
+    },
+    {
+      "id": "e-improve-grill",
+      "from": "improve",
+      "to": "grill",
+      "label": "deep idea",
+      "variant": "dashed"
+    },
+    {
+      "id": "e-impl-wizard",
+      "from": "implement",
+      "to": "wizard",
+      "label": "human gate",
+      "variant": "security"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "emerald",
+      "title": "Main Build Chain",
+      "items": [
+        "Grill with docs retains ubiquitous language in CONTEXT.md and ADRs.",
+        "/to-spec collapses interview into a contract; /to-tickets enforces blocking edges.",
+        "/implement executes with /tdd, verified through two-axis /code-review."
+      ]
+    },
+    {
+      "dot": "cyan",
+      "title": "Smart Zone & Phase Boundaries",
+      "items": [
+        "Keep context <150k tokens to maintain sharp model reasoning.",
+        "Evaluate phase boundaries top-down: Continue, /clear, /handoff, Subagent, or /compact."
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "On-Ramps & Human Limits",
+      "items": [
+        "/wayfinder pushes back the fog on huge greenfield initiatives.",
+        "/wizard writes self-contained bash scripts for steps only humans can take."
+      ]
+    }
+  ]
+}

@@ -40,6 +40,6 @@ These tools are referenced, not vendored, in this bundle.
 ## Original Repository
 
 - Source: https://github.com/davidondrej/skills
-- Pinned commit: `2f70c586205a20523a4caecbc701128a30554628`
+- Pinned commit: `11dee2ebc2d045806b686ba0b57746f1e3d7e331`
 - License: MIT
 - Author: David Ondrej (@davidondrej)

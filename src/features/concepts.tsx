@@ -123,6 +123,38 @@ export function Concepts() {
               </p>
             </div>
           </div>
+
+          {/* Phase Boundaries Decision Tree */}
+          <div className="border border-border rounded p-4 mt-2 space-y-3 bg-muted/20">
+            <div>
+              <p className="text-sm font-semibold text-foreground">{m.concepts_phase_boundaries_title()}</p>
+              <p className="text-xs text-muted-foreground mt-0.5">
+                {m.concepts_phase_boundaries_description()}
+              </p>
+            </div>
+            <div className="space-y-1.5 font-mono text-xs">
+              <div className="flex items-start gap-2 border-l-2 border-emerald-500 pl-2.5 py-0.5">
+                <span className="font-bold text-emerald-600 dark:text-emerald-400 shrink-0">1. Continue</span>
+                <span className="text-[11px] font-sans text-muted-foreground">{m.concepts_pb_continue()}</span>
+              </div>
+              <div className="flex items-start gap-2 border-l-2 border-sky-500 pl-2.5 py-0.5">
+                <span className="font-bold text-sky-600 dark:text-sky-400 shrink-0">2. /clear</span>
+                <span className="text-[11px] font-sans text-muted-foreground">{m.concepts_pb_clear()}</span>
+              </div>
+              <div className="flex items-start gap-2 border-l-2 border-amber-500 pl-2.5 py-0.5">
+                <span className="font-bold text-amber-600 dark:text-amber-400 shrink-0">3. /handoff</span>
+                <span className="text-[11px] font-sans text-muted-foreground">{m.concepts_pb_handoff()}</span>
+              </div>
+              <div className="flex items-start gap-2 border-l-2 border-purple-500 pl-2.5 py-0.5">
+                <span className="font-bold text-purple-600 dark:text-purple-400 shrink-0">4. Subagent</span>
+                <span className="text-[11px] font-sans text-muted-foreground">{m.concepts_pb_subagent()}</span>
+              </div>
+              <div className="flex items-start gap-2 border-l-2 border-muted-foreground/60 pl-2.5 py-0.5">
+                <span className="font-bold text-foreground shrink-0">5. /compact</span>
+                <span className="text-[11px] font-sans text-muted-foreground">{m.concepts_pb_compact()}</span>
+              </div>
+            </div>
+          </div>
         </CardContent>
       </Card>
 

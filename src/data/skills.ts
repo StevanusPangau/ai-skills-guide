@@ -1,12 +1,12 @@
 import type { Skill } from '@/types/skill'
 
-// Koleksi Matt Pocock — mattpocock/skills v1.1.
+// Koleksi Matt Pocock — mattpocock/skills v1.2.3.
 // Sumber: https://github.com/mattpocock/skills (MIT)
 // Tag v1.1.0 = commit di bawah (cek ulang saat sync upstream).
 
 export const MATTPOCOCK_SOURCE_REPO = 'github.com/mattpocock/skills'
-export const MATTPOCOCK_SOURCE_VERSION = 'v1.1.0'
-export const MATTPOCOCK_SOURCE_SHA = 'd574778f94cf620fcc8ce741584093bc650a61d3'
+export const MATTPOCOCK_SOURCE_VERSION = 'v1.2.3'
+export const MATTPOCOCK_SOURCE_SHA = '6acc160e4e0cd062dbbbd7a1b26ae92855edf07e'
 
 export const skills: Skill[] = [
   {
@@ -20,7 +20,7 @@ export const skills: Skill[] = [
       'Mengarahkan ke standalone tools saat appropriate',
       'Routes ke skill yang tepat berdasarkan konteks',
     ],
-    related: ['grill-with-docs', 'triage', 'improve-codebase-architecture'],
+    related: ['grill-with-docs', 'triage', 'improve-codebase-architecture', 'wizard', 'wait-what'],
     detailedDescription: 'ask-matt adalah entry point untuk seluruh skill system. Ketika kamu bingung harus mulai dari mana, skill ini membantu mengarahkan ke skill yang tepat. Ia memahami seluruh flow: main build chain (grill-with-docs → to-spec → to-tickets → implement → code-review), on-ramps (triage untuk bugs, improve-codebase-architecture untuk code rot), dan standalone tools (prototype, handoff, teach).',
     howItWorks: [
       'Dengarkan situasi user saat ini',
@@ -726,43 +726,134 @@ export const skills: Skill[] = [
     pairsWellWith: ['research', 'writing-great-skills'],
   },
   {
-    name: 'writing-great-skills',
-    category: 'productivity',
-    invocation: 'user',
-    description: 'Meta-reference untuk authoring skills. Predictability, context/cognitive load, leading words.',
-    whenToUse: 'Saat membuat atau memperbaiki skill definitions.',
+    name: 'wizard',
+    category: 'engineering',
+    invocation: 'model',
+    description: 'Generate interactive bash wizard script untuk memandu manusia melewati langkah-langkah yang hanya bisa dijalankan manual (provisioning, credentials, migrations).',
+    whenToUse: 'Saat proses deployment, setup third-party credential/secrets CI, migrasi skema data sekali jalan, atau navigasi dashboard asing yang tidak boleh/bisa disentuh otomatis oleh agent.',
     keyBehaviors: [
-      'Root virtue: predictability (same process every run)',
-      'Manage context load (model-invoked) vs cognitive load (user-invoked)',
-      'Information hierarchy: in-skill step → in-skill reference → external reference',
-      'Progressive disclosure: push detail ke linked files',
-      'Leading words: compact concepts dari pretraining',
-      'Completion criteria yang checkable dan exhaustive',
+      'Agent menulis script wizard, bukan menjalankannya sendiri (manusia yang mengeksekusi)',
+      'Membuka URL browser yang relevan secara otomatis (open/xdg-open)',
+      'Meminta input token/value spesifik dari user dan memvalidasinya',
+      'Menulis output kredensial langsung ke .env atau GitHub Actions secrets',
+      'Menyediakan konfirmasi tahapan sebelum baris script dieksekusi',
     ],
-    related: ['teach', 'ask-matt'],
-    detailedDescription: 'Skill ini adalah reference untuk menulis skills yang baik. Root virtue: PREDICTABILITY — agent mengambil process yang SAMA setiap run, bukan output yang sama.\n\nDua invocation types trade different costs: model-invoked (agent bisa fire sendiri, tapi add context load), user-invoked (zero context load, tapi user harus ingat). Router skill mengatasi cognitive load dari banyak user-invoked skills.\n\nInformation hierarchy: steps (what agent does, in order) → in-skill reference (rules/definitions, consulted on demand) → external reference (separate file, loaded via pointer). Push terlalu sedikit ke bawah = top bloats. Push terlalu banyak = hide needed material.\n\nLeading words: compact concept dari pretraining yang anchor behavior ("tight", "red", "tracer bullet"). Satu token menggantikan paragraf restatement.',
+    related: ['setup-matt-pocock-skills', 'ask-matt', 'implement'],
+    detailedDescription: 'wizard menyelesaikan friksi klasik ketika AI agent terbentur langkah yang hanya bisa dilakukan oleh manusia (misalnya login web dashboard pihak ketiga, copy-paste API token sensitif, konfirmasi 2FA, atau verifikasi cutover).\n\nDaripada agent mencetak daftar 10 instruksi panjang di chat yang rentan salah diikuti, wizard menghasilkan script bash interaktif (self-contained). Script ini memandu manusia step-by-step: membuka URL yang tepat, menginstruksikan klik apa yang ditekan, menangkap nilai yang di-paste, lalu menulisnya secara aman ke file lingkungan (.env / GitHub Actions secrets).',
     howItWorks: [
-      'Tentukan invocation type (user vs model)',
-      'Tulis description dengan trigger phrases (untuk model-invoked)',
-      'Struktur body: steps dan/atau reference',
-      'Set completion criteria yang checkable + exhaustive',
-      'Use leading words untuk anchor behavior',
-      'Apply progressive disclosure untuk manage length',
+      'Agent mengidentifikasi boundary langkah manusia vs mesin',
+      'Menyusun stage list terstruktur untuk konfirmasi user',
+      'Meng-generate executable bash script berbasis template robust',
+      'User menjalankan script di terminal lokal mereka secara mandiri',
+      'Script menyimpan state dan nilai terverifikasi ke config target',
     ],
     itsWorkingIf: [
-      'Agent mengambil process yang sama setiap run',
-      'Tidak ada no-ops (lines yang agent sudah obey by default)',
-      'Tidak ada duplication (same meaning in >1 place)',
-      'Completion criteria checkable dan exhaustive',
+      'Prosedur manual rumit selesai dalam sekali jalan tanpa bolak-balik instruksi chat',
+      'Secret masuk langsung ke .env tanpa terpapar di riwayat chat konteks',
+      'Script bash mudah dibaca, idempoten, dan berhenti jika terjadi error (set -euo pipefail)',
     ],
-    workflow: 'Standalone — meta-skill untuk authoring dan improving skills',
+    workflow: 'Standalone / On-demand — dipanggil oleh model saat terbentur batas kemampuan otonom',
     tips: [
-      'Failure modes: premature completion, duplication, sediment, sprawl, no-op',
-      'No-op test: does this line change behavior vs default? Jika tidak, hapus',
-      'Leading word > paragraf penjelasan — "tight" loop vs "fast, deterministic, low-overhead" loop',
-      'Jangan split skill kecuali ada distinct leading word atau premature completion risk',
+      'Jangan gunakan wizard untuk tugas yang bisa dan boleh dijalankan sendiri oleh agent (mis. running tests, git commit, edit file lokal)',
+      'Script dirancang ephemeral (bisa dihapus setelah selesai digunakan)',
     ],
-    pairsWellWith: ['teach', 'ask-matt'],
+    pairsWellWith: ['setup-matt-pocock-skills', 'implement', 'ask-matt'],
+  },
+  {
+    name: 'to-questionnaire',
+    category: 'productivity',
+    invocation: 'user',
+    description: 'Ubah keputusan buntu yang tidak bisa dijawab sendiri menjadi dokumen kuesioner Markdown untuk diisi oleh orang yang memegang jawabannya.',
+    whenToUse: 'Saat terhambat keputusan domain atau teknis yang informasinya tidak ada di codebase maupun kepala kamu, melainkan di rekan kerja/klien/stakeholder.',
+    keyBehaviors: [
+      'Grill the send, not the subject — agent mewawancarai kamu tentang target penerima dan apa yang dibutuhkan darinya',
+      'Menyusun pertanyaan tajam yang ditujukan tepat pada celah informasi (gap)',
+      'Menghasilkan dokumen Markdown kuesioner siap kirim (async atau live meeting)',
+    ],
+    related: ['grill-me', 'grill-with-docs', 'to-spec'],
+    detailedDescription: 'to-questionnaire adalah kebalikan dari /grill-me. Jika /grill-me mewawancarai kamu untuk menggali apa yang ada di kepalamu, to-questionnaire dipakai saat jawabannya TIDAK ada di kepalamu maupun di repo.\n\nAgent tidak mewawancarai topik masalahnya (karena kamu memang tidak tahu), melainkan mewawancarai proses pengirimannya: kepada siapa dokumen ini dikirim, apa konteks peran mereka, dan keputusan apa yang harus dihasilkan. Dokumen kuesioner yang dihasilkan bisa diisi secara asinkron atau dijadikan panduan agenda meeting klarifikasi.',
+    howItWorks: [
+      'User menjalankan /to-questionnaire saat menemui decision blocker eksternal',
+      'Agent menanyakan siapa penerima dan keputusan kunci apa yang dibutuhkan',
+      'Agent menyusun dokumen kuesioner Markdown dengan opsi dan trade-off terstruktur',
+      'User mengirim dokumen ke stakeholder atau menggunakannya dalam meeting',
+      'Jawaban yang kembali di-feed ke /grill-with-docs atau /to-spec',
+    ],
+    itsWorkingIf: [
+      'Penerima kuesioner dapat menjawab dengan cepat tanpa kebingungan konteks',
+      'Jawaban yang diterima langsung membuka blocker arsitektur atau spec',
+    ],
+    workflow: 'Standalone — input feeder menuju /grill-with-docs atau /to-spec',
+    tips: [
+      'Gunakan format pilihan ganda jika opsi teknis sudah terbatas',
+      'Pastikan menyertakan konteks singkat "mengapa kami menanyakan ini" di pembuka dokumen',
+    ],
+    pairsWellWith: ['grill-with-docs', 'to-spec', 'ask-matt'],
+  },
+  {
+    name: 'wait-what',
+    category: 'productivity',
+    invocation: 'user',
+    description: 'Koreksi satu kata saat pesan agent membingungkan: hentikan dan jelaskan ulang dengan bahasa lugas dan istilah CONTEXT.md.',
+    whenToUse: 'Kapan saja pesan atau penjelasan agent terasa terlalu berbelit-belit, penuh jargon asing, atau kehilangan arah konteks.',
+    keyBehaviors: [
+      'Skill ultra-singkat (3 baris) dengan satu leading word yang presisi',
+      'Agent langsung re-pitch pesan terakhirnya dalam ASD-STE100 Simplified Technical English',
+      'Menghubungkan kembali penjelasan ke ubiquitous language di CONTEXT.md',
+    ],
+    related: ['grill-with-docs', 'domain-modeling', 'ask-matt'],
+    detailedDescription: 'wait-what adalah corrective satu kata untuk memotong verbositas dan jargon model. Daripada kamu mengetik penjelasan panjang "saya tidak paham maksudmu, tolong sederhanakan...", cukup panggil /wait-what.\n\nDesain skill ini sengaja sangat ringkas (tiga baris). Skill pelawan verbositas sering gagal jika dibuat bertele-tele karena model membaca volume kata. Dengan kesederhanaan ekstrem, agent langsung berhenti, menyajikan ulang inti pesan dengan kalimat sederhana dan kosakata domain yang sudah disepakati.',
+    howItWorks: [
+      'Ketik /wait-what tepat setelah respons agent yang tidak kamu pahami',
+      'Agent menghentikan alur sebelumnya dan membedah ulang pesan terakhir',
+      'Menyajikan konteks minimal yang hilang, kalimat lugas, dan terminologi proyek yang konsisten',
+    ],
+    itsWorkingIf: [
+      'Penjelasan ulang agent langsung dipahami dalam 1-2 paragraf padat',
+      'Istilah yang dipakai selaras dengan CONTEXT.md proyek',
+    ],
+    workflow: 'In-session corrective — bisa dipanggil kapan saja di tengah skill apa pun',
+    tips: [
+      'Panggil segera saat kebingungan muncul, jangan biarkan agent melangkah lebih jauh di atas asumsi yang kabur',
+      '/grill-with-docs adalah pencegah di awal, /wait-what adalah penawar jika jargon tetap lolos di tengah jalan',
+    ],
+    pairsWellWith: ['grill-with-docs', 'domain-modeling', 'implement'],
+  },
+  {
+    name: 'writing-for-agents',
+    category: 'productivity',
+    invocation: 'model',
+    description: 'Referensi utama penulisan dokumen yang dibaca agent (skills, AGENTS.md, CLAUDE.md, instruksi spec). Fokus pada predictability, progressive disclosure, dan eliminasi no-ops.',
+    whenToUse: 'Saat membuat atau menyunting skills baru, memperbarui AGENTS.md/CLAUDE.md, atau merancang instruksi sistematis untuk coding agent.',
+    keyBehaviors: [
+      'Root virtue: Predictability (agent mengambil PROCESS yang sama setiap run, bukan sekadar output identik)',
+      'Eliminasi no-ops: kalimat yang sudah dipatuhi model secara default dihapus, bukan diperjelas',
+      'Manajemen dua beban: Context Load (model-invoked) vs Cognitive Load (user-invoked)',
+      'Information hierarchy: in-skill step → in-skill reference → external reference',
+      'Progressive disclosure: sembunyikan detail cabang di balik file referensi (SKILL-MECHANICS.md / pointers)',
+      'Leading words: manfaatkan konsep pretrained padat (mis. "tight", "red", "tracer bullet") untuk menghemat token',
+    ],
+    related: ['teach', 'ask-matt', 'domain-modeling'],
+    detailedDescription: 'writing-for-agents (evolusi dari writing-great-skills di v1.2.3) memperluas cakupan dari sekadar menulis skill menjadi standar penulisan semua dokumen yang dikonsumsi oleh AI agent (termasuk AGENTS.md, CLAUDE.md, dan prompt arsitektur).\n\nPrinsip utamanya adalah penghapusan (deletion), bukan penjelasan berlebih. Ketika manusia diminta menulis panduan untuk agent, kecenderungan umumnya adalah menjelaskan apa yang sebenarnya sudah diketahui model (no-ops). Skill ini mengajarkan cara menyaring dokumen hingga menyisakan tuas determinisme murni: kriteria selesai yang dapat diuji (completion criteria), disclosure bertahap, dan kata kunci terarah (leading words).',
+    howItWorks: [
+      'Pahami apakah dokumen berupa skill atau instruksi project (AGENTS.md)',
+      'Tentukan mode pemanggilan: model-invoked vs user-invoked untuk menyeimbangkan context load vs cognitive load',
+      'Terapkan uji no-op baris demi baris: hapus kalimat yang tidak mengubah perilaku default model',
+      'Pisahkan tahapan (steps) dari referensi flat, dan pindahkan detail kondisional ke linked docs',
+      'Gunakan kata pemandu (leading words) yang kuat untuk mengikat perilaku deterministik',
+    ],
+    itsWorkingIf: [
+      'Agent menunjukkan proses kerja yang konsisten di berbagai sesi pengujian',
+      'Dokumen ringkas, padat sinyal, bebas dari kalimat basa-basi dan aturan redundan',
+      'Kriteria selesai (completion criteria) bersifat checkable dan tuntas (exhaustive)',
+    ],
+    workflow: 'Standalone — meta-reference untuk authoring dan maintaining dokumen agent',
+    tips: [
+      'Waspadai kegagalan negasi (elephant): melarang sesuatu justru membuat model memikirkannya; gunakan arahan perilaku positif',
+      'Kenali kegagalan premature completion: agent tergesa-gesa menyelesaikan tugas karena melihat langkah berikutnya; sembunyikan langkah lanjutan jika perlu',
+      'Baca SKILL-MECHANICS.md saat fokus pada format metadata skill spesifik',
+    ],
+    pairsWellWith: ['teach', 'ask-matt', 'domain-modeling'],
   },
   {
     name: 'grilling',

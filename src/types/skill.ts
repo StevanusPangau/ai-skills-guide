@@ -40,7 +40,10 @@ const officialTitles: Record<string, string> = {
   'grill-me': 'grill-me: Relentless Interview Without Docs',
   'handoff': 'handoff: Move Context Between Agent Sessions',
   'teach': 'teach: Multi-Session Structured Learning',
-  'writing-great-skills': 'writing-great-skills: Meta-Reference for Skill Authoring',
+  'writing-for-agents': 'writing-for-agents: Reference for Agent-Facing Docs',
+  'wizard': 'wizard: Interactive Human-in-the-Loop Setup Script',
+  'to-questionnaire': 'to-questionnaire: Turn Gap Into Async Questions',
+  'wait-what': 'wait-what: One-Word Corrective for Model Verbosity',
   'grilling': 'grilling: Reusable Interview Primitive',
 }
 
@@ -65,7 +68,10 @@ const whenNotToUseMap: Record<string, string> = {
   'grill-me': 'Jika ada codebase yang perlu dipahami — gunakan /grill-with-docs yang bisa explore code.',
   'handoff': 'Jika masih bisa lanjut di session yang sama tanpa context bloat. Jangan handoff terlalu dini.',
   'teach': 'Jika butuh jawaban cepat satu kali — gunakan /research. Teach untuk learning journey multi-session.',
-  'writing-great-skills': 'Jika hanya menggunakan skills yang sudah ada, bukan membuat baru.',
+  'writing-for-agents': 'Jika hanya menggunakan skills yang sudah ada tanpa membuat atau memodifikasi skill/AGENTS.md.',
+  'wizard': 'Jika langkah tersebut bisa dijalankan sendiri secara otomatis oleh AI agent tanpa bantuan manusia.',
+  'to-questionnaire': 'Jika kamu sendiri sudah tahu jawabannya atau bisa diselesaikan lewat /grill-with-docs.',
+  'wait-what': 'Jika pesan agent sudah jelas dan sesuai kebutuhan, atau ingin eksplorasi arah baru.',
   'grilling': 'Jangan panggil langsung — ia dipanggil otomatis oleh /grill-me dan /grill-with-docs.',
 }
 
