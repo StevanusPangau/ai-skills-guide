@@ -1,13 +1,13 @@
 # AI Skills Guide
 
-[![Live](https://img.shields.io/badge/live-skills.stevanuspangau.cloud-f97316)](https://skills.stevanuspangau.cloud)
+[![Live](https://img.shields.io/badge/live-skills.stevanuspangau.dev-f97316)](https://skills.stevanuspangau.dev)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
 
 **English** · [Bahasa Indonesia](./README.id.md)
 
 Interactive **multi-collection** reference for AI-agent software-development skills: practitioner collections, workflows, concepts, and installable Hermes skill bundles.
 
-**Live:** https://skills.stevanuspangau.cloud
+**Live:** https://skills.stevanuspangau.dev
 
 > UI shell: **Indonesian** (base) + **English**. Long skill copy is mostly Indonesian; technical terms stay English.
 
@@ -30,12 +30,12 @@ Snapshot of what ships today (counts/pins change as collections grow):
 
 | Collection | Route | Upstream | Catalog | Hermes bundle |
 |---|---|---|---|---|
-| Matt Pocock — AI Coding Skills | [`/mattpocock`](https://skills.stevanuspangau.cloud/mattpocock) | [mattpocock/skills](https://github.com/mattpocock/skills) `v1.2.3` | 25 | `skills/hermes/` (25) |
-| Emil Kowalski — Design Engineering Skills | [`/emilkowalski`](https://skills.stevanuspangau.cloud/emilkowalski) | [emilkowalski/skills](https://github.com/emilkowalski/skills) pin `6bf24434…` | 6 | Upstream via skills.sh |
-| David Ondrej — Personal Agent Skills | [`/davidondrej`](https://skills.stevanuspangau.cloud/davidondrej) | [davidondrej/skills](https://github.com/davidondrej/skills) pin `2f70c586…` | 28 (+ compat/risk) | `skills/davidondrej/` first-wave 9 |
-| Jakub Krehel — UI & Design Engineering Skills | [`/jakubkrehel`](https://skills.stevanuspangau.cloud/jakubkrehel) | [jakubkrehel/skills](https://github.com/jakubkrehel/skills) | 11 | Upstream via skills.sh |
-| Brooklyn — Autonomous Engineering & PR Skills | [`/brooklyn`](https://skills.stevanuspangau.cloud/brooklyn) | [OutThisLife/brooklyn-skills](https://github.com/OutThisLife/brooklyn-skills) | 21 | Upstream / Hermes external_dirs |
-| Jesse Vincent — Agentic SDLC & Superpowers | [`/superpowers`](https://skills.stevanuspangau.cloud/superpowers) | [obra/superpowers](https://github.com/obra/superpowers) | 14 | Upstream via skills.sh |
+| Matt Pocock — AI Coding Skills | [`/mattpocock`](https://skills.stevanuspangau.dev/mattpocock) | [mattpocock/skills](https://github.com/mattpocock/skills) `v1.2.3` | 25 | `skills/hermes/` (25) |
+| Emil Kowalski — Design Engineering Skills | [`/emilkowalski`](https://skills.stevanuspangau.dev/emilkowalski) | [emilkowalski/skills](https://github.com/emilkowalski/skills) pin `6bf24434…` | 6 | Upstream via skills.sh |
+| David Ondrej — Personal Agent Skills | [`/davidondrej`](https://skills.stevanuspangau.dev/davidondrej) | [davidondrej/skills](https://github.com/davidondrej/skills) pin `2f70c586…` | 28 (+ compat/risk) | `skills/davidondrej/` first-wave 9 |
+| Jakub Krehel — UI & Design Engineering Skills | [`/jakubkrehel`](https://skills.stevanuspangau.dev/jakubkrehel) | [jakubkrehel/skills](https://github.com/jakubkrehel/skills) | 11 | Upstream via skills.sh |
+| Brooklyn — Autonomous Engineering & PR Skills | [`/brooklyn`](https://skills.stevanuspangau.dev/brooklyn) | [OutThisLife/brooklyn-skills](https://github.com/OutThisLife/brooklyn-skills) | 21 | Upstream / Hermes external_dirs |
+| Jesse Vincent — Agentic SDLC & Superpowers | [`/superpowers`](https://skills.stevanuspangau.dev/superpowers) | [obra/superpowers](https://github.com/obra/superpowers) | 14 | Upstream via skills.sh |
 
 Some collections document upstream more broadly than they ship as a Hermes first-wave. Per-collection pages and `skills/*/UPSTREAM.md` / `ATTRIBUTION.md` (when present) are the source of truth for pins and scope.
 
