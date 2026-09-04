@@ -1,27 +1,13 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { CodeBlock } from '@/components/code-block'
-import { davidondrejSkills } from '@/data/davidondrej-skills'
 import {
   externalLinkAriaLabel,
   externalTextLinkClass,
 } from '@/lib/external-link'
 import { m } from '@/paraglide/messages.js'
 
-const firstWave = davidondrejSkills.filter((s) => s.bundleStatus === 'first-wave')
-
-const HERMES_STEPS = [
-  'hermes skills tap add StevanusPangau/ai-skills-guide',
-  'hermes skills browse --source github',
-  'hermes skills install StevanusPangau/ai-skills-guide/skills/davidondrej/thinking-and-docs/brain-to-docs',
-].join('\n')
-
-const HERMES_ALT = `# ~/.hermes/config.yaml
-skills:
-  external_dirs:
-    - ~/Development/Project/Tools/ai-skills-guide/skills/davidondrej`
-
-// Upstream via skills.sh — install full davidondrej/skills for non-Hermes agents.
+// Upstream via skills.sh — install full davidondrej/skills.
 const SKILLS_SH_STEPS = [
   'npx skills@latest add davidondrej/skills',
   '# Pilih skill di prompt; cek prasyarat & agent target sebelum install massal',
@@ -42,44 +28,11 @@ export function DavidInstall() {
       <div className="grid gap-4">
         <Card className="border-primary/40">
           <CardHeader className="pb-3">
-            <div className="flex items-center gap-3">
-              <CardTitle as="h3" className="text-base">
-                Hermes Agent
-              </CardTitle>
-              <Badge variant="default">Available</Badge>
-            </div>
-          </CardHeader>
-          <CardContent className="space-y-3">
-            <CodeBlock code={HERMES_STEPS} shell />
-            <div className="space-y-1.5">
-              <p className="text-xs text-muted-foreground">
-                {m.installation_alt_label()}
-              </p>
-              <CodeBlock code={HERMES_ALT} />
-            </div>
-            <p className="text-sm text-muted-foreground">
-              {m.david_install_notes_hermes()}
-            </p>
-            <div className="flex flex-wrap gap-1.5 pt-1">
-              {firstWave.map((s) => (
-                <span
-                  key={s.name}
-                  className="rounded-full border border-border px-2.5 py-0.5 font-mono text-[11px] text-muted-foreground"
-                >
-                  /{s.name}
-                </span>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="border-primary/40">
-          <CardHeader className="pb-3">
             <div className="flex flex-wrap items-center gap-3">
               <CardTitle as="h3" className="text-base">
-                Claude Code · Codex · OpenCode · Cursor
+                Universal CLI (skills.sh)
               </CardTitle>
-              <Badge variant="default">skills.sh</Badge>
+              <Badge variant="default">Recommended</Badge>
             </div>
           </CardHeader>
           <CardContent className="space-y-3">
@@ -90,40 +43,32 @@ export function DavidInstall() {
             <p className="text-xs text-muted-foreground">
               {m.installation_skills_sh_ref()}{' '}
               <a
-                href="https://skills.sh/davidondrej/skills"
+                href="https://skills.sh"
                 target="_blank"
                 rel="noopener noreferrer"
                 className={externalTextLinkClass}
-                aria-label={externalLinkAriaLabel(
-                  'skills.sh/davidondrej/skills',
-                )}
+                aria-label={externalLinkAriaLabel('skills.sh')}
               >
-                skills.sh/davidondrej/skills
+                skills.sh
               </a>
             </p>
           </CardContent>
         </Card>
       </div>
 
-      <Card className="bg-muted/50">
-        <CardContent className="pt-4">
-          <p className="text-sm text-muted-foreground">
-            <strong className="text-foreground">
-              {m.installation_attribution()}
-            </strong>{' '}
-            <a
-              href="https://github.com/davidondrej/skills"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={externalTextLinkClass}
-              aria-label={externalLinkAriaLabel('davidondrej/skills')}
-            >
-              davidondrej/skills
-            </a>{' '}
-            {m.david_install_attribution_suffix()}
-          </p>
-        </CardContent>
-      </Card>
+      <p className="text-xs text-muted-foreground">
+        {m.installation_attribution()}{' '}
+        <a
+          href="https://github.com/davidondrej/skills"
+          target="_blank"
+          rel="noopener noreferrer"
+          className={externalTextLinkClass}
+          aria-label={externalLinkAriaLabel('David Ondrej on GitHub')}
+        >
+          David Ondrej
+        </a>{' '}
+        {m.david_install_attribution_suffix()}
+      </p>
     </section>
   )
 }
