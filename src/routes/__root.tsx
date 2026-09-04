@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react'
 import { createRootRoute, Link, Outlet } from '@tanstack/react-router'
-import { RiGithubFill, RiMoonLine, RiSunLine } from '@remixicon/react'
+import { RiGithubFill, RiMoonLine, RiSunLine, RiSearchLine } from '@remixicon/react'
 import { Button } from '@/components/ui/button'
+import { GlobalSearchDialog } from '@/components/global-search-dialog'
 import { externalLinkAriaLabel } from '@/lib/external-link'
 import { m } from '@/paraglide/messages.js'
 import { getLocale, setLocale } from '@/paraglide/runtime.js'
@@ -48,6 +49,19 @@ function syncThemeColor(dark: boolean) {
 
 function RootLayout() {
   const [dark, setDark] = useState(readStoredDark)
+  const [searchOpen, setSearchOpen] = useState(false)
+
+  // Global Cmd+K / Ctrl+K shortcut
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault()
+        setSearchOpen((prev) => !prev)
+      }
+    }
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [])
 
   useEffect(() => {
     document.documentElement.classList.toggle('dark', dark)
@@ -118,7 +132,31 @@ function RootLayout() {
             </nav>
           </div>
 
-          <div className="flex shrink-0 items-center gap-1">
+          <div className="flex shrink-0 items-center gap-1 sm:gap-2">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => setSearchOpen(true)}
+              className="hidden sm:flex items-center gap-2 h-8 px-2.5 text-xs text-muted-foreground border-border/80 hover:text-foreground hover:bg-muted font-normal"
+              title="Cari skill (Cmd+K)"
+            >
+              <RiSearchLine className="size-3.5" />
+              <span>{getLocale() === 'en' ? 'Search skills...' : 'Cari skill...'}</span>
+              <kbd className="pointer-events-none inline-flex h-4 select-none items-center gap-0.5 rounded border border-border bg-muted px-1 font-mono text-[10px] font-medium text-muted-foreground">
+                <span className="text-xs">⌘</span>K
+              </kbd>
+            </Button>
+
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => setSearchOpen(true)}
+              className="sm:hidden text-muted-foreground hover:text-foreground"
+              aria-label="Cari skill"
+            >
+              <RiSearchLine className="size-5" />
+            </Button>
+
             <a
               href="https://github.com/StevanusPangau/ai-skills-guide"
               target="_blank"
@@ -159,6 +197,7 @@ function RootLayout() {
       </header>
 
       <Outlet />
+      <GlobalSearchDialog open={searchOpen} onOpenChange={setSearchOpen} />
     </div>
   )
 }
