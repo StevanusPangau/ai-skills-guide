@@ -1,6 +1,7 @@
 import { Link } from '@tanstack/react-router'
 import { Badge } from '@/components/ui/badge'
 import { SkillInstallBlock } from '@/components/skill-install-block'
+import { CopyAgentRuleButton } from '@/components/copy-agent-rule-button'
 import { RiLightbulbLine } from '@remixicon/react'
 import type { Skill } from '@/types/skill'
 import { getWhenNotToUse } from '@/types/skill'
@@ -116,7 +117,19 @@ export function SkillDetailBody({ skill }: { skill: Skill }) {
         </Section>
       )}
 
-      <div id="install" className="scroll-mt-20">
+      <div id="install" className="scroll-mt-20 space-y-3">
+        <div className="flex items-center justify-between">
+          <h2 className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">
+            {m.skill_install_title()}
+          </h2>
+          <CopyAgentRuleButton
+            skillName={skill.name}
+            description={skill.detailedDescription || skill.description}
+            useWhen={skill.whenToUse ? [skill.whenToUse] : []}
+            coreRules={skill.keyBehaviors}
+            howItWorks={skill.howItWorks}
+          />
+        </div>
         <SkillInstallBlock source="mattpocock/skills" skillName={skill.name} />
       </div>
     </div>
