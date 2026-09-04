@@ -18,7 +18,7 @@ function JakubPage() {
   const sections = useMemo(
     () => [
       { id: 'overview', label: m.jakub_sidebar_overview() },
-      { id: 'flow', label: 'Alur Polish UI' },
+      { id: 'flow', label: m.sidebar_flow_title() },
       { id: 'lab', label: m.jakub_sidebar_lab() },
       {
         id: 'skills',
@@ -49,8 +49,8 @@ function JakubPage() {
         collectionSlug="jakubkrehel"
         skills={jakubkrehelSkills}
         categories={categories}
-        title={`Semua ${jakubkrehelSkills.length} Skills`}
-        description="Katalog lengkap skill antarmuka dan design engineering presisi dari Jakub Krehel (Interfaces.dev)."
+        title={m.jakub_catalog_title({ count: String(jakubkrehelSkills.length) })}
+        description={m.jakub_catalog_desc()}
         repoUrl="github.com/jakubkrehel/skills"
       />
     </CollectionGuideLayout>

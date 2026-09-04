@@ -18,7 +18,7 @@ function SuperpowersPage() {
   const sections = useMemo(
     () => [
       { id: 'overview', label: m.superpowers_sidebar_overview() },
-      { id: 'flow', label: 'Alur Subagent (SDD)' },
+      { id: 'flow', label: m.sidebar_flow_title() },
       { id: 'sdd', label: m.superpowers_sidebar_sdd() },
       {
         id: 'skills',
@@ -48,8 +48,8 @@ function SuperpowersPage() {
         collectionSlug="superpowers"
         skills={superpowersSkills}
         categories={categories}
-        title={`Semua ${superpowersSkills.length} Skills`}
-        description="Katalog lengkap skill SDLC agentic, Subagent-Driven Development (SDD), dan TDD ketat dari Jesse Vincent (obra)."
+        title={m.superpowers_catalog_title({ count: String(superpowersSkills.length) })}
+        description={m.superpowers_catalog_desc()}
         repoUrl="github.com/obra/superpowers"
       />
     </CollectionGuideLayout>
