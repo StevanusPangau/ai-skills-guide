@@ -9,7 +9,7 @@
   "description": "Panduan interaktif 22 AI coding skills dari Matt Pocock (v1.1) — alur kerja ide hingga ship untuk pengembangan software berbasis AI agent. Vite + React 19 + TanStack Router.",
   "license": "MIT",
   "author": "Stevanus Pangau",
-  "homepage": "https://skills.stevanuspangau.cloud",
+  "homepage": "https://skills.stevanuspangau.dev",
   "repository": {
     "type": "git",
     "url": "https://github.com/StevanusPangau/ai-skills-guide.git"

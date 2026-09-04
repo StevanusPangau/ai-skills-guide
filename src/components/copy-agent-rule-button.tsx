@@ -55,7 +55,7 @@ export function CopyAgentRuleButton({
     }
 
     lines.push('---')
-    lines.push(`Source: https://skills.stevanuspangau.cloud (skill: /${skillName})`)
+    lines.push(`Source: https://skills.stevanuspangau.dev (skill: /${skillName})`)
 
     return lines.join('\n')
   }
