@@ -1,6 +1,16 @@
 export type SkillCategory = 'engineering' | 'productivity'
 export type SkillInvocation = 'user' | 'model'
 
+export type BilingualString = {
+  id: string
+  en: string
+}
+
+export type BilingualList = {
+  id: string[]
+  en: string[]
+}
+
 export type Skill = {
   name: string
   category: SkillCategory
