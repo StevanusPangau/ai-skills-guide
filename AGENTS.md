@@ -16,11 +16,9 @@
 
 ## Repository Shape
 
-- `src/` is client-only React SPA; `skills/` contains separately installable adapted skill bundles.
-- Collection registry is `src/data/collections.ts`. Collection content spans data, routes, feature UI, and optional bundle; keep collection changes scoped across those surfaces.
-- Matt Pocock uses shared `src/features/*`, `src/data/skills.ts`, `/skills/$skillName`, and bundle `skills/hermes/`.
-- David Ondrej uses `src/features/davidondrej/`, `src/data/davidondrej-skills.ts`, nested `/davidondrej/skills/$skillName`, and bundle `skills/davidondrej/`.
-- A shipped skill-content change must update both guide data and corresponding `skills/**/SKILL.md`. Preserve bundle `ATTRIBUTION.md` / `UPSTREAM.md` pins and scope.
+- `src/` is client-only React SPA.
+- Skills are installed universally via the standard `npx skills@latest add` CLI (`skills.sh`).
+- Collection registry is `src/data/collections.ts`. Collection content spans data, routes, and feature UI.
 
 ## Project Conventions
 

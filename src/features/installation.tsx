@@ -7,17 +7,6 @@ import {
 } from '@/lib/external-link'
 import { m } from '@/paraglide/messages.js'
 
-const HERMES_STEPS = [
-  'hermes skills tap add StevanusPangau/ai-skills-guide',
-  'hermes skills browse --source github',
-  'hermes skills install StevanusPangau/ai-skills-guide/skills/hermes/engineering/tdd',
-].join('\n')
-
-const HERMES_ALT = `# ~/.hermes/config.yaml
-skills:
-  external_dirs:
-    - ~/Development/Project/Tools/ai-skills-guide/skills/hermes`
-
 // skills.sh CLI — installs to Claude Code, Codex, OpenCode, Cursor, and more.
 const SKILLS_SH_STEPS = [
   'npx skills@latest add mattpocock/skills',
@@ -40,34 +29,11 @@ export function Installation() {
       <div className="grid gap-4">
         <Card className="border-primary/40">
           <CardHeader className="pb-3">
-            <div className="flex items-center gap-3">
-              <CardTitle as="h3" className="text-base">
-                Hermes Agent
-              </CardTitle>
-              <Badge variant="default">Available</Badge>
-            </div>
-          </CardHeader>
-          <CardContent className="space-y-3">
-            <CodeBlock code={HERMES_STEPS} shell />
-            <div className="space-y-1.5">
-              <p className="text-xs text-muted-foreground">
-                {m.installation_alt_label()}
-              </p>
-              <CodeBlock code={HERMES_ALT} />
-            </div>
-            <p className="text-sm text-muted-foreground">
-              {m.installation_notes_hermes()}
-            </p>
-          </CardContent>
-        </Card>
-
-        <Card className="border-primary/40">
-          <CardHeader className="pb-3">
             <div className="flex flex-wrap items-center gap-3">
               <CardTitle as="h3" className="text-base">
-                Claude Code · Codex · OpenCode · Cursor
+                Universal CLI (skills.sh)
               </CardTitle>
-              <Badge variant="default">skills.sh</Badge>
+              <Badge variant="default">Recommended</Badge>
             </div>
           </CardHeader>
           <CardContent className="space-y-3">
@@ -78,38 +44,32 @@ export function Installation() {
             <p className="text-xs text-muted-foreground">
               {m.installation_skills_sh_ref()}{' '}
               <a
-                href="https://skills.sh/mattpocock/skills"
+                href="https://skills.sh"
                 target="_blank"
                 rel="noopener noreferrer"
                 className={externalTextLinkClass}
-                aria-label={externalLinkAriaLabel('skills.sh/mattpocock/skills')}
+                aria-label={externalLinkAriaLabel('skills.sh')}
               >
-                skills.sh/mattpocock/skills
+                skills.sh
               </a>
             </p>
           </CardContent>
         </Card>
       </div>
 
-      <Card className="bg-muted/50">
-        <CardContent className="pt-4">
-          <p className="text-sm text-muted-foreground">
-            <strong className="text-foreground">
-              {m.installation_attribution()}
-            </strong>{' '}
-            <a
-              href="https://github.com/mattpocock/skills"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={externalTextLinkClass}
-              aria-label={externalLinkAriaLabel('mattpocock/skills')}
-            >
-              mattpocock/skills
-            </a>{' '}
-            {m.installation_attribution_suffix()}
-          </p>
-        </CardContent>
-      </Card>
+      <p className="text-xs text-muted-foreground">
+        {m.installation_attribution()}{' '}
+        <a
+          href="https://github.com/mattpocock/skills"
+          target="_blank"
+          rel="noopener noreferrer"
+          className={externalTextLinkClass}
+          aria-label={externalLinkAriaLabel('Matt Pocock on GitHub')}
+        >
+          Matt Pocock
+        </a>{' '}
+        {m.installation_attribution_suffix()}
+      </p>
     </section>
   )
 }

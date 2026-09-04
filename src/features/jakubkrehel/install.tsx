@@ -13,12 +13,6 @@ const SKILLS_SH_STEPS = [
   '# Jalankan /better-interface untuk audit holistik layout & design tokens',
 ].join('\n')
 
-const HERMES_STEPS = [
-  '# Install langsung skill spesifik ke Hermes Agent via GitHub repo:',
-  'hermes skills install https://github.com/jakubkrehel/skills/tree/main/skills/better-ui',
-  'hermes skills install https://github.com/jakubkrehel/skills/tree/main/skills/better-interface',
-].join('\n')
-
 export function JakubInstall() {
   return (
     <section id="installation" className="scroll-mt-20 space-y-8">
@@ -36,15 +30,15 @@ export function JakubInstall() {
           <CardHeader className="pb-3">
             <div className="flex flex-wrap items-center gap-3">
               <CardTitle as="h3" className="text-base">
-                Claude Code · Cursor · Codex · OpenCode
+                Universal CLI (skills.sh)
               </CardTitle>
-              <Badge variant="default">skills.sh</Badge>
+              <Badge variant="default">Recommended</Badge>
             </div>
           </CardHeader>
           <CardContent className="space-y-3">
             <CodeBlock code={SKILLS_SH_STEPS} shell />
             <p className="text-sm text-muted-foreground">
-              Install langsung dari repository resmi Jakub Krehel menggunakan CLI skills.sh interaktif.
+              Install langsung dari repository resmi Jakub Krehel menggunakan CLI skills.sh interaktif untuk Claude Code, Cursor, Codex, OpenCode, dan agent modern lainnya.
             </p>
             <p className="text-xs text-muted-foreground">
               {m.installation_skills_sh_ref()}{' '}
@@ -60,46 +54,30 @@ export function JakubInstall() {
             </p>
           </CardContent>
         </Card>
-
-        <Card className="border-primary/40">
-          <CardHeader className="pb-3">
-            <div className="flex items-center gap-3">
-              <CardTitle as="h3" className="text-base">
-                Hermes Agent
-              </CardTitle>
-              <Badge variant="secondary">On-Demand</Badge>
-            </div>
-          </CardHeader>
-          <CardContent className="space-y-3">
-            <CodeBlock code={HERMES_STEPS} shell />
-            <p className="text-sm text-muted-foreground">
-              Hermes Agent memuat skill secara dinamis atau mengunduh folder skill dari git repository upstream langsung ke <code className="font-mono text-xs">~/.hermes/skills/</code>.
-            </p>
-          </CardContent>
-        </Card>
       </div>
 
-      <Card className="bg-muted/50">
-        <CardContent className="pt-4">
-          <p className="text-sm text-muted-foreground">
-            <strong className="text-foreground">
-              {m.installation_attribution()}
-            </strong>{' '}
-            Semua 11 skill antarmuka diciptakan oleh{' '}
-            <strong className="text-foreground">Jakub Krehel</strong>, kreator publikasi desain UI/UX{' '}
-            <a
-              href="https://interfaces.dev"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={externalTextLinkClass}
-              aria-label={externalLinkAriaLabel('interfaces.dev')}
-            >
-              interfaces.dev
-            </a>
-            . Dilisensikan secara terbuka untuk komunitas AI engineer.
-          </p>
-        </CardContent>
-      </Card>
+      <p className="text-xs text-muted-foreground">
+        Skills diadaptasi dari{' '}
+        <a
+          href="https://github.com/jakubkrehel/skills"
+          target="_blank"
+          rel="noopener noreferrer"
+          className={externalTextLinkClass}
+          aria-label={externalLinkAriaLabel('Jakub Krehel on GitHub')}
+        >
+          Jakub Krehel
+        </a>{' '}
+        (MIT License). Panduan presisi antarmuka web modern dari{' '}
+        <a
+          href="https://interfaces.dev"
+          target="_blank"
+          rel="noopener noreferrer"
+          className={externalTextLinkClass}
+          aria-label={externalLinkAriaLabel('interfaces.dev')}
+        >
+          interfaces.dev
+        </a>.
+      </p>
     </section>
   )
 }

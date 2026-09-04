@@ -13,13 +13,6 @@ const SKILLS_SH_STEPS = [
   '# Gunakan /work untuk mulai tugas di git worktree terisolasi',
 ].join('\n')
 
-const HERMES_STEPS = [
-  '# Install langsung skill ke Hermes Agent via GitHub repo:',
-  'hermes skills install https://github.com/OutThisLife/brooklyn-skills/tree/main/skills/cpr',
-  'hermes skills install https://github.com/OutThisLife/brooklyn-skills/tree/main/skills/babysit',
-  'hermes skills install https://github.com/OutThisLife/brooklyn-skills/tree/main/skills/no-tropes',
-].join('\n')
-
 export function BrooklynInstall() {
   return (
     <section id="installation" className="scroll-mt-20 space-y-8">
@@ -37,15 +30,15 @@ export function BrooklynInstall() {
           <CardHeader className="pb-3">
             <div className="flex flex-wrap items-center gap-3">
               <CardTitle as="h3" className="text-base">
-                Claude Code · Cursor · Codex · OpenCode
+                Universal CLI (skills.sh)
               </CardTitle>
-              <Badge variant="default">skills.sh</Badge>
+              <Badge variant="default">Recommended</Badge>
             </div>
           </CardHeader>
           <CardContent className="space-y-3">
             <CodeBlock code={SKILLS_SH_STEPS} shell />
             <p className="text-sm text-muted-foreground">
-              Install langsung dari repository resmi Brooklyn menggunakan CLI skills.sh interaktif.
+              Install langsung dari repository resmi Brooklyn menggunakan CLI skills.sh interaktif untuk Claude Code, Cursor, Codex, OpenCode, dan agent lainnya.
             </p>
             <p className="text-xs text-muted-foreground">
               {m.installation_skills_sh_ref()}{' '}
@@ -61,46 +54,30 @@ export function BrooklynInstall() {
             </p>
           </CardContent>
         </Card>
-
-        <Card className="border-primary/40">
-          <CardHeader className="pb-3">
-            <div className="flex items-center gap-3">
-              <CardTitle as="h3" className="text-base">
-                Hermes Agent
-              </CardTitle>
-              <Badge variant="secondary">On-Demand</Badge>
-            </div>
-          </CardHeader>
-          <CardContent className="space-y-3">
-            <CodeBlock code={HERMES_STEPS} shell />
-            <p className="text-sm text-muted-foreground">
-              Hermes Agent memuat skill secara modular ke dalam memori atau mengunduh folder skill langsung ke <code className="font-mono text-xs">~/.hermes/skills/</code>.
-            </p>
-          </CardContent>
-        </Card>
       </div>
 
-      <Card className="bg-muted/50">
-        <CardContent className="pt-4">
-          <p className="text-sm text-muted-foreground">
-            <strong className="text-foreground">
-              {m.installation_attribution()}
-            </strong>{' '}
-            Semua 21 skill autonomous engineering diciptakan oleh{' '}
-            <strong className="text-foreground">Brooklyn (@imbabybrooklyn)</strong>. Memanfaatkan database anti-trope dari{' '}
-            <a
-              href="https://tropes.fyi"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={externalTextLinkClass}
-              aria-label={externalLinkAriaLabel('tropes.fyi')}
-            >
-              tropes.fyi
-            </a>
-            .
-          </p>
-        </CardContent>
-      </Card>
+      <p className="text-xs text-muted-foreground">
+        Skills diadaptasi dari{' '}
+        <a
+          href="https://github.com/OutThisLife/brooklyn-skills"
+          target="_blank"
+          rel="noopener noreferrer"
+          className={externalTextLinkClass}
+          aria-label={externalLinkAriaLabel('Brooklyn on GitHub')}
+        >
+          Brooklyn
+        </a>{' '}
+        (MIT License). Basis data deteksi klise AI terintegrasi dari{' '}
+        <a
+          href="https://tropes.fyi"
+          target="_blank"
+          rel="noopener noreferrer"
+          className={externalTextLinkClass}
+          aria-label={externalLinkAriaLabel('tropes.fyi')}
+        >
+          tropes.fyi
+        </a>.
+      </p>
     </section>
   )
 }
