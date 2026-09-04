@@ -442,5 +442,19 @@
   "workflow_8_why": "/wizard generates an interactive bash script; the human runs it locally to fill .env/secrets securely without leaking credentials into chat history.",
   "workflow_9_title": "External Stakeholder Decision Mining",
   "workflow_9_description": "Technical or domain decisions blocked by information held only by someone else.",
-  "workflow_9_why": "/to-questionnaire grills you about the send, drafts an async Markdown questionnaire for the stakeholder, and feeds answers back into /grill-with-docs or /to-spec."
+  "workflow_9_why": "/to-questionnaire grills you about the send, drafts an async Markdown questionnaire for the stakeholder, and feeds answers back into /grill-with-docs or /to-spec.",
+  "emil_preview_tag_before": "BEFORE / RAW STATE",
+  "emil_preview_tag_after": "AFTER / EMIL POLISHED",
+  "emil_preview_emil_design_eng_before_desc": "Sluggish animation: 500ms duration, ease-in curve (starts slow, abruptly stops), scale(0) from center, button lacks active press tactile feedback.",
+  "emil_preview_emil_design_eng_after_desc": "Snappy interaction: 160ms duration, custom ease-out bezier (0.16, 1, 0.3, 1), scale(0.96) anchored to trigger, active:scale(0.97) tactile feedback.",
+  "emil_preview_apple_design_before_desc": "Disconnected drag: no pointer capture, stops dead upon pointer release without momentum, boundary hits hard wall.",
+  "emil_preview_apple_design_after_desc": "Apple direct manipulation: pointer capture active, velocity momentum projected with spring settle, rubber-band resistance at both boundaries.",
+  "emil_preview_vocab_before_desc": "Vague intuition from designer/PM that causes guesswork and mismatched implementations.",
+  "emil_preview_vocab_after_desc": "Canonical Emil terminology: 'Scale in' (scale 0.95→1.0 + opacity), with exact CSS properties & timing curve.",
+  "emil_preview_opportunities_before_desc": "Over-animation: animating every single element regardless of frequency, creating UI noise.",
+  "emil_preview_opportunities_after_desc": "Emil's frequency gate: rejects high-frequency nav/hover elements. Only approves modal entrance with clear spatial purpose.",
+  "emil_preview_review_before_desc": "Red-flag motion: transition all layout properties, sluggish 400ms duration, scale(0), ease-in curve.",
+  "emil_preview_review_after_desc": "Emil motion standard: hardware-accelerated transform & opacity, <200ms duration, scale(0.95), snappy cubic-bezier.",
+  "emil_preview_audit_before_desc": "Chaotic motion: inconsistent easing curves and random durations scattered across codebase.",
+  "emil_preview_audit_after_desc": "8-category structured audit: findings prioritized by severity (High/Med/Low) generating self-contained execution plans."
 }

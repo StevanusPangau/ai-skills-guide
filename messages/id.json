@@ -442,5 +442,19 @@
   "workflow_8_why": "/wizard meng-generate script bash interaktif; manusia menjalankan di terminal lokalnya untuk mengisi .env/secrets tanpa membocorkan kredensial ke riwayat chat konteks.",
   "workflow_9_title": "Menambang Keputusan Stakeholder Eksternal",
   "workflow_9_description": "Keputusan teknis/bisnis terganjal karena informasinya berada di pihak luar (klien/stakeholder).",
-  "workflow_9_why": "/to-questionnaire mewawancarai kamu tentang target pengiriman (the send), menyusun kuesioner terstruktur untuk diisi stakeholder, lalu jawabannya di-feed ke /grill-with-docs atau /to-spec."
+  "workflow_9_why": "/to-questionnaire mewawancarai kamu tentang target pengiriman (the send), menyusun kuesioner terstruktur untuk diisi stakeholder, lalu jawabannya di-feed ke /grill-with-docs atau /to-spec.",
+  "emil_preview_tag_before": "MASALAH SEBELUMNYA",
+  "emil_preview_tag_after": "PRINSIP EMIL DITERAPKAN",
+  "emil_preview_emil_design_eng_before_desc": "Animasi kaku: durasi 500ms (lambat), ease-in (lambat lalu menyentak saat selesai), scale(0) dari tengah, tombol tanpa visual press response.",
+  "emil_preview_emil_design_eng_after_desc": "Animasi responsif: durasi 160ms, custom cubic-bezier ease-out (0.16, 1, 0.3, 1), scale(0.96) dari origin tombol, tombol merespons active:scale(0.97).",
+  "emil_preview_apple_design_before_desc": "Manipulasi terputus: tanpa pointer capture, objek langsung berhenti kaku saat dilepas tanpa sisa momentum, boundary menabrak tanpa elastisitas.",
+  "emil_preview_apple_design_after_desc": "Direct manipulation Apple: pointer capture aktif, proyeksi velocity momentum dengan spring settle, dan rubber-band resistance di kedua batas ujung.",
+  "emil_preview_vocab_before_desc": "Deskripsi intuitif tapi samar dari designer/PM yang ambigu untuk diterjemahkan oleh engineer atau AI.",
+  "emil_preview_vocab_after_desc": "Istilah kanonik Emil: 'Scale in' (scale 0.95→1.0 + opacity), lengkap dengan parameter CSS & timing function presisi.",
+  "emil_preview_opportunities_before_desc": "Antusiasme berlebih: semua elemen dianimasikan tanpa filter frekuensi sehingga mengganggu produktivitas.",
+  "emil_preview_opportunities_after_desc": "Filter ketat Emil: aksi frekuensi tinggi (nav/hover) ditolak. Hanya modal/dialog yang diterima karena memiliki 'spatial purpose' yang nyata.",
+  "emil_preview_review_before_desc": "Masalah khas: transition all berbiaya tinggi, durasi 400ms berlebihan, scale(0) yang aneh, dan timing function ease-in.",
+  "emil_preview_review_after_desc": "Standar Emil: hanya animate transform & opacity, durasi sub-200ms, scale(0.95), cubic-bezier responsif, lolos audit.",
+  "emil_preview_audit_before_desc": "Motion tidak konsisten: berbagai easing berbeda tersebar di seluruh app, durasi campur aduk tanpa standarisasi.",
+  "emil_preview_audit_after_desc": "Audit terstruktur 8 kategori: temuan dipetakan berdasarkan tingkat keparahan (High/Med/Low) dan menghasilkan file plan eksekusi mekanis."
 }
