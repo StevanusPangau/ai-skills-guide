@@ -1,8 +1,8 @@
 # Upstream Sync
 
 - Owner/repo: `davidondrej/skills`
-- Pinned commit (baseline for this bundle): `2f70c586205a20523a4caecbc701128a30554628`
-- Sync date: 2026-07-10
+- Pinned commit (baseline for this bundle): `11dee2ebc2d045806b686ba0b57746f1e3d7e331`
+- Sync date: 2026-09-04
 - Upstream branch tracked: `main` (rolling sanitized mirror; no tags/releases)
 
 ## Sync discipline

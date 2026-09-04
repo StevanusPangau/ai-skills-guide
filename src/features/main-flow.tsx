@@ -97,12 +97,20 @@ export function MainFlow() {
       },
       // On-ramps (no reverse edges — avoids long looping lines)
       {
+        id: 'wayfinder',
+        kind: 'onramp',
+        label: '/wayfinder',
+        description: 'ON-RAMP: Proyek hijau / inisiatif besar yang masih berkabut — buat peta keputusan di tracker sebelum to-spec.',
+        subtitle: 'Greenfield / Foggy effort',
+        position: { x: 40, y: 1160 },
+      },
+      {
         id: 'triage',
         kind: 'onramp',
         label: '/triage',
         description: m.flow_node_triage(),
         subtitle: m.flow_triage_description(),
-        position: { x: 40, y: 1160 },
+        position: { x: 260, y: 1160 },
       },
       {
         id: 'improve',
@@ -110,7 +118,7 @@ export function MainFlow() {
         label: '/improve-codebase-architecture',
         description: m.flow_node_improve(),
         subtitle: m.flow_improve_description(),
-        position: { x: 360, y: 1160 },
+        position: { x: 480, y: 1160 },
       },
     ],
     [],
@@ -134,9 +142,21 @@ export function MainFlow() {
 
   return (
     <section id="flow" className="scroll-mt-20 space-y-6">
-      <div>
-        <h2 className="text-2xl font-bold tracking-tight text-balance">{m.flow_title()}</h2>
-        <p className="mt-1 text-muted-foreground">{m.flow_description()}</p>
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div>
+          <h2 className="text-2xl font-bold tracking-tight text-balance">{m.flow_title()}</h2>
+          <p className="mt-1 text-muted-foreground">{m.flow_description()}</p>
+        </div>
+        <div>
+          <a
+            href="/diagrams/mattpocock-pipeline.html"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-md border border-border bg-background hover:bg-muted text-foreground transition-colors shadow-xs"
+          >
+            <span>Buka Pipeline HD Standalone (Archify) ↗</span>
+          </a>
+        </div>
       </div>
 
       <Suspense

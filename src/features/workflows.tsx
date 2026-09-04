@@ -46,6 +46,18 @@ function getWorkflows() {
       mengapa: m.workflow_7_why(),
       steps: ['/handoff (dari agent A)', 'load di agent B', 'kerja di agent B', '/handoff back (jika perlu)'],
     },
+    {
+      title: m.workflow_8_title(),
+      description: m.workflow_8_description(),
+      mengapa: m.workflow_8_why(),
+      steps: ['/implement (terbentur manual)', '/wizard (generate bash script)', 'human runs script locally (.env ready)', 'lanjut /implement'],
+    },
+    {
+      title: m.workflow_9_title(),
+      description: m.workflow_9_description(),
+      mengapa: m.workflow_9_why(),
+      steps: ['/to-questionnaire (grill the send)', 'kirim markdown async / live meeting', 'dapat jawaban keputusan', 'feed ke /grill-with-docs atau /to-spec'],
+    },
   ]
 }
 

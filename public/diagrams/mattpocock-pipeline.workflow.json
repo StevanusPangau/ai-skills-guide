@@ -1,0 +1,282 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "Matt Pocock \u2014 AI Coding Skills Pipeline (v1.2.3)",
+    "subtitle": "Idea to ship: core build chain, on-ramps, and human boundaries",
+    "animation": "trace",
+    "visual_preset": "classic",
+    "quality_profile": "showcase",
+    "views": [
+      {
+        "id": "main-route",
+        "label": "Main Build Chain (Idea \u2192 Ship)",
+        "focus": [
+          "grill",
+          "multi",
+          "to_spec",
+          "to_tickets",
+          "implement",
+          "code_review",
+          "commit"
+        ],
+        "note": "Follow the primary path from unstructured idea to verified git commit."
+      },
+      {
+        "id": "onramps",
+        "label": "On-Ramps & Detours",
+        "focus": [
+          "wayfinder",
+          "triage",
+          "prototype",
+          "wizard"
+        ],
+        "note": "Examine on-ramps into the main flow and boundaries where human intervention is needed."
+      }
+    ]
+  },
+  "lanes": [
+    {
+      "id": "onramps",
+      "label": "On-Ramps (Starting Situations)"
+    },
+    {
+      "id": "main",
+      "label": "Main Build Chain (Idea \u2192 Ship)"
+    },
+    {
+      "id": "human",
+      "label": "Detours & Human Boundaries",
+      "variant": "exception"
+    }
+  ],
+  "phases": [
+    {
+      "id": "phase_align",
+      "label": "Phase 1: Clarify & Model",
+      "fromCol": 0,
+      "toCol": 1
+    },
+    {
+      "id": "phase_spec",
+      "label": "Phase 2: Specification Contract",
+      "fromCol": 2,
+      "toCol": 3,
+      "variant": "emphasis"
+    },
+    {
+      "id": "phase_build",
+      "label": "Phase 3: TDD & Review",
+      "fromCol": 4,
+      "toCol": 5,
+      "variant": "dashed"
+    }
+  ],
+  "mainPath": [
+    "grill",
+    "multi",
+    "to_spec",
+    "to_tickets",
+    "implement",
+    "code_review",
+    "commit"
+  ],
+  "nodes": [
+    {
+      "id": "wayfinder",
+      "lane": "onramps",
+      "col": 0,
+      "type": "messagebus",
+      "label": "/wayfinder",
+      "sublabel": "Foggy large effort",
+      "width": 140
+    },
+    {
+      "id": "triage",
+      "lane": "onramps",
+      "col": 3,
+      "type": "messagebus",
+      "label": "/triage",
+      "sublabel": "Backlog issue intake",
+      "width": 140
+    },
+    {
+      "id": "grill",
+      "lane": "main",
+      "col": 0,
+      "type": "backend",
+      "label": "/grill-with-docs",
+      "sublabel": "Interview + CONTEXT.md",
+      "width": 140
+    },
+    {
+      "id": "multi",
+      "lane": "main",
+      "col": 1,
+      "type": "security",
+      "label": "Multi-Session?",
+      "sublabel": "Smart Zone evaluation",
+      "width": 140
+    },
+    {
+      "id": "to_spec",
+      "lane": "main",
+      "col": 2,
+      "type": "backend",
+      "label": "/to-spec",
+      "sublabel": "Synthesize context",
+      "width": 140
+    },
+    {
+      "id": "to_tickets",
+      "lane": "main",
+      "col": 3,
+      "type": "backend",
+      "label": "/to-tickets",
+      "sublabel": "Blocking ticket graph",
+      "width": 140
+    },
+    {
+      "id": "implement",
+      "lane": "main",
+      "col": 4,
+      "type": "frontend",
+      "label": "/implement",
+      "sublabel": "Drives /tdd red-green",
+      "width": 140
+    },
+    {
+      "id": "code_review",
+      "lane": "main",
+      "col": 5,
+      "type": "security",
+      "label": "/code-review",
+      "sublabel": "Standards + Spec axes",
+      "width": 140
+    },
+    {
+      "id": "commit",
+      "lane": "human",
+      "col": 5,
+      "type": "database",
+      "label": "git commit \u2713",
+      "sublabel": "Verified shipping cut",
+      "width": 140
+    },
+    {
+      "id": "prototype",
+      "lane": "human",
+      "col": 0,
+      "type": "cloud",
+      "label": "/prototype",
+      "sublabel": "Throwaway UI spike",
+      "width": 140
+    },
+    {
+      "id": "wizard",
+      "lane": "human",
+      "col": 4,
+      "type": "cloud",
+      "label": "/wizard",
+      "sublabel": "Manual setup script",
+      "width": 140
+    }
+  ],
+  "edges": [
+    {
+      "id": "e_grill_multi",
+      "from": "grill",
+      "to": "multi",
+      "label": "aligned",
+      "variant": "default"
+    },
+    {
+      "id": "e_multi_spec",
+      "from": "multi",
+      "to": "to_spec",
+      "label": "YES (multi-session)",
+      "variant": "emphasis"
+    },
+    {
+      "id": "e_spec_tickets",
+      "from": "to_spec",
+      "to": "to_tickets",
+      "variant": "default"
+    },
+    {
+      "id": "e_tickets_impl",
+      "from": "to_tickets",
+      "to": "implement",
+      "label": "per ticket",
+      "variant": "emphasis"
+    },
+    {
+      "id": "e_impl_review",
+      "from": "implement",
+      "to": "code_review",
+      "variant": "default"
+    },
+    {
+      "id": "e_review_commit",
+      "from": "code_review",
+      "to": "commit",
+      "label": "approved",
+      "variant": "emphasis"
+    },
+    {
+      "id": "e_wayfinder_spec",
+      "from": "wayfinder",
+      "to": "to_spec",
+      "label": "map clear",
+      "variant": "default"
+    },
+    {
+      "id": "e_triage_impl",
+      "from": "triage",
+      "to": "implement",
+      "label": "agent-ready",
+      "variant": "default"
+    },
+    {
+      "id": "e_grill_proto",
+      "from": "grill",
+      "to": "prototype",
+      "label": "fuzzy state",
+      "variant": "dashed"
+    },
+    {
+      "id": "e_impl_wizard",
+      "from": "implement",
+      "to": "wizard",
+      "label": "human blocker",
+      "variant": "security"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "emerald",
+      "title": "Main Build Chain",
+      "items": [
+        "Grill with docs retains ubiquitous language in CONTEXT.md and ADRs.",
+        "/to-spec collapses interview into a contract; /to-tickets enforces blocking edges.",
+        "/implement executes with /tdd, verified through two-axis /code-review."
+      ]
+    },
+    {
+      "dot": "cyan",
+      "title": "Smart Zone & Phase Boundaries",
+      "items": [
+        "Keep context <150k tokens to maintain sharp model reasoning.",
+        "Evaluate phase boundaries top-down: Continue, /clear, /handoff, Subagent, or /compact."
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "On-Ramps & Human Limits",
+      "items": [
+        "/wayfinder charts large foggy efforts into a map of decisions before spec.",
+        "/wizard generates self-contained bash scripts for steps only humans can take."
+      ]
+    }
+  ]
+}

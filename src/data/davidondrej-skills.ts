@@ -335,7 +335,7 @@ export const davidondrejSkills: DavidSkill[] = [
       'Cara menulis agent skill yang efektif — anatomi, progressive disclosure, design pattern, anti-pattern, testing, dan security. Dibaca saat membuat/mengedit/mereview SKILL.md.',
     sourcePath: 'skills/skill-authoring/effective-agent-skills/SKILL.md',
     adaptationNotes:
-      'Overlap dengan Matt writing-great-skills dan hermes-agent-skill-authoring lokal; tampilkan sebagai perbandingan, bukan pengganti source of truth Hermes. Luruskan klaim disable-model-invocation.',
+      'Overlap dengan Matt writing-for-agents dan hermes-agent-skill-authoring lokal; tampilkan sebagai perbandingan, bukan pengganti source of truth Hermes. Luruskan klaim disable-model-invocation.',
   },
   {
     name: 'folder-specific-claude-and-agents-md',
