@@ -7,6 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- **Jakub Krehel collection** (`/jakubkrehel`) — 11 UI & Design Engineering skills (`better-ui`, `better-typography`, `better-colors`, `better-accessibility`, `better-layout`, `better-writing`, `better-interface`, `break`, `explain-interface`, `interface-review`, `variant`) from `jakubkrehel/skills` (Interfaces.dev)
+- **Interactive Micro-Details Lab** — Interactive calculator for mathematical concentric border radius ($R_{inner} = R_{outer} - Padding$) and live optical alignment centering on asymmetric controls
+- **Brooklyn collection** (`/brooklyn`) — 21 autonomous engineering and PR lifecycle skills (`cpr`, `babysit`, `work`, `no-tropes`, `pr-ready`, `stacked-pr`, `pr-triage`, `ticket-ship`, `clean`, `visual-verify`, `runtime-debug`) from `OutThisLife/brooklyn-skills`
+- **AI Tropes & PR Linter Sandbox** — Live demonstration of `/no-tropes` eliminating synthetic AI buzzwords (delve, tapestry, robust, landscape) into human-grade technical prose, paired with the one-pass `/cpr` pipeline
+- **Superpowers collection** (`/superpowers`) — 14 agentic SDLC skills (`subagent-driven-development`, `brainstorming`, `writing-plans`, `executing-plans`, `dispatching-parallel-agents`, `test-driven-development`, `systematic-debugging`, `using-git-worktrees`) from `obra/superpowers` (281k+ stars)
+- **Subagent-Driven Development (SDD) Simulator** — 5-phase interactive workflow visualization and modular plan task ledger proving how coordinator agents stay in the Smart Zone by delegating to fresh single-task subagents
+- **Archify HD Pipeline Diagram** — Standalone interactive showcase diagram (`public/diagrams/mattpocock-pipeline.html`) for Matt Pocock's idea-to-ship pipeline, passing 9/9 quality checks
+- **Phase Boundaries Decision Tree** in Matt Pocock concepts, supporting 5-tier transition protocol (Continue, /clear, /handoff, Subagent, /compact)
+- **Workflows 8 & 9** in Matt Pocock workflows: Human-in-the-Loop Barrier (`/wizard`) and External Stakeholder Decision Mining (`/to-questionnaire`)
+- **Matt Pocock v1.2.3 sync** — upgraded skill count from 22 to 25 (`wizard`, `to-questionnaire`, `wait-what`, and migration from `writing-great-skills` to `writing-for-agents`)
+
+### Changed
+- Collections hub (`/collections`) expanded to 6 available collections with localized descriptions and metadata tags
+- Emil Kowalski Interactive Preview upgraded with genuine Apple gesture physics, spring momentum projection, rubber-band boundary resistance, and custom bezier curves (0.16, 1, 0.3, 1)
+
 ## [v1.4.0] - 2026-07-21
 
 ### Added

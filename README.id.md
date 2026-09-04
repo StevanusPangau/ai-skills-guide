@@ -33,6 +33,9 @@ Ringkasan yang tersedia hari ini (jumlah/pin berubah seiring koleksi bertumbuh):
 | Matt Pocock — AI Coding Skills | [`/mattpocock`](https://skills.stevanuspangau.cloud/mattpocock) | [mattpocock/skills](https://github.com/mattpocock/skills) `v1.2.3` | 25 | `skills/hermes/` (25) |
 | Emil Kowalski — Design Engineering Skills | [`/emilkowalski`](https://skills.stevanuspangau.cloud/emilkowalski) | [emilkowalski/skills](https://github.com/emilkowalski/skills) pin `6bf24434…` | 6 | Upstream via skills.sh |
 | David Ondrej — Personal Agent Skills | [`/davidondrej`](https://skills.stevanuspangau.cloud/davidondrej) | [davidondrej/skills](https://github.com/davidondrej/skills) pin `2f70c586…` | 28 (+ compat/risk) | `skills/davidondrej/` first-wave 9 |
+| Jakub Krehel — UI & Design Engineering Skills | [`/jakubkrehel`](https://skills.stevanuspangau.cloud/jakubkrehel) | [jakubkrehel/skills](https://github.com/jakubkrehel/skills) | 11 | Upstream via skills.sh |
+| Brooklyn — Autonomous Engineering & PR Skills | [`/brooklyn`](https://skills.stevanuspangau.cloud/brooklyn) | [OutThisLife/brooklyn-skills](https://github.com/OutThisLife/brooklyn-skills) | 21 | Upstream / Hermes external_dirs |
+| Jesse Vincent — Agentic SDLC & Superpowers | [`/superpowers`](https://skills.stevanuspangau.cloud/superpowers) | [obra/superpowers](https://github.com/obra/superpowers) | 14 | Upstream via skills.sh |
 
 Beberapa koleksi mendokumentasikan upstream lebih luas dari yang di-ship sebagai first-wave Hermes. Halaman per-koleksi dan `skills/*/UPSTREAM.md` / `ATTRIBUTION.md` (jika ada) adalah sumber kebenaran untuk pin dan cakupan.
 

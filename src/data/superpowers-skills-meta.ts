@@ -1,0 +1,1 @@
+export const SUPERPOWERS_SKILL_COUNT = 14
