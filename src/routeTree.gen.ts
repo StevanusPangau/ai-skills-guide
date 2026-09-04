@@ -17,11 +17,17 @@ import { Route as DavidondrejRouteImport } from './routes/davidondrej'
 import { Route as CollectionsRouteImport } from './routes/collections'
 import { Route as BrooklynRouteImport } from './routes/brooklyn'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as SuperpowersIndexRouteImport } from './routes/superpowers.index'
+import { Route as JakubkrehelIndexRouteImport } from './routes/jakubkrehel.index'
 import { Route as EmilkowalskiIndexRouteImport } from './routes/emilkowalski.index'
 import { Route as DavidondrejIndexRouteImport } from './routes/davidondrej.index'
+import { Route as BrooklynIndexRouteImport } from './routes/brooklyn.index'
 import { Route as SkillsSkillNameRouteImport } from './routes/skills.$skillName'
+import { Route as SuperpowersSkillsSkillNameRouteImport } from './routes/superpowers.skills.$skillName'
+import { Route as JakubkrehelSkillsSkillNameRouteImport } from './routes/jakubkrehel.skills.$skillName'
 import { Route as EmilkowalskiSkillsSkillNameRouteImport } from './routes/emilkowalski.skills.$skillName'
 import { Route as DavidondrejSkillsSkillNameRouteImport } from './routes/davidondrej.skills.$skillName'
+import { Route as BrooklynSkillsSkillNameRouteImport } from './routes/brooklyn.skills.$skillName'
 
 const SuperpowersRoute = SuperpowersRouteImport.update({
   id: '/superpowers',
@@ -63,6 +69,16 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SuperpowersIndexRoute = SuperpowersIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => SuperpowersRoute,
+} as any)
+const JakubkrehelIndexRoute = JakubkrehelIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => JakubkrehelRoute,
+} as any)
 const EmilkowalskiIndexRoute = EmilkowalskiIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -73,11 +89,28 @@ const DavidondrejIndexRoute = DavidondrejIndexRouteImport.update({
   path: '/',
   getParentRoute: () => DavidondrejRoute,
 } as any)
+const BrooklynIndexRoute = BrooklynIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => BrooklynRoute,
+} as any)
 const SkillsSkillNameRoute = SkillsSkillNameRouteImport.update({
   id: '/skills/$skillName',
   path: '/skills/$skillName',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SuperpowersSkillsSkillNameRoute =
+  SuperpowersSkillsSkillNameRouteImport.update({
+    id: '/skills/$skillName',
+    path: '/skills/$skillName',
+    getParentRoute: () => SuperpowersRoute,
+  } as any)
+const JakubkrehelSkillsSkillNameRoute =
+  JakubkrehelSkillsSkillNameRouteImport.update({
+    id: '/skills/$skillName',
+    path: '/skills/$skillName',
+    getParentRoute: () => JakubkrehelRoute,
+  } as any)
 const EmilkowalskiSkillsSkillNameRoute =
   EmilkowalskiSkillsSkillNameRouteImport.update({
     id: '/skills/$skillName',
@@ -90,50 +123,70 @@ const DavidondrejSkillsSkillNameRoute =
     path: '/skills/$skillName',
     getParentRoute: () => DavidondrejRoute,
   } as any)
+const BrooklynSkillsSkillNameRoute = BrooklynSkillsSkillNameRouteImport.update({
+  id: '/skills/$skillName',
+  path: '/skills/$skillName',
+  getParentRoute: () => BrooklynRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/brooklyn': typeof BrooklynRoute
+  '/brooklyn': typeof BrooklynRouteWithChildren
   '/collections': typeof CollectionsRoute
   '/davidondrej': typeof DavidondrejRouteWithChildren
   '/emilkowalski': typeof EmilkowalskiRouteWithChildren
-  '/jakubkrehel': typeof JakubkrehelRoute
+  '/jakubkrehel': typeof JakubkrehelRouteWithChildren
   '/mattpocock': typeof MattpocockRoute
-  '/superpowers': typeof SuperpowersRoute
+  '/superpowers': typeof SuperpowersRouteWithChildren
   '/skills/$skillName': typeof SkillsSkillNameRoute
+  '/brooklyn/': typeof BrooklynIndexRoute
   '/davidondrej/': typeof DavidondrejIndexRoute
   '/emilkowalski/': typeof EmilkowalskiIndexRoute
+  '/jakubkrehel/': typeof JakubkrehelIndexRoute
+  '/superpowers/': typeof SuperpowersIndexRoute
+  '/brooklyn/skills/$skillName': typeof BrooklynSkillsSkillNameRoute
   '/davidondrej/skills/$skillName': typeof DavidondrejSkillsSkillNameRoute
   '/emilkowalski/skills/$skillName': typeof EmilkowalskiSkillsSkillNameRoute
+  '/jakubkrehel/skills/$skillName': typeof JakubkrehelSkillsSkillNameRoute
+  '/superpowers/skills/$skillName': typeof SuperpowersSkillsSkillNameRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/brooklyn': typeof BrooklynRoute
   '/collections': typeof CollectionsRoute
-  '/jakubkrehel': typeof JakubkrehelRoute
   '/mattpocock': typeof MattpocockRoute
-  '/superpowers': typeof SuperpowersRoute
   '/skills/$skillName': typeof SkillsSkillNameRoute
+  '/brooklyn': typeof BrooklynIndexRoute
   '/davidondrej': typeof DavidondrejIndexRoute
   '/emilkowalski': typeof EmilkowalskiIndexRoute
+  '/jakubkrehel': typeof JakubkrehelIndexRoute
+  '/superpowers': typeof SuperpowersIndexRoute
+  '/brooklyn/skills/$skillName': typeof BrooklynSkillsSkillNameRoute
   '/davidondrej/skills/$skillName': typeof DavidondrejSkillsSkillNameRoute
   '/emilkowalski/skills/$skillName': typeof EmilkowalskiSkillsSkillNameRoute
+  '/jakubkrehel/skills/$skillName': typeof JakubkrehelSkillsSkillNameRoute
+  '/superpowers/skills/$skillName': typeof SuperpowersSkillsSkillNameRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/brooklyn': typeof BrooklynRoute
+  '/brooklyn': typeof BrooklynRouteWithChildren
   '/collections': typeof CollectionsRoute
   '/davidondrej': typeof DavidondrejRouteWithChildren
   '/emilkowalski': typeof EmilkowalskiRouteWithChildren
-  '/jakubkrehel': typeof JakubkrehelRoute
+  '/jakubkrehel': typeof JakubkrehelRouteWithChildren
   '/mattpocock': typeof MattpocockRoute
-  '/superpowers': typeof SuperpowersRoute
+  '/superpowers': typeof SuperpowersRouteWithChildren
   '/skills/$skillName': typeof SkillsSkillNameRoute
+  '/brooklyn/': typeof BrooklynIndexRoute
   '/davidondrej/': typeof DavidondrejIndexRoute
   '/emilkowalski/': typeof EmilkowalskiIndexRoute
+  '/jakubkrehel/': typeof JakubkrehelIndexRoute
+  '/superpowers/': typeof SuperpowersIndexRoute
+  '/brooklyn/skills/$skillName': typeof BrooklynSkillsSkillNameRoute
   '/davidondrej/skills/$skillName': typeof DavidondrejSkillsSkillNameRoute
   '/emilkowalski/skills/$skillName': typeof EmilkowalskiSkillsSkillNameRoute
+  '/jakubkrehel/skills/$skillName': typeof JakubkrehelSkillsSkillNameRoute
+  '/superpowers/skills/$skillName': typeof SuperpowersSkillsSkillNameRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -147,23 +200,32 @@ export interface FileRouteTypes {
     | '/mattpocock'
     | '/superpowers'
     | '/skills/$skillName'
+    | '/brooklyn/'
     | '/davidondrej/'
     | '/emilkowalski/'
+    | '/jakubkrehel/'
+    | '/superpowers/'
+    | '/brooklyn/skills/$skillName'
     | '/davidondrej/skills/$skillName'
     | '/emilkowalski/skills/$skillName'
+    | '/jakubkrehel/skills/$skillName'
+    | '/superpowers/skills/$skillName'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/brooklyn'
     | '/collections'
-    | '/jakubkrehel'
     | '/mattpocock'
-    | '/superpowers'
     | '/skills/$skillName'
+    | '/brooklyn'
     | '/davidondrej'
     | '/emilkowalski'
+    | '/jakubkrehel'
+    | '/superpowers'
+    | '/brooklyn/skills/$skillName'
     | '/davidondrej/skills/$skillName'
     | '/emilkowalski/skills/$skillName'
+    | '/jakubkrehel/skills/$skillName'
+    | '/superpowers/skills/$skillName'
   id:
     | '__root__'
     | '/'
@@ -175,21 +237,27 @@ export interface FileRouteTypes {
     | '/mattpocock'
     | '/superpowers'
     | '/skills/$skillName'
+    | '/brooklyn/'
     | '/davidondrej/'
     | '/emilkowalski/'
+    | '/jakubkrehel/'
+    | '/superpowers/'
+    | '/brooklyn/skills/$skillName'
     | '/davidondrej/skills/$skillName'
     | '/emilkowalski/skills/$skillName'
+    | '/jakubkrehel/skills/$skillName'
+    | '/superpowers/skills/$skillName'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  BrooklynRoute: typeof BrooklynRoute
+  BrooklynRoute: typeof BrooklynRouteWithChildren
   CollectionsRoute: typeof CollectionsRoute
   DavidondrejRoute: typeof DavidondrejRouteWithChildren
   EmilkowalskiRoute: typeof EmilkowalskiRouteWithChildren
-  JakubkrehelRoute: typeof JakubkrehelRoute
+  JakubkrehelRoute: typeof JakubkrehelRouteWithChildren
   MattpocockRoute: typeof MattpocockRoute
-  SuperpowersRoute: typeof SuperpowersRoute
+  SuperpowersRoute: typeof SuperpowersRouteWithChildren
   SkillsSkillNameRoute: typeof SkillsSkillNameRoute
 }
 
@@ -251,6 +319,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/superpowers/': {
+      id: '/superpowers/'
+      path: '/'
+      fullPath: '/superpowers/'
+      preLoaderRoute: typeof SuperpowersIndexRouteImport
+      parentRoute: typeof SuperpowersRoute
+    }
+    '/jakubkrehel/': {
+      id: '/jakubkrehel/'
+      path: '/'
+      fullPath: '/jakubkrehel/'
+      preLoaderRoute: typeof JakubkrehelIndexRouteImport
+      parentRoute: typeof JakubkrehelRoute
+    }
     '/emilkowalski/': {
       id: '/emilkowalski/'
       path: '/'
@@ -265,12 +347,33 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DavidondrejIndexRouteImport
       parentRoute: typeof DavidondrejRoute
     }
+    '/brooklyn/': {
+      id: '/brooklyn/'
+      path: '/'
+      fullPath: '/brooklyn/'
+      preLoaderRoute: typeof BrooklynIndexRouteImport
+      parentRoute: typeof BrooklynRoute
+    }
     '/skills/$skillName': {
       id: '/skills/$skillName'
       path: '/skills/$skillName'
       fullPath: '/skills/$skillName'
       preLoaderRoute: typeof SkillsSkillNameRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/superpowers/skills/$skillName': {
+      id: '/superpowers/skills/$skillName'
+      path: '/skills/$skillName'
+      fullPath: '/superpowers/skills/$skillName'
+      preLoaderRoute: typeof SuperpowersSkillsSkillNameRouteImport
+      parentRoute: typeof SuperpowersRoute
+    }
+    '/jakubkrehel/skills/$skillName': {
+      id: '/jakubkrehel/skills/$skillName'
+      path: '/skills/$skillName'
+      fullPath: '/jakubkrehel/skills/$skillName'
+      preLoaderRoute: typeof JakubkrehelSkillsSkillNameRouteImport
+      parentRoute: typeof JakubkrehelRoute
     }
     '/emilkowalski/skills/$skillName': {
       id: '/emilkowalski/skills/$skillName'
@@ -286,8 +389,29 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DavidondrejSkillsSkillNameRouteImport
       parentRoute: typeof DavidondrejRoute
     }
+    '/brooklyn/skills/$skillName': {
+      id: '/brooklyn/skills/$skillName'
+      path: '/skills/$skillName'
+      fullPath: '/brooklyn/skills/$skillName'
+      preLoaderRoute: typeof BrooklynSkillsSkillNameRouteImport
+      parentRoute: typeof BrooklynRoute
+    }
   }
 }
+
+interface BrooklynRouteChildren {
+  BrooklynIndexRoute: typeof BrooklynIndexRoute
+  BrooklynSkillsSkillNameRoute: typeof BrooklynSkillsSkillNameRoute
+}
+
+const BrooklynRouteChildren: BrooklynRouteChildren = {
+  BrooklynIndexRoute: BrooklynIndexRoute,
+  BrooklynSkillsSkillNameRoute: BrooklynSkillsSkillNameRoute,
+}
+
+const BrooklynRouteWithChildren = BrooklynRoute._addFileChildren(
+  BrooklynRouteChildren,
+)
 
 interface DavidondrejRouteChildren {
   DavidondrejIndexRoute: typeof DavidondrejIndexRoute
@@ -317,15 +441,43 @@ const EmilkowalskiRouteWithChildren = EmilkowalskiRoute._addFileChildren(
   EmilkowalskiRouteChildren,
 )
 
+interface JakubkrehelRouteChildren {
+  JakubkrehelIndexRoute: typeof JakubkrehelIndexRoute
+  JakubkrehelSkillsSkillNameRoute: typeof JakubkrehelSkillsSkillNameRoute
+}
+
+const JakubkrehelRouteChildren: JakubkrehelRouteChildren = {
+  JakubkrehelIndexRoute: JakubkrehelIndexRoute,
+  JakubkrehelSkillsSkillNameRoute: JakubkrehelSkillsSkillNameRoute,
+}
+
+const JakubkrehelRouteWithChildren = JakubkrehelRoute._addFileChildren(
+  JakubkrehelRouteChildren,
+)
+
+interface SuperpowersRouteChildren {
+  SuperpowersIndexRoute: typeof SuperpowersIndexRoute
+  SuperpowersSkillsSkillNameRoute: typeof SuperpowersSkillsSkillNameRoute
+}
+
+const SuperpowersRouteChildren: SuperpowersRouteChildren = {
+  SuperpowersIndexRoute: SuperpowersIndexRoute,
+  SuperpowersSkillsSkillNameRoute: SuperpowersSkillsSkillNameRoute,
+}
+
+const SuperpowersRouteWithChildren = SuperpowersRoute._addFileChildren(
+  SuperpowersRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  BrooklynRoute: BrooklynRoute,
+  BrooklynRoute: BrooklynRouteWithChildren,
   CollectionsRoute: CollectionsRoute,
   DavidondrejRoute: DavidondrejRouteWithChildren,
   EmilkowalskiRoute: EmilkowalskiRouteWithChildren,
-  JakubkrehelRoute: JakubkrehelRoute,
+  JakubkrehelRoute: JakubkrehelRouteWithChildren,
   MattpocockRoute: MattpocockRoute,
-  SuperpowersRoute: SuperpowersRoute,
+  SuperpowersRoute: SuperpowersRouteWithChildren,
   SkillsSkillNameRoute: SkillsSkillNameRoute,
 }
 export const routeTree = rootRouteImport
