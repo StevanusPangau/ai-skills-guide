@@ -93,7 +93,7 @@ export function JakubCatalog() {
               <Badge variant="outline" className="text-[10px] uppercase font-mono">{skill.category}</Badge>
             </div>
             <p className="text-xs text-muted-foreground leading-relaxed line-clamp-2">
-              {skill.description}
+              {(skill.description as any)?.id ?? skill.description}
             </p>
             <div className="pt-2 text-right">
               <a
