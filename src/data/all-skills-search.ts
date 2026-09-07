@@ -4,6 +4,7 @@ import { emilkowalskiSkills } from '@/data/emilkowalski-skills'
 import { jakubkrehelSkills } from '@/data/jakubkrehel-skills'
 import { brooklynSkills } from '@/data/brooklyn-skills'
 import { superpowersSkills } from '@/data/superpowers-skills'
+import { vercelSkills } from '@/data/vercel-skills'
 import { getLocale } from '@/paraglide/runtime.js'
 
 export type SearchableSkill = {
@@ -95,6 +96,19 @@ export function getAllSearchableSkills(): SearchableSkill[] {
       category: s.category,
       description: isEn ? s.description.en : s.description.id,
       href: `/superpowers/skills/${s.name}`,
+    })
+  }
+
+  // 7. Vercel
+  for (const s of vercelSkills) {
+    list.push({
+      id: `vercel-${s.name}`,
+      name: s.name,
+      collection: 'vercel',
+      collectionName: 'Vercel',
+      category: s.category,
+      description: isEn ? s.description.en : s.description.id,
+      href: `/vercel/skills/${s.name}`,
     })
   }
 

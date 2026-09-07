@@ -516,5 +516,21 @@
   "superpowers_flow_title": "Subagent-Driven Development (SDD) Flow",
   "superpowers_flow_desc": "Complete architectural flow illustrating how the lead coordinator isolates execution into fresh single-task subagents with strict review gates.",
   "superpowers_catalog_title": "All {count} Skills",
-  "superpowers_catalog_desc": "Complete catalog of agentic SDLC, Subagent-Driven Development (SDD), and strict TDD skills by Jesse Vincent (obra)."
+  "superpowers_catalog_desc": "Complete catalog of agentic SDLC, Subagent-Driven Development (SDD), and strict TDD skills by Jesse Vincent (obra).",
+  "collection_vercel_description": "The first official company collection: React/Next.js performance (70 rules), component composition, React Native/Expo, view transitions, Vercel deployment, and metrics-driven cost audits.",
+  "vercel_hero_title": "Official Vercel Agent Skills",
+  "vercel_hero_description": "9 official skills from vercel-labs/agent-skills: build performant React/Next.js UIs, scalable component composition, React Native/Expo apps, native View Transition animations, UI and docs reviews against official handbooks, Vercel deployment, and metrics-driven cost optimization.",
+  "vercel_overview_question": "What makes the Vercel collection special?",
+  "vercel_overview_answer": "The first official company collection in this guide: written directly by Vercel Engineering and released under the MIT license. Rules are ranked by real-world impact (eliminating waterfalls CRITICAL, advanced patterns LOW) and designed for consistent agent execution, complete with a build → review → deploy → optimize flow.",
+  "vercel_stat_skills": "Official Skills",
+  "vercel_stat_categories": "Rule Categories",
+  "vercel_stat_focus": "First Official Company Collection",
+  "vercel_sidebar_overview": "Overview & MIT License",
+  "vercel_sidebar_skills": "Skill Catalog ({count})",
+  "vercel_sidebar_stats": "9 skills · Official Vercel",
+  "vercel_footer": "MIT Attribution © Vercel · vercel-labs/agent-skills",
+  "vercel_flow_title": "Build → Review → Deploy → Optimize Flow",
+  "vercel_flow_desc": "End-to-end official Vercel workflow: build UI with performance rules, audit design and writing, deploy a preview to Vercel, then run metrics-first cost optimization.",
+  "vercel_catalog_title": "All {count} Skills",
+  "vercel_catalog_desc": "Complete catalog of official Vercel skills: React & Next.js performance, component composition, React Native, view transitions, deployment, and cost audits."
 }

@@ -136,3 +136,16 @@ The guide curates and explains work by the attributed upstream authors. Each col
 - verification-before-completion: https://skills.stevanuspangau.dev/superpowers/skills/verification-before-completion
 - writing-plans: https://skills.stevanuspangau.dev/superpowers/skills/writing-plans
 - writing-skills: https://skills.stevanuspangau.dev/superpowers/skills/writing-skills
+
+## vercel
+
+- Collection: https://skills.stevanuspangau.dev/vercel
+- vercel-composition-patterns: https://skills.stevanuspangau.dev/vercel/skills/vercel-composition-patterns
+- vercel-react-best-practices: https://skills.stevanuspangau.dev/vercel/skills/vercel-react-best-practices
+- vercel-react-native-skills: https://skills.stevanuspangau.dev/vercel/skills/vercel-react-native-skills
+- vercel-react-view-transitions: https://skills.stevanuspangau.dev/vercel/skills/vercel-react-view-transitions
+- deploy-to-vercel: https://skills.stevanuspangau.dev/vercel/skills/deploy-to-vercel
+- vercel-cli-with-tokens: https://skills.stevanuspangau.dev/vercel/skills/vercel-cli-with-tokens
+- vercel-optimize: https://skills.stevanuspangau.dev/vercel/skills/vercel-optimize
+- web-design-guidelines: https://skills.stevanuspangau.dev/vercel/skills/web-design-guidelines
+- writing-guidelines: https://skills.stevanuspangau.dev/vercel/skills/writing-guidelines

@@ -516,5 +516,21 @@
   "superpowers_flow_title": "Alur Subagent-Driven Development (SDD)",
   "superpowers_flow_desc": "Diagram alur lengkap bagaimana koordinator utama mendelegasikan pengerjaan ke subagent terisolasi dengan review gate yang disiplin.",
   "superpowers_catalog_title": "Semua {count} Skills",
-  "superpowers_catalog_desc": "Katalog lengkap skill SDLC agentic, Subagent-Driven Development (SDD), dan TDD ketat dari Jesse Vincent (obra)."
+  "superpowers_catalog_desc": "Katalog lengkap skill SDLC agentic, Subagent-Driven Development (SDD), dan TDD ketat dari Jesse Vincent (obra).",
+  "collection_vercel_description": "Koleksi skill resmi pertama dari sebuah perusahaan: performa React/Next.js (70 aturan), komposisi komponen, React Native/Expo, view transitions, deploy ke Vercel, dan audit biaya berbasis metrik.",
+  "vercel_hero_title": "Official Vercel Agent Skills",
+  "vercel_hero_description": "9 skill resmi dari vercel-labs/agent-skills: bangun UI React/Next.js yang performen, komposisi komponen yang scalable, aplikasi React Native/Expo, animasi View Transition native, review UI dan docs terhadap handbook resmi, deploy ke Vercel, hingga audit optimasi biaya berbasis metrik.",
+  "vercel_overview_question": "Apa keistimewaan koleksi Vercel ini?",
+  "vercel_overview_answer": "Koleksi official company pertama di guide ini: ditulis langsung oleh Vercel Engineering dan dirilis dengan lisensi MIT. Aturannya diranked berdasarkan impact nyata (eliminating waterfalls CRITICAL, advanced patterns LOW) dan dirancang agar bisa dieksekusi agen secara konsisten, lengkap dengan alur build → review → deploy → optimize.",
+  "vercel_stat_skills": "Official Skills",
+  "vercel_stat_categories": "Kategori Aturan",
+  "vercel_stat_focus": "Koleksi Resmi Perusahaan Pertama",
+  "vercel_sidebar_overview": "Overview & Lisensi MIT",
+  "vercel_sidebar_skills": "Daftar Skills ({count})",
+  "vercel_sidebar_stats": "9 skills · Official Vercel",
+  "vercel_footer": "Atribusi MIT © Vercel · vercel-labs/agent-skills",
+  "vercel_flow_title": "Alur Build → Review → Deploy → Optimize",
+  "vercel_flow_desc": "Diagram alur end-to-end resmi Vercel: bangun UI dengan aturan performa, audit desain dan tulisan, deploy preview ke Vercel, lalu optimasi biaya berbasis metrik.",
+  "vercel_catalog_title": "Semua {count} Skills",
+  "vercel_catalog_desc": "Katalog lengkap skill resmi Vercel: performa React & Next.js, komposisi komponen, React Native, view transitions, deployment, dan audit biaya."
 }

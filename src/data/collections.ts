@@ -4,6 +4,7 @@ import { EMILKOWALSKI_SKILL_COUNT } from '@/data/emilkowalski-skills-meta'
 import { JAKUBKREHEL_SKILL_COUNT } from '@/data/jakubkrehel-skills-meta'
 import { BROOKLYN_SKILL_COUNT } from '@/data/brooklyn-skills-meta'
 import { SUPERPOWERS_SKILL_COUNT } from '@/data/superpowers-skills-meta'
+import { VERCEL_SKILL_COUNT } from '@/data/vercel-skills-meta'
 import { m } from '@/paraglide/messages.js'
 
 export type CollectionStatus = 'available' | 'coming-soon'
@@ -107,6 +108,17 @@ export function getCollections(): Collection[] {
       status: 'available',
       source: 'github.com/obra/superpowers',
       tags: ['subagent-sdd', 'methodology', 'framework'],
+    },
+    {
+      slug: 'vercel',
+      to: '/vercel',
+      author: 'Vercel',
+      title: 'Official Vercel Agent Skills',
+      description: m.collection_vercel_description(),
+      skillCount: VERCEL_SKILL_COUNT,
+      status: 'available',
+      source: 'github.com/vercel-labs/agent-skills',
+      tags: ['react', 'nextjs', 'deployment'],
     },
   ]
 }

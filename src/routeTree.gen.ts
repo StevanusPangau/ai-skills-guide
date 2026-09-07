@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as VercelRouteImport } from './routes/vercel'
 import { Route as SuperpowersRouteImport } from './routes/superpowers'
 import { Route as MattpocockRouteImport } from './routes/mattpocock'
 import { Route as JakubkrehelRouteImport } from './routes/jakubkrehel'
@@ -17,18 +18,25 @@ import { Route as DavidondrejRouteImport } from './routes/davidondrej'
 import { Route as CollectionsRouteImport } from './routes/collections'
 import { Route as BrooklynRouteImport } from './routes/brooklyn'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as VercelIndexRouteImport } from './routes/vercel.index'
 import { Route as SuperpowersIndexRouteImport } from './routes/superpowers.index'
 import { Route as JakubkrehelIndexRouteImport } from './routes/jakubkrehel.index'
 import { Route as EmilkowalskiIndexRouteImport } from './routes/emilkowalski.index'
 import { Route as DavidondrejIndexRouteImport } from './routes/davidondrej.index'
 import { Route as BrooklynIndexRouteImport } from './routes/brooklyn.index'
 import { Route as SkillsSkillNameRouteImport } from './routes/skills.$skillName'
+import { Route as VercelSkillsSkillNameRouteImport } from './routes/vercel.skills.$skillName'
 import { Route as SuperpowersSkillsSkillNameRouteImport } from './routes/superpowers.skills.$skillName'
 import { Route as JakubkrehelSkillsSkillNameRouteImport } from './routes/jakubkrehel.skills.$skillName'
 import { Route as EmilkowalskiSkillsSkillNameRouteImport } from './routes/emilkowalski.skills.$skillName'
 import { Route as DavidondrejSkillsSkillNameRouteImport } from './routes/davidondrej.skills.$skillName'
 import { Route as BrooklynSkillsSkillNameRouteImport } from './routes/brooklyn.skills.$skillName'
 
+const VercelRoute = VercelRouteImport.update({
+  id: '/vercel',
+  path: '/vercel',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SuperpowersRoute = SuperpowersRouteImport.update({
   id: '/superpowers',
   path: '/superpowers',
@@ -69,6 +77,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const VercelIndexRoute = VercelIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => VercelRoute,
+} as any)
 const SuperpowersIndexRoute = SuperpowersIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -98,6 +111,11 @@ const SkillsSkillNameRoute = SkillsSkillNameRouteImport.update({
   id: '/skills/$skillName',
   path: '/skills/$skillName',
   getParentRoute: () => rootRouteImport,
+} as any)
+const VercelSkillsSkillNameRoute = VercelSkillsSkillNameRouteImport.update({
+  id: '/skills/$skillName',
+  path: '/skills/$skillName',
+  getParentRoute: () => VercelRoute,
 } as any)
 const SuperpowersSkillsSkillNameRoute =
   SuperpowersSkillsSkillNameRouteImport.update({
@@ -138,17 +156,20 @@ export interface FileRoutesByFullPath {
   '/jakubkrehel': typeof JakubkrehelRouteWithChildren
   '/mattpocock': typeof MattpocockRoute
   '/superpowers': typeof SuperpowersRouteWithChildren
+  '/vercel': typeof VercelRouteWithChildren
   '/skills/$skillName': typeof SkillsSkillNameRoute
   '/brooklyn/': typeof BrooklynIndexRoute
   '/davidondrej/': typeof DavidondrejIndexRoute
   '/emilkowalski/': typeof EmilkowalskiIndexRoute
   '/jakubkrehel/': typeof JakubkrehelIndexRoute
   '/superpowers/': typeof SuperpowersIndexRoute
+  '/vercel/': typeof VercelIndexRoute
   '/brooklyn/skills/$skillName': typeof BrooklynSkillsSkillNameRoute
   '/davidondrej/skills/$skillName': typeof DavidondrejSkillsSkillNameRoute
   '/emilkowalski/skills/$skillName': typeof EmilkowalskiSkillsSkillNameRoute
   '/jakubkrehel/skills/$skillName': typeof JakubkrehelSkillsSkillNameRoute
   '/superpowers/skills/$skillName': typeof SuperpowersSkillsSkillNameRoute
+  '/vercel/skills/$skillName': typeof VercelSkillsSkillNameRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -160,11 +181,13 @@ export interface FileRoutesByTo {
   '/emilkowalski': typeof EmilkowalskiIndexRoute
   '/jakubkrehel': typeof JakubkrehelIndexRoute
   '/superpowers': typeof SuperpowersIndexRoute
+  '/vercel': typeof VercelIndexRoute
   '/brooklyn/skills/$skillName': typeof BrooklynSkillsSkillNameRoute
   '/davidondrej/skills/$skillName': typeof DavidondrejSkillsSkillNameRoute
   '/emilkowalski/skills/$skillName': typeof EmilkowalskiSkillsSkillNameRoute
   '/jakubkrehel/skills/$skillName': typeof JakubkrehelSkillsSkillNameRoute
   '/superpowers/skills/$skillName': typeof SuperpowersSkillsSkillNameRoute
+  '/vercel/skills/$skillName': typeof VercelSkillsSkillNameRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -176,17 +199,20 @@ export interface FileRoutesById {
   '/jakubkrehel': typeof JakubkrehelRouteWithChildren
   '/mattpocock': typeof MattpocockRoute
   '/superpowers': typeof SuperpowersRouteWithChildren
+  '/vercel': typeof VercelRouteWithChildren
   '/skills/$skillName': typeof SkillsSkillNameRoute
   '/brooklyn/': typeof BrooklynIndexRoute
   '/davidondrej/': typeof DavidondrejIndexRoute
   '/emilkowalski/': typeof EmilkowalskiIndexRoute
   '/jakubkrehel/': typeof JakubkrehelIndexRoute
   '/superpowers/': typeof SuperpowersIndexRoute
+  '/vercel/': typeof VercelIndexRoute
   '/brooklyn/skills/$skillName': typeof BrooklynSkillsSkillNameRoute
   '/davidondrej/skills/$skillName': typeof DavidondrejSkillsSkillNameRoute
   '/emilkowalski/skills/$skillName': typeof EmilkowalskiSkillsSkillNameRoute
   '/jakubkrehel/skills/$skillName': typeof JakubkrehelSkillsSkillNameRoute
   '/superpowers/skills/$skillName': typeof SuperpowersSkillsSkillNameRoute
+  '/vercel/skills/$skillName': typeof VercelSkillsSkillNameRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -199,17 +225,20 @@ export interface FileRouteTypes {
     | '/jakubkrehel'
     | '/mattpocock'
     | '/superpowers'
+    | '/vercel'
     | '/skills/$skillName'
     | '/brooklyn/'
     | '/davidondrej/'
     | '/emilkowalski/'
     | '/jakubkrehel/'
     | '/superpowers/'
+    | '/vercel/'
     | '/brooklyn/skills/$skillName'
     | '/davidondrej/skills/$skillName'
     | '/emilkowalski/skills/$skillName'
     | '/jakubkrehel/skills/$skillName'
     | '/superpowers/skills/$skillName'
+    | '/vercel/skills/$skillName'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -221,11 +250,13 @@ export interface FileRouteTypes {
     | '/emilkowalski'
     | '/jakubkrehel'
     | '/superpowers'
+    | '/vercel'
     | '/brooklyn/skills/$skillName'
     | '/davidondrej/skills/$skillName'
     | '/emilkowalski/skills/$skillName'
     | '/jakubkrehel/skills/$skillName'
     | '/superpowers/skills/$skillName'
+    | '/vercel/skills/$skillName'
   id:
     | '__root__'
     | '/'
@@ -236,17 +267,20 @@ export interface FileRouteTypes {
     | '/jakubkrehel'
     | '/mattpocock'
     | '/superpowers'
+    | '/vercel'
     | '/skills/$skillName'
     | '/brooklyn/'
     | '/davidondrej/'
     | '/emilkowalski/'
     | '/jakubkrehel/'
     | '/superpowers/'
+    | '/vercel/'
     | '/brooklyn/skills/$skillName'
     | '/davidondrej/skills/$skillName'
     | '/emilkowalski/skills/$skillName'
     | '/jakubkrehel/skills/$skillName'
     | '/superpowers/skills/$skillName'
+    | '/vercel/skills/$skillName'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -258,11 +292,19 @@ export interface RootRouteChildren {
   JakubkrehelRoute: typeof JakubkrehelRouteWithChildren
   MattpocockRoute: typeof MattpocockRoute
   SuperpowersRoute: typeof SuperpowersRouteWithChildren
+  VercelRoute: typeof VercelRouteWithChildren
   SkillsSkillNameRoute: typeof SkillsSkillNameRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/vercel': {
+      id: '/vercel'
+      path: '/vercel'
+      fullPath: '/vercel'
+      preLoaderRoute: typeof VercelRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/superpowers': {
       id: '/superpowers'
       path: '/superpowers'
@@ -319,6 +361,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/vercel/': {
+      id: '/vercel/'
+      path: '/'
+      fullPath: '/vercel/'
+      preLoaderRoute: typeof VercelIndexRouteImport
+      parentRoute: typeof VercelRoute
+    }
     '/superpowers/': {
       id: '/superpowers/'
       path: '/'
@@ -360,6 +409,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/skills/$skillName'
       preLoaderRoute: typeof SkillsSkillNameRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/vercel/skills/$skillName': {
+      id: '/vercel/skills/$skillName'
+      path: '/skills/$skillName'
+      fullPath: '/vercel/skills/$skillName'
+      preLoaderRoute: typeof VercelSkillsSkillNameRouteImport
+      parentRoute: typeof VercelRoute
     }
     '/superpowers/skills/$skillName': {
       id: '/superpowers/skills/$skillName'
@@ -469,6 +525,19 @@ const SuperpowersRouteWithChildren = SuperpowersRoute._addFileChildren(
   SuperpowersRouteChildren,
 )
 
+interface VercelRouteChildren {
+  VercelIndexRoute: typeof VercelIndexRoute
+  VercelSkillsSkillNameRoute: typeof VercelSkillsSkillNameRoute
+}
+
+const VercelRouteChildren: VercelRouteChildren = {
+  VercelIndexRoute: VercelIndexRoute,
+  VercelSkillsSkillNameRoute: VercelSkillsSkillNameRoute,
+}
+
+const VercelRouteWithChildren =
+  VercelRoute._addFileChildren(VercelRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   BrooklynRoute: BrooklynRouteWithChildren,
@@ -478,6 +547,7 @@ const rootRouteChildren: RootRouteChildren = {
   JakubkrehelRoute: JakubkrehelRouteWithChildren,
   MattpocockRoute: MattpocockRoute,
   SuperpowersRoute: SuperpowersRouteWithChildren,
+  VercelRoute: VercelRouteWithChildren,
   SkillsSkillNameRoute: SkillsSkillNameRoute,
 }
 export const routeTree = rootRouteImport
