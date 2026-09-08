@@ -6,6 +6,7 @@ import { BROOKLYN_SKILL_COUNT } from '@/data/brooklyn-skills-meta'
 import { SUPERPOWERS_SKILL_COUNT } from '@/data/superpowers-skills-meta'
 import { VERCEL_SKILL_COUNT } from '@/data/vercel-skills-meta'
 import { ANTHROPIC_SKILL_COUNT } from '@/data/anthropic-skills-meta'
+import { CLOUDFLARE_SKILL_COUNT } from '@/data/cloudflare-skills-meta'
 import { m } from '@/paraglide/messages.js'
 
 export type CollectionStatus = 'available' | 'coming-soon'
@@ -131,6 +132,17 @@ export function getCollections(): Collection[] {
       status: 'available',
       source: 'github.com/anthropics/skills',
       tags: ['documents', 'design', 'agent-development'],
+    },
+    {
+      slug: 'cloudflare',
+      to: '/cloudflare',
+      author: 'Cloudflare',
+      title: 'Official Cloudflare Skills',
+      description: m.collection_cloudflare_description(),
+      skillCount: CLOUDFLARE_SKILL_COUNT,
+      status: 'available',
+      source: 'github.com/cloudflare/skills',
+      tags: ['workers', 'zero-trust', 'edge'],
     },
   ]
 }

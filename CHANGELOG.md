@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - **Official Vercel Agent Skills collection (9 skills)** — `vercel-labs/agent-skills` (MIT): React/Next.js performance rules, composition patterns, React Native, view transitions, deployment, and cost audits, with guide, concepts, install, flow diagram, and bilingual detail pages.
 - **Official Anthropic Skills collection (19 skills)** — `anthropics/skills` (Copyright Anthropic PBC, All rights reserved; guide summarizes only, install from upstream): document creation (docx, pdf, pptx, xlsx), design & brand (frontend-design, canvas-design, brand-guidelines, theme-factory, algorithmic-art), agent development (skill-creator, mcp-builder, claude-api, webapp-testing, web-artifacts-builder), and writing & comms (doc-coauthoring, internal-comms, slack-gif-creator, discernment-nudge, academy-guide), with guide, concepts, install, flow diagram, and bilingual detail pages.
+- **Official Cloudflare Skills collection (13 skills)** — `cloudflare/skills` (Apache-2.0): Workers platform (workers-best-practices, wrangler, cloudflare, web-perf), stateful compute (durable-objects, agents-sdk, sandbox-next, sandbox-stable, sandbox-migrate-to-next), Zero Trust & security (cloudflare-one, cloudflare-one-migrations, turnstile-spin), and messaging (cloudflare-email-service), with guide, concepts, install, flow diagram, and bilingual detail pages. Note: `nextjs-on-cloudflare` excluded (removed upstream).
 
 ## [v1.5.0] - 2026-09-04
 

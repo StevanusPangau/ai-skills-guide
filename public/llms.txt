@@ -168,3 +168,20 @@ The guide curates and explains work by the attributed upstream authors. Each col
 - slack-gif-creator: https://skills.stevanuspangau.dev/anthropic/skills/slack-gif-creator
 - discernment-nudge: https://skills.stevanuspangau.dev/anthropic/skills/discernment-nudge
 - academy-guide: https://skills.stevanuspangau.dev/anthropic/skills/academy-guide
+
+## cloudflare
+
+- Collection: https://skills.stevanuspangau.dev/cloudflare
+- workers-best-practices: https://skills.stevanuspangau.dev/cloudflare/skills/workers-best-practices
+- wrangler: https://skills.stevanuspangau.dev/cloudflare/skills/wrangler
+- cloudflare: https://skills.stevanuspangau.dev/cloudflare/skills/cloudflare
+- web-perf: https://skills.stevanuspangau.dev/cloudflare/skills/web-perf
+- durable-objects: https://skills.stevanuspangau.dev/cloudflare/skills/durable-objects
+- agents-sdk: https://skills.stevanuspangau.dev/cloudflare/skills/agents-sdk
+- sandbox-next: https://skills.stevanuspangau.dev/cloudflare/skills/sandbox-next
+- sandbox-stable: https://skills.stevanuspangau.dev/cloudflare/skills/sandbox-stable
+- sandbox-migrate-to-next: https://skills.stevanuspangau.dev/cloudflare/skills/sandbox-migrate-to-next
+- cloudflare-one: https://skills.stevanuspangau.dev/cloudflare/skills/cloudflare-one
+- cloudflare-one-migrations: https://skills.stevanuspangau.dev/cloudflare/skills/cloudflare-one-migrations
+- turnstile-spin: https://skills.stevanuspangau.dev/cloudflare/skills/turnstile-spin
+- cloudflare-email-service: https://skills.stevanuspangau.dev/cloudflare/skills/cloudflare-email-service

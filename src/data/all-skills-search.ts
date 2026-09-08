@@ -6,6 +6,7 @@ import { brooklynSkills } from '@/data/brooklyn-skills'
 import { superpowersSkills } from '@/data/superpowers-skills'
 import { vercelSkills } from '@/data/vercel-skills'
 import { anthropicSkills } from '@/data/anthropic-skills'
+import { cloudflareSkills } from '@/data/cloudflare-skills'
 import { getLocale } from '@/paraglide/runtime.js'
 
 export type SearchableSkill = {
@@ -122,6 +123,18 @@ export function getAllSearchableSkills(): SearchableSkill[] {
       category: s.category,
       description: isEn ? s.description.en : s.description.id,
       href: `/anthropic/skills/${s.name}`,
+    })
+  }
+
+  for (const s of cloudflareSkills) {
+    list.push({
+      id: `cloudflare-${s.name}`,
+      name: s.name,
+      collection: 'cloudflare',
+      collectionName: 'Cloudflare',
+      category: s.category,
+      description: isEn ? s.description.en : s.description.id,
+      href: `/cloudflare/skills/${s.name}`,
     })
   }
 

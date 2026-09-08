@@ -547,5 +547,20 @@
   "anthropic_flow_title": "Alur Author → Build → Produce → Test",
   "anthropic_flow_desc": "Diagram alur end-to-end: author skill dengan skill-creator, bangun integrasi MCP, produksi dokumen dan desain, lalu uji dengan webapp-testing.",
   "anthropic_catalog_title": "Semua {count} Skills",
-  "anthropic_catalog_desc": "Katalog lengkap skill resmi Anthropic: dokumen, desain dan brand, agent development, serta writing dan komunikasi."
+  "anthropic_catalog_desc": "Katalog lengkap skill resmi Anthropic: dokumen, desain dan brand, agent development, serta writing dan komunikasi.",
+  "collection_cloudflare_description": "Koleksi skill resmi untuk membangun di atas Cloudflare: Workers, compute stateful, Zero Trust, dan messaging.",
+  "cloudflare_hero_title": "Official Cloudflare Skills",
+  "cloudflare_hero_description": "13 skill resmi dari cloudflare/skills: Workers dan Wrangler, Durable Objects dan Agents SDK, Sandbox stable dan @next, Cloudflare One, Turnstile, serta email.",
+  "cloudflare_overview_question": "Apa keistimewaan koleksi Cloudflare ini?",
+  "cloudflare_overview_answer": "Ditulis oleh tim Cloudflare dengan prinsip retrieval-over-pre-training: agent mengambil dokumentasi dan schema terkini sebelum menulis kode. Mencakup Workers platform, compute stateful, Zero Trust, dan messaging — berlisensi Apache-2.0.",
+  "cloudflare_stat_skills": "Official Skills",
+  "cloudflare_stat_categories": "Kategori Skill",
+  "cloudflare_sidebar_overview": "Overview & Lisensi",
+  "cloudflare_sidebar_skills": "Daftar Skills ({count})",
+  "cloudflare_sidebar_stats": "13 skills · Official Cloudflare",
+  "cloudflare_footer": "Atribusi Apache-2.0 © Cloudflare · cloudflare/skills",
+  "cloudflare_flow_title": "Alur Develop → Deploy → Observe → Secure",
+  "cloudflare_flow_desc": "Diagram alur end-to-end: kembangkan Worker dengan best practices, deploy dengan Wrangler, observasi performa web, lalu amankan dengan Cloudflare One.",
+  "cloudflare_catalog_title": "Semua {count} Skills",
+  "cloudflare_catalog_desc": "Katalog lengkap skill resmi Cloudflare: Workers platform, compute dan state, security dan access, serta messaging."
 }

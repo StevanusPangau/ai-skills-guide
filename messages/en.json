@@ -547,5 +547,20 @@
   "anthropic_flow_title": "Author → Build → Produce → Test Flow",
   "anthropic_flow_desc": "End-to-end flow: author skills with skill-creator, build MCP integrations, produce documents and designs, then test with webapp-testing.",
   "anthropic_catalog_title": "All {count} Skills",
-  "anthropic_catalog_desc": "Complete catalog of official Anthropic skills: documents, design and brand, agent development, plus writing and communications."
+  "anthropic_catalog_desc": "Complete catalog of official Anthropic skills: documents, design and brand, agent development, plus writing and communications.",
+  "collection_cloudflare_description": "Official skill collection for building on Cloudflare: Workers, stateful compute, Zero Trust, and messaging.",
+  "cloudflare_hero_title": "Official Cloudflare Skills",
+  "cloudflare_hero_description": "13 official skills from cloudflare/skills: Workers and Wrangler, Durable Objects and Agents SDK, stable and @next Sandbox, Cloudflare One, Turnstile, and email.",
+  "cloudflare_overview_question": "What makes the Cloudflare collection special?",
+  "cloudflare_overview_answer": "Written by the Cloudflare team on retrieval-over-pre-training: agents fetch current docs and schemas before writing code. Covers the Workers platform, stateful compute, Zero Trust, and messaging — licensed Apache-2.0.",
+  "cloudflare_stat_skills": "Official Skills",
+  "cloudflare_stat_categories": "Skill Categories",
+  "cloudflare_sidebar_overview": "Overview & License",
+  "cloudflare_sidebar_skills": "Skill Catalog ({count})",
+  "cloudflare_sidebar_stats": "13 skills · Official Cloudflare",
+  "cloudflare_footer": "Attribution Apache-2.0 © Cloudflare · cloudflare/skills",
+  "cloudflare_flow_title": "Develop → Deploy → Observe → Secure Flow",
+  "cloudflare_flow_desc": "End-to-end flow: develop Workers with best practices, deploy with Wrangler, observe web performance, then secure with Cloudflare One.",
+  "cloudflare_catalog_title": "All {count} Skills",
+  "cloudflare_catalog_desc": "Complete catalog of official Cloudflare skills: Workers platform, compute and state, security and access, plus messaging."
 }

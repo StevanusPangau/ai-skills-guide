@@ -13,6 +13,7 @@ const collections = [
   ['superpowers', 'superpowers-skills.ts', 'superpowers'],
   ['vercel', 'vercel-skills.ts', 'vercel'],
   ['anthropic', 'anthropic-skills.ts', 'anthropic'],
+  ['cloudflare', 'cloudflare-skills.ts', 'cloudflare'],
 ]
 
 const urls = ['/', '/collections']

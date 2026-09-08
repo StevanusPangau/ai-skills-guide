@@ -16,6 +16,7 @@ import { Route as JakubkrehelRouteImport } from './routes/jakubkrehel'
 import { Route as EmilkowalskiRouteImport } from './routes/emilkowalski'
 import { Route as DavidondrejRouteImport } from './routes/davidondrej'
 import { Route as CollectionsRouteImport } from './routes/collections'
+import { Route as CloudflareRouteImport } from './routes/cloudflare'
 import { Route as BrooklynRouteImport } from './routes/brooklyn'
 import { Route as AnthropicRouteImport } from './routes/anthropic'
 import { Route as IndexRouteImport } from './routes/index'
@@ -24,6 +25,7 @@ import { Route as SuperpowersIndexRouteImport } from './routes/superpowers.index
 import { Route as JakubkrehelIndexRouteImport } from './routes/jakubkrehel.index'
 import { Route as EmilkowalskiIndexRouteImport } from './routes/emilkowalski.index'
 import { Route as DavidondrejIndexRouteImport } from './routes/davidondrej.index'
+import { Route as CloudflareIndexRouteImport } from './routes/cloudflare.index'
 import { Route as BrooklynIndexRouteImport } from './routes/brooklyn.index'
 import { Route as AnthropicIndexRouteImport } from './routes/anthropic.index'
 import { Route as SkillsSkillNameRouteImport } from './routes/skills.$skillName'
@@ -32,6 +34,7 @@ import { Route as SuperpowersSkillsSkillNameRouteImport } from './routes/superpo
 import { Route as JakubkrehelSkillsSkillNameRouteImport } from './routes/jakubkrehel.skills.$skillName'
 import { Route as EmilkowalskiSkillsSkillNameRouteImport } from './routes/emilkowalski.skills.$skillName'
 import { Route as DavidondrejSkillsSkillNameRouteImport } from './routes/davidondrej.skills.$skillName'
+import { Route as CloudflareSkillsSkillNameRouteImport } from './routes/cloudflare.skills.$skillName'
 import { Route as BrooklynSkillsSkillNameRouteImport } from './routes/brooklyn.skills.$skillName'
 import { Route as AnthropicSkillsSkillNameRouteImport } from './routes/anthropic.skills.$skillName'
 
@@ -68,6 +71,11 @@ const DavidondrejRoute = DavidondrejRouteImport.update({
 const CollectionsRoute = CollectionsRouteImport.update({
   id: '/collections',
   path: '/collections',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CloudflareRoute = CloudflareRouteImport.update({
+  id: '/cloudflare',
+  path: '/cloudflare',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BrooklynRoute = BrooklynRouteImport.update({
@@ -109,6 +117,11 @@ const DavidondrejIndexRoute = DavidondrejIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => DavidondrejRoute,
+} as any)
+const CloudflareIndexRoute = CloudflareIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => CloudflareRoute,
 } as any)
 const BrooklynIndexRoute = BrooklynIndexRouteImport.update({
   id: '/',
@@ -154,6 +167,12 @@ const DavidondrejSkillsSkillNameRoute =
     path: '/skills/$skillName',
     getParentRoute: () => DavidondrejRoute,
   } as any)
+const CloudflareSkillsSkillNameRoute =
+  CloudflareSkillsSkillNameRouteImport.update({
+    id: '/skills/$skillName',
+    path: '/skills/$skillName',
+    getParentRoute: () => CloudflareRoute,
+  } as any)
 const BrooklynSkillsSkillNameRoute = BrooklynSkillsSkillNameRouteImport.update({
   id: '/skills/$skillName',
   path: '/skills/$skillName',
@@ -170,6 +189,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/anthropic': typeof AnthropicRouteWithChildren
   '/brooklyn': typeof BrooklynRouteWithChildren
+  '/cloudflare': typeof CloudflareRouteWithChildren
   '/collections': typeof CollectionsRoute
   '/davidondrej': typeof DavidondrejRouteWithChildren
   '/emilkowalski': typeof EmilkowalskiRouteWithChildren
@@ -180,6 +200,7 @@ export interface FileRoutesByFullPath {
   '/skills/$skillName': typeof SkillsSkillNameRoute
   '/anthropic/': typeof AnthropicIndexRoute
   '/brooklyn/': typeof BrooklynIndexRoute
+  '/cloudflare/': typeof CloudflareIndexRoute
   '/davidondrej/': typeof DavidondrejIndexRoute
   '/emilkowalski/': typeof EmilkowalskiIndexRoute
   '/jakubkrehel/': typeof JakubkrehelIndexRoute
@@ -187,6 +208,7 @@ export interface FileRoutesByFullPath {
   '/vercel/': typeof VercelIndexRoute
   '/anthropic/skills/$skillName': typeof AnthropicSkillsSkillNameRoute
   '/brooklyn/skills/$skillName': typeof BrooklynSkillsSkillNameRoute
+  '/cloudflare/skills/$skillName': typeof CloudflareSkillsSkillNameRoute
   '/davidondrej/skills/$skillName': typeof DavidondrejSkillsSkillNameRoute
   '/emilkowalski/skills/$skillName': typeof EmilkowalskiSkillsSkillNameRoute
   '/jakubkrehel/skills/$skillName': typeof JakubkrehelSkillsSkillNameRoute
@@ -200,6 +222,7 @@ export interface FileRoutesByTo {
   '/skills/$skillName': typeof SkillsSkillNameRoute
   '/anthropic': typeof AnthropicIndexRoute
   '/brooklyn': typeof BrooklynIndexRoute
+  '/cloudflare': typeof CloudflareIndexRoute
   '/davidondrej': typeof DavidondrejIndexRoute
   '/emilkowalski': typeof EmilkowalskiIndexRoute
   '/jakubkrehel': typeof JakubkrehelIndexRoute
@@ -207,6 +230,7 @@ export interface FileRoutesByTo {
   '/vercel': typeof VercelIndexRoute
   '/anthropic/skills/$skillName': typeof AnthropicSkillsSkillNameRoute
   '/brooklyn/skills/$skillName': typeof BrooklynSkillsSkillNameRoute
+  '/cloudflare/skills/$skillName': typeof CloudflareSkillsSkillNameRoute
   '/davidondrej/skills/$skillName': typeof DavidondrejSkillsSkillNameRoute
   '/emilkowalski/skills/$skillName': typeof EmilkowalskiSkillsSkillNameRoute
   '/jakubkrehel/skills/$skillName': typeof JakubkrehelSkillsSkillNameRoute
@@ -218,6 +242,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/anthropic': typeof AnthropicRouteWithChildren
   '/brooklyn': typeof BrooklynRouteWithChildren
+  '/cloudflare': typeof CloudflareRouteWithChildren
   '/collections': typeof CollectionsRoute
   '/davidondrej': typeof DavidondrejRouteWithChildren
   '/emilkowalski': typeof EmilkowalskiRouteWithChildren
@@ -228,6 +253,7 @@ export interface FileRoutesById {
   '/skills/$skillName': typeof SkillsSkillNameRoute
   '/anthropic/': typeof AnthropicIndexRoute
   '/brooklyn/': typeof BrooklynIndexRoute
+  '/cloudflare/': typeof CloudflareIndexRoute
   '/davidondrej/': typeof DavidondrejIndexRoute
   '/emilkowalski/': typeof EmilkowalskiIndexRoute
   '/jakubkrehel/': typeof JakubkrehelIndexRoute
@@ -235,6 +261,7 @@ export interface FileRoutesById {
   '/vercel/': typeof VercelIndexRoute
   '/anthropic/skills/$skillName': typeof AnthropicSkillsSkillNameRoute
   '/brooklyn/skills/$skillName': typeof BrooklynSkillsSkillNameRoute
+  '/cloudflare/skills/$skillName': typeof CloudflareSkillsSkillNameRoute
   '/davidondrej/skills/$skillName': typeof DavidondrejSkillsSkillNameRoute
   '/emilkowalski/skills/$skillName': typeof EmilkowalskiSkillsSkillNameRoute
   '/jakubkrehel/skills/$skillName': typeof JakubkrehelSkillsSkillNameRoute
@@ -247,6 +274,7 @@ export interface FileRouteTypes {
     | '/'
     | '/anthropic'
     | '/brooklyn'
+    | '/cloudflare'
     | '/collections'
     | '/davidondrej'
     | '/emilkowalski'
@@ -257,6 +285,7 @@ export interface FileRouteTypes {
     | '/skills/$skillName'
     | '/anthropic/'
     | '/brooklyn/'
+    | '/cloudflare/'
     | '/davidondrej/'
     | '/emilkowalski/'
     | '/jakubkrehel/'
@@ -264,6 +293,7 @@ export interface FileRouteTypes {
     | '/vercel/'
     | '/anthropic/skills/$skillName'
     | '/brooklyn/skills/$skillName'
+    | '/cloudflare/skills/$skillName'
     | '/davidondrej/skills/$skillName'
     | '/emilkowalski/skills/$skillName'
     | '/jakubkrehel/skills/$skillName'
@@ -277,6 +307,7 @@ export interface FileRouteTypes {
     | '/skills/$skillName'
     | '/anthropic'
     | '/brooklyn'
+    | '/cloudflare'
     | '/davidondrej'
     | '/emilkowalski'
     | '/jakubkrehel'
@@ -284,6 +315,7 @@ export interface FileRouteTypes {
     | '/vercel'
     | '/anthropic/skills/$skillName'
     | '/brooklyn/skills/$skillName'
+    | '/cloudflare/skills/$skillName'
     | '/davidondrej/skills/$skillName'
     | '/emilkowalski/skills/$skillName'
     | '/jakubkrehel/skills/$skillName'
@@ -294,6 +326,7 @@ export interface FileRouteTypes {
     | '/'
     | '/anthropic'
     | '/brooklyn'
+    | '/cloudflare'
     | '/collections'
     | '/davidondrej'
     | '/emilkowalski'
@@ -304,6 +337,7 @@ export interface FileRouteTypes {
     | '/skills/$skillName'
     | '/anthropic/'
     | '/brooklyn/'
+    | '/cloudflare/'
     | '/davidondrej/'
     | '/emilkowalski/'
     | '/jakubkrehel/'
@@ -311,6 +345,7 @@ export interface FileRouteTypes {
     | '/vercel/'
     | '/anthropic/skills/$skillName'
     | '/brooklyn/skills/$skillName'
+    | '/cloudflare/skills/$skillName'
     | '/davidondrej/skills/$skillName'
     | '/emilkowalski/skills/$skillName'
     | '/jakubkrehel/skills/$skillName'
@@ -322,6 +357,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AnthropicRoute: typeof AnthropicRouteWithChildren
   BrooklynRoute: typeof BrooklynRouteWithChildren
+  CloudflareRoute: typeof CloudflareRouteWithChildren
   CollectionsRoute: typeof CollectionsRoute
   DavidondrejRoute: typeof DavidondrejRouteWithChildren
   EmilkowalskiRoute: typeof EmilkowalskiRouteWithChildren
@@ -383,6 +419,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CollectionsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/cloudflare': {
+      id: '/cloudflare'
+      path: '/cloudflare'
+      fullPath: '/cloudflare'
+      preLoaderRoute: typeof CloudflareRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/brooklyn': {
       id: '/brooklyn'
       path: '/brooklyn'
@@ -438,6 +481,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/davidondrej/'
       preLoaderRoute: typeof DavidondrejIndexRouteImport
       parentRoute: typeof DavidondrejRoute
+    }
+    '/cloudflare/': {
+      id: '/cloudflare/'
+      path: '/'
+      fullPath: '/cloudflare/'
+      preLoaderRoute: typeof CloudflareIndexRouteImport
+      parentRoute: typeof CloudflareRoute
     }
     '/brooklyn/': {
       id: '/brooklyn/'
@@ -495,6 +545,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DavidondrejSkillsSkillNameRouteImport
       parentRoute: typeof DavidondrejRoute
     }
+    '/cloudflare/skills/$skillName': {
+      id: '/cloudflare/skills/$skillName'
+      path: '/skills/$skillName'
+      fullPath: '/cloudflare/skills/$skillName'
+      preLoaderRoute: typeof CloudflareSkillsSkillNameRouteImport
+      parentRoute: typeof CloudflareRoute
+    }
     '/brooklyn/skills/$skillName': {
       id: '/brooklyn/skills/$skillName'
       path: '/skills/$skillName'
@@ -538,6 +595,20 @@ const BrooklynRouteChildren: BrooklynRouteChildren = {
 
 const BrooklynRouteWithChildren = BrooklynRoute._addFileChildren(
   BrooklynRouteChildren,
+)
+
+interface CloudflareRouteChildren {
+  CloudflareIndexRoute: typeof CloudflareIndexRoute
+  CloudflareSkillsSkillNameRoute: typeof CloudflareSkillsSkillNameRoute
+}
+
+const CloudflareRouteChildren: CloudflareRouteChildren = {
+  CloudflareIndexRoute: CloudflareIndexRoute,
+  CloudflareSkillsSkillNameRoute: CloudflareSkillsSkillNameRoute,
+}
+
+const CloudflareRouteWithChildren = CloudflareRoute._addFileChildren(
+  CloudflareRouteChildren,
 )
 
 interface DavidondrejRouteChildren {
@@ -613,6 +684,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AnthropicRoute: AnthropicRouteWithChildren,
   BrooklynRoute: BrooklynRouteWithChildren,
+  CloudflareRoute: CloudflareRouteWithChildren,
   CollectionsRoute: CollectionsRoute,
   DavidondrejRoute: DavidondrejRouteWithChildren,
   EmilkowalskiRoute: EmilkowalskiRouteWithChildren,
