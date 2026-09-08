@@ -532,5 +532,20 @@
   "vercel_flow_title": "Alur Build → Review → Deploy → Optimize",
   "vercel_flow_desc": "Diagram alur end-to-end resmi Vercel: bangun UI dengan aturan performa, audit desain dan tulisan, deploy preview ke Vercel, lalu optimasi biaya berbasis metrik.",
   "vercel_catalog_title": "Semua {count} Skills",
-  "vercel_catalog_desc": "Katalog lengkap skill resmi Vercel: performa React & Next.js, komposisi komponen, React Native, view transitions, deployment, dan audit biaya."
+  "vercel_catalog_desc": "Katalog lengkap skill resmi Vercel: performa React & Next.js, komposisi komponen, React Native, view transitions, deployment, dan audit biaya.",
+  "collection_anthropic_description": "Koleksi skill resmi dari pembuat standar Agent Skills: dokumen, desain, agent development, dan writing.",
+  "anthropic_hero_title": "Official Anthropic Skills",
+  "anthropic_hero_description": "19 skill resmi dari anthropics/skills: dokumen Office dan PDF, UI dan brand, agent development, serta writing dan komunikasi.",
+  "anthropic_overview_question": "Apa keistimewaan koleksi Anthropic ini?",
+  "anthropic_overview_answer": "Ditulis oleh pembuat standar Agent Skills: mencakup document creation, desain dan brand, agent development, serta writing — dengan catatan lisensi all-rights-reserved: guide ini hanya ringkasan, install langsung dari repo upstream.",
+  "anthropic_stat_skills": "Official Skills",
+  "anthropic_stat_categories": "Kategori Skill",
+  "anthropic_sidebar_overview": "Overview & Lisensi",
+  "anthropic_sidebar_skills": "Daftar Skills ({count})",
+  "anthropic_sidebar_stats": "19 skills · Official Anthropic",
+  "anthropic_footer": "Atribusi © Anthropic PBC · anthropics/skills",
+  "anthropic_flow_title": "Alur Author → Build → Produce → Test",
+  "anthropic_flow_desc": "Diagram alur end-to-end: author skill dengan skill-creator, bangun integrasi MCP, produksi dokumen dan desain, lalu uji dengan webapp-testing.",
+  "anthropic_catalog_title": "Semua {count} Skills",
+  "anthropic_catalog_desc": "Katalog lengkap skill resmi Anthropic: dokumen, desain dan brand, agent development, serta writing dan komunikasi."
 }

@@ -12,6 +12,7 @@ const collections = [
   ['brooklyn', 'brooklyn-skills.ts', 'brooklyn'],
   ['superpowers', 'superpowers-skills.ts', 'superpowers'],
   ['vercel', 'vercel-skills.ts', 'vercel'],
+  ['anthropic', 'anthropic-skills.ts', 'anthropic'],
 ]
 
 const urls = ['/', '/collections']

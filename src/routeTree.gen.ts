@@ -17,6 +17,7 @@ import { Route as EmilkowalskiRouteImport } from './routes/emilkowalski'
 import { Route as DavidondrejRouteImport } from './routes/davidondrej'
 import { Route as CollectionsRouteImport } from './routes/collections'
 import { Route as BrooklynRouteImport } from './routes/brooklyn'
+import { Route as AnthropicRouteImport } from './routes/anthropic'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as VercelIndexRouteImport } from './routes/vercel.index'
 import { Route as SuperpowersIndexRouteImport } from './routes/superpowers.index'
@@ -24,6 +25,7 @@ import { Route as JakubkrehelIndexRouteImport } from './routes/jakubkrehel.index
 import { Route as EmilkowalskiIndexRouteImport } from './routes/emilkowalski.index'
 import { Route as DavidondrejIndexRouteImport } from './routes/davidondrej.index'
 import { Route as BrooklynIndexRouteImport } from './routes/brooklyn.index'
+import { Route as AnthropicIndexRouteImport } from './routes/anthropic.index'
 import { Route as SkillsSkillNameRouteImport } from './routes/skills.$skillName'
 import { Route as VercelSkillsSkillNameRouteImport } from './routes/vercel.skills.$skillName'
 import { Route as SuperpowersSkillsSkillNameRouteImport } from './routes/superpowers.skills.$skillName'
@@ -31,6 +33,7 @@ import { Route as JakubkrehelSkillsSkillNameRouteImport } from './routes/jakubkr
 import { Route as EmilkowalskiSkillsSkillNameRouteImport } from './routes/emilkowalski.skills.$skillName'
 import { Route as DavidondrejSkillsSkillNameRouteImport } from './routes/davidondrej.skills.$skillName'
 import { Route as BrooklynSkillsSkillNameRouteImport } from './routes/brooklyn.skills.$skillName'
+import { Route as AnthropicSkillsSkillNameRouteImport } from './routes/anthropic.skills.$skillName'
 
 const VercelRoute = VercelRouteImport.update({
   id: '/vercel',
@@ -72,6 +75,11 @@ const BrooklynRoute = BrooklynRouteImport.update({
   path: '/brooklyn',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AnthropicRoute = AnthropicRouteImport.update({
+  id: '/anthropic',
+  path: '/anthropic',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -106,6 +114,11 @@ const BrooklynIndexRoute = BrooklynIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => BrooklynRoute,
+} as any)
+const AnthropicIndexRoute = AnthropicIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AnthropicRoute,
 } as any)
 const SkillsSkillNameRoute = SkillsSkillNameRouteImport.update({
   id: '/skills/$skillName',
@@ -146,9 +159,16 @@ const BrooklynSkillsSkillNameRoute = BrooklynSkillsSkillNameRouteImport.update({
   path: '/skills/$skillName',
   getParentRoute: () => BrooklynRoute,
 } as any)
+const AnthropicSkillsSkillNameRoute =
+  AnthropicSkillsSkillNameRouteImport.update({
+    id: '/skills/$skillName',
+    path: '/skills/$skillName',
+    getParentRoute: () => AnthropicRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/anthropic': typeof AnthropicRouteWithChildren
   '/brooklyn': typeof BrooklynRouteWithChildren
   '/collections': typeof CollectionsRoute
   '/davidondrej': typeof DavidondrejRouteWithChildren
@@ -158,12 +178,14 @@ export interface FileRoutesByFullPath {
   '/superpowers': typeof SuperpowersRouteWithChildren
   '/vercel': typeof VercelRouteWithChildren
   '/skills/$skillName': typeof SkillsSkillNameRoute
+  '/anthropic/': typeof AnthropicIndexRoute
   '/brooklyn/': typeof BrooklynIndexRoute
   '/davidondrej/': typeof DavidondrejIndexRoute
   '/emilkowalski/': typeof EmilkowalskiIndexRoute
   '/jakubkrehel/': typeof JakubkrehelIndexRoute
   '/superpowers/': typeof SuperpowersIndexRoute
   '/vercel/': typeof VercelIndexRoute
+  '/anthropic/skills/$skillName': typeof AnthropicSkillsSkillNameRoute
   '/brooklyn/skills/$skillName': typeof BrooklynSkillsSkillNameRoute
   '/davidondrej/skills/$skillName': typeof DavidondrejSkillsSkillNameRoute
   '/emilkowalski/skills/$skillName': typeof EmilkowalskiSkillsSkillNameRoute
@@ -176,12 +198,14 @@ export interface FileRoutesByTo {
   '/collections': typeof CollectionsRoute
   '/mattpocock': typeof MattpocockRoute
   '/skills/$skillName': typeof SkillsSkillNameRoute
+  '/anthropic': typeof AnthropicIndexRoute
   '/brooklyn': typeof BrooklynIndexRoute
   '/davidondrej': typeof DavidondrejIndexRoute
   '/emilkowalski': typeof EmilkowalskiIndexRoute
   '/jakubkrehel': typeof JakubkrehelIndexRoute
   '/superpowers': typeof SuperpowersIndexRoute
   '/vercel': typeof VercelIndexRoute
+  '/anthropic/skills/$skillName': typeof AnthropicSkillsSkillNameRoute
   '/brooklyn/skills/$skillName': typeof BrooklynSkillsSkillNameRoute
   '/davidondrej/skills/$skillName': typeof DavidondrejSkillsSkillNameRoute
   '/emilkowalski/skills/$skillName': typeof EmilkowalskiSkillsSkillNameRoute
@@ -192,6 +216,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/anthropic': typeof AnthropicRouteWithChildren
   '/brooklyn': typeof BrooklynRouteWithChildren
   '/collections': typeof CollectionsRoute
   '/davidondrej': typeof DavidondrejRouteWithChildren
@@ -201,12 +226,14 @@ export interface FileRoutesById {
   '/superpowers': typeof SuperpowersRouteWithChildren
   '/vercel': typeof VercelRouteWithChildren
   '/skills/$skillName': typeof SkillsSkillNameRoute
+  '/anthropic/': typeof AnthropicIndexRoute
   '/brooklyn/': typeof BrooklynIndexRoute
   '/davidondrej/': typeof DavidondrejIndexRoute
   '/emilkowalski/': typeof EmilkowalskiIndexRoute
   '/jakubkrehel/': typeof JakubkrehelIndexRoute
   '/superpowers/': typeof SuperpowersIndexRoute
   '/vercel/': typeof VercelIndexRoute
+  '/anthropic/skills/$skillName': typeof AnthropicSkillsSkillNameRoute
   '/brooklyn/skills/$skillName': typeof BrooklynSkillsSkillNameRoute
   '/davidondrej/skills/$skillName': typeof DavidondrejSkillsSkillNameRoute
   '/emilkowalski/skills/$skillName': typeof EmilkowalskiSkillsSkillNameRoute
@@ -218,6 +245,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/anthropic'
     | '/brooklyn'
     | '/collections'
     | '/davidondrej'
@@ -227,12 +255,14 @@ export interface FileRouteTypes {
     | '/superpowers'
     | '/vercel'
     | '/skills/$skillName'
+    | '/anthropic/'
     | '/brooklyn/'
     | '/davidondrej/'
     | '/emilkowalski/'
     | '/jakubkrehel/'
     | '/superpowers/'
     | '/vercel/'
+    | '/anthropic/skills/$skillName'
     | '/brooklyn/skills/$skillName'
     | '/davidondrej/skills/$skillName'
     | '/emilkowalski/skills/$skillName'
@@ -245,12 +275,14 @@ export interface FileRouteTypes {
     | '/collections'
     | '/mattpocock'
     | '/skills/$skillName'
+    | '/anthropic'
     | '/brooklyn'
     | '/davidondrej'
     | '/emilkowalski'
     | '/jakubkrehel'
     | '/superpowers'
     | '/vercel'
+    | '/anthropic/skills/$skillName'
     | '/brooklyn/skills/$skillName'
     | '/davidondrej/skills/$skillName'
     | '/emilkowalski/skills/$skillName'
@@ -260,6 +292,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/anthropic'
     | '/brooklyn'
     | '/collections'
     | '/davidondrej'
@@ -269,12 +302,14 @@ export interface FileRouteTypes {
     | '/superpowers'
     | '/vercel'
     | '/skills/$skillName'
+    | '/anthropic/'
     | '/brooklyn/'
     | '/davidondrej/'
     | '/emilkowalski/'
     | '/jakubkrehel/'
     | '/superpowers/'
     | '/vercel/'
+    | '/anthropic/skills/$skillName'
     | '/brooklyn/skills/$skillName'
     | '/davidondrej/skills/$skillName'
     | '/emilkowalski/skills/$skillName'
@@ -285,6 +320,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AnthropicRoute: typeof AnthropicRouteWithChildren
   BrooklynRoute: typeof BrooklynRouteWithChildren
   CollectionsRoute: typeof CollectionsRoute
   DavidondrejRoute: typeof DavidondrejRouteWithChildren
@@ -354,6 +390,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BrooklynRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/anthropic': {
+      id: '/anthropic'
+      path: '/anthropic'
+      fullPath: '/anthropic'
+      preLoaderRoute: typeof AnthropicRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -402,6 +445,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/brooklyn/'
       preLoaderRoute: typeof BrooklynIndexRouteImport
       parentRoute: typeof BrooklynRoute
+    }
+    '/anthropic/': {
+      id: '/anthropic/'
+      path: '/'
+      fullPath: '/anthropic/'
+      preLoaderRoute: typeof AnthropicIndexRouteImport
+      parentRoute: typeof AnthropicRoute
     }
     '/skills/$skillName': {
       id: '/skills/$skillName'
@@ -452,8 +502,29 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BrooklynSkillsSkillNameRouteImport
       parentRoute: typeof BrooklynRoute
     }
+    '/anthropic/skills/$skillName': {
+      id: '/anthropic/skills/$skillName'
+      path: '/skills/$skillName'
+      fullPath: '/anthropic/skills/$skillName'
+      preLoaderRoute: typeof AnthropicSkillsSkillNameRouteImport
+      parentRoute: typeof AnthropicRoute
+    }
   }
 }
+
+interface AnthropicRouteChildren {
+  AnthropicIndexRoute: typeof AnthropicIndexRoute
+  AnthropicSkillsSkillNameRoute: typeof AnthropicSkillsSkillNameRoute
+}
+
+const AnthropicRouteChildren: AnthropicRouteChildren = {
+  AnthropicIndexRoute: AnthropicIndexRoute,
+  AnthropicSkillsSkillNameRoute: AnthropicSkillsSkillNameRoute,
+}
+
+const AnthropicRouteWithChildren = AnthropicRoute._addFileChildren(
+  AnthropicRouteChildren,
+)
 
 interface BrooklynRouteChildren {
   BrooklynIndexRoute: typeof BrooklynIndexRoute
@@ -540,6 +611,7 @@ const VercelRouteWithChildren =
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AnthropicRoute: AnthropicRouteWithChildren,
   BrooklynRoute: BrooklynRouteWithChildren,
   CollectionsRoute: CollectionsRoute,
   DavidondrejRoute: DavidondrejRouteWithChildren,

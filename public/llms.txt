@@ -149,3 +149,22 @@ The guide curates and explains work by the attributed upstream authors. Each col
 - vercel-optimize: https://skills.stevanuspangau.dev/vercel/skills/vercel-optimize
 - web-design-guidelines: https://skills.stevanuspangau.dev/vercel/skills/web-design-guidelines
 - writing-guidelines: https://skills.stevanuspangau.dev/vercel/skills/writing-guidelines
+
+## anthropic
+
+- Collection: https://skills.stevanuspangau.dev/anthropic
+- frontend-design: https://skills.stevanuspangau.dev/anthropic/skills/frontend-design
+- canvas-design: https://skills.stevanuspangau.dev/anthropic/skills/canvas-design
+- brand-guidelines: https://skills.stevanuspangau.dev/anthropic/skills/brand-guidelines
+- theme-factory: https://skills.stevanuspangau.dev/anthropic/skills/theme-factory
+- algorithmic-art: https://skills.stevanuspangau.dev/anthropic/skills/algorithmic-art
+- skill-creator: https://skills.stevanuspangau.dev/anthropic/skills/skill-creator
+- mcp-builder: https://skills.stevanuspangau.dev/anthropic/skills/mcp-builder
+- claude-api: https://skills.stevanuspangau.dev/anthropic/skills/claude-api
+- webapp-testing: https://skills.stevanuspangau.dev/anthropic/skills/webapp-testing
+- web-artifacts-builder: https://skills.stevanuspangau.dev/anthropic/skills/web-artifacts-builder
+- doc-coauthoring: https://skills.stevanuspangau.dev/anthropic/skills/doc-coauthoring
+- internal-comms: https://skills.stevanuspangau.dev/anthropic/skills/internal-comms
+- slack-gif-creator: https://skills.stevanuspangau.dev/anthropic/skills/slack-gif-creator
+- discernment-nudge: https://skills.stevanuspangau.dev/anthropic/skills/discernment-nudge
+- academy-guide: https://skills.stevanuspangau.dev/anthropic/skills/academy-guide

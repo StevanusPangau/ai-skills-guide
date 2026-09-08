@@ -532,5 +532,20 @@
   "vercel_flow_title": "Build → Review → Deploy → Optimize Flow",
   "vercel_flow_desc": "End-to-end official Vercel workflow: build UI with performance rules, audit design and writing, deploy a preview to Vercel, then run metrics-first cost optimization.",
   "vercel_catalog_title": "All {count} Skills",
-  "vercel_catalog_desc": "Complete catalog of official Vercel skills: React & Next.js performance, component composition, React Native, view transitions, deployment, and cost audits."
+  "vercel_catalog_desc": "Complete catalog of official Vercel skills: React & Next.js performance, component composition, React Native, view transitions, deployment, and cost audits.",
+  "collection_anthropic_description": "Official skill collection from the creators of the Agent Skills standard: documents, design, agent development, and writing.",
+  "anthropic_hero_title": "Official Anthropic Skills",
+  "anthropic_hero_description": "19 official skills from anthropics/skills: Office and PDF documents, UI and brand, agent development, plus writing and communications.",
+  "anthropic_overview_question": "What makes the Anthropic collection special?",
+  "anthropic_overview_answer": "Written by the creators of the Agent Skills standard: document creation, design and brand, agent development, and writing — with an all-rights-reserved license note: this guide only summarizes, install directly from the upstream repo.",
+  "anthropic_stat_skills": "Official Skills",
+  "anthropic_stat_categories": "Skill Categories",
+  "anthropic_sidebar_overview": "Overview & License",
+  "anthropic_sidebar_skills": "Skill Catalog ({count})",
+  "anthropic_sidebar_stats": "19 skills · Official Anthropic",
+  "anthropic_footer": "Attribution © Anthropic PBC · anthropics/skills",
+  "anthropic_flow_title": "Author → Build → Produce → Test Flow",
+  "anthropic_flow_desc": "End-to-end flow: author skills with skill-creator, build MCP integrations, produce documents and designs, then test with webapp-testing.",
+  "anthropic_catalog_title": "All {count} Skills",
+  "anthropic_catalog_desc": "Complete catalog of official Anthropic skills: documents, design and brand, agent development, plus writing and communications."
 }

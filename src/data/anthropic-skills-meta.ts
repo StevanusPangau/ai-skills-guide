@@ -1,0 +1,1 @@
+export const ANTHROPIC_SKILL_COUNT = 19
