@@ -6,6 +6,7 @@ import {
 } from '@/features/vercel/guide'
 import { VercelFlow } from '@/features/vercel/flow'
 import { VercelConcepts } from '@/features/vercel/concepts'
+import { VercelWorkflows } from '@/features/vercel/workflows'
 import { VercelInstall } from '@/features/vercel/install'
 import { StandardSkillsSection } from '@/components/standard-skills-section'
 import { vercelSkills } from '@/data/vercel-skills'
@@ -25,6 +26,7 @@ function VercelIndexPage() {
         id: 'skills',
         label: m.vercel_sidebar_skills({ count: String(vercelSkills.length) }),
       },
+      { id: 'workflows', label: m.sidebar_workflows() },
       { id: 'installation', label: m.sidebar_installation() },
     ],
     [],
@@ -57,6 +59,7 @@ function VercelIndexPage() {
         description={m.vercel_catalog_desc()}
         repoUrl="github.com/vercel-labs/agent-skills"
       />
+      <VercelWorkflows />
       <VercelInstall />
     </CollectionGuideLayout>
   )

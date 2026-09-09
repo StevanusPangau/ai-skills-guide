@@ -5,6 +5,7 @@ import {
   CloudflareOverview,
 } from '@/features/cloudflare/guide'
 import { CloudflareConcepts } from '@/features/cloudflare/concepts'
+import { CloudflareWorkflows } from '@/features/cloudflare/workflows'
 import { CloudflareInstall } from '@/features/cloudflare/install'
 import { StandardSkillsSection } from '@/components/standard-skills-section'
 import { cloudflareSkills } from '@/data/cloudflare-skills'
@@ -23,6 +24,7 @@ function CloudflareIndexPage() {
         id: 'skills',
         label: m.cloudflare_sidebar_skills({ count: String(cloudflareSkills.length) }),
       },
+      { id: 'workflows', label: m.sidebar_workflows() },
       { id: 'installation', label: m.sidebar_installation() },
     ],
     [],
@@ -51,6 +53,7 @@ function CloudflareIndexPage() {
         description={m.cloudflare_catalog_desc()}
         repoUrl="github.com/cloudflares/skills"
       />
+      <CloudflareWorkflows />
       <CloudflareInstall />
     </CollectionGuideLayout>
   )

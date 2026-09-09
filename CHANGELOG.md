@@ -13,7 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Official Cloudflare Skills collection (13 skills)** — `cloudflare/skills` (Apache-2.0): Workers platform (workers-best-practices, wrangler, cloudflare, web-perf), stateful compute (durable-objects, agents-sdk, sandbox-next, sandbox-stable, sandbox-migrate-to-next), Zero Trust & security (cloudflare-one, cloudflare-one-migrations, turnstile-spin), and messaging (cloudflare-email-service), with guide, concepts, install, and bilingual detail pages. Note: `nextjs-on-cloudflare` excluded (removed upstream).
 
 ### Fixed
-- **Tier 1 audit pass** — official logos for Vercel/Anthropic/Cloudflare (hero, hub, detail); removed forced flow diagrams from Anthropic and Cloudflare (kept Vercel's with token-auth node, parallel-review gate, and loop label); added a unique per-skill spotlight section to all 41 Tier 1 skills; corrected 11 factual nuances (rule counts, priority labels, version claims, dry-run limits, cutover approval).
+- **Tier 1 audit pass** — official logos for Vercel/Anthropic/Cloudflare (hero, hub, detail); removed forced flow diagrams from Anthropic and Cloudflare (kept Vercel's with token-auth node, parallel-review gate, and loop label); added a unique per-skill spotlight section to all 41 Tier 1 skills; added Common Workflows sections (3 concrete end-to-end scenarios per Tier 1 collection, Matt Pocock style); corrected 11 factual nuances (rule counts, priority labels, version claims, dry-run limits, cutover approval).
 
 ## [v1.5.0] - 2026-09-04
 

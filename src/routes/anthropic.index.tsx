@@ -5,6 +5,7 @@ import {
   AnthropicOverview,
 } from '@/features/anthropic/guide'
 import { AnthropicConcepts } from '@/features/anthropic/concepts'
+import { AnthropicWorkflows } from '@/features/anthropic/workflows'
 import { AnthropicInstall } from '@/features/anthropic/install'
 import { StandardSkillsSection } from '@/components/standard-skills-section'
 import { anthropicSkills } from '@/data/anthropic-skills'
@@ -23,6 +24,7 @@ function AnthropicIndexPage() {
         id: 'skills',
         label: m.anthropic_sidebar_skills({ count: String(anthropicSkills.length) }),
       },
+      { id: 'workflows', label: m.sidebar_workflows() },
       { id: 'installation', label: m.sidebar_installation() },
     ],
     [],
@@ -51,6 +53,7 @@ function AnthropicIndexPage() {
         description={m.anthropic_catalog_desc()}
         repoUrl="github.com/anthropics/skills"
       />
+      <AnthropicWorkflows />
       <AnthropicInstall />
     </CollectionGuideLayout>
   )
