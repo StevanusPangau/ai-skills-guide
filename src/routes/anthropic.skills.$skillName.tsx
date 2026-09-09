@@ -71,6 +71,7 @@ function AnthropicSkillPage() {
     { id: 'how-it-works', label: isEn ? 'How It Works' : 'Cara Kerja Eksekusi' },
     { id: 'core-rules', label: isEn ? 'Core Rules' : 'Aturan Inti' },
     { id: 'tips', label: isEn ? 'Pro Tips' : 'Tips Penerapan' },
+    ...(skill.spotlight ? [{ id: 'spotlight', label: isEn ? skill.spotlight.title.en : skill.spotlight.title.id }] : []),
     { id: 'pairs-well-with', label: isEn ? 'Pairs Well With' : 'Cocok Dikombinasikan' },
     { id: 'install', label: isEn ? 'Installation' : 'Instalasi' },
   ]
@@ -215,6 +216,17 @@ function AnthropicSkillPage() {
                 ))}
               </ul>
             </section>
+
+            {skill.spotlight && (
+              <section id="spotlight" className="space-y-2 rounded-lg border border-primary/30 bg-primary/5 p-4">
+                <h2 className="text-base font-semibold">
+                  {isEn ? skill.spotlight.title.en : skill.spotlight.title.id}
+                </h2>
+                <p className="text-sm leading-relaxed text-muted-foreground whitespace-pre-line">
+                  {isEn ? skill.spotlight.body.en : skill.spotlight.body.id}
+                </p>
+              </section>
+            )}
 
             {skill.pairsWellWith.length > 0 && (
               <section id="pairs-well-with" className="space-y-2">

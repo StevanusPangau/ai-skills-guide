@@ -4,8 +4,8 @@ import { CollectionGuideLayout } from '@/components/layout/collection-guide-layo
 import {
   CloudflareOverview,
 } from '@/features/cloudflare/guide'
-import { CloudflareFlow } from '@/features/cloudflare/flow'
 import { CloudflareConcepts } from '@/features/cloudflare/concepts'
+import { CloudflareWorkflows } from '@/features/cloudflare/workflows'
 import { CloudflareInstall } from '@/features/cloudflare/install'
 import { StandardSkillsSection } from '@/components/standard-skills-section'
 import { cloudflareSkills } from '@/data/cloudflare-skills'
@@ -19,12 +19,12 @@ function CloudflareIndexPage() {
   const sections = useMemo(
     () => [
       { id: 'overview', label: m.cloudflare_sidebar_overview() },
-      { id: 'flow', label: m.sidebar_flow_title() },
       { id: 'concepts', label: m.sidebar_concepts() },
       {
         id: 'skills',
         label: m.cloudflare_sidebar_skills({ count: String(cloudflareSkills.length) }),
       },
+      { id: 'workflows', label: m.sidebar_workflows() },
       { id: 'installation', label: m.sidebar_installation() },
     ],
     [],
@@ -44,7 +44,6 @@ function CloudflareIndexPage() {
       footer={<p className="text-center text-xs text-muted-foreground">{m.cloudflare_footer()}</p>}
     >
       <CloudflareOverview />
-      <CloudflareFlow />
       <CloudflareConcepts />
       <StandardSkillsSection
         collectionSlug="cloudflare"
@@ -54,6 +53,7 @@ function CloudflareIndexPage() {
         description={m.cloudflare_catalog_desc()}
         repoUrl="github.com/cloudflares/skills"
       />
+      <CloudflareWorkflows />
       <CloudflareInstall />
     </CollectionGuideLayout>
   )

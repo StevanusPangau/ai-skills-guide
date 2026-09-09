@@ -24,6 +24,11 @@ export type RichSkill = {
   tips: BilingualList
   pairsWellWith: string[]
   sourcePath: string
+  /** Section khusus unik per skill — hanya dirender bila ada. */
+  spotlight?: {
+    title: BilingualString
+    body: BilingualString
+  }
 }
 
 export const anthropicSkills: RichSkill[] = [
@@ -96,7 +101,11 @@ export const anthropicSkills: RichSkill[] = [
     ],
   },
   pairsWellWith: ['pdf', 'pptx', 'xlsx'],
-  sourcePath: 'skills/docx/SKILL.md',
+  spotlight: {
+      title: { id: 'Detail Word yang Mencegah Dokumen Rusak', en: 'Word Details That Prevent Broken Documents' },
+      body: { id: 'Untuk shading tabel di docx-js, gunakan ShadingType.CLEAR, bukan SOLID yang dapat merender hitam. Komentar Word bukan hanya satu XML: diperlukan enam file XML/relationship yang saling terhubung, plus marker range agar komentar terlihat pada teks.', en: 'For table shading in docx-js, use ShadingType.CLEAR rather than SOLID, which can render black. Word comments are not a single XML file: they require six linked XML/relationship files, plus range markers so the comment appears on specific text.' },
+    },
+    sourcePath: 'skills/docx/SKILL.md',
 },
 
 
@@ -137,12 +146,14 @@ export const anthropicSkills: RichSkill[] = [
   howItWorks: {
     id: [
       'Klasifikasikan tugas sebagai create, extract, transform, OCR, form, atau security operation.',
+      'Untuk fitur lanjutan (form filling, operasi kompleks), baca FORMS.md atau REFERENCE.md terlebih dahulu sebelum coding.',
       'Pilih library atau CLI yang sesuai: pypdf, pdfplumber, reportlab, pdftotext, qpdf, atau pdfimages.',
       'Untuk PDF scan, konversi halaman menjadi gambar dengan pdf2image lalu ekstrak teks menggunakan pytesseract.',
       'Periksa hasil teks, jumlah halaman, tabel, atau output file setelah operasi selesai.',
     ],
     en: [
       'Classify the task as a create, extract, transform, OCR, form, or security operation.',
+      'For advanced features (form filling, complex operations), read FORMS.md or REFERENCE.md first before coding.',
       'Choose the appropriate library or CLI: pypdf, pdfplumber, reportlab, pdftotext, qpdf, or pdfimages.',
       'For scanned PDFs, convert pages to images with pdf2image and extract text with pytesseract.',
       'Check extracted text, page counts, tables, or the output file after the operation completes.',
@@ -171,7 +182,11 @@ export const anthropicSkills: RichSkill[] = [
     ],
   },
   pairsWellWith: ['docx', 'pptx', 'xlsx'],
-  sourcePath: 'skills/pdf/SKILL.md',
+  spotlight: {
+      title: { id: 'Pipeline PDF untuk Password, OCR, dan Tabel', en: 'A PDF Pipeline for Passwords, OCR, and Tables' },
+      body: { id: 'Lindungi PDF dengan PdfWriter.encrypt(userpassword, ownerpassword), bukan asumsi default. Untuk scan, ubah halaman lewat pdf2image lalu jalankan pytesseract; untuk tabel, gunakan pdfplumber.extract_tables agar struktur baris-kolom tetap dapat diproses.', en: 'Protect a PDF with PdfWriter.encrypt(userpassword, ownerpassword) instead of relying on defaults. For scans, convert pages with pdf2image and run pytesseract; for tables, use pdfplumber.extract_tables to preserve row-and-column structure.' },
+    },
+    sourcePath: 'skills/pdf/SKILL.md',
 },
 
 
@@ -246,7 +261,11 @@ export const anthropicSkills: RichSkill[] = [
     ],
   },
   pairsWellWith: ['docx', 'pdf', 'xlsx'],
-  sourcePath: 'skills/pptx/SKILL.md',
+  spotlight: {
+      title: { id: 'Validasi Deck Template dan Opsi PPTX yang Aman', en: 'Validate Template Decks and Keep PPTX Options Safe' },
+      body: { id: 'Deck yang dibuat dari template harus divalidasi dengan validate.py --original agar error bawaan template tidak disalahartikan sebagai regresi. Karena pptxgenjs memutasi objek options saat dipakai, buat objek baru pada setiap pemanggilan dan jangan menggunakan ulang objek yang sama.', en: 'Decks built from templates must be validated with validate.py --original so inherited template errors are not mistaken for regressions. Because pptxgenjs mutates options objects during use, create a fresh object for every call instead of reusing one.' },
+    },
+    sourcePath: 'skills/pptx/SKILL.md',
 },
 
 
@@ -312,16 +331,20 @@ export const anthropicSkills: RichSkill[] = [
   },
   tips: {
     id: [
-      'Gunakan INDEX/MATCH sebagai pengganti XLOOKUP, dan lakukan sort, filter, serta deduplicate di Python sebelum menulis cell.',
+      'Gunakan INDEX/MATCH sebagai pengganti XLOOKUP untuk kompatibilitas recalc skill (bukan aturan universal Excel), dan lakukan sort, filter, serta deduplicate di Python sebelum menulis cell.',
       'Untuk .xlsm, gunakan keep_vba=True; untuk merged cells, hanya tulis ke top-left anchor.',
     ],
     en: [
-      'Use INDEX/MATCH instead of XLOOKUP, and sort, filter, and deduplicate in Python before writing cells.',
+      'Use INDEX/MATCH instead of XLOOKUP for the skill recalc compatibility (not a universal Excel rule), and sort, filter, and deduplicate in Python before writing cells.',
       'For .xlsm, use keep_vba=True; for merged cells, write only to the top-left anchor.',
     ],
   },
   pairsWellWith: ['docx', 'pdf', 'pptx'],
-  sourcePath: 'skills/xlsx/SKILL.md',
+  spotlight: {
+      title: { id: 'Formula Spreadsheet yang Tetap Kompatibel', en: 'Spreadsheet Formulas That Stay Compatible' },
+      body: { id: 'Membaca workbook dengan data_only=True menghapus formula dari representasi yang dimuat, sehingga menyimpannya dapat mengganti formula secara destruktif. External references juga bisa rusak saat disimpan ulang; untuk lookup yang aman saat recalc, pilih INDEX/MATCH daripada fungsi baru yang tidak didukung.', en: 'Loading a workbook with data_only=True removes formulas from the loaded representation, so saving it can replace formulas destructively. External references can also break when re-saved; for recalc-safe lookups, choose INDEX/MATCH over newer unsupported functions.' },
+    },
+    sourcePath: 'skills/xlsx/SKILL.md',
 },
 {
     name: 'frontend-design',
@@ -394,6 +417,10 @@ export const anthropicSkills: RichSkill[] = [
       ],
     },
     pairsWellWith: ['webapp-testing', 'brand-guidelines', 'theme-factory'],
+    spotlight: {
+      title: { id: 'Token Visual Sebelum Menulis UI', en: 'Plan Visual Tokens Before Writing the UI' },
+      body: { id: 'Mulai dengan token plan berisi 4–6 warna dan peran tipografi yang jelas, bukan kumpulan komponen acak. Hindari pola generik cream plus serif, SaaS-card kit, dan eyebrow yang seluruhnya ALL-CAPS karena cepat membuat antarmuka terasa seragam.', en: 'Start with a token plan containing 4–6 colors and explicit type roles, not a random collection of components. Avoid the generic cream-plus-serif look, SaaS-card kit, and fully ALL-CAPS eyebrows because they make interfaces feel interchangeable.' },
+    },
     sourcePath: 'skills/frontend-design/SKILL.md',
   },
   {
@@ -467,6 +494,10 @@ export const anthropicSkills: RichSkill[] = [
       ],
     },
     pairsWellWith: ['pdf', 'brand-guidelines', 'theme-factory'],
+    spotlight: {
+      title: { id: 'Canvas Dimulai dari Filosofi dan Ruang', en: 'Begin Canvas Work with Philosophy and Space' },
+      body: { id: 'Output canvas harus diawali dokumen markdown yang menjelaskan filosofi desain, lalu menghasilkan satu canvas PDF atau PNG. Gunakan font dari ./canvas-fonts dan jaga komposisi contained, memiliki margin, serta tanpa overlap.', en: 'Canvas output should begin with a markdown document explaining the design philosophy, followed by one canvas PDF or PNG. Use fonts from ./canvas-fonts and keep the composition contained, margined, and free of overlaps.' },
+    },
     sourcePath: 'skills/canvas-design/SKILL.md',
   },
   {
@@ -540,6 +571,10 @@ export const anthropicSkills: RichSkill[] = [
       ],
     },
     pairsWellWith: ['pptx', 'pdf', 'docx', 'theme-factory'],
+    spotlight: {
+      title: { id: 'Pasangan Font dan Warna untuk Brand', en: 'Brand-Safe Font and Color Pairings' },
+      body: { id: 'Untuk heading, gunakan Poppins minimal 24pt; body dapat memakai Lora dengan Arial/Georgia sebagai fallback. Saat membuat slide dengan python-pptx, warna harus diberikan sebagai RGB, bukan nilai hex mentah.', en: 'For headings, use Poppins at 24pt or larger; body copy can use Lora with Arial/Georgia as fallbacks. When creating slides with python-pptx, provide colors as RGB rather than raw hex values.' },
+    },
     sourcePath: 'skills/brand-guidelines/SKILL.md',
   },
   {
@@ -613,6 +648,10 @@ export const anthropicSkills: RichSkill[] = [
       ],
     },
     pairsWellWith: ['pptx', 'docx', 'pdf', 'brand-guidelines'],
+    spotlight: {
+      title: { id: 'Pilih Preset dari Showcase yang Tidak Mengubah Asli', en: 'Choose Presets from a Non-Destructive Showcase' },
+      body: { id: 'theme-showcase.pdf berfungsi sebagai referensi view-only untuk membandingkan tema, bukan file yang diedit langsung. Preset yang tersedia mencakup Ocean Depths, Modern Minimalist, Tech Innovation, dan Midnight Galaxy.', en: 'theme-showcase.pdf is a view-only reference for comparing themes, not a file to edit directly. Available presets include Ocean Depths, Modern Minimalist, Tech Innovation, and Midnight Galaxy.' },
+    },
     sourcePath: 'skills/theme-factory/SKILL.md',
   },
   {
@@ -686,6 +725,10 @@ export const anthropicSkills: RichSkill[] = [
       ],
     },
     pairsWellWith: ['canvas-design', 'brand-guidelines', 'webapp-testing'],
+    spotlight: {
+      title: { id: 'Viewer sebagai Titik Awal Seni Generatif', en: 'Use the Viewer as the Starting Point for Generative Art' },
+      body: { id: 'Mulailah dari templates/viewer.html secara literal agar struktur viewer tetap konsisten. Fitur minimum yang perlu tersedia adalah seed, regenerate, reset, dan download PNG sehingga eksperimen dapat diulang dan hasilnya disimpan.', en: 'Start from templates/viewer.html literally so the viewer structure remains consistent. The minimum feature set is seed, regenerate, reset, and PNG download, allowing experiments to be repeated and saved.' },
+    },
     sourcePath: 'skills/algorithmic-art/SKILL.md',
   },
 {
@@ -697,7 +740,11 @@ export const anthropicSkills: RichSkill[] = [
     howItWorks: { id: ['Tangkap intent, trigger, output, dan kriteria sukses.', 'Tulis draft SKILL.md dan eval prompts.', 'Jalankan with-skill dan baseline secara paralel, lalu grade serta agregasikan hasil.', 'Gunakan feedback untuk iterasi dan perluas test set.'], en: ['Capture intent, triggers, output, and success criteria.', 'Write the SKILL.md draft and eval prompts.', 'Run with-skill and baseline cases in parallel, then grade and aggregate results.', 'Use feedback to iterate and expand the test set.'] },
     coreRules: { id: ['Letakkan informasi triggering di description dan buat trigger spesifik.', 'Gunakan progressive disclosure; jaga SKILL.md tetap ringkas dan referensial.', 'Bandingkan hasil dengan baseline, bukan hanya menilai skill secara terisolasi.'], en: ['Put triggering information in the description and make triggers specific.', 'Use progressive disclosure; keep SKILL.md concise and referential.', 'Compare results with a baseline rather than judging the skill in isolation.'] },
     tips: { id: ['Mulai dari 2-3 test prompt realistis.', 'Bundel helper yang berulang ke scripts/ daripada menulis ulang.'], en: ['Start with 2-3 realistic test prompts.', 'Bundle repeated helpers in scripts/ instead of reinventing them.'] },
-    pairsWellWith: ['mcp-builder', 'webapp-testing'], sourcePath: 'skills/skill-creator/SKILL.md'
+    pairsWellWith: ['mcp-builder', 'webapp-testing'], spotlight: {
+      title: { id: 'Evaluasi Skill Harus Membandingkan Baseline', en: 'Skill Evaluation Must Include a Baseline' },
+      body: { id: 'Bandingkan evaluasi with-skill dengan baseline agar manfaat instruksi dapat diukur, bukan hanya diasumsikan. Deliverable evaluasi mencakup eval_metadata.json, grading.json, dan benchmark yang dibuat melalui generate_review.py.', en: 'Compare with-skill evaluation against a baseline so the instruction’s value is measured rather than assumed. Evaluation deliverables include eval_metadata.json, grading.json, and a benchmark generated through generate_review.py.' },
+    },
+    sourcePath: 'skills/skill-creator/SKILL.md'
   },
   {
     name: 'mcp-builder', category: 'agent-development', invocation: 'user',
@@ -708,18 +755,26 @@ export const anthropicSkills: RichSkill[] = [
     howItWorks: { id: ['Riset API, use case, autentikasi, dan batasan layanan.', 'Pilih tool yang task-oriented dengan schema input yang ketat.', 'Implementasikan server, pagination, error handling, dan konfigurasi.', 'Uji fungsionalitas serta evaluasi kualitas dan discoverability tools.'], en: ['Research the API, use cases, authentication, and service limits.', 'Choose task-oriented tools with strict input schemas.', 'Implement the server, pagination, error handling, and configuration.', 'Test functionality and evaluate tool quality and discoverability.'] },
     coreRules: { id: ['Jangan membuat satu tool generik yang memaksa model memahami API mentah.', 'Validasi input dan sampaikan error yang actionable.', 'Kembalikan konteks secukupnya agar model dapat menyelesaikan task.'], en: ['Do not make one generic tool that forces the model to understand the raw API.', 'Validate inputs and return actionable errors.', 'Return enough context for the model to complete the task.'] },
     tips: { id: ['Gunakan nama dan deskripsi tool yang berorientasi task.', 'Sertakan pagination dan rate-limit awareness sejak awal.'], en: ['Use task-oriented tool names and descriptions.', 'Include pagination and rate-limit awareness from the start.'] },
-    pairsWellWith: ['skill-creator', 'claude-api'], sourcePath: 'skills/mcp-builder/SKILL.md'
+    pairsWellWith: ['skill-creator', 'claude-api'], spotlight: {
+      title: { id: 'MCP Tool yang Terstruktur dan Terbaca', en: 'Make MCP Tools Structured and Legible' },
+      body: { id: 'Gunakan outputSchema bersama structuredContent, serta tandai readOnlyHint dan destructiveHint secara eksplisit agar perilaku tool mudah dipahami. Paket evaluasi harus memuat 10 evaluasi XML read-only untuk menguji output dan keamanan operasi.', en: 'Use outputSchema with structuredContent, and mark readOnlyHint and destructiveHint explicitly so tool behavior is legible. The evaluation package should contain 10 read-only XML evaluations to test output and operation safety.' },
+    },
+    sourcePath: 'skills/mcp-builder/SKILL.md'
   },
   {
     name: 'claude-api', category: 'agent-development', invocation: 'model',
     description: { id: 'Referensi Claude API dan SDK resmi dengan mekanisme trigger: dibaca sebelum membuka file target, jangan pernah dari memori.', en: 'Claude API and official SDK reference with a trigger mechanism: read before opening the target file, never from memory.' },
-    detailedDescription: { id: 'Referensi trigger-first untuk model ids, pricing, params, streaming, tool use, MCP, agents, caching, token counting, dan migrasi model lintas SDK. Mekanisme TRIGGER mewajibkan membaca referensi yang tepat (sesuai bahasa dan fitur) sebelum membuka file target dan melarang menjawab dari memori; aturan SKIP mengecualikan task provider lain seperti OpenAI, Gemini, atau Ollama.', en: 'A trigger-first reference for model ids, pricing, params, streaming, tool use, MCP, agents, caching, token counting, and model migration across SDKs. Its TRIGGER mechanism requires reading the matching reference (by language and feature) before opening the target file and forbids answering from memory; SKIP rules exclude other-provider tasks such as OpenAI, Gemini, or Ollama.' },
+    detailedDescription: { id: 'Referensi trigger-first untuk model ids, pricing, params, streaming, tool use, MCP, agents, caching, token counting, dan migrasi model lintas SDK. Mekanisme TRIGGER mewajibkan membaca referensi yang tepat (sesuai bahasa dan fitur) sebelum membuka file target dan melarang menjawab dari memori; aturan SKIP mengecualikan task provider lain seperti OpenAI, Gemini, atau Ollama. Catatan: sumber memuat info model/harga yang bisa basi — selalu live lookup untuk info terkini, jangan anggap ringkasan ini selalu current.', en: 'A trigger-first reference for model ids, pricing, params, streaming, tool use, MCP, agents, caching, token counting, and model migration across SDKs. Its TRIGGER mechanism requires reading the matching reference (by language and feature) before opening the target file and forbids answering from memory; SKIP rules exclude other-provider tasks such as OpenAI, Gemini, or Ollama. Note: the source contains model/pricing info that can go stale — always do a live lookup for current info instead of treating this summary as current.' },
     useWhen: { id: ['Mengintegrasikan Claude API atau SDK Anthropic.', 'Membangun agent dengan tools, MCP, atau caching.', 'Menggunakan batches, files API, token counting, atau migrasi model.'], en: ['Integrating the Claude API or Anthropic SDK.', 'Building an agent with tools, MCP, or caching.', 'Using batches, the Files API, token counting, or model migration.'] },
     avoidWhen: { id: ['Task memakai provider lain (OpenAI, Gemini, Ollama); aturan SKIP berlaku.', 'Tidak ada integrasi LLM atau SDK yang dikerjakan.'], en: ['The task uses another provider (OpenAI, Gemini, Ollama); SKIP rules apply.', 'No LLM or SDK integration is involved.'] },
     howItWorks: { id: ['Deteksi bahasa dan fitur yang diperlukan.', 'Baca README SDK terlebih dahulu lalu referensi fitur terkait.', 'Implementasikan dengan tipe SDK resmi dan pola error handling yang tepat.', 'Verifikasi dukungan model, beta header, dan parameter API.'], en: ['Detect the language and required feature.', 'Read the SDK README first, then the relevant feature reference.', 'Implement with official SDK types and appropriate error handling.', 'Verify model support, beta headers, and API parameters.'] },
     coreRules: { id: ['Baca referensi DULU sebelum membuka file target; jangan pernah menjawab dari memori.', 'Gunakan API surface dan helper SDK resmi, bukan reimplementasi.', 'Jangan memotong input diam-diam.'], en: ['Read the reference FIRST before opening the target file; never answer from memory.', 'Use the official API surface and SDK helpers rather than reimplementing them.', 'Never silently truncate input.'] },
     tips: { id: ['Gunakan streaming untuk output besar atau timeout panjang.', 'Key hasil batch dengan custom_id karena urutan hasil tidak dijamin.'], en: ['Use streaming for large output or long timeouts.', 'Key batch results by custom_id because result order is not guaranteed.'] },
-    pairsWellWith: ['mcp-builder', 'web-artifacts-builder'], sourcePath: 'skills/claude-api/SKILL.md'
+    pairsWellWith: ['mcp-builder', 'web-artifacts-builder'], spotlight: {
+      title: { id: 'Migrasi Claude Dimulai dari README Bahasa', en: 'Start Claude API Migration with the Language README' },
+      body: { id: 'Sebelum memakai workflow, baca {lang}/claude-api/README.md untuk bahasa yang dipilih. Subcommand utamanya adalah migrate, prompt-audit, upgrade, dan cost-optimize, masing-masing untuk tahap perbaikan yang berbeda.', en: 'Before using the workflow, read {lang}/claude-api/README.md for the selected language. Its core subcommands are migrate, prompt-audit, upgrade, and cost-optimize, each targeting a different improvement stage.' },
+    },
+    sourcePath: 'skills/claude-api/SKILL.md'
   },
   {
     name: 'webapp-testing', category: 'agent-development', invocation: 'user',
@@ -730,7 +785,11 @@ export const anthropicSkills: RichSkill[] = [
     howItWorks: { id: ['Cek apakah HTML statis atau app dinamis.', 'Untuk app dinamis, start server dengan scripts/with_server.py --help bila belum berjalan.', 'Navigate, tunggu networkidle, inspect DOM, lalu pilih selectors.', 'Jalankan actions dan tutup browser.'], en: ['Determine whether the HTML is static or the app is dynamic.', 'For a dynamic app, run scripts/with_server.py --help and use it if no server is running.', 'Navigate, wait for networkidle, inspect the DOM, then choose selectors.', 'Run actions and close the browser.'] },
     coreRules: { id: ['Selalu tunggu networkidle sebelum inspect app dinamis.', 'Gunakan selector yang ditemukan dari rendered state.', 'Jalankan helper scripts sebagai black box dan coba --help lebih dahulu.'], en: ['Always wait for networkidle before inspecting a dynamic app.', 'Use selectors discovered from the rendered state.', 'Run helper scripts as black boxes and try --help first.'] },
     tips: { id: ['Gunakan headless Chromium dan descriptive selectors.', 'Pisahkan reconnaissance dari action.'], en: ['Use headless Chromium and descriptive selectors.', 'Separate reconnaissance from action.'] },
-    pairsWellWith: ['web-artifacts-builder', 'skill-creator'], sourcePath: 'skills/webapp-testing/SKILL.md'
+    pairsWellWith: ['web-artifacts-builder', 'skill-creator'], spotlight: {
+      title: { id: 'Urutan Testing Web yang Dapat Diulang', en: 'A Repeatable Order for Web Testing' },
+      body: { id: 'Jalankan helper --help terlebih dahulu agar opsi yang tersedia tidak ditebak. Dalam pengujian, ikuti urutan networkidle lalu screenshot, selector, dan action; kelola server melalui lifecycle with_server.py.', en: 'Run helper --help first so available options are not guessed. During testing, follow networkidle, then screenshot, selector, and action; manage the server lifecycle through with_server.py.' },
+    },
+    sourcePath: 'skills/webapp-testing/SKILL.md'
   },
   {
     name: 'web-artifacts-builder', category: 'agent-development', invocation: 'user',
@@ -741,7 +800,11 @@ export const anthropicSkills: RichSkill[] = [
     howItWorks: { id: ['Inisialisasi dengan bash scripts/init-artifact.sh <project-name>.', 'Edit generated React/TypeScript project dan bangun UI.', 'Bundle dengan bash scripts/bundle-artifact.sh.', 'Bagikan bundle.html dan test hanya bila perlu.'], en: ['Initialize with bash scripts/init-artifact.sh <project-name>.', 'Edit the generated React/TypeScript project and build the UI.', 'Bundle with bash scripts/bundle-artifact.sh.', 'Share bundle.html and test only when needed.'] },
     coreRules: { id: ['Gunakan workflow init, develop, bundle; jangan memakai skill ini untuk artifact sederhana.', 'Hindari excessive centered layouts, purple gradients, uniform rounded corners, dan Inter font.', 'Bundle harus self-contained dengan asset inline.'], en: ['Follow the init, develop, bundle workflow; do not use this for simple artifacts.', 'Avoid excessive centered layouts, purple gradients, uniform rounded corners, and Inter font.', 'The bundle must be self-contained with inlined assets.'] },
     tips: { id: ['Pastikan index.html ada sebelum bundling.', 'Testing/visualizing bersifat opsional dan dilakukan setelah artifact siap.'], en: ['Ensure index.html exists before bundling.', 'Testing/visualization is optional and can happen after the artifact is ready.'] },
-    pairsWellWith: ['webapp-testing', 'claude-api'], sourcePath: 'skills/web-artifacts-builder/SKILL.md'
+    pairsWellWith: ['webapp-testing', 'claude-api'], spotlight: {
+      title: { id: 'Bundle Artefak Web dari Entry Point yang Jelas', en: 'Bundle Web Artifacts from a Clear Entry Point' },
+      body: { id: 'Gunakan bundle-artifact.sh dengan index.html sebagai entry point untuk menghasilkan bundle.html yang siap dibagikan. Builder menyediakan 40+ komponen shadcn dan alias impor @/ untuk menjaga struktur proyek tetap ringkas.', en: 'Use bundle-artifact.sh with index.html as the entry point to produce a shareable bundle.html. The builder provides 40+ shadcn components and the @/ import alias to keep project structure concise.' },
+    },
+    sourcePath: 'skills/web-artifacts-builder/SKILL.md'
   },
 {
     name: 'doc-coauthoring', category: 'writing-comms', invocation: 'user',
@@ -752,7 +815,11 @@ export const anthropicSkills: RichSkill[] = [
     howItWorks: { id: ['Tawarkan tiga tahap dan minta persetujuan.', 'Kumpulkan tipe dokumen, audiens, dampak, template, constraint, lalu minta info dump dan klarifikasi.', 'Bangun tiap section lewat pertanyaan, brainstorming, kurasi, drafting, dan refinement.', 'Prediksi pertanyaan pembaca dan uji dokumen dengan Claude fresh, lalu perbaiki gap.'], en: ['Offer the three stages and ask for consent.', 'Gather document type, audience, impact, template, constraints, then request an info dump and clarifications.', 'Build each section through questions, brainstorming, curation, drafting, and refinement.', 'Predict reader questions and test the document with a fresh Claude, then fix gaps.'] },
     coreRules: { id: ['Berikan agency: jika workflow ditolak, lanjutkan secara freeform.', 'Jangan melewati reader testing pada dokumen yang akan dipakai orang lain.', 'Gunakan pertanyaan dan edit iteratif, bukan langsung menulis seluruh dokumen tanpa konteks.'], en: ['Preserve user agency: if the workflow is declined, work freeform.', 'Do not skip reader testing for documents others will use.', 'Use questions and iterative edits rather than drafting everything without context.'] },
     tips: { id: ['Mulai dari section dengan unknowns terbanyak; summary biasanya terakhir.', 'Setelah tiga iterasi tanpa perubahan besar, tanyakan apa yang bisa dihapus.'], en: ['Start with the section containing the most unknowns; leave summaries until last.', 'After three iterations without substantial change, ask what can be removed.'] },
-    pairsWellWith: ['internal-comms', 'discernment-nudge'], sourcePath: 'skills/doc-coauthoring/SKILL.md'
+    pairsWellWith: ['internal-comms', 'discernment-nudge'], spotlight: {
+      title: { id: 'Loop Co-Authoring dari Klarifikasi ke Reader Test', en: 'A Co-Authoring Loop from Clarification to Reader Testing' },
+      body: { id: 'Ikuti loop klarifikasi, hasilkan 5–20 opsi, kurasi pilihan, cari gap, lalu susun draft. Setelah itu lakukan reader testing dengan Claude fresh memakai 5–10 pertanyaan untuk menemukan kebingungan yang tidak terlihat oleh penulis.', en: 'Follow the loop: clarify, generate 5–20 options, curate, identify gaps, then draft. Finish with reader testing using a fresh Claude and 5–10 questions to expose confusion the author cannot see.' },
+    },
+    sourcePath: 'skills/doc-coauthoring/SKILL.md'
   },
   {
     name: 'internal-comms', category: 'writing-comms', invocation: 'user',
@@ -763,7 +830,11 @@ export const anthropicSkills: RichSkill[] = [
     howItWorks: { id: ['Identifikasi communication type dari request.', 'Load guideline yang tepat: 3P, newsletter, FAQ, atau general comms.', 'Ikuti instruksi format, tone, dan content gathering; minta klarifikasi jika tidak ada kecocokan.'], en: ['Identify the communication type from the request.', 'Load the appropriate 3P, newsletter, FAQ, or general-comms guideline.', 'Follow its formatting, tone, and content-gathering instructions; ask for clarification when no guideline fits.'] },
     coreRules: { id: ['Jangan menulis sebelum memilih guideline yang sesuai.', 'Jika tipe tidak cocok dengan guideline, minta format atau konteks tambahan.'], en: ['Choose the matching guideline before writing.', 'If the type matches no guideline, ask for the desired format or more context.'] },
     tips: { id: ['Gunakan keyword 3P updates, company newsletter, weekly update, atau internal comms untuk mengenali intent.', 'Bedakan general comms dari format khusus agar struktur tetap konsisten.'], en: ['Use keywords such as 3P updates, company newsletter, weekly update, or internal comms to identify intent.', 'Distinguish general comms from specialized formats to keep structure consistent.'] },
-    pairsWellWith: ['doc-coauthoring', 'discernment-nudge'], sourcePath: 'skills/internal-comms/SKILL.md'
+    pairsWellWith: ['doc-coauthoring', 'discernment-nudge'], spotlight: {
+      title: { id: 'Pemetaan Format Sebelum Menulis Komunikasi Internal', en: 'Map the Format Before Writing Internal Communications' },
+      body: { id: 'Petakan kebutuhan ke 3p-updates, company-newsletter, faq-answers, atau general-comms sebelum memilih format. Jika tidak ada yang cocok, minta konteks tambahan daripada memaksakan template yang salah.', en: 'Map the request to 3p-updates, company-newsletter, faq-answers, or general-comms before choosing a format. If none fits, ask for more context instead of forcing the wrong template.' },
+    },
+    sourcePath: 'skills/internal-comms/SKILL.md'
   },
   {
     name: 'slack-gif-creator', category: 'writing-comms', invocation: 'user',
@@ -774,7 +845,11 @@ export const anthropicSkills: RichSkill[] = [
     howItWorks: { id: ['Pilih dimensi dan parameter Slack yang sesuai.', 'Buat frame dengan PIL primitives atau uploaded image, lalu tambahkan ke GIFBuilder.', 'Simpan dengan palette/optimization yang diminta dan validasi memakai validate_gif atau is_slack_ready.', 'Gunakan easing dan konsep seperti bounce, pulse, spin, fade, slide, atau zoom untuk motion.'], en: ['Choose the appropriate Slack dimensions and parameters.', 'Create frames with PIL primitives or an uploaded image, then add them to GIFBuilder.', 'Save with the requested palette/optimization and validate with validate_gif or is_slack_ready.', 'Use easing and concepts such as bounce, pulse, spin, fade, slide, or zoom for motion.'] },
     coreRules: { id: ['Emoji GIF recommended 128x128, 10–30 FPS, dan di bawah 3 detik.', 'Jangan gunakan emoji fonts atau mengasumsikan pre-packaged graphics tersedia.', 'Utamakan garis tebal, visual depth, contrast, dan composition polished.'], en: ['Emoji GIFs are recommended at 128x128, 10–30 FPS, and under 3 seconds.', 'Do not use emoji fonts or assume pre-packaged graphics exist.', 'Prioritize thick lines, visual depth, contrast, and polished composition.'] },
     tips: { id: ['Kurangi frames, colors, dimensions, atau duplicate frames hanya ketika ukuran file memang diminta diperkecil.', 'Install pillow, imageio, dan numpy untuk dependencies toolkit.'], en: ['Reduce frames, colors, dimensions, or duplicate frames only when smaller size is requested.', 'Install pillow, imageio, and numpy for the toolkit dependencies.'] },
-    pairsWellWith: ['doc-coauthoring', 'internal-comms'], sourcePath: 'skills/slack-gif-creator/SKILL.md'
+    pairsWellWith: ['doc-coauthoring', 'internal-comms'], spotlight: {
+      title: { id: 'GIF Slack Dikendalikan oleh Knob yang Tepat', en: 'Control Slack GIFs with the Right Knobs' },
+      body: { id: 'Bangun GIF lewat API GIFBuilder lalu validasi dengan validate_gif dan is_slack_ready; gunakan interpolate dan frame_composer untuk alur frame. Parameter frames, FPS, colors, dan dimensions adalah knob utama untuk menyeimbangkan kualitas dengan batas Slack.', en: 'Build GIFs through the GIFBuilder API, then validate with validate_gif and is_slack_ready; use interpolate and frame_composer for frame workflows. The main quality-versus-Slack-limit knobs are frames, FPS, colors, and dimensions.' },
+    },
+    sourcePath: 'skills/slack-gif-creator/SKILL.md'
   },
   {
     name: 'discernment-nudge', category: 'writing-comms', invocation: 'model',
@@ -785,7 +860,11 @@ export const anthropicSkills: RichSkill[] = [
     howItWorks: { id: ['Jawab lengkap terlebih dahulu.', 'Pilih 2–3 pertanyaan yang merujuk angka, reasoning step, atau missing context secara spesifik.', 'Tambahkan setelah blank line dengan lead-in exact “A few things worth a second look:” dan plain bullets.', 'Skip jika sudah pernah dinudge dalam conversation.'], en: ['Answer completely first.', 'Choose 2–3 questions tied specifically to a number, reasoning step, or missing context.', 'Append them after a blank line using the exact lead-in “A few things worth a second look:” and plain bullets.', 'Skip if a nudge was already given in the conversation.'] },
     coreRules: { id: ['Nudge maksimal sekali per conversation.', 'Setiap prompt harus conversational, first-person, spesifik, dan sekitar di bawah 120 karakter.', 'Jangan menambahkan framing atau teks setelah nudge.'], en: ['Nudge at most once per conversation.', 'Each prompt must be conversational, first-person, specific, and roughly under 120 characters.', 'Add no extra framing or text after the nudge.'] },
     tips: { id: ['Gunakan pertanyaan yang bisa langsung dikirim balik sebagai follow-up.', 'Silence lebih baik daripada nudge generik ketika tidak ada hal konkret untuk diperiksa.'], en: ['Phrase questions so the user could send them back verbatim.', 'Silence is better than a generic nudge when nothing concrete merits checking.'] },
-    pairsWellWith: ['doc-coauthoring', 'internal-comms'], sourcePath: 'skills/discernment-nudge/SKILL.md'
+    pairsWellWith: ['doc-coauthoring', 'internal-comms'], spotlight: {
+      title: { id: 'Nudge Singkat dengan Penutup yang Presisi', en: 'A Short Nudge with an Exact Closing' },
+      body: { id: 'Akhiri pesan persis dengan “A few things worth a second look:” lalu 2–3 bullet. Tulis dalam sudut pandang orang pertama, batasi bagian awal di bawah 120 karakter, dan gunakan nudge hanya sekali per conversation.', en: 'End the message exactly with “A few things worth a second look:” followed by 2–3 bullets. Write the opening in first person, keep it under 120 characters, and use the nudge only once per conversation.' },
+    },
+    sourcePath: 'skills/discernment-nudge/SKILL.md'
   },
   {
     name: 'academy-guide', category: 'writing-comms', invocation: 'model',
@@ -796,6 +875,10 @@ export const anthropicSkills: RichSkill[] = [
     howItWorks: { id: ['Jawab pertanyaan produk terlebih dahulu.', 'Cari strong intent match di catalog JSON yang belum stale.', 'Rekomendasikan maksimal 1–2 item dengan title dan URL exact dari catalog, atau hub/resources bila item tidak tersedia.', 'Jangan mengarang content, title, atau URL; gunakan phrasing natural dan tidak pushy.'], en: ['Answer the product question first.', 'Look for a strong intent match in the non-stale JSON catalog.', 'Recommend at most 1–2 items with exact catalog titles and URLs, or a hub/resources page when no item is available.', 'Never invent content, titles, or URLs; use natural, non-pushy phrasing.'] },
     coreRules: { id: ['Strong match berbasis intent, bukan sekadar topic; silence lebih baik daripada rekomendasi lemah.', 'Item URL harus disalin verbatim dari catalog dan hanya di bawah academy.claude.com.', 'Jika visibility gated, sebutkan bahwa Academy sign-in diperlukan.'], en: ['Require a strong intent match, not just topical overlap; silence beats a weak recommendation.', 'Copy item URLs verbatim from the catalog and only use academy.claude.com URLs.', 'Mention when a gated item requires an Academy sign-in.'] },
     tips: { id: ['Pilih satu rekomendasi terbaik; jangan membuat daftar panjang.', 'Gunakan product hub Claude, Claude Code, Claude Cowork, AI Fluency, atau developer platform untuk eksplorasi luas.'], en: ['Choose one best recommendation rather than a long list.', 'Use the Claude, Claude Code, Claude Cowork, AI Fluency, or developer platform hub for broad exploration.'] },
-    pairsWellWith: ['doc-coauthoring', 'discernment-nudge'], sourcePath: 'skills/academy-guide/SKILL.md'
+    pairsWellWith: ['doc-coauthoring', 'discernment-nudge'], spotlight: {
+      title: { id: 'Catalog Akademi dengan Data Kedaluwarsa yang Terlihat', en: 'An Academy Catalog with Visible Freshness Data' },
+      body: { id: 'Sertakan catalog.json bersama staleAfter dan generatedAt agar pembaca dapat menilai kesegaran data. Jika katalog gagal dimuat atau sudah stale, tampilkan hanya hub/resources, bukan data yang mungkin sudah tidak berlaku.', en: 'Include catalog.json with staleAfter and generatedAt so readers can judge data freshness. If the catalog fails to load or is stale, show only hub/resources rather than potentially outdated data.' },
+    },
+    sourcePath: 'skills/academy-guide/SKILL.md'
   }
 ]

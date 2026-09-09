@@ -4,8 +4,8 @@ import { CollectionGuideLayout } from '@/components/layout/collection-guide-layo
 import {
   AnthropicOverview,
 } from '@/features/anthropic/guide'
-import { AnthropicFlow } from '@/features/anthropic/flow'
 import { AnthropicConcepts } from '@/features/anthropic/concepts'
+import { AnthropicWorkflows } from '@/features/anthropic/workflows'
 import { AnthropicInstall } from '@/features/anthropic/install'
 import { StandardSkillsSection } from '@/components/standard-skills-section'
 import { anthropicSkills } from '@/data/anthropic-skills'
@@ -19,12 +19,12 @@ function AnthropicIndexPage() {
   const sections = useMemo(
     () => [
       { id: 'overview', label: m.anthropic_sidebar_overview() },
-      { id: 'flow', label: m.sidebar_flow_title() },
       { id: 'concepts', label: m.sidebar_concepts() },
       {
         id: 'skills',
         label: m.anthropic_sidebar_skills({ count: String(anthropicSkills.length) }),
       },
+      { id: 'workflows', label: m.sidebar_workflows() },
       { id: 'installation', label: m.sidebar_installation() },
     ],
     [],
@@ -44,7 +44,6 @@ function AnthropicIndexPage() {
       footer={<p className="text-center text-xs text-muted-foreground">{m.anthropic_footer()}</p>}
     >
       <AnthropicOverview />
-      <AnthropicFlow />
       <AnthropicConcepts />
       <StandardSkillsSection
         collectionSlug="anthropic"
@@ -54,6 +53,7 @@ function AnthropicIndexPage() {
         description={m.anthropic_catalog_desc()}
         repoUrl="github.com/anthropics/skills"
       />
+      <AnthropicWorkflows />
       <AnthropicInstall />
     </CollectionGuideLayout>
   )

@@ -37,6 +37,10 @@ export const cloudflareSkills: RichSkill[] = [
     },
     tips: { id: ['Panggil ctx.waitUntil(...) tanpa destructuring method.', 'Gunakan Worker binding alih-alih REST API bila operasi tersedia.'], en: ['Call ctx.waitUntil(...) without destructuring its method.', 'Use a Worker binding instead of the REST API when the operation is available.'] },
     pairsWellWith: ['wrangler', 'cloudflare', 'web-perf'],
+    spotlight: {
+      title: { id: 'Hindari Tiga Jebakan Workers yang Sering Menyamar sebagai Penanganan Error', en: 'Avoid Three Workers Traps That Masquerade as Error Handling' },
+      body: { id: 'Jangan jadikan ctx.passThroughOnException() sebagai penanganan error umum karena kegagalan Worker bisa tersembunyi di origin. Bandingkan rahasia dengan pola Web Crypto, dan di platform class akses binding melalui this.env.X, bukan env.X yang tidak terikat.', en: 'Do not use ctx.passThroughOnException() as general error handling: it can hide Worker failures behind the origin. Compare secrets with a Web Crypto pattern, and in platform classes access bindings through this.env.X rather than an unbound env.X.' },
+    },
     sourcePath: 'skills/workers-best-practices/SKILL.md',
   },
   {
@@ -48,8 +52,8 @@ export const cloudflareSkills: RichSkill[] = [
       en: 'Run and troubleshoot Wrangler while configuring Worker projects.',
     },
     detailedDescription: {
-      id: 'Skill ini mewajibkan pemeriksaan package manager, versi Wrangler, scripts, framework, dan config proyek sebelum bertindak. Gunakan wrangler --help, schema lokal node_modules/wrangler/config-schema.json, dan dokumentasi command yang relevan. Untuk perubahan binding TypeScript, jalankan wrangler types; untuk deployment, gunakan build proyek dan wrangler deploy --dry-run bila tersedia.',
-      en: 'This skill requires inspecting the package manager, Wrangler version, scripts, framework, and project config before acting. Use wrangler --help, the local node_modules/wrangler/config-schema.json, and the relevant command documentation. For TypeScript binding changes run wrangler types; for deployments use the project build and wrangler deploy --dry-run when supported.',
+      id: 'Skill ini mewajibkan pemeriksaan package manager, versi Wrangler, scripts, framework, dan config proyek sebelum bertindak. Gunakan wrangler --help, schema lokal node_modules/wrangler/config-schema.json, dan dokumentasi command yang relevan. Untuk perubahan binding TypeScript, jalankan wrangler types; untuk deployment, gunakan build proyek dan wrangler deploy --dry-run bila tersedia (catatan: dry-run tidak memvalidasi resource remote atau runtime).',
+      en: 'This skill requires inspecting the package manager, Wrangler version, scripts, framework, and project config before acting. Use wrangler --help, the local node_modules/wrangler/config-schema.json, and the relevant command documentation. For TypeScript binding changes run wrangler types; for deployments use the project build and wrangler deploy --dry-run when supported (note: dry-run does not validate remote resources or runtime).',
     },
     useWhen: { id: ['Menjalankan lokal atau deploy Worker.', 'Menambah binding, environment, atau konfigurasi Wrangler.', 'Mendiagnosis akun, resource, secret, atau rollback.'], en: ['Running locally or deploying a Worker.', 'Adding bindings, environments, or Wrangler configuration.', 'Diagnosing accounts, resources, secrets, or rollbacks.'] },
     avoidWhen: { id: ['Tidak ada kebutuhan CLI atau konfigurasi Wrangler.', 'Target account/environment belum ditentukan untuk operasi yang mengubah state.'], en: ['There is no Wrangler CLI or configuration need.', 'The target account/environment is unspecified for a state-changing operation.'] },
@@ -57,6 +61,10 @@ export const cloudflareSkills: RichSkill[] = [
     coreRules: { id: ['Jalankan versi Wrangler lokal dari package manager proyek.', 'Jangan taruh secret di argumen, source, atau log.', 'Periksa inheritance environment sebelum menambah binding.'], en: ['Run the project package manager’s local Wrangler version.', 'Keep secrets out of arguments, source, and logs.', 'Check environment inheritance before adding bindings.'] },
     tips: { id: ['Gunakan wrangler.jsonc untuk config baru.', 'Anggap wrangler secret put/delete sebagai deployment langsung.'], en: ['Prefer wrangler.jsonc for new configuration.', 'Treat wrangler secret put/delete as immediate deployments.'] },
     pairsWellWith: ['workers-best-practices', 'cloudflare'],
+    spotlight: {
+      title: { id: 'Rahasia Wrangler Bisa Langsung Menjadi Deployment', en: 'Wrangler Secrets Can Deploy Immediately' },
+      body: { id: 'Perlakukan wrangler secret put dan secret delete sebagai deployment karena keduanya membuat versi lalu langsung merilisnya. Untuk staging, gunakan workflow wrangler versions secret; pada Cloudflare Vite plugin, pilih environment saat dev atau build dengan CLOUDFLARE_ENV.', en: 'Treat wrangler secret put and secret delete as deployments: they create a version and deploy it immediately. For staging, use the wrangler versions secret workflow; with the Cloudflare Vite plugin, select the environment at dev or build time with CLOUDFLARE_ENV.' },
+    },
     sourcePath: 'skills/wrangler/SKILL.md',
   },
   {
@@ -71,13 +79,17 @@ export const cloudflareSkills: RichSkill[] = [
     coreRules: { id: ['Jangan menjanjikan limit, harga, atau availability tanpa pengecekan terkini.', 'Gunakan produk sekecil dan sekoheren mungkin.', 'Pilih bindings untuk operasi Worker yang didukung.'], en: ['Do not promise limits, pricing, or availability without current verification.', 'Choose the smallest coherent product combination.', 'Use bindings for supported Worker operations.'] },
     tips: { id: ['Pair R2 dengan D1 bila metadata perlu query SQL.', 'Pair Queues dengan Workflows saat pekerjaan perlu orkestrasi durable multi-step.'], en: ['Pair R2 with D1 when metadata needs SQL queries.', 'Pair Queues with Workflows when work needs durable multi-step orchestration.'] },
     pairsWellWith: ['workers-best-practices', 'wrangler', 'web-perf'],
+    spotlight: {
+      title: { id: 'Mulai dari Kebutuhan, Bukan Nama Produk', en: 'Start with the Need, Not the Product Name' },
+      body: { id: 'Petakan upload ke Workers + R2 + D1 bila metadata perlu dicari; pilih Queues untuk pekerjaan background yang perlu menyerap burst. Gunakan Workflows untuk proses multi-step yang harus retry dan resume, serta Vectorize + Workers AI untuk retrieval semantik yang dikendalikan sendiri.', en: 'Map uploads to Workers + R2 + D1 when searchable metadata is needed; choose Queues for background work that must absorb bursts. Use Workflows for multi-step processes that retry and resume, and Vectorize + Workers AI for retrieval you control end to end.' },
+    },
     sourcePath: 'skills/cloudflare/SKILL.md',
   },
   {
     name: 'web-perf',
     category: 'workers-platform',
     invocation: 'user',
-    description: { id: 'Mengaudit dan mengoptimalkan loading, interaksi, Core Web Vitals, serta Lighthouse.', en: 'Audit and optimize loading, interaction, Core Web Vitals, and Lighthouse performance.' },
+    description: { id: 'Mengaudit dan mengoptimalkan loading, interaksi, dan Core Web Vitals memakai Chrome DevTools performance tooling.', en: 'Audit and optimize loading, interaction, and Core Web Vitals with Chrome DevTools performance tooling.' },
     detailedDescription: { id: 'Skill ini memulai dengan verifikasi tool browser/performance dan mengukur trace cold-load menggunakan performance_start_trace(autoStop: true, reload: true). Analisis LCPBreakdown, CLSCulprits, RenderBlocking, dan network requests; cek threshold LCP 2.5s serta INP 200ms sebagai batas baik. Untuk codebase, deteksi bundler dari vite.config.ts atau konfigurasi lain dan periksa tree-shaking, dynamic imports, compression, serta source maps.', en: 'This skill starts by verifying browser/performance tools and measuring a cold-load trace with performance_start_trace(autoStop: true, reload: true). Analyze LCPBreakdown, CLSCulprits, RenderBlocking, and network requests; use 2.5s LCP and 200ms INP as good thresholds. For a codebase, detect the bundler from vite.config.ts or other config and inspect tree-shaking, dynamic imports, compression, and source maps.' },
     useWhen: { id: ['Mengaudit Core Web Vitals atau Lighthouse.', 'Menyelidiki bottleneck network, render, atau bundle.', 'Mengoptimalkan website dengan codebase yang tersedia.'], en: ['Auditing Core Web Vitals or Lighthouse.', 'Investigating network, rendering, or bundle bottlenecks.', 'Optimizing a website with codebase access.'] },
     avoidWhen: { id: ['Tidak tersedia browser/performance tooling dan tidak ada codebase atau network evidence.'], en: ['Browser/performance tooling and codebase or network evidence are unavailable.'] },
@@ -85,6 +97,10 @@ export const cloudflareSkills: RichSkill[] = [
     coreRules: { id: ['Verifikasi klaim melalui network, DOM, trace, atau codebase.', 'Prioritaskan isu berdasarkan estimated savings dan lewati dampak 0ms.', 'Sebutkan perbaikan spesifik, bukan nasihat umum.'], en: ['Verify claims through network, DOM, trace, or codebase evidence.', 'Prioritize by estimated savings and skip 0ms-impact issues.', 'Give specific fixes rather than generic advice.'] },
     tips: { id: ['Jika trace gagal, pastikan halaman sudah berhasil dinavigasi.', 'Periksa apakah origin preconnect benar-benar menerima request sebelum menghapusnya.'], en: ['If a trace fails, confirm the page navigated successfully first.', 'Check whether the origin received any requests before removing a preconnect.'] },
     pairsWellWith: ['workers-best-practices', 'cloudflare'],
+    spotlight: {
+      title: { id: 'Audit Performa dengan Jejak Bukti Berurutan', en: 'Audit Performance Through an Evidence Chain' },
+      body: { id: 'Ikuti alur navigate → trace → insight → network → a11y → codebase agar rekomendasi dapat diverifikasi. Hasil akhir harus memuat tabel Core Web Vitals, temuan terurut, dan estimasi dampak; jangan memprioritaskan isu dengan dampak 0 ms.', en: 'Follow navigate → trace → insight → network → a11y → codebase so recommendations are verifiable. The final output must include a Core Web Vitals table, prioritized findings, and estimated impact; do not prioritize issues with 0 ms impact.' },
+    },
     sourcePath: 'skills/web-perf/SKILL.md',
   },
 {
@@ -96,7 +112,11 @@ export const cloudflareSkills: RichSkill[] = [
     howItWorks: { id: ['Modelkan satu DO per coordination atom, bukan satu DO global.', 'Tambahkan binding dan migration new_sqlite_classes di Wrangler.', 'Inisialisasi schema di constructor dengan blockConcurrencyWhile(), lalu persist sebelum cache.', 'Akses instance dengan getByName() dan expose RPC/alarm sesuai kebutuhan.'], en: ['Model one DO per coordination atom, not one global DO.', 'Add the binding and new_sqlite_classes migration in Wrangler.', 'Initialize schema in the constructor with blockConcurrencyWhile(), then persist before caching.', 'Access the instance with getByName() and expose RPC/alarm as needed.'] },
     coreRules: { id: ['Gunakan getByName() untuk routing deterministik.', 'Jangan menahan blockConcurrencyWhile() selama fetch atau external I/O.', 'setAlarm() hanya mempertahankan satu alarm dan menggantikan alarm lama.'], en: ['Use getByName() for deterministic routing.', 'Never hold blockConcurrencyWhile() across fetch or external I/O.', 'setAlarm() keeps one alarm and replaces the existing alarm.'] },
     tips: { id: ['Gunakan SQLite synchronous sebagai storage yang direkomendasikan.', 'Baca references/testing.md sebelum memilih setup Vitest.'], en: ['Use synchronous SQLite as the recommended storage.', 'Read references/testing.md before choosing a Vitest setup.'] },
-    pairsWellWith: ['agents-sdk', 'sandbox-next'], sourcePath: 'skills/durable-objects/SKILL.md',
+    pairsWellWith: ['agents-sdk', 'sandbox-next'], spotlight: {
+      title: { id: 'Pilih Stub Durable Object Sesuai Identitasnya', en: 'Choose the Durable Object Stub for Its Identity Model' },
+      body: { id: 'Gunakan getByName untuk routing deterministik, idFromString untuk ID yang sudah tersimpan, dan newUniqueId saat membuat identitas baru yang pemetaannya harus disimpan. Sebelum menulis test, baca testing.md dan uji perilaku koordinasi, persistensi, serta pemulihan—bukan sekadar bentuk API.', en: 'Use getByName for deterministic routing, idFromString for an existing stored ID, and newUniqueId when creating a new identity whose mapping must be persisted. Before writing tests, read testing.md and test coordination, persistence, and recovery behavior—not just API shape.' },
+    },
+    sourcePath: 'skills/durable-objects/SKILL.md',
   },
   {
     name: 'agents-sdk', category: 'compute-state', invocation: 'user',
@@ -107,7 +127,11 @@ export const cloudflareSkills: RichSkill[] = [
     howItWorks: { id: ['Verifikasi package agents terpasang dengan npm ls agents.', 'Definisikan Agent<Env, State>, initialState, dan validasi perubahan state.', 'Expose method dengan @callable() dan route request memakai routeAgentRequest.', 'Tambahkan binding/migration lalu pilih schedule, workflow, queue, atau retry.'], en: ['Verify the agents package with npm ls agents.', 'Define Agent<Env, State>, initialState, and state-change validation.', 'Expose methods with @callable() and route requests with routeAgentRequest.', 'Add the binding/migration, then choose scheduling, workflows, queues, or retries.'] },
     coreRules: { id: ['Jangan aktifkan experimentalDecorators karena merusak @callable.', 'Jangan mengedit migration lama; selalu tambah tag baru.', 'Setiap agent class memerlukan binding DO dan migration sendiri.'], en: ['Do not enable experimentalDecorators because it breaks @callable.', 'Never edit old migrations; always add a new tag.', 'Each agent class requires its own DO binding and migration.'] },
     tips: { id: ['Gunakan validateStateChange untuk invariant seperti count tidak negatif.', 'Gunakan runFiber() atau stash() untuk pekerjaan yang bertahan dari eviction.'], en: ['Use validateStateChange for invariants such as non-negative counts.', 'Use runFiber() or stash() for work that survives eviction.'] },
-    pairsWellWith: ['durable-objects', 'sandbox-next'], sourcePath: 'skills/agents-sdk/SKILL.md',
+    pairsWellWith: ['durable-objects', 'sandbox-next'], spotlight: {
+      title: { id: 'Rutekan Kapabilitas Agent ke Eksekusi yang Tepat', en: 'Route Agent Capabilities to the Right Execution Primitive' },
+      body: { id: 'Untuk pekerjaan yang harus bertahan saat DO dieviction, gunakan runFiber dan stash; gunakan queue serta retry untuk pekerjaan antrean yang tahan kegagalan, dan AgentWorkflow untuk orkestrasi multi-step durable. Di client, hubungkan useAgent atau useAgentChat ke routeAgentRequest, lalu gunakan getAgentByName bila routing kustom diperlukan.', en: 'Use runFiber and stash for work that must survive DO eviction; use queue and retry for failure-tolerant queued work, and AgentWorkflow for durable multi-step orchestration. On the client, connect useAgent or useAgentChat to routeAgentRequest, using getAgentByName when custom routing is needed.' },
+    },
+    sourcePath: 'skills/agents-sdk/SKILL.md',
   },
   {
     name: 'sandbox-next', category: 'compute-state', invocation: 'user',
@@ -118,18 +142,26 @@ export const cloudflareSkills: RichSkill[] = [
     howItWorks: { id: ['Pastikan dependency dan image memakai @next.', 'Dapatkan sandbox dengan getSandbox(env.Sandbox, id).', 'Panggil exec dengan argv list dan cwd/env eksplisit.', 'Ambil output atau tunggu readiness; kill process bila perlu.'], en: ['Confirm the dependency and image use @next.', 'Get the sandbox with getSandbox(env.Sandbox, id).', 'Call exec with an argv list and explicit cwd/env.', 'Collect output or await readiness; kill the process when needed.'] },
     coreRules: { id: ['Jangan menganggap exec selesai; handle harus diikuti output() atau waitForExit().', 'Shell syntax harus eksplisit melalui /bin/bash -lc.', 'Jangan campur package dan image stable dengan @next.'], en: ['Do not treat exec as finished; follow the handle with output() or waitForExit().', 'Shell syntax must be explicit via /bin/bash -lc.', 'Never mix stable package/image with @next.'] },
     tips: { id: ['Simpan argv, cwd, env, dan app state untuk pekerjaan yang survive replace.', 'Gunakan type @next terpasang dan preview docs sebelum implementasi.'], en: ['Store argv, cwd, env, and app state for work that must survive replacement.', 'Use installed @next types and preview docs before implementation.'] },
-    pairsWellWith: ['agents-sdk', 'sandbox-stable'], sourcePath: 'skills/sandbox-next/SKILL.md',
+    pairsWellWith: ['agents-sdk', 'sandbox-stable'], spotlight: {
+      title: { id: 'Sandbox Preview Dimulai dari Gate Package dan Image', en: 'Sandbox Preview Starts with a Package-and-Image Gate' },
+      body: { id: 'Pastikan dependency memakai @cloudflare/sandbox@next dan image memakai lini yang sama seperti cloudflare/sandbox:next; jangan mencampur stable dan preview. Karena ID proses tidak bertahan saat container diganti, simpan argv, cwd, env, dan application state untuk durability—bukan hanya process ID.', en: 'Confirm the dependency uses @cloudflare/sandbox@next and the image uses the same line, such as cloudflare/sandbox:next; never mix stable and preview. Because process IDs do not survive container replacement, persist argv, cwd, env, and application state for durability—not just a process ID.' },
+    },
+    sourcePath: 'skills/sandbox-next/SKILL.md',
   },
   {
     name: 'sandbox-stable', category: 'compute-state', invocation: 'user',
-    description: { id: 'Kelola aplikasi Cloudflare Sandbox pada package stable dengan command completion dan session.', en: 'Maintain Cloudflare Sandbox apps on the stable package with command completion and sessions.' },
+    description: { id: 'Kelola aplikasi Cloudflare Sandbox existing pada package stable dengan command completion dan session (proyek baru disarankan mulai di @next).', en: 'Maintain existing Cloudflare Sandbox apps on the stable package with command completion and sessions (new projects should start on @next).' },
     detailedDescription: { id: 'Sandbox stable memakai sandbox.exec(command string) yang selesai setelah command berakhir dan mengembalikan stdout, stderr, exitCode, serta success. Pekerjaan panjang memakai startProcess atau execStream, sedangkan sessions mempertahankan cwd dan environment. Jangan menerapkan argv/process.output() preview, dan pastikan package serta image stable cocok.', en: 'Stable Sandbox uses sandbox.exec(command string), which resolves after completion and returns stdout, stderr, exitCode, and success. Long-running work uses startProcess or execStream, while sessions preserve cwd and environment. Do not apply preview argv/process.output() APIs, and keep the package and image on the matching stable line.' },
     useWhen: { id: ['Memelihara app dengan dependency @cloudflare/sandbox default.', 'Menjalankan command string yang harus selesai atau memakai session.', 'Menggunakan process streaming, terminal stable, tunnel, mount, atau cleanup deprecation.'], en: ['Maintaining an app using the default @cloudflare/sandbox dependency.', 'Running completing command strings or preserving state with sessions.', 'Using stable streaming processes, terminals, tunnels, mounts, or deprecation cleanup.'] },
     avoidWhen: { id: ['App memakai @cloudflare/sandbox@next atau image next.', 'Porting ke preview tanpa sandbox-migrate-to-next.'], en: ['The app uses @cloudflare/sandbox@next or a next image.', 'Porting to preview without sandbox-migrate-to-next.'] },
     howItWorks: { id: ['Pastikan dependency dan image berada pada stable line.', 'Gunakan getSandbox() lalu await sandbox.exec(command string).', 'Untuk pekerjaan panjang pilih startProcess/execStream; gunakan session bila state shell harus bertahan.', 'Periksa deprecation guide sebelum memakai transport atau helper lama.'], en: ['Confirm the dependency and image are on the stable line.', 'Use getSandbox() then await sandbox.exec(command string).', 'For long work choose startProcess/execStream; use a session when shell state must persist.', 'Check the deprecation guide before using legacy transports or helpers.'] },
     coreRules: { id: ['Jangan memakai argv dan output() milik @next pada package stable.', 'Jangan mencampur package stable dengan image @next.', 'Simpan live credentials di Worker, bukan environment sandbox.'], en: ['Do not use @next argv and output() APIs on stable.', 'Never mix the stable package with an @next image.', 'Keep live credentials in the Worker, not sandbox environment.'] },
     tips: { id: ['Gunakan session untuk mempertahankan directory dan environment antar-command.', 'Gunakan RPC transport untuk tunnel atau streaming besar.'], en: ['Use a session to preserve directory and environment across commands.', 'Prefer RPC transport for tunnels or large/binary streaming.'] },
-    pairsWellWith: ['agents-sdk', 'sandbox-next'], sourcePath: 'skills/sandbox-stable/SKILL.md',
+    pairsWellWith: ['agents-sdk', 'sandbox-next'], spotlight: {
+      title: { id: 'Bedakan Firewall API Preview dari Cleanup Stable', en: 'Separate Preview API Firewalls from Stable Cleanup' },
+      body: { id: 'Jika dependency dan image masih stable, jangan menerapkan API preview; gunakan sandbox-next hanya setelah lini @next terkonfirmasi. Untuk aplikasi stable, bersihkan API deprecated melalui jalur deprecation guide tanpa memaksa migrasi ke preview.', en: 'When the dependency and image are stable, do not apply preview APIs; use sandbox-next only after the @next line is confirmed. For stable applications, clean up deprecated APIs through the deprecation-guide path without forcing a preview migration.' },
+    },
+    sourcePath: 'skills/sandbox-stable/SKILL.md',
   },
 {
     name: 'sandbox-migrate-to-next',
@@ -140,8 +172,8 @@ export const cloudflareSkills: RichSkill[] = [
       en: 'Guide for migrating Cloudflare Sandbox from stable to the SDK 1.0 preview.',
     },
     detailedDescription: {
-      id: 'Skill ini memindahkan package ke @cloudflare/sandbox@next dan image ke cloudflare/sandbox:next. Ia mengganti exec berbasis string dengan argv dan process handle, memakai output serta waitForPort, dan memindahkan terminal ke createTerminal/connect. Cutover produksi wajib memakai --containers-rollout=immediate; bridge self-deployed tetap stable.',
-      en: 'This skill moves the package to @cloudflare/sandbox@next and the image to cloudflare/sandbox:next. It replaces string-based exec with argv and process handles, using output and waitForPort, and moves terminals to createTerminal/connect. Production cutover must use --containers-rollout=immediate; a self-deployed bridge stays on stable.',
+      id: 'Skill ini memindahkan package ke @cloudflare/sandbox@next dan image ke cloudflare/sandbox:next. Ia mengganti exec berbasis string dengan argv dan process handle, memakai output serta waitForPort, dan memindahkan terminal ke createTerminal/connect. Cutover produksi memakai --containers-rollout=immediate setelah persetujuan user; bridge self-deployed tetap stable.',
+      en: 'This skill moves the package to @cloudflare/sandbox@next and the image to cloudflare/sandbox:next. It replaces string-based exec with argv and process handles, using output and waitForPort, and moves terminals to createTerminal/connect. Production cutover uses --containers-rollout=immediate after user approval; a self-deployed bridge stays on stable.',
     },
     useWhen: {
       id: ['Memigrasikan aplikasi Sandbox yang masih memakai SDK stable.', 'Menghapus transport, session, atau API proses lama saat pindah ke @next.', 'Menyiapkan cutover produksi Sandbox 1.0 preview dengan validasi.'],
@@ -155,6 +187,10 @@ export const cloudflareSkills: RichSkill[] = [
     coreRules: { id: ['Package Worker dan image harus berada pada lini @next yang sama.', 'await sandbox.exec hanya memulai proses; tunggu output atau lifecycle handle.', 'Jangan memakai implicit shell, stdin process, gitCheckout, atau rollout gradual.'], en: ['The Worker package and image must use the same @next line.', 'await sandbox.exec starts a process; wait for output or handle lifecycle explicitly.', 'Do not use an implicit shell, process stdin, gitCheckout, or gradual rollout.'] },
     tips: { id: ['Gunakan image -python hanya bila interpreter Python diperlukan.', 'Gunakan sandbox ID terpisah untuk isolasi pengguna dan hapus session API.'], en: ['Use the -python image only when the Python interpreter is needed.', 'Use separate sandbox IDs for user isolation and remove session APIs.'] },
     pairsWellWith: ['sandbox-next', 'sandbox-stable'],
+    spotlight: {
+      title: { id: 'Migrasi Sandbox Memerlukan Peta Pengganti dan Gate Validasi', en: 'Sandbox Migration Needs a Replacement Map and Validation Gate' },
+      body: { id: 'Ganti exec berbasis string dengan argv, sessions dengan cwd/env per launch, dan terminal lama dengan createTerminal. Setelah upgrade package dan image, validasi dengan grep API yang dihapus, smoke test argv exec + output, lalu uji proses panjang atau terminal bila dipakai.', en: 'Replace string-based exec with argv, sessions with cwd/env per launch, and the old terminal API with createTerminal. After upgrading the package and image, validate with a grep for removed APIs, an argv exec + output smoke test, then exercise long processes or terminals when used.' },
+    },
     sourcePath: 'skills/sandbox-migrate-to-next/SKILL.md',
   },
   {
@@ -169,6 +205,10 @@ export const cloudflareSkills: RichSkill[] = [
     coreRules: { id: ['Jangan menebak category ID, application ID, field wirefilter, atau request body API.', 'Mulai dari policy disabled atau pilot; jangan mengaktifkan policy produksi luas tanpa persetujuan.', 'Access default-deny dan private hostname membutuhkan route serta resolusi DNS eksplisit.'], en: ['Never guess category IDs, application IDs, wirefilter fields, or API request bodies.', 'Start disabled or with a pilot; never broadly enable production policy without approval.', 'Access is default-deny, and private hostnames require explicit routes and DNS resolution.'] },
     tips: { id: ['Gunakan Gateway activity logs dan Access audit logs sebagai bukti troubleshooting.', 'Untuk device client, bedakan enrollment rules dari device profiles dan ingat first-match precedence.'], en: ['Use Gateway activity logs and Access audit logs as troubleshooting evidence.', 'For the device client, distinguish enrollment rules from device profiles and remember first-match precedence.'] },
     pairsWellWith: ['cloudflare-one-migrations', 'turnstile-spin'],
+    spotlight: {
+      title: { id: 'Buat Tabel Keputusan Device Sebelum Mengatur Split Tunnel', en: 'Build the Device Decision Table Before Split Tunneling' },
+      body: { id: 'Gunakan Include untuk VPN replacement saja atau coexistence, Exclude untuk SWG dan kombinasi VPN + SWG, serta DNS-only untuk filtering DNS tanpa proxy traffic. Buktikan keputusan dengan Gateway logs, Access audit logs, dan DEX—masing-masing menunjukkan policy traffic, autentikasi aplikasi, dan kesehatan konektivitas perangkat.', en: 'Use Include for VPN replacement alone or coexistence, Exclude for SWG and VPN + SWG, and DNS-only for filtering DNS without proxying traffic. Prove the decision with Gateway logs, Access audit logs, and DEX, which respectively show traffic policy, application authentication, and device connectivity health.' },
+    },
     sourcePath: 'skills/cloudflare-one/SKILL.md',
   },
   {
@@ -183,6 +223,10 @@ export const cloudflareSkills: RichSkill[] = [
     coreRules: { id: ['Jangan memaksa mapping 1:1; pertahankan intent, urutan, hit counts, dan tandai partial/unsupported.', 'Buat identity/SCIM, connectors, routes/DNS, lists, bypasses, lalu apps dan policies sesuai dependency.', 'Jangan membuat broad allow-all catchall untuk menutupi gap.'], en: ['Do not force 1:1 mappings; preserve intent, order, and hit counts while flagging partial/unsupported items.', 'Create identity/SCIM, connectors, routes/DNS, lists, and bypasses before apps and policies as dependencies require.', 'Never create a broad allow-all catchall to hide a gap.'] },
     tips: { id: ['Untuk ZPA, satu Tunnel per connector group dan replica cloudflared mengikuti jumlah instance.', 'Validasi group pilot setelah SCIM sync dan re-authentication; hitung object Cloudflare terhadap source.'], en: ['For ZPA, use one Tunnel per connector group and match cloudflared replicas to instance count.', 'Validate pilot groups after SCIM sync and re-authentication; compare Cloudflare object counts with the source.'] },
     pairsWellWith: ['cloudflare-one', 'sandbox-migrate-to-next'],
+    spotlight: {
+      title: { id: 'Migration Assessment Harus Menghitung Setiap Rule', en: 'A Migration Assessment Must Account for Every Rule' },
+      body: { id: 'Deliverable assessment perlu kolom source object, target Cloudflare, confidence, prerequisite, gap, dan keputusan manual; setiap rule harus bermuara pada mapping atau baris Not Migrated. Untuk ZPA, buat satu Cloudflare Tunnel per connector group dan samakan jumlah replica dengan instance connector, karena status operasional bukan alasan mengubah topologi.', en: 'The assessment deliverable needs columns for source object, Cloudflare target, confidence, prerequisite, gap, and manual decision; every rule must end in a mapping or a Not Migrated row. For ZPA, create one Cloudflare Tunnel per connector group and match replica count to connector instances, because operational status is not a reason to change topology.' },
+    },
     sourcePath: 'skills/cloudflare-one-migrations/SKILL.md',
   },
 {
@@ -218,6 +262,10 @@ export const cloudflareSkills: RichSkill[] = [
       en: ['Reset a widget that remains on the page after a submission attempt.', 'For production, never include localhost or 127.0.0.1 in the backend hostname allowlist.'],
     },
     pairsWellWith: ['cloudflare-one', 'workers-best-practices'],
+    spotlight: {
+      title: { id: 'Turnstile Wizard Menjaga Probe, Konfirmasi, Diff, dan Replay', en: 'The Turnstile Wizard Guards Probe, Confirmation, Diff, and Replay' },
+      body: { id: 'Jalankan alur probe → confirm → diff → validasi fresh token + replay agar integrasi tidak berhenti pada widget yang tampak terpasang. Jika widget dan sitekey sudah ada, jangan recreate; gunakan existing-widget flow dan pertahankan sitekey yang diberikan.', en: 'Follow probe → confirm → diff → fresh-token validation + replay so the integration does not stop at an apparently installed widget. If a widget and sitekey already exist, do not recreate them; use the existing-widget flow and preserve the supplied sitekey.' },
+    },
     sourcePath: 'skills/turnstile-spin/SKILL.md',
   },
   {
@@ -253,6 +301,10 @@ export const cloudflareSkills: RichSkill[] = [
       en: ['REST uses from.address and reply_to; Workers uses from.email and replyTo.', 'Verify SPF/DKIM/DMARC and follow suppression/bounce guidance for deliverability.'],
     },
     pairsWellWith: ['workers-best-practices', 'agents-sdk'],
+    spotlight: {
+      title: { id: 'Pilih Jalur Email dari Skenario dan Tutup Checklist Deliverability', en: 'Choose the Email Path by Scenario and Close the Deliverability Checklist' },
+      body: { id: 'Gunakan binding Worker untuk pengiriman, onEmail() + replyToEmail() untuk Agent, REST API untuk aplikasi eksternal, dan email() untuk inbound routing. Sebelum produksi, cek domain serta binding, lalu pastikan SPF, DKIM, DMARC, dan suppression ditangani agar pengiriman transaksional tidak merusak reputasi.', en: 'Use the Worker binding for sending, onEmail() + replyToEmail() for an Agent, the REST API for external applications, and email() for inbound routing. Before production, check the domain and binding, then address SPF, DKIM, DMARC, and suppression so transactional delivery does not damage sender reputation.' },
+    },
     sourcePath: 'skills/cloudflare-email-service/SKILL.md',
   },
 ]

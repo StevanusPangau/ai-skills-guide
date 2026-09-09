@@ -1,20 +1,29 @@
 import { RiGithubFill } from '@remixicon/react'
+import { AuthorAvatar } from '@/components/author-avatar'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { ANTHROPIC_SOURCE_REPO, anthropicSkills } from '@/data/anthropic-skills'
+import { getCollectionBySlug } from '@/data/collections'
 import { m } from '@/paraglide/messages.js'
 
 export function AnthropicOverview() {
+  const author = getCollectionBySlug('anthropic')
+
   return (
     <section id="overview" className="scroll-mt-20 space-y-7">
       <div>
         <a href="https://github.com/anthropics/skills" target="_blank" rel="noopener noreferrer" className="rounded-sm text-xs font-medium tracking-wide text-muted-foreground uppercase hover:text-primary">
           {ANTHROPIC_SOURCE_REPO}
         </a>
-        <div className="mt-3">
-          <h1 className="font-heading text-3xl font-bold tracking-tight text-balance sm:text-4xl">
-            {m.anthropic_hero_title()}
-          </h1>
-          <p className="mt-1.5 text-sm font-medium text-foreground/90">Anthropic</p>
+        <div className="mt-3 flex items-start gap-4">
+          {author?.avatarSrc ? (
+            <AuthorAvatar src={author.avatarSrc} name={author.author} size="lg" className="mt-1" />
+          ) : null}
+          <div className="min-w-0">
+            <h1 className="font-heading text-3xl font-bold tracking-tight text-balance sm:text-4xl">
+              {m.anthropic_hero_title()}
+            </h1>
+            <p className="mt-1.5 text-sm font-medium text-foreground/90">Anthropic</p>
+          </div>
         </div>
         <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted-foreground">
           {m.anthropic_hero_description()}
