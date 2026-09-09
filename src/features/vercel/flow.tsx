@@ -18,8 +18,8 @@ export function VercelFlow() {
         kind: 'skill',
         label: '/vercel-react-best-practices',
         description: isEn
-          ? 'Write React/Next.js UI against 70 impact-ranked rules: kill waterfalls, trim bundles, tame re-renders'
-          : 'Bangun UI React/Next.js dengan 70 aturan berperingkat impact: basmi waterfall, pangkas bundle, kendalikan re-render',
+          ? 'Write React/Next.js UI against dozens of impact-ranked rules: kill waterfalls, trim bundles, tame re-renders'
+          : 'Bangun UI React/Next.js dengan puluhan aturan berperingkat impact: basmi waterfall, pangkas bundle, kendalikan re-render',
         subtitle: 'React & Next.js Performance',
         position: { x: 240, y: 0 },
       },
@@ -55,10 +55,10 @@ export function VercelFlow() {
       {
         id: 'review-gate',
         kind: 'decision',
-        label: isEn ? 'Review pass?' : 'Lolos review?',
+        label: isEn ? 'UI + copy review (optional, parallel)' : 'Review UI + copy (opsional, paralel)',
         description: isEn
-          ? 'Audit the interface and the words together before shipping'
-          : 'Audit antarmuka dan tulisannya bersamaan sebelum rilis',
+          ? 'Optionally audit the interface and the words in parallel before shipping'
+          : 'Opsional: audit antarmuka dan tulisan secara paralel sebelum rilis',
         position: { x: 240, y: 460 },
       },
       {
@@ -92,6 +92,16 @@ export function VercelFlow() {
         position: { x: 240, y: 780 },
       },
       {
+        id: 'token-auth',
+        kind: 'skill',
+        label: '/vercel-cli-with-tokens',
+        description: isEn
+          ? 'Non-interactive auth for CI/sandbox: token via env var, paired org/project IDs'
+          : 'Auth non-interaktif untuk CI/sandbox: token via env var, ID org/project berpasangan',
+        subtitle: 'Token Auth',
+        position: { x: 450, y: 780 },
+      },
+      {
         id: 'optimize',
         kind: 'onramp',
         label: '/vercel-optimize',
@@ -116,7 +126,8 @@ export function VercelFlow() {
       { id: 'e-review-writing', source: 'review-gate', target: 'writing-review' },
       { id: 'e-design-deploy', source: 'design-review', target: 'deploy' },
       { id: 'e-writing-deploy', source: 'writing-review', target: 'deploy' },
-      { id: 'e-deploy-optimize', source: 'deploy', target: 'optimize' },
+      { id: 'e-auth-deploy', source: 'token-auth', target: 'deploy' },
+      { id: 'e-deploy-optimize', source: 'deploy', target: 'optimize', label: 'LOOP · AFTER TRAFFIC' },
     ],
     [],
   )

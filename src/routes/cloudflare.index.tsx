@@ -4,7 +4,6 @@ import { CollectionGuideLayout } from '@/components/layout/collection-guide-layo
 import {
   CloudflareOverview,
 } from '@/features/cloudflare/guide'
-import { CloudflareFlow } from '@/features/cloudflare/flow'
 import { CloudflareConcepts } from '@/features/cloudflare/concepts'
 import { CloudflareInstall } from '@/features/cloudflare/install'
 import { StandardSkillsSection } from '@/components/standard-skills-section'
@@ -19,7 +18,6 @@ function CloudflareIndexPage() {
   const sections = useMemo(
     () => [
       { id: 'overview', label: m.cloudflare_sidebar_overview() },
-      { id: 'flow', label: m.sidebar_flow_title() },
       { id: 'concepts', label: m.sidebar_concepts() },
       {
         id: 'skills',
@@ -44,7 +42,6 @@ function CloudflareIndexPage() {
       footer={<p className="text-center text-xs text-muted-foreground">{m.cloudflare_footer()}</p>}
     >
       <CloudflareOverview />
-      <CloudflareFlow />
       <CloudflareConcepts />
       <StandardSkillsSection
         collectionSlug="cloudflare"

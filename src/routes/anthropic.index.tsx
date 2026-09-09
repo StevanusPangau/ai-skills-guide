@@ -4,7 +4,6 @@ import { CollectionGuideLayout } from '@/components/layout/collection-guide-layo
 import {
   AnthropicOverview,
 } from '@/features/anthropic/guide'
-import { AnthropicFlow } from '@/features/anthropic/flow'
 import { AnthropicConcepts } from '@/features/anthropic/concepts'
 import { AnthropicInstall } from '@/features/anthropic/install'
 import { StandardSkillsSection } from '@/components/standard-skills-section'
@@ -19,7 +18,6 @@ function AnthropicIndexPage() {
   const sections = useMemo(
     () => [
       { id: 'overview', label: m.anthropic_sidebar_overview() },
-      { id: 'flow', label: m.sidebar_flow_title() },
       { id: 'concepts', label: m.sidebar_concepts() },
       {
         id: 'skills',
@@ -44,7 +42,6 @@ function AnthropicIndexPage() {
       footer={<p className="text-center text-xs text-muted-foreground">{m.anthropic_footer()}</p>}
     >
       <AnthropicOverview />
-      <AnthropicFlow />
       <AnthropicConcepts />
       <StandardSkillsSection
         collectionSlug="anthropic"

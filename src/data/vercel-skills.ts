@@ -18,6 +18,11 @@ export type RichSkill = {
   tips: BilingualList
   pairsWellWith: string[]
   sourcePath: string
+  /** Section khusus unik per skill — hanya dirender bila ada. */
+  spotlight?: {
+    title: BilingualString
+    body: BilingualString
+  }
 }
 
 export const vercelSkills: RichSkill[] = [
@@ -54,6 +59,10 @@ export const vercelSkills: RichSkill[] = [
       en: ['Create explicit variant components (ThreadComposer, EditComposer) so code documents itself.', 'Render props remain appropriate when the parent must feed data back (e.g. renderItem receiving item and index).'],
     },
     pairsWellWith: ['vercel-react-best-practices', 'web-design-guidelines'],
+    spotlight: {
+      title: { id: 'Komposisi React yang Tahan Perubahan', en: 'React Composition That Scales' },
+      body: { id: 'Hindari boolean props yang menumpuk; pilih compound components, state-context interface, dan children over render props agar API komponen tetap fleksibel. Pastikan prasyaratnya sesuai: pola ini memanfaatkan React 19, sementara React 18 memerlukan pendekatan kompatibel yang dijelaskan sumber.', en: 'Avoid accumulating boolean props; use compound components, a state-context interface, and children over render props to keep component APIs flexible. Check the prerequisite first: these patterns target React 19, while React 18 needs the compatibility approach described in the source.' },
+    },
     sourcePath: 'skills/composition-patterns/SKILL.md',
   },
   {
@@ -61,8 +70,8 @@ export const vercelSkills: RichSkill[] = [
     category: 'react-performance',
     invocation: 'model',
     description: {
-      id: 'Panduan optimasi performa React dan Next.js dari Vercel Engineering: 70 aturan dalam 8 kategori, diurutkan dari waterfalls hingga advanced patterns.',
-      en: 'React and Next.js performance guidelines from Vercel Engineering: 70 rules across 8 categories, ranked from waterfalls to advanced patterns.',
+      id: 'Panduan optimasi performa React dan Next.js dari Vercel Engineering: puluhan aturan dalam 8 kategori (SKILL.md menyebut 70; kompilasi AGENTS.md 40+), diurutkan dari waterfalls hingga advanced patterns.',
+      en: 'React and Next.js performance guidelines from Vercel Engineering: dozens of rules across 8 categories (SKILL.md cites 70; the compiled AGENTS.md lists 40+), ranked from waterfalls to advanced patterns.',
     },
     detailedDescription: {
       id: 'Skill ini adalah referensi optimasi performa paling lengkap di koleksi, disusun Vercel Engineering berdasarkan impact: Eliminating Waterfalls (CRITICAL, naikkan paralelisme dengan Promise.all dan async-defer-await), Bundle Size (CRITICAL, hindari barrel file imports dan lazy-load komponen berat via next/dynamic), Server-Side Performance (React.cache() untuk deduplikasi per-request, after() untuk logging non-blocking), hingga Re-render Optimization (turunkan state berlebih, derive saat render, startTransition dan useDeferredValue). Setiap aturan punya file terpisah berisi contoh incorrect vs correct sehingga agen bisa langsung menerapkannya saat refactor.',
@@ -81,14 +90,18 @@ export const vercelSkills: RichSkill[] = [
       en: ['Map the code against 8 impact-prioritized rule categories, starting with waterfalls and bundle size.', 'Eliminate sequential waterfalls: start independent operations concurrently via Promise.all or better-all, and move awaits into the branches that actually use them.', 'Trim the bundle: avoid barrel imports (lucide-react, @mui/material), dynamic-import heavy components, and defer third-party libraries until after hydration.', 'Clean up client/server: deduplicate with React.cache() and SWR, minimize RSC prop serialization, and tame re-renders with derived state and memo.'],
     },
     coreRules: {
-      id: ['Waterfall adalah killer performa nomor satu: operasi async independen wajib berjalan paralel (2-10x perbaikan).', 'Server Actions diautentikasi seperti API route karena bisa dipanggil langsung sebagai endpoint publik.', 'Jangan membungkus ekspresi sederhana berresult primitif dalam useMemo; overhead hook bisa melebihi hitungannya.'],
-      en: ['Waterfalls are the #1 performance killer: independent async operations must run in parallel (2-10x gains).', 'Authenticate Server Actions like API routes since they are exposed as public endpoints.', 'Do not wrap simple primitive-result expressions in useMemo; hook overhead can exceed the computation.'],
+      id: ['Waterfall adalah killer performa nomor satu: operasi async independen wajib berjalan paralel (sumber mengklaim 2-10x pada workload yang cocok — ukur di workload sendiri).', 'Server Actions diautentikasi seperti API route karena bisa dipanggil langsung sebagai endpoint publik.', 'Jangan membungkus ekspresi sederhana berresult primitif dalam useMemo; overhead hook bisa melebihi hitungannya.'],
+      en: ['Waterfalls are the #1 performance killer: independent async operations must run in parallel (source claims 2-10x on suitable workloads — measure on your own).', 'Authenticate Server Actions like API routes since they are exposed as public endpoints.', 'Do not wrap simple primitive-result expressions in useMemo; hook overhead can exceed the computation.'],
     },
     tips: {
-      id: ['Di Next.js 13.5+, biarkan import barrel biasa; optimizePackageImports mengubahnya jadi direct import tanpa kehilangan type safety.', 'Ingat React.cache() hanya berlaku per-request; untuk cache lintas-request pakai LRU cache, efektif di Fluid Compute karena instance shared.'],
-      en: ['On Next.js 13.5+, keep plain barrel imports; optimizePackageImports rewrites them to direct imports without losing type safety.', 'Remember React.cache() is per-request only; use an LRU cache across requests, especially effective on Fluid Compute with shared instances.'],
+      id: ['Di Next.js 13.5+, biarkan import barrel biasa; optimizePackageImports mengubahnya jadi direct import tanpa kehilangan type safety (verifikasi terhadap versi Next.js yang dipakai, aturan ini tidak tercantum di SKILL.md).', 'Ingat React.cache() hanya berlaku per-request; untuk cache lintas-request pakai LRU cache, efektif di Fluid Compute karena instance shared.'],
+      en: ['On Next.js 13.5+, keep plain barrel imports; optimizePackageImports rewrites them to direct imports without losing type safety (verify against your Next.js version — this rule is not in SKILL.md).', 'Remember React.cache() is per-request only; use an LRU cache across requests, especially effective on Fluid Compute with shared instances.'],
     },
     pairsWellWith: ['vercel-composition-patterns', 'vercel-optimize', 'vercel-react-view-transitions'],
+    spotlight: {
+      title: { id: 'Aturan Kinerja React yang Terukur', en: 'Measured React Performance Rules' },
+      body: { id: 'Setiap aturan dapat ditelusuri ke rules/*.md yang memuat contoh incorrect/correct dan dipandu oleh AGENTS.md. Mulai dari async-cheap-condition-before-await, gunakan async-dependencies dengan Promise.all saat dependensi memungkinkan, dan letakkan server-after-nonblocking setelah pekerjaan non-blocking.', en: 'Each rule is traceable to a rules/*.md file with incorrect/correct examples and is governed by AGENTS.md. Start with async-cheap-condition-before-await, use async-dependencies with Promise.all when dependencies allow it, and place server-after-nonblocking work after non-blocking operations.' },
+    },
     sourcePath: 'skills/react-best-practices/SKILL.md',
   },
   {
@@ -100,7 +113,7 @@ export const vercelSkills: RichSkill[] = [
       en: 'React Native and Expo best practices for performant mobile apps: list virtualization, GPU animations, native navigation, and platform UI patterns.',
     },
     detailedDescription: {
-      id: 'Panduan resmi Vercel untuk React Native/Expo dengan kategori berprioritas: List Performance (CRITICAL, virtualisasi dengan LegendList/FlashList, referensi objek stabil, props primitif agar memo() bekerja), Animation (hanya transform dan opacity yang GPU-accelerated, gunakan useDerivedValue dan GestureDetector dengan worklet UI thread), Navigation (native stack dan native tabs di atas navigator berbasis JS), hingga aturan rendering kritis seperti melarang {value && <Component/>} ketika value bisa falsy (crash di production) dan mewajibkan string dibungkus <Text>. Mencakup juga monorepo, fonts via config plugins, dan kompatibilitas React Compiler.',
+      id: 'Panduan resmi Vercel untuk React Native/Expo dengan kategori berprioritas: List Performance (CRITICAL menurut SKILL.md; kompilasi AGENTS.md menempatkan Core Rendering sebagai CRITICAL dan List sebagai HIGH — virtualisasi dengan LegendList/FlashList, referensi objek stabil, props primitif agar memo() bekerja), Animation (hanya transform dan opacity yang GPU-accelerated, gunakan useDerivedValue dan GestureDetector dengan worklet UI thread), Navigation (native stack dan native tabs di atas navigator berbasis JS), hingga aturan rendering kritis seperti melarang {value && <Component/>} ketika value bisa falsy (crash di production) dan mewajibkan string dibungkus <Text>. Mencakup juga monorepo, fonts via config plugins, dan kompatibilitas React Compiler.',
       en: 'Vercel\'s official React Native/Expo guide with prioritized categories: List Performance (CRITICAL, virtualize with LegendList/FlashList, keep object references stable, pass primitive props so memo() works), Animation (only transform and opacity are GPU-accelerated; use useDerivedValue and GestureDetector with UI-thread worklets), Navigation (native stack and native tabs over JS navigators), plus critical rendering rules like banning {value && <Component/>} when value can be falsy (production crash) and requiring strings wrapped in <Text>. Also covers monorepos, fonts via config plugins, and React Compiler compatibility.',
     },
     useWhen: {
@@ -124,6 +137,10 @@ export const vercelSkills: RichSkill[] = [
       en: ['Pass primitive props (id, name, isActive) to list items so memo() shallow comparison works; derive styles inside the child.', 'With React Compiler enabled, destructure functions early in render and use .get()/.set() on Reanimated shared values instead of .value.'],
     },
     pairsWellWith: ['vercel-react-best-practices', 'vercel-composition-patterns'],
+    spotlight: {
+      title: { id: 'React Native Tanpa Crash Rendering', en: 'Crash-Resistant React Native Rendering' },
+      body: { id: 'Jangan merender nilai falsy secara langsung, dan bungkus teks di dalam Text agar aturan rendering-no-falsy-and serta rendering-text-in-text-component terpenuhi. Untuk font, gunakan Expo config plugin lalu jalankan npx expo prebuild agar konfigurasi native diterapkan.', en: 'Do not render falsy values directly, and wrap text inside Text to satisfy rendering-no-falsy-and and rendering-text-in-text-component. For fonts, use the Expo config plugin and then run npx expo prebuild so the native configuration is applied.' },
+    },
     sourcePath: 'skills/react-native-skills/SKILL.md',
   },
   {
@@ -135,8 +152,8 @@ export const vercelSkills: RichSkill[] = [
       en: 'Native-feeling UI state animations with React\'s View Transition API: the <ViewTransition> component, addTransitionType, and CSS pseudo-elements.',
     },
     detailedDescription: {
-      id: 'Skill ini memandu animasi transisi tanpa library pihak ketiga: deklarasikan apa yang dianimasikan dengan <ViewTransition>, picu kapan dengan startTransition/useDeferredValue/Suspense (setState biasa tidak menganimasikan), dan kendalikan bagaimana lewat CSS class pada pseudo-element ::view-transition-*. Pola diurutkan berdasarkan makna: shared element (name) untuk "benda yang sama makin dalam", Suspense reveal, list identity per-item key, enter/exit untuk state change, dan route change dengan slide directional nav-forward/nav-back via addTransitionType. Di Next.js App Router bekerja out of the box (transitionTypes pada next/link sejak 16.2.0), dan browser yang tidak mendukung graceful degradation tanpa animasi.',
-      en: 'This skill guides transition animations without third-party libraries: declare what with <ViewTransition>, trigger when with startTransition/useDeferredValue/Suspense (plain setState never animates), and control how via CSS classes on ::view-transition-* pseudo-elements. Patterns are ordered by meaning: shared element (name) for "same thing, going deeper", Suspense reveals, per-item list identity keys, enter/exit state changes, and route changes with directional nav-forward/nav-back slides via addTransitionType. It works out of the box in the Next.js App Router (transitionTypes on next/link since 16.2.0), and unsupported browsers degrade gracefully.',
+      id: 'Skill ini memandu animasi transisi tanpa library pihak ketiga: deklarasikan apa yang dianimasikan dengan <ViewTransition>, picu kapan dengan startTransition/useDeferredValue/Suspense (setState biasa tidak menganimasikan), dan kendalikan bagaimana lewat CSS class pada pseudo-element ::view-transition-*. Pola diurutkan berdasarkan makna: shared element (name) untuk "benda yang sama makin dalam", Suspense reveal, list identity per-item key, enter/exit untuk state change, dan route change dengan slide directional nav-forward/nav-back via addTransitionType. Di Next.js App Router bekerja out of the box karena App Router membundel React canary (aplikasi non-Next.js memerlukan react@canary dan react-dom@canary); browser yang tidak mendukung graceful degradation tanpa animasi.',
+      en: 'This skill guides transition animations without third-party libraries: declare what with <ViewTransition>, trigger when with startTransition/useDeferredValue/Suspense (plain setState never animates), and control how via CSS classes on ::view-transition-* pseudo-elements. Patterns are ordered by meaning: shared element (name) for "same thing, going deeper", Suspense reveals, per-item list identity keys, enter/exit state changes, and route changes with directional nav-forward/nav-back slides via addTransitionType. It works out of the box in the Next.js App Router because the App Router bundles React canary (non-Next.js apps need react@canary and react-dom@canary); unsupported browsers degrade gracefully.',
     },
     useWhen: {
       id: ['Menambahkan transisi halaman atau animasi antar route terasa native.', 'Membuat shared element morph (thumbnail list membesar jadi gambar detail).', 'Menganimasikan reveal Suspense, reorder list, atau enter/exit komponen tanpa library animasi eksternal.'],
@@ -159,6 +176,10 @@ export const vercelSkills: RichSkill[] = [
       en: ['Type-map objects (enter/exit/share) require a default key for TypeScript; router.back() carries no transition types, so typed animations only fire via router.push().', 'For shared elements inside list items, use two nested boundaries: an outer keyed VT for list identity, an inner named VT for the cross-route morph.'],
     },
     pairsWellWith: ['vercel-react-best-practices', 'vercel-composition-patterns'],
+    spotlight: {
+      title: { id: 'ViewTransition dengan Aksesibilitas Aman', en: 'Accessible ViewTransition Boundaries' },
+      body: { id: 'Tempatkan <ViewTransition> sebelum DOM node yang ingin dianimasikan, bukan sesudahnya. Navigasi melalui router.back atau tombol browser tidak memakai transition types, dan setiap transisi wajib menghormati prefers-reduced-motion.', en: 'Place <ViewTransition> before the DOM node you want to animate, not after it. Navigation through router.back or the browser button does not use transition types, and every transition must respect prefers-reduced-motion.' },
+    },
     sourcePath: 'skills/react-view-transitions/SKILL.md',
   },
   {
@@ -194,6 +215,10 @@ export const vercelSkills: RichSkill[] = [
       en: ['Use --no-wait so the CLI returns the URL immediately instead of blocking on the build, then track progress with vercel inspect <url>.', 'On claude.ai, if deployment fails on network egress, ask the user to add *.vercel.com to allowed domains in capabilities settings.'],
     },
     pairsWellWith: ['vercel-cli-with-tokens', 'vercel-optimize'],
+    spotlight: {
+      title: { id: 'Pohon Keputusan Deploy Vercel', en: 'The Vercel Deployment Decision Tree' },
+      body: { id: 'Jika proyek linked dan memiliki remote Git, gunakan git push; jika linked tanpa remote, gunakan vercel deploy; jika unlinked, link terlebih dahulu. Fallback tanpa autentikasi menghasilkan Preview URL dan Claim URL, sementara proyek dengan beberapa team memerlukan pemilihan team sebelum deploy.', en: 'If the project is linked and has a Git remote, use git push; if linked without a remote, use vercel deploy; if unlinked, link it first. The no-auth fallback returns both a Preview URL and a Claim URL, while projects with multiple teams require team selection before deployment.' },
+    },
     sourcePath: 'skills/deploy-to-vercel/SKILL.md',
   },
   {
@@ -229,6 +254,10 @@ export const vercelSkills: RichSkill[] = [
       en: ['Verify the token and scope with vercel whoami before deploying; use vercel whoami --scope <team-slug> when unsure which team is active.', 'Use --format json for structured output and -y on confirmation-prompting commands so nothing blocks interactively.'],
     },
     pairsWellWith: ['deploy-to-vercel', 'vercel-optimize'],
+    spotlight: {
+      title: { id: 'Token Vercel yang Tidak Bocor', en: 'Keep Vercel Tokens Out of the CLI' },
+      body: { id: 'Simpan token di environment variable VERCEL_TOKEN, jangan meneruskannya lewat flag --token agar tidak muncul di history atau process listing. VERCEL_ORG_ID dan VERCEL_PROJECT_ID harus dipasang berpasangan, dan perubahan plan Stripe wajib dikonfirmasi sebelum dijalankan.', en: 'Store the token in the VERCEL_TOKEN environment variable; never pass it with --token, which exposes it in history or process listings. VERCEL_ORG_ID and VERCEL_PROJECT_ID must be set together, and Stripe plan changes require confirmation before execution.' },
+    },
     sourcePath: 'skills/vercel-cli-with-tokens/SKILL.md',
   },
   {
@@ -240,8 +269,8 @@ export const vercelSkills: RichSkill[] = [
       en: 'Observability-first Vercel cost and performance audit: collect metrics first, investigate gate-selected candidates, produce ranked recommendations.',
     },
     detailedDescription: {
-      id: 'Skill audit paling prosedural di koleksi: ia menolak repo-wide grep sebelum signals.json terkumpul dari vercel metrics, vercel usage, dan vercel contract pada window 14 hari. Pipeline-nya lima tahap: collect-signals dan scan-codebase digabung via merge-signals, gate-investigations memilih maksimal 6 kandidat dengan diversity guardrail, deep-dive menyusun brief per kandidat (3+ brief memicu satu sub-agent per brief), verify-and-regen memverifikasi file dan sitasi secara mekanis, lalu render-report menghasilkan rekomendasi berperingkat dengan bukti metrik. Mendukung Next.js paling kuat, SvelteKit/Nuxt didukung, Astro terbatas; butuh Vercel CLI v53+, link direktori proyek, dan Observability Plus untuk rekomendasi route-level.',
-      en: 'The most procedural audit skill in the collection: it refuses repo-wide grep until signals.json exists, built from vercel metrics, vercel usage, and vercel contract over a 14-day window. The pipeline has five stages: collect-signals and scan-codebase merge into signals, gate-investigations picks at most 6 candidates with a diversity guardrail, deep-dive writes one brief per candidate (3+ briefs spawn one sub-agent per brief), verify-and-regen mechanically checks files and citations, then render-report emits ranked recommendations grounded in metric evidence. Next.js is supported most strongly, SvelteKit/Nuxt are supported, Astro is limited; it needs Vercel CLI v53+, a linked project directory, and Observability Plus for route-level recommendations.',
+      id: 'Skill audit paling prosedural di koleksi: ia menolak repo-wide grep sebelum signals.json terkumpul dari vercel metrics, vercel usage, dan vercel contract pada window 14 hari. Alurnya: collect-signals dan scan-codebase digabung via merge-signals, gate-investigations memilih maksimal 6 kandidat dengan diversity guardrail, deep-dive menyusun brief per kandidat (3+ brief memicu satu sub-agent per brief; host tanpa sub-agent jalan inline serial), verify-and-regen memverifikasi file dan sitasi secara mekanis, lalu render-report menghasilkan rekomendasi berperingkat dengan bukti metrik. Mendukung Next.js paling kuat, SvelteKit/Nuxt didukung, Astro terbatas; butuh Vercel CLI v53+, link direktori proyek, dan Observability Plus untuk rekomendasi route-level.',
+      en: 'The most procedural audit skill in the collection: it refuses repo-wide grep until signals.json exists, built from vercel metrics, vercel usage, and vercel contract over a 14-day window. Its flow: collect-signals and scan-codebase merge into signals, gate-investigations picks at most 6 candidates with a diversity guardrail, deep-dive writes one brief per candidate (3+ briefs spawn one sub-agent per brief; hosts without sub-agents run inline serially), verify-and-regen mechanically checks files and citations, then render-report emits ranked recommendations grounded in metric evidence. Next.js is supported most strongly, SvelteKit/Nuxt are supported, Astro is limited; it needs Vercel CLI v53+, a linked project directory, and Observability Plus for route-level recommendations.',
     },
     useWhen: {
       id: ['Menurunkan tagihan Vercel (Fast Data Transfer, Function Invocations, Build Minutes).', 'Menyelidiki route yang lambat atau mahal, peluang caching, atau Core Web Vitals.', 'Minta breakdown biaya atau audit Fluid compute pada proyek yang sudah deployed dan punya traffic.'],
@@ -264,6 +293,10 @@ export const vercelSkills: RichSkill[] = [
       en: ['Always use a fresh run directory per audit (mktemp -d) and never reuse briefs or reports across runs.', 'Workflow endpoints (/.well-known/workflow/v1/*) are hard-gated before investigation; streaming and long-lived routes are not problems merely for being slow.'],
     },
     pairsWellWith: ['deploy-to-vercel', 'vercel-cli-with-tokens', 'vercel-react-best-practices'],
+    spotlight: {
+      title: { id: 'Optimasi Vercel Berbasis Sinyal', en: 'Signal-Gated Vercel Optimization' },
+      body: { id: 'Jangan membaca source sebelum signals.json tersedia dan gate deterministik memilih kandidat. Batasi kandidat default hingga enam, gunakan cost-magnitude sebagai besaran relatif—bukan angka dolar pasti—lalu hasilkan report.md dan final-message.json.', en: 'Do not inspect source files until signals.json exists and a deterministic gate selects candidates. Limit the default scope to six candidates, express cost-magnitude as a relative magnitude rather than a guaranteed dollar figure, and produce report.md plus final-message.json.' },
+    },
     sourcePath: 'skills/vercel-optimize/SKILL.md',
   },
   {
@@ -299,6 +332,10 @@ export const vercelSkills: RichSkill[] = [
       en: ['Pass a file or glob argument (e.g. src/components/**) so the review is targeted from the start.', 'Combine with writing-guidelines for a full UI-plus-copy audit in one pass.'],
     },
     pairsWellWith: ['writing-guidelines', 'vercel-composition-patterns'],
+    spotlight: {
+      title: { id: 'Review UI dengan Handbook Terbaru', en: 'Review UI Against the Latest Handbook' },
+      body: { id: 'Sebelum setiap review, fetch command.md terbaru dari sumber Web Interface Guidelines. Argumen <file-or-pattern> wajib diberikan agar pemeriksaan memiliki target, lalu ikuti format output yang ditentukan handbook.', en: 'Before every review, fetch the latest command.md from the Web Interface Guidelines source. The <file-or-pattern> argument is required so the review has a target, and the output must follow the handbook\'s specified format.' },
+    },
     sourcePath: 'skills/web-design-guidelines/SKILL.md',
   },
   {
@@ -334,6 +371,10 @@ export const vercelSkills: RichSkill[] = [
       en: ['Point it at specific files or patterns (e.g. docs/**/*.mdx) so findings are easy to prioritize.', 'Run it alongside web-design-guidelines before releases so UI and copy both pass audit.'],
     },
     pairsWellWith: ['web-design-guidelines', 'vercel-composition-patterns'],
+    spotlight: {
+      title: { id: 'Audit Prosa dengan Writing Handbook', en: 'Audit Prose with the Writing Handbook' },
+      body: { id: 'Fetch command.md terbaru sebelum setiap audit dan selalu berikan argumen <file-or-pattern>. Cakupannya hanya prosa atau dokumentasi, bukan code maupun UI, dan temuan harus mengikuti format handbook.', en: 'Fetch the latest command.md before every audit and always provide the <file-or-pattern> argument. Its scope is prose or documentation only—not code or UI—and findings must follow the handbook\'s format.' },
+    },
     sourcePath: 'skills/writing-guidelines/SKILL.md',
   },
 ]
