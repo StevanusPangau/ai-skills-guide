@@ -6,7 +6,7 @@
   "engines": {
     "node": ">=20"
   },
-  "description": "Panduan interaktif 22 AI coding skills dari Matt Pocock (v1.1) — alur kerja ide hingga ship untuk pengembangan software berbasis AI agent. Vite + React 19 + TanStack Router.",
+  "description": "Panduan bilingual untuk 100+ AI coding-agent skills dari enam koleksi praktisi software engineering. Vite + React 19 + TanStack Router.",
   "license": "MIT",
   "author": "Stevanus Pangau",
   "homepage": "https://skills.stevanuspangau.dev",
@@ -25,8 +25,9 @@
   ],
   "scripts": {
     "dev": "vite",
-    "build": "paraglide-js compile --project ./project.inlang --outdir ./src/paraglide && tsc -b && vite build",
+    "build": "npm run seo:generate && paraglide-js compile --project ./project.inlang --outdir ./src/paraglide && tsc -b && vite build",
     "lint": "oxlint",
+    "seo:generate": "node scripts/generate-seo-artifacts.mjs",
     "preview": "vite preview",
     "deploy": "npm run build && wrangler deploy",
     "cf:dev": "wrangler dev",

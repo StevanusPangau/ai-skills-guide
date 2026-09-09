@@ -1,0 +1,1 @@
+export const CLOUDFLARE_SKILL_COUNT = 13

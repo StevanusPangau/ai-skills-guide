@@ -1,16 +1,17 @@
-import { useEffect } from 'react'
+import { usePageMetadata } from '@/lib/use-page-metadata'
 import { m } from '@/paraglide/messages.js'
 
 /**
- * Set the document title for the current route, restoring the base title
- * on unmount. Keeps tab titles meaningful in a client-side SPA (no SSR).
+ * Set route-aware title, canonical URL, description, and social metadata.
+ * Callers may pass a more specific description when the route has one.
  */
-export function useDocumentTitle(title?: string) {
-  const baseTitle = m.nav_ai_skills_guide()
-  useEffect(() => {
-    document.title = title ? `${title} — ${baseTitle}` : baseTitle
-    return () => {
-      document.title = baseTitle
-    }
-  }, [title, baseTitle])
+export function useDocumentTitle(title?: string, description?: string) {
+  usePageMetadata({
+    title,
+    description:
+      description ??
+      (title
+        ? `${title}: panduan workflow, aturan, penggunaan, dan instalasi AI coding-agent skill.`
+        : m.hero_description()),
+  })
 }

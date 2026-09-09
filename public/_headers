@@ -12,3 +12,15 @@
 # Service worker / manifest — short cache
 /site.webmanifest
   Cache-Control: public, max-age=0, must-revalidate
+
+/robots.txt
+  Cache-Control: public, max-age=0, must-revalidate
+  Content-Type: text/plain; charset=utf-8
+
+/sitemap.xml
+  Cache-Control: public, max-age=0, must-revalidate
+  Content-Type: application/xml; charset=utf-8
+
+/llms.txt
+  Cache-Control: public, max-age=0, must-revalidate
+  Content-Type: text/plain; charset=utf-8

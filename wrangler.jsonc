@@ -4,6 +4,9 @@
   // directly from Cloudflare's edge. Docs: https://developers.cloudflare.com/workers/static-assets/
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "ai-skills-guide",
+  // Keep workers.dev permanently disabled across deploys (see Workers docs —
+  // dashboard toggles are overwritten by wrangler on every deploy).
+  "workers_dev": false,
   "compatibility_date": "2026-07-07",
   "assets": {
     "directory": "./dist/",

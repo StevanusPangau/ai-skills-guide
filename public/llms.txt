@@ -1,0 +1,187 @@
+# AI Skills Guide
+
+> A bilingual educational reference for practical AI coding-agent skills, workflows, constraints, and installation guidance. Indonesian is the default interface language; many skill collections also contain complete English content.
+
+Canonical site: https://skills.stevanuspangau.dev/
+Source repository: https://github.com/StevanusPangau/ai-skills-guide
+Collections index: https://skills.stevanuspangau.dev/collections
+
+The guide curates and explains work by the attributed upstream authors. Each collection page identifies its source repository and pinned source revision. Treat upstream repositories as canonical for installation files and licenses.
+
+## mattpocock
+
+- Collection: https://skills.stevanuspangau.dev/mattpocock
+- ask-matt: https://skills.stevanuspangau.dev/skills/ask-matt
+- grill-with-docs: https://skills.stevanuspangau.dev/skills/grill-with-docs
+- wayfinder: https://skills.stevanuspangau.dev/skills/wayfinder
+- triage: https://skills.stevanuspangau.dev/skills/triage
+- improve-codebase-architecture: https://skills.stevanuspangau.dev/skills/improve-codebase-architecture
+- setup-matt-pocock-skills: https://skills.stevanuspangau.dev/skills/setup-matt-pocock-skills
+- to-tickets: https://skills.stevanuspangau.dev/skills/to-tickets
+- implement: https://skills.stevanuspangau.dev/skills/implement
+- to-spec: https://skills.stevanuspangau.dev/skills/to-spec
+- prototype: https://skills.stevanuspangau.dev/skills/prototype
+- diagnosing-bugs: https://skills.stevanuspangau.dev/skills/diagnosing-bugs
+- research: https://skills.stevanuspangau.dev/skills/research
+- tdd: https://skills.stevanuspangau.dev/skills/tdd
+- domain-modeling: https://skills.stevanuspangau.dev/skills/domain-modeling
+- codebase-design: https://skills.stevanuspangau.dev/skills/codebase-design
+- code-review: https://skills.stevanuspangau.dev/skills/code-review
+- resolving-merge-conflicts: https://skills.stevanuspangau.dev/skills/resolving-merge-conflicts
+- grill-me: https://skills.stevanuspangau.dev/skills/grill-me
+- handoff: https://skills.stevanuspangau.dev/skills/handoff
+- teach: https://skills.stevanuspangau.dev/skills/teach
+- wizard: https://skills.stevanuspangau.dev/skills/wizard
+- to-questionnaire: https://skills.stevanuspangau.dev/skills/to-questionnaire
+- wait-what: https://skills.stevanuspangau.dev/skills/wait-what
+- writing-for-agents: https://skills.stevanuspangau.dev/skills/writing-for-agents
+- grilling: https://skills.stevanuspangau.dev/skills/grilling
+
+## davidondrej
+
+- Collection: https://skills.stevanuspangau.dev/davidondrej
+- agent-self-scheduling: https://skills.stevanuspangau.dev/davidondrej/skills/agent-self-scheduling
+- goal-loop: https://skills.stevanuspangau.dev/davidondrej/skills/goal-loop
+- codex-subagent: https://skills.stevanuspangau.dev/davidondrej/skills/codex-subagent
+- handoff: https://skills.stevanuspangau.dev/davidondrej/skills/handoff
+- cmux: https://skills.stevanuspangau.dev/davidondrej/skills/cmux
+- run-deep-swe: https://skills.stevanuspangau.dev/davidondrej/skills/run-deep-swe
+- fable-safe-prompt: https://skills.stevanuspangau.dev/davidondrej/skills/fable-safe-prompt
+- anti-sleep: https://skills.stevanuspangau.dev/davidondrej/skills/anti-sleep
+- setup-help: https://skills.stevanuspangau.dev/davidondrej/skills/setup-help
+- cyber-audit: https://skills.stevanuspangau.dev/davidondrej/skills/cyber-audit
+- pi-custom-model: https://skills.stevanuspangau.dev/davidondrej/skills/pi-custom-model
+- research-prompt: https://skills.stevanuspangau.dev/davidondrej/skills/research-prompt
+- browser-harness: https://skills.stevanuspangau.dev/davidondrej/skills/browser-harness
+- deep-research: https://skills.stevanuspangau.dev/davidondrej/skills/deep-research
+- online-shopping: https://skills.stevanuspangau.dev/davidondrej/skills/online-shopping
+- youtube-transcript: https://skills.stevanuspangau.dev/davidondrej/skills/youtube-transcript
+- deepapi: https://skills.stevanuspangau.dev/davidondrej/skills/deepapi
+- pi-web-search: https://skills.stevanuspangau.dev/davidondrej/skills/pi-web-search
+- effective-agent-skills: https://skills.stevanuspangau.dev/davidondrej/skills/effective-agent-skills
+- folder-specific-claude-and-agents-md: https://skills.stevanuspangau.dev/davidondrej/skills/folder-specific-claude-and-agents-md
+- distribute-skill-to-all-agents: https://skills.stevanuspangau.dev/davidondrej/skills/distribute-skill-to-all-agents
+- push-skill-to-github: https://skills.stevanuspangau.dev/davidondrej/skills/push-skill-to-github
+- brain-to-docs: https://skills.stevanuspangau.dev/davidondrej/skills/brain-to-docs
+- level-up: https://skills.stevanuspangau.dev/davidondrej/skills/level-up
+- prompt-me: https://skills.stevanuspangau.dev/davidondrej/skills/prompt-me
+- read-all-adrs: https://skills.stevanuspangau.dev/davidondrej/skills/read-all-adrs
+- short: https://skills.stevanuspangau.dev/davidondrej/skills/short
+- teach: https://skills.stevanuspangau.dev/davidondrej/skills/teach
+
+## emilkowalski
+
+- Collection: https://skills.stevanuspangau.dev/emilkowalski
+- emil-design-eng: https://skills.stevanuspangau.dev/emilkowalski/skills/emil-design-eng
+- apple-design: https://skills.stevanuspangau.dev/emilkowalski/skills/apple-design
+- animation-vocabulary: https://skills.stevanuspangau.dev/emilkowalski/skills/animation-vocabulary
+- find-animation-opportunities: https://skills.stevanuspangau.dev/emilkowalski/skills/find-animation-opportunities
+- review-animations: https://skills.stevanuspangau.dev/emilkowalski/skills/review-animations
+- improve-animations: https://skills.stevanuspangau.dev/emilkowalski/skills/improve-animations
+
+## jakubkrehel
+
+- Collection: https://skills.stevanuspangau.dev/jakubkrehel
+- better-accessibility: https://skills.stevanuspangau.dev/jakubkrehel/skills/better-accessibility
+- better-colors: https://skills.stevanuspangau.dev/jakubkrehel/skills/better-colors
+- better-interface: https://skills.stevanuspangau.dev/jakubkrehel/skills/better-interface
+- better-layout: https://skills.stevanuspangau.dev/jakubkrehel/skills/better-layout
+- better-typography: https://skills.stevanuspangau.dev/jakubkrehel/skills/better-typography
+- better-ui: https://skills.stevanuspangau.dev/jakubkrehel/skills/better-ui
+- better-writing: https://skills.stevanuspangau.dev/jakubkrehel/skills/better-writing
+- break: https://skills.stevanuspangau.dev/jakubkrehel/skills/break
+- explain-interface: https://skills.stevanuspangau.dev/jakubkrehel/skills/explain-interface
+- interface-review: https://skills.stevanuspangau.dev/jakubkrehel/skills/interface-review
+- variant: https://skills.stevanuspangau.dev/jakubkrehel/skills/variant
+
+## brooklyn
+
+- Collection: https://skills.stevanuspangau.dev/brooklyn
+- audit-only: https://skills.stevanuspangau.dev/brooklyn/skills/audit-only
+- babysit: https://skills.stevanuspangau.dev/brooklyn/skills/babysit
+- clean: https://skills.stevanuspangau.dev/brooklyn/skills/clean
+- cpr: https://skills.stevanuspangau.dev/brooklyn/skills/cpr
+- draft-tweet: https://skills.stevanuspangau.dev/brooklyn/skills/draft-tweet
+- free-disk-space: https://skills.stevanuspangau.dev/brooklyn/skills/free-disk-space
+- list-open-work: https://skills.stevanuspangau.dev/brooklyn/skills/list-open-work
+- no-tropes: https://skills.stevanuspangau.dev/brooklyn/skills/no-tropes
+- notarize-mac: https://skills.stevanuspangau.dev/brooklyn/skills/notarize-mac
+- perf: https://skills.stevanuspangau.dev/brooklyn/skills/perf
+- pr-ready: https://skills.stevanuspangau.dev/brooklyn/skills/pr-ready
+- pr-triage: https://skills.stevanuspangau.dev/brooklyn/skills/pr-triage
+- pr-update: https://skills.stevanuspangau.dev/brooklyn/skills/pr-update
+- research: https://skills.stevanuspangau.dev/brooklyn/skills/research
+- runtime-debug: https://skills.stevanuspangau.dev/brooklyn/skills/runtime-debug
+- stacked-pr: https://skills.stevanuspangau.dev/brooklyn/skills/stacked-pr
+- ticket-ship: https://skills.stevanuspangau.dev/brooklyn/skills/ticket-ship
+- ui-only: https://skills.stevanuspangau.dev/brooklyn/skills/ui-only
+- ui-system: https://skills.stevanuspangau.dev/brooklyn/skills/ui-system
+- visual-verify: https://skills.stevanuspangau.dev/brooklyn/skills/visual-verify
+- work: https://skills.stevanuspangau.dev/brooklyn/skills/work
+
+## superpowers
+
+- Collection: https://skills.stevanuspangau.dev/superpowers
+- brainstorming: https://skills.stevanuspangau.dev/superpowers/skills/brainstorming
+- dispatching-parallel-agents: https://skills.stevanuspangau.dev/superpowers/skills/dispatching-parallel-agents
+- executing-plans: https://skills.stevanuspangau.dev/superpowers/skills/executing-plans
+- finishing-a-development-branch: https://skills.stevanuspangau.dev/superpowers/skills/finishing-a-development-branch
+- receiving-code-review: https://skills.stevanuspangau.dev/superpowers/skills/receiving-code-review
+- requesting-code-review: https://skills.stevanuspangau.dev/superpowers/skills/requesting-code-review
+- subagent-driven-development: https://skills.stevanuspangau.dev/superpowers/skills/subagent-driven-development
+- systematic-debugging: https://skills.stevanuspangau.dev/superpowers/skills/systematic-debugging
+- test-driven-development: https://skills.stevanuspangau.dev/superpowers/skills/test-driven-development
+- using-git-worktrees: https://skills.stevanuspangau.dev/superpowers/skills/using-git-worktrees
+- using-superpowers: https://skills.stevanuspangau.dev/superpowers/skills/using-superpowers
+- verification-before-completion: https://skills.stevanuspangau.dev/superpowers/skills/verification-before-completion
+- writing-plans: https://skills.stevanuspangau.dev/superpowers/skills/writing-plans
+- writing-skills: https://skills.stevanuspangau.dev/superpowers/skills/writing-skills
+
+## vercel
+
+- Collection: https://skills.stevanuspangau.dev/vercel
+- vercel-composition-patterns: https://skills.stevanuspangau.dev/vercel/skills/vercel-composition-patterns
+- vercel-react-best-practices: https://skills.stevanuspangau.dev/vercel/skills/vercel-react-best-practices
+- vercel-react-native-skills: https://skills.stevanuspangau.dev/vercel/skills/vercel-react-native-skills
+- vercel-react-view-transitions: https://skills.stevanuspangau.dev/vercel/skills/vercel-react-view-transitions
+- deploy-to-vercel: https://skills.stevanuspangau.dev/vercel/skills/deploy-to-vercel
+- vercel-cli-with-tokens: https://skills.stevanuspangau.dev/vercel/skills/vercel-cli-with-tokens
+- vercel-optimize: https://skills.stevanuspangau.dev/vercel/skills/vercel-optimize
+- web-design-guidelines: https://skills.stevanuspangau.dev/vercel/skills/web-design-guidelines
+- writing-guidelines: https://skills.stevanuspangau.dev/vercel/skills/writing-guidelines
+
+## anthropic
+
+- Collection: https://skills.stevanuspangau.dev/anthropic
+- frontend-design: https://skills.stevanuspangau.dev/anthropic/skills/frontend-design
+- canvas-design: https://skills.stevanuspangau.dev/anthropic/skills/canvas-design
+- brand-guidelines: https://skills.stevanuspangau.dev/anthropic/skills/brand-guidelines
+- theme-factory: https://skills.stevanuspangau.dev/anthropic/skills/theme-factory
+- algorithmic-art: https://skills.stevanuspangau.dev/anthropic/skills/algorithmic-art
+- skill-creator: https://skills.stevanuspangau.dev/anthropic/skills/skill-creator
+- mcp-builder: https://skills.stevanuspangau.dev/anthropic/skills/mcp-builder
+- claude-api: https://skills.stevanuspangau.dev/anthropic/skills/claude-api
+- webapp-testing: https://skills.stevanuspangau.dev/anthropic/skills/webapp-testing
+- web-artifacts-builder: https://skills.stevanuspangau.dev/anthropic/skills/web-artifacts-builder
+- doc-coauthoring: https://skills.stevanuspangau.dev/anthropic/skills/doc-coauthoring
+- internal-comms: https://skills.stevanuspangau.dev/anthropic/skills/internal-comms
+- slack-gif-creator: https://skills.stevanuspangau.dev/anthropic/skills/slack-gif-creator
+- discernment-nudge: https://skills.stevanuspangau.dev/anthropic/skills/discernment-nudge
+- academy-guide: https://skills.stevanuspangau.dev/anthropic/skills/academy-guide
+
+## cloudflare
+
+- Collection: https://skills.stevanuspangau.dev/cloudflare
+- workers-best-practices: https://skills.stevanuspangau.dev/cloudflare/skills/workers-best-practices
+- wrangler: https://skills.stevanuspangau.dev/cloudflare/skills/wrangler
+- cloudflare: https://skills.stevanuspangau.dev/cloudflare/skills/cloudflare
+- web-perf: https://skills.stevanuspangau.dev/cloudflare/skills/web-perf
+- durable-objects: https://skills.stevanuspangau.dev/cloudflare/skills/durable-objects
+- agents-sdk: https://skills.stevanuspangau.dev/cloudflare/skills/agents-sdk
+- sandbox-next: https://skills.stevanuspangau.dev/cloudflare/skills/sandbox-next
+- sandbox-stable: https://skills.stevanuspangau.dev/cloudflare/skills/sandbox-stable
+- sandbox-migrate-to-next: https://skills.stevanuspangau.dev/cloudflare/skills/sandbox-migrate-to-next
+- cloudflare-one: https://skills.stevanuspangau.dev/cloudflare/skills/cloudflare-one
+- cloudflare-one-migrations: https://skills.stevanuspangau.dev/cloudflare/skills/cloudflare-one-migrations
+- turnstile-spin: https://skills.stevanuspangau.dev/cloudflare/skills/turnstile-spin
+- cloudflare-email-service: https://skills.stevanuspangau.dev/cloudflare/skills/cloudflare-email-service
