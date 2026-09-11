@@ -26,16 +26,25 @@ Ini adalah **panduan referensi + bundle adaptasi**, bukan pengganti upstream. Un
 
 ## Koleksi saat ini
 
-Ringkasan yang tersedia hari ini (jumlah/pin berubah seiring koleksi bertumbuh):
+Ringkasan yang tersedia hari ini (220+ skills di 15 koleksi):
 
-| Koleksi | Route | Upstream | Katalog | Bundle Hermes |
+| Koleksi | Route | Upstream | Katalog | Install Hermes / Agent |
 |---|---|---|---|---|
 | Matt Pocock — AI Coding Skills | [`/mattpocock`](https://skills.stevanuspangau.dev/mattpocock) | [mattpocock/skills](https://github.com/mattpocock/skills) `v1.2.3` | 25 | `skills/hermes/` (25) |
 | Emil Kowalski — Design Engineering Skills | [`/emilkowalski`](https://skills.stevanuspangau.dev/emilkowalski) | [emilkowalski/skills](https://github.com/emilkowalski/skills) pin `6bf24434…` | 6 | Upstream via skills.sh |
-| David Ondrej — Personal Agent Skills | [`/davidondrej`](https://skills.stevanuspangau.dev/davidondrej) | [davidondrej/skills](https://github.com/davidondrej/skills) pin `2f70c586…` | 28 (+ compat/risk) | `skills/davidondrej/` first-wave 9 |
-| Jakub Krehel — UI & Design Engineering Skills | [`/jakubkrehel`](https://skills.stevanuspangau.dev/jakubkrehel) | [jakubkrehel/skills](https://github.com/jakubkrehel/skills) | 11 | Upstream via skills.sh |
-| Brooklyn — Autonomous Engineering & PR Skills | [`/brooklyn`](https://skills.stevanuspangau.dev/brooklyn) | [OutThisLife/brooklyn-skills](https://github.com/OutThisLife/brooklyn-skills) | 21 | Upstream / Hermes external_dirs |
+| David Ondrej — Personal Agent Skills | [`/davidondrej`](https://skills.stevanuspangau.dev/davidondrej) | [davidondrej/skills](https://github.com/davidondrej/skills) pin `2f70c586…` | 28 | Upstream via skills.sh |
+| Jakub Krehel — UI & Design Engineering | [`/jakubkrehel`](https://skills.stevanuspangau.dev/jakubkrehel) | [jakubkrehel/skills](https://github.com/jakubkrehel/skills) | 11 | Upstream via skills.sh |
+| Brooklyn — Autonomous Engineering & PR | [`/brooklyn`](https://skills.stevanuspangau.dev/brooklyn) | [OutThisLife/brooklyn-skills](https://github.com/OutThisLife/brooklyn-skills) | 21 | Upstream via skills.sh |
 | Jesse Vincent — Agentic SDLC & Superpowers | [`/superpowers`](https://skills.stevanuspangau.dev/superpowers) | [obra/superpowers](https://github.com/obra/superpowers) | 14 | Upstream via skills.sh |
+| Official Vercel Agent Skills | [`/vercel`](https://skills.stevanuspangau.dev/vercel) | [vercel-labs/agent-skills](https://github.com/vercel-labs/agent-skills) | 9 | Upstream via skills.sh |
+| Official Anthropic Agent Skills | [`/anthropic`](https://skills.stevanuspangau.dev/anthropic) | [anthropics/skills](https://github.com/anthropics/skills) | 19 | Upstream via skills.sh |
+| Official Cloudflare Edge Skills | [`/cloudflare`](https://skills.stevanuspangau.dev/cloudflare) | [cloudflare/skills](https://github.com/cloudflare/skills) | 13 | Upstream via skills.sh |
+| Official Supabase Postgres Skills | [`/supabase`](https://skills.stevanuspangau.dev/supabase) | [supabase/agent-skills](https://github.com/supabase/agent-skills) | 2 | Upstream via skills.sh |
+| Official Prisma ORM v7 Skills | [`/prisma`](https://skills.stevanuspangau.dev/prisma) | [prisma/skills](https://github.com/prisma/skills) | 9 | Upstream via skills.sh |
+| Official TanStack Framework Skills | [`/tanstack`](https://skills.stevanuspangau.dev/tanstack) | [tanstack-skills/tanstack-skills](https://github.com/tanstack-skills/tanstack-skills) | 14 | Upstream / npm Intent |
+| Official Expo & EAS Mobile Skills | [`/expo`](https://skills.stevanuspangau.dev/expo) | [expo/skills](https://github.com/expo/skills) | 25 | Upstream via skills.sh |
+| Official GreenSock (GSAP) Motion Skills | [`/gsap`](https://skills.stevanuspangau.dev/gsap) | [greensock/gsap-skills](https://github.com/greensock/gsap-skills) | 8 | Upstream via skills.sh |
+| Impeccable Design System by Paul Bakaus | [`/impeccable`](https://skills.stevanuspangau.dev/impeccable) | [pbakaus/impeccable](https://github.com/pbakaus/impeccable) | 21 | Upstream via skills.sh |
 
 Beberapa koleksi mendokumentasikan upstream lebih luas dari yang di-ship sebagai first-wave Hermes. Halaman per-koleksi dan `skills/*/UPSTREAM.md` / `ATTRIBUTION.md` (jika ada) adalah sumber kebenaran untuk pin dan cakupan.
 
