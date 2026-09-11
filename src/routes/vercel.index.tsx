@@ -6,6 +6,7 @@ import {
 } from '@/features/vercel/guide'
 import { VercelFlow } from '@/features/vercel/flow'
 import { VercelConcepts } from '@/features/vercel/concepts'
+import { VercelWaterfallLab } from '@/features/vercel/lab'
 import { VercelWorkflows } from '@/features/vercel/workflows'
 import { VercelInstall } from '@/features/vercel/install'
 import { StandardSkillsSection } from '@/components/standard-skills-section'
@@ -22,6 +23,7 @@ function VercelIndexPage() {
       { id: 'overview', label: m.vercel_sidebar_overview() },
       { id: 'flow', label: m.sidebar_flow_title() },
       { id: 'concepts', label: m.sidebar_concepts() },
+      { id: 'waterfall-lab', label: m.vercel_sidebar_lab() },
       {
         id: 'skills',
         label: m.vercel_sidebar_skills({ count: String(vercelSkills.length) }),
@@ -51,6 +53,7 @@ function VercelIndexPage() {
       <VercelOverview />
       <VercelFlow />
       <VercelConcepts />
+      <VercelWaterfallLab />
       <StandardSkillsSection
         collectionSlug="vercel"
         skills={vercelSkills}

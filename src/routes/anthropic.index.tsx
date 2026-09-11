@@ -5,6 +5,7 @@ import {
   AnthropicOverview,
 } from '@/features/anthropic/guide'
 import { AnthropicConcepts } from '@/features/anthropic/concepts'
+import { AnthropicEvalArena } from '@/features/anthropic/arena'
 import { AnthropicWorkflows } from '@/features/anthropic/workflows'
 import { AnthropicInstall } from '@/features/anthropic/install'
 import { StandardSkillsSection } from '@/components/standard-skills-section'
@@ -20,6 +21,7 @@ function AnthropicIndexPage() {
     () => [
       { id: 'overview', label: m.anthropic_sidebar_overview() },
       { id: 'concepts', label: m.sidebar_concepts() },
+      { id: 'eval-arena', label: m.anthropic_sidebar_arena() },
       {
         id: 'skills',
         label: m.anthropic_sidebar_skills({ count: String(anthropicSkills.length) }),
@@ -45,6 +47,7 @@ function AnthropicIndexPage() {
     >
       <AnthropicOverview />
       <AnthropicConcepts />
+      <AnthropicEvalArena />
       <StandardSkillsSection
         collectionSlug="anthropic"
         skills={anthropicSkills}
