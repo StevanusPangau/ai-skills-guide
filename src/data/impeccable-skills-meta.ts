@@ -1,0 +1,1 @@
+export const IMPECCABLE_SKILL_COUNT = 21

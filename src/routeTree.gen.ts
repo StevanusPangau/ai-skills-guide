@@ -16,6 +16,9 @@ import { Route as SupabaseRouteImport } from './routes/supabase'
 import { Route as PrismaRouteImport } from './routes/prisma'
 import { Route as MattpocockRouteImport } from './routes/mattpocock'
 import { Route as JakubkrehelRouteImport } from './routes/jakubkrehel'
+import { Route as ImpeccableRouteImport } from './routes/impeccable'
+import { Route as GsapRouteImport } from './routes/gsap'
+import { Route as ExpoRouteImport } from './routes/expo'
 import { Route as EmilkowalskiRouteImport } from './routes/emilkowalski'
 import { Route as DavidondrejRouteImport } from './routes/davidondrej'
 import { Route as CollectionsRouteImport } from './routes/collections'
@@ -29,6 +32,9 @@ import { Route as SuperpowersIndexRouteImport } from './routes/superpowers.index
 import { Route as SupabaseIndexRouteImport } from './routes/supabase.index'
 import { Route as PrismaIndexRouteImport } from './routes/prisma.index'
 import { Route as JakubkrehelIndexRouteImport } from './routes/jakubkrehel.index'
+import { Route as ImpeccableIndexRouteImport } from './routes/impeccable.index'
+import { Route as GsapIndexRouteImport } from './routes/gsap.index'
+import { Route as ExpoIndexRouteImport } from './routes/expo.index'
 import { Route as EmilkowalskiIndexRouteImport } from './routes/emilkowalski.index'
 import { Route as DavidondrejIndexRouteImport } from './routes/davidondrej.index'
 import { Route as CloudflareIndexRouteImport } from './routes/cloudflare.index'
@@ -41,6 +47,9 @@ import { Route as SuperpowersSkillsSkillNameRouteImport } from './routes/superpo
 import { Route as SupabaseSkillsSkillNameRouteImport } from './routes/supabase.skills.$skillName'
 import { Route as PrismaSkillsSkillNameRouteImport } from './routes/prisma.skills.$skillName'
 import { Route as JakubkrehelSkillsSkillNameRouteImport } from './routes/jakubkrehel.skills.$skillName'
+import { Route as ImpeccableSkillsSkillNameRouteImport } from './routes/impeccable.skills.$skillName'
+import { Route as GsapSkillsSkillNameRouteImport } from './routes/gsap.skills.$skillName'
+import { Route as ExpoSkillsSkillNameRouteImport } from './routes/expo.skills.$skillName'
 import { Route as EmilkowalskiSkillsSkillNameRouteImport } from './routes/emilkowalski.skills.$skillName'
 import { Route as DavidondrejSkillsSkillNameRouteImport } from './routes/davidondrej.skills.$skillName'
 import { Route as CloudflareSkillsSkillNameRouteImport } from './routes/cloudflare.skills.$skillName'
@@ -80,6 +89,21 @@ const MattpocockRoute = MattpocockRouteImport.update({
 const JakubkrehelRoute = JakubkrehelRouteImport.update({
   id: '/jakubkrehel',
   path: '/jakubkrehel',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ImpeccableRoute = ImpeccableRouteImport.update({
+  id: '/impeccable',
+  path: '/impeccable',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GsapRoute = GsapRouteImport.update({
+  id: '/gsap',
+  path: '/gsap',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ExpoRoute = ExpoRouteImport.update({
+  id: '/expo',
+  path: '/expo',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EmilkowalskiRoute = EmilkowalskiRouteImport.update({
@@ -147,6 +171,21 @@ const JakubkrehelIndexRoute = JakubkrehelIndexRouteImport.update({
   path: '/',
   getParentRoute: () => JakubkrehelRoute,
 } as any)
+const ImpeccableIndexRoute = ImpeccableIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => ImpeccableRoute,
+} as any)
+const GsapIndexRoute = GsapIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => GsapRoute,
+} as any)
+const ExpoIndexRoute = ExpoIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => ExpoRoute,
+} as any)
 const EmilkowalskiIndexRoute = EmilkowalskiIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -209,6 +248,22 @@ const JakubkrehelSkillsSkillNameRoute =
     path: '/skills/$skillName',
     getParentRoute: () => JakubkrehelRoute,
   } as any)
+const ImpeccableSkillsSkillNameRoute =
+  ImpeccableSkillsSkillNameRouteImport.update({
+    id: '/skills/$skillName',
+    path: '/skills/$skillName',
+    getParentRoute: () => ImpeccableRoute,
+  } as any)
+const GsapSkillsSkillNameRoute = GsapSkillsSkillNameRouteImport.update({
+  id: '/skills/$skillName',
+  path: '/skills/$skillName',
+  getParentRoute: () => GsapRoute,
+} as any)
+const ExpoSkillsSkillNameRoute = ExpoSkillsSkillNameRouteImport.update({
+  id: '/skills/$skillName',
+  path: '/skills/$skillName',
+  getParentRoute: () => ExpoRoute,
+} as any)
 const EmilkowalskiSkillsSkillNameRoute =
   EmilkowalskiSkillsSkillNameRouteImport.update({
     id: '/skills/$skillName',
@@ -247,6 +302,9 @@ export interface FileRoutesByFullPath {
   '/collections': typeof CollectionsRoute
   '/davidondrej': typeof DavidondrejRouteWithChildren
   '/emilkowalski': typeof EmilkowalskiRouteWithChildren
+  '/expo': typeof ExpoRouteWithChildren
+  '/gsap': typeof GsapRouteWithChildren
+  '/impeccable': typeof ImpeccableRouteWithChildren
   '/jakubkrehel': typeof JakubkrehelRouteWithChildren
   '/mattpocock': typeof MattpocockRoute
   '/prisma': typeof PrismaRouteWithChildren
@@ -260,6 +318,9 @@ export interface FileRoutesByFullPath {
   '/cloudflare/': typeof CloudflareIndexRoute
   '/davidondrej/': typeof DavidondrejIndexRoute
   '/emilkowalski/': typeof EmilkowalskiIndexRoute
+  '/expo/': typeof ExpoIndexRoute
+  '/gsap/': typeof GsapIndexRoute
+  '/impeccable/': typeof ImpeccableIndexRoute
   '/jakubkrehel/': typeof JakubkrehelIndexRoute
   '/prisma/': typeof PrismaIndexRoute
   '/supabase/': typeof SupabaseIndexRoute
@@ -271,6 +332,9 @@ export interface FileRoutesByFullPath {
   '/cloudflare/skills/$skillName': typeof CloudflareSkillsSkillNameRoute
   '/davidondrej/skills/$skillName': typeof DavidondrejSkillsSkillNameRoute
   '/emilkowalski/skills/$skillName': typeof EmilkowalskiSkillsSkillNameRoute
+  '/expo/skills/$skillName': typeof ExpoSkillsSkillNameRoute
+  '/gsap/skills/$skillName': typeof GsapSkillsSkillNameRoute
+  '/impeccable/skills/$skillName': typeof ImpeccableSkillsSkillNameRoute
   '/jakubkrehel/skills/$skillName': typeof JakubkrehelSkillsSkillNameRoute
   '/prisma/skills/$skillName': typeof PrismaSkillsSkillNameRoute
   '/supabase/skills/$skillName': typeof SupabaseSkillsSkillNameRoute
@@ -288,6 +352,9 @@ export interface FileRoutesByTo {
   '/cloudflare': typeof CloudflareIndexRoute
   '/davidondrej': typeof DavidondrejIndexRoute
   '/emilkowalski': typeof EmilkowalskiIndexRoute
+  '/expo': typeof ExpoIndexRoute
+  '/gsap': typeof GsapIndexRoute
+  '/impeccable': typeof ImpeccableIndexRoute
   '/jakubkrehel': typeof JakubkrehelIndexRoute
   '/prisma': typeof PrismaIndexRoute
   '/supabase': typeof SupabaseIndexRoute
@@ -299,6 +366,9 @@ export interface FileRoutesByTo {
   '/cloudflare/skills/$skillName': typeof CloudflareSkillsSkillNameRoute
   '/davidondrej/skills/$skillName': typeof DavidondrejSkillsSkillNameRoute
   '/emilkowalski/skills/$skillName': typeof EmilkowalskiSkillsSkillNameRoute
+  '/expo/skills/$skillName': typeof ExpoSkillsSkillNameRoute
+  '/gsap/skills/$skillName': typeof GsapSkillsSkillNameRoute
+  '/impeccable/skills/$skillName': typeof ImpeccableSkillsSkillNameRoute
   '/jakubkrehel/skills/$skillName': typeof JakubkrehelSkillsSkillNameRoute
   '/prisma/skills/$skillName': typeof PrismaSkillsSkillNameRoute
   '/supabase/skills/$skillName': typeof SupabaseSkillsSkillNameRoute
@@ -315,6 +385,9 @@ export interface FileRoutesById {
   '/collections': typeof CollectionsRoute
   '/davidondrej': typeof DavidondrejRouteWithChildren
   '/emilkowalski': typeof EmilkowalskiRouteWithChildren
+  '/expo': typeof ExpoRouteWithChildren
+  '/gsap': typeof GsapRouteWithChildren
+  '/impeccable': typeof ImpeccableRouteWithChildren
   '/jakubkrehel': typeof JakubkrehelRouteWithChildren
   '/mattpocock': typeof MattpocockRoute
   '/prisma': typeof PrismaRouteWithChildren
@@ -328,6 +401,9 @@ export interface FileRoutesById {
   '/cloudflare/': typeof CloudflareIndexRoute
   '/davidondrej/': typeof DavidondrejIndexRoute
   '/emilkowalski/': typeof EmilkowalskiIndexRoute
+  '/expo/': typeof ExpoIndexRoute
+  '/gsap/': typeof GsapIndexRoute
+  '/impeccable/': typeof ImpeccableIndexRoute
   '/jakubkrehel/': typeof JakubkrehelIndexRoute
   '/prisma/': typeof PrismaIndexRoute
   '/supabase/': typeof SupabaseIndexRoute
@@ -339,6 +415,9 @@ export interface FileRoutesById {
   '/cloudflare/skills/$skillName': typeof CloudflareSkillsSkillNameRoute
   '/davidondrej/skills/$skillName': typeof DavidondrejSkillsSkillNameRoute
   '/emilkowalski/skills/$skillName': typeof EmilkowalskiSkillsSkillNameRoute
+  '/expo/skills/$skillName': typeof ExpoSkillsSkillNameRoute
+  '/gsap/skills/$skillName': typeof GsapSkillsSkillNameRoute
+  '/impeccable/skills/$skillName': typeof ImpeccableSkillsSkillNameRoute
   '/jakubkrehel/skills/$skillName': typeof JakubkrehelSkillsSkillNameRoute
   '/prisma/skills/$skillName': typeof PrismaSkillsSkillNameRoute
   '/supabase/skills/$skillName': typeof SupabaseSkillsSkillNameRoute
@@ -356,6 +435,9 @@ export interface FileRouteTypes {
     | '/collections'
     | '/davidondrej'
     | '/emilkowalski'
+    | '/expo'
+    | '/gsap'
+    | '/impeccable'
     | '/jakubkrehel'
     | '/mattpocock'
     | '/prisma'
@@ -369,6 +451,9 @@ export interface FileRouteTypes {
     | '/cloudflare/'
     | '/davidondrej/'
     | '/emilkowalski/'
+    | '/expo/'
+    | '/gsap/'
+    | '/impeccable/'
     | '/jakubkrehel/'
     | '/prisma/'
     | '/supabase/'
@@ -380,6 +465,9 @@ export interface FileRouteTypes {
     | '/cloudflare/skills/$skillName'
     | '/davidondrej/skills/$skillName'
     | '/emilkowalski/skills/$skillName'
+    | '/expo/skills/$skillName'
+    | '/gsap/skills/$skillName'
+    | '/impeccable/skills/$skillName'
     | '/jakubkrehel/skills/$skillName'
     | '/prisma/skills/$skillName'
     | '/supabase/skills/$skillName'
@@ -397,6 +485,9 @@ export interface FileRouteTypes {
     | '/cloudflare'
     | '/davidondrej'
     | '/emilkowalski'
+    | '/expo'
+    | '/gsap'
+    | '/impeccable'
     | '/jakubkrehel'
     | '/prisma'
     | '/supabase'
@@ -408,6 +499,9 @@ export interface FileRouteTypes {
     | '/cloudflare/skills/$skillName'
     | '/davidondrej/skills/$skillName'
     | '/emilkowalski/skills/$skillName'
+    | '/expo/skills/$skillName'
+    | '/gsap/skills/$skillName'
+    | '/impeccable/skills/$skillName'
     | '/jakubkrehel/skills/$skillName'
     | '/prisma/skills/$skillName'
     | '/supabase/skills/$skillName'
@@ -423,6 +517,9 @@ export interface FileRouteTypes {
     | '/collections'
     | '/davidondrej'
     | '/emilkowalski'
+    | '/expo'
+    | '/gsap'
+    | '/impeccable'
     | '/jakubkrehel'
     | '/mattpocock'
     | '/prisma'
@@ -436,6 +533,9 @@ export interface FileRouteTypes {
     | '/cloudflare/'
     | '/davidondrej/'
     | '/emilkowalski/'
+    | '/expo/'
+    | '/gsap/'
+    | '/impeccable/'
     | '/jakubkrehel/'
     | '/prisma/'
     | '/supabase/'
@@ -447,6 +547,9 @@ export interface FileRouteTypes {
     | '/cloudflare/skills/$skillName'
     | '/davidondrej/skills/$skillName'
     | '/emilkowalski/skills/$skillName'
+    | '/expo/skills/$skillName'
+    | '/gsap/skills/$skillName'
+    | '/impeccable/skills/$skillName'
     | '/jakubkrehel/skills/$skillName'
     | '/prisma/skills/$skillName'
     | '/supabase/skills/$skillName'
@@ -463,6 +566,9 @@ export interface RootRouteChildren {
   CollectionsRoute: typeof CollectionsRoute
   DavidondrejRoute: typeof DavidondrejRouteWithChildren
   EmilkowalskiRoute: typeof EmilkowalskiRouteWithChildren
+  ExpoRoute: typeof ExpoRouteWithChildren
+  GsapRoute: typeof GsapRouteWithChildren
+  ImpeccableRoute: typeof ImpeccableRouteWithChildren
   JakubkrehelRoute: typeof JakubkrehelRouteWithChildren
   MattpocockRoute: typeof MattpocockRoute
   PrismaRoute: typeof PrismaRouteWithChildren
@@ -522,6 +628,27 @@ declare module '@tanstack/react-router' {
       path: '/jakubkrehel'
       fullPath: '/jakubkrehel'
       preLoaderRoute: typeof JakubkrehelRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/impeccable': {
+      id: '/impeccable'
+      path: '/impeccable'
+      fullPath: '/impeccable'
+      preLoaderRoute: typeof ImpeccableRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/gsap': {
+      id: '/gsap'
+      path: '/gsap'
+      fullPath: '/gsap'
+      preLoaderRoute: typeof GsapRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/expo': {
+      id: '/expo'
+      path: '/expo'
+      fullPath: '/expo'
+      preLoaderRoute: typeof ExpoRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/emilkowalski': {
@@ -615,6 +742,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof JakubkrehelIndexRouteImport
       parentRoute: typeof JakubkrehelRoute
     }
+    '/impeccable/': {
+      id: '/impeccable/'
+      path: '/'
+      fullPath: '/impeccable/'
+      preLoaderRoute: typeof ImpeccableIndexRouteImport
+      parentRoute: typeof ImpeccableRoute
+    }
+    '/gsap/': {
+      id: '/gsap/'
+      path: '/'
+      fullPath: '/gsap/'
+      preLoaderRoute: typeof GsapIndexRouteImport
+      parentRoute: typeof GsapRoute
+    }
+    '/expo/': {
+      id: '/expo/'
+      path: '/'
+      fullPath: '/expo/'
+      preLoaderRoute: typeof ExpoIndexRouteImport
+      parentRoute: typeof ExpoRoute
+    }
     '/emilkowalski/': {
       id: '/emilkowalski/'
       path: '/'
@@ -698,6 +846,27 @@ declare module '@tanstack/react-router' {
       fullPath: '/jakubkrehel/skills/$skillName'
       preLoaderRoute: typeof JakubkrehelSkillsSkillNameRouteImport
       parentRoute: typeof JakubkrehelRoute
+    }
+    '/impeccable/skills/$skillName': {
+      id: '/impeccable/skills/$skillName'
+      path: '/skills/$skillName'
+      fullPath: '/impeccable/skills/$skillName'
+      preLoaderRoute: typeof ImpeccableSkillsSkillNameRouteImport
+      parentRoute: typeof ImpeccableRoute
+    }
+    '/gsap/skills/$skillName': {
+      id: '/gsap/skills/$skillName'
+      path: '/skills/$skillName'
+      fullPath: '/gsap/skills/$skillName'
+      preLoaderRoute: typeof GsapSkillsSkillNameRouteImport
+      parentRoute: typeof GsapRoute
+    }
+    '/expo/skills/$skillName': {
+      id: '/expo/skills/$skillName'
+      path: '/skills/$skillName'
+      fullPath: '/expo/skills/$skillName'
+      preLoaderRoute: typeof ExpoSkillsSkillNameRouteImport
+      parentRoute: typeof ExpoRoute
     }
     '/emilkowalski/skills/$skillName': {
       id: '/emilkowalski/skills/$skillName'
@@ -807,6 +976,44 @@ const EmilkowalskiRouteWithChildren = EmilkowalskiRoute._addFileChildren(
   EmilkowalskiRouteChildren,
 )
 
+interface ExpoRouteChildren {
+  ExpoIndexRoute: typeof ExpoIndexRoute
+  ExpoSkillsSkillNameRoute: typeof ExpoSkillsSkillNameRoute
+}
+
+const ExpoRouteChildren: ExpoRouteChildren = {
+  ExpoIndexRoute: ExpoIndexRoute,
+  ExpoSkillsSkillNameRoute: ExpoSkillsSkillNameRoute,
+}
+
+const ExpoRouteWithChildren = ExpoRoute._addFileChildren(ExpoRouteChildren)
+
+interface GsapRouteChildren {
+  GsapIndexRoute: typeof GsapIndexRoute
+  GsapSkillsSkillNameRoute: typeof GsapSkillsSkillNameRoute
+}
+
+const GsapRouteChildren: GsapRouteChildren = {
+  GsapIndexRoute: GsapIndexRoute,
+  GsapSkillsSkillNameRoute: GsapSkillsSkillNameRoute,
+}
+
+const GsapRouteWithChildren = GsapRoute._addFileChildren(GsapRouteChildren)
+
+interface ImpeccableRouteChildren {
+  ImpeccableIndexRoute: typeof ImpeccableIndexRoute
+  ImpeccableSkillsSkillNameRoute: typeof ImpeccableSkillsSkillNameRoute
+}
+
+const ImpeccableRouteChildren: ImpeccableRouteChildren = {
+  ImpeccableIndexRoute: ImpeccableIndexRoute,
+  ImpeccableSkillsSkillNameRoute: ImpeccableSkillsSkillNameRoute,
+}
+
+const ImpeccableRouteWithChildren = ImpeccableRoute._addFileChildren(
+  ImpeccableRouteChildren,
+)
+
 interface JakubkrehelRouteChildren {
   JakubkrehelIndexRoute: typeof JakubkrehelIndexRoute
   JakubkrehelSkillsSkillNameRoute: typeof JakubkrehelSkillsSkillNameRoute
@@ -897,6 +1104,9 @@ const rootRouteChildren: RootRouteChildren = {
   CollectionsRoute: CollectionsRoute,
   DavidondrejRoute: DavidondrejRouteWithChildren,
   EmilkowalskiRoute: EmilkowalskiRouteWithChildren,
+  ExpoRoute: ExpoRouteWithChildren,
+  GsapRoute: GsapRouteWithChildren,
+  ImpeccableRoute: ImpeccableRouteWithChildren,
   JakubkrehelRoute: JakubkrehelRouteWithChildren,
   MattpocockRoute: MattpocockRoute,
   PrismaRoute: PrismaRouteWithChildren,
