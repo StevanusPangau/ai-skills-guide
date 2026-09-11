@@ -1,0 +1,1 @@
+export const TANSTACK_SKILL_COUNT = 14

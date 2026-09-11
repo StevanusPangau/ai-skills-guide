@@ -7,6 +7,9 @@ import { superpowersSkills } from '@/data/superpowers-skills'
 import { vercelSkills } from '@/data/vercel-skills'
 import { anthropicSkills } from '@/data/anthropic-skills'
 import { cloudflareSkills } from '@/data/cloudflare-skills'
+import { supabaseSkills } from '@/data/supabase-skills'
+import { prismaSkills } from '@/data/prisma-skills'
+import { tanstackSkills } from '@/data/tanstack-skills'
 import { getLocale } from '@/paraglide/runtime.js'
 
 export type SearchableSkill = {
@@ -135,6 +138,45 @@ export function getAllSearchableSkills(): SearchableSkill[] {
       category: s.category,
       description: isEn ? s.description.en : s.description.id,
       href: `/cloudflare/skills/${s.name}`,
+    })
+  }
+
+  // 10. Supabase
+  for (const s of supabaseSkills) {
+    list.push({
+      id: `supabase-${s.name}`,
+      name: s.name,
+      collection: 'supabase',
+      collectionName: 'Supabase',
+      category: s.category,
+      description: isEn ? s.description.en : s.description.id,
+      href: `/supabase/skills/${s.name}`,
+    })
+  }
+
+  // 11. Prisma
+  for (const s of prismaSkills) {
+    list.push({
+      id: `prisma-${s.name}`,
+      name: s.name,
+      collection: 'prisma',
+      collectionName: 'Prisma',
+      category: s.category,
+      description: isEn ? s.description.en : s.description.id,
+      href: `/prisma/skills/${s.name}`,
+    })
+  }
+
+  // 12. TanStack
+  for (const s of tanstackSkills) {
+    list.push({
+      id: `tanstack-${s.name}`,
+      name: s.name,
+      collection: 'tanstack',
+      collectionName: 'TanStack',
+      category: s.category,
+      description: isEn ? s.description.en : s.description.id,
+      href: `/tanstack/skills/${s.name}`,
     })
   }
 

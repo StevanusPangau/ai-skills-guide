@@ -185,3 +185,40 @@ The guide curates and explains work by the attributed upstream authors. Each col
 - cloudflare-one-migrations: https://skills.stevanuspangau.dev/cloudflare/skills/cloudflare-one-migrations
 - turnstile-spin: https://skills.stevanuspangau.dev/cloudflare/skills/turnstile-spin
 - cloudflare-email-service: https://skills.stevanuspangau.dev/cloudflare/skills/cloudflare-email-service
+
+## supabase
+
+- Collection: https://skills.stevanuspangau.dev/supabase
+- supabase-postgres-best-practices: https://skills.stevanuspangau.dev/supabase/skills/supabase-postgres-best-practices
+- supabase: https://skills.stevanuspangau.dev/supabase/skills/supabase
+
+## prisma
+
+- Collection: https://skills.stevanuspangau.dev/prisma
+- prisma-upgrade-v7: https://skills.stevanuspangau.dev/prisma/skills/prisma-upgrade-v7
+- prisma-client-api: https://skills.stevanuspangau.dev/prisma/skills/prisma-client-api
+- prisma-cli: https://skills.stevanuspangau.dev/prisma/skills/prisma-cli
+- prisma-driver-adapter-implementation: https://skills.stevanuspangau.dev/prisma/skills/prisma-driver-adapter-implementation
+- prisma-database-setup: https://skills.stevanuspangau.dev/prisma/skills/prisma-database-setup
+- prisma-postgres: https://skills.stevanuspangau.dev/prisma/skills/prisma-postgres
+- prisma-postgres-setup: https://skills.stevanuspangau.dev/prisma/skills/prisma-postgres-setup
+- prisma-compute: https://skills.stevanuspangau.dev/prisma/skills/prisma-compute
+- prisma-mongodb-upgrade: https://skills.stevanuspangau.dev/prisma/skills/prisma-mongodb-upgrade
+
+## tanstack
+
+- Collection: https://skills.stevanuspangau.dev/tanstack
+- tanstack-router: https://skills.stevanuspangau.dev/tanstack/skills/tanstack-router
+- tanstack-query: https://skills.stevanuspangau.dev/tanstack/skills/tanstack-query
+- tanstack-table: https://skills.stevanuspangau.dev/tanstack/skills/tanstack-table
+- tanstack-form: https://skills.stevanuspangau.dev/tanstack/skills/tanstack-form
+- tanstack-start: https://skills.stevanuspangau.dev/tanstack/skills/tanstack-start
+- tanstack-virtual: https://skills.stevanuspangau.dev/tanstack/skills/tanstack-virtual
+- tanstack-store: https://skills.stevanuspangau.dev/tanstack/skills/tanstack-store
+- tanstack-ai: https://skills.stevanuspangau.dev/tanstack/skills/tanstack-ai
+- tanstack-db: https://skills.stevanuspangau.dev/tanstack/skills/tanstack-db
+- tanstack-devtools: https://skills.stevanuspangau.dev/tanstack/skills/tanstack-devtools
+- tanstack-cli: https://skills.stevanuspangau.dev/tanstack/skills/tanstack-cli
+- tanstack-config: https://skills.stevanuspangau.dev/tanstack/skills/tanstack-config
+- tanstack-pacer: https://skills.stevanuspangau.dev/tanstack/skills/tanstack-pacer
+- tanstack-ranger: https://skills.stevanuspangau.dev/tanstack/skills/tanstack-ranger
