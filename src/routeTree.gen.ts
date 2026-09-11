@@ -10,7 +10,10 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as VercelRouteImport } from './routes/vercel'
+import { Route as TanstackRouteImport } from './routes/tanstack'
 import { Route as SuperpowersRouteImport } from './routes/superpowers'
+import { Route as SupabaseRouteImport } from './routes/supabase'
+import { Route as PrismaRouteImport } from './routes/prisma'
 import { Route as MattpocockRouteImport } from './routes/mattpocock'
 import { Route as JakubkrehelRouteImport } from './routes/jakubkrehel'
 import { Route as EmilkowalskiRouteImport } from './routes/emilkowalski'
@@ -21,7 +24,10 @@ import { Route as BrooklynRouteImport } from './routes/brooklyn'
 import { Route as AnthropicRouteImport } from './routes/anthropic'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as VercelIndexRouteImport } from './routes/vercel.index'
+import { Route as TanstackIndexRouteImport } from './routes/tanstack.index'
 import { Route as SuperpowersIndexRouteImport } from './routes/superpowers.index'
+import { Route as SupabaseIndexRouteImport } from './routes/supabase.index'
+import { Route as PrismaIndexRouteImport } from './routes/prisma.index'
 import { Route as JakubkrehelIndexRouteImport } from './routes/jakubkrehel.index'
 import { Route as EmilkowalskiIndexRouteImport } from './routes/emilkowalski.index'
 import { Route as DavidondrejIndexRouteImport } from './routes/davidondrej.index'
@@ -30,7 +36,10 @@ import { Route as BrooklynIndexRouteImport } from './routes/brooklyn.index'
 import { Route as AnthropicIndexRouteImport } from './routes/anthropic.index'
 import { Route as SkillsSkillNameRouteImport } from './routes/skills.$skillName'
 import { Route as VercelSkillsSkillNameRouteImport } from './routes/vercel.skills.$skillName'
+import { Route as TanstackSkillsSkillNameRouteImport } from './routes/tanstack.skills.$skillName'
 import { Route as SuperpowersSkillsSkillNameRouteImport } from './routes/superpowers.skills.$skillName'
+import { Route as SupabaseSkillsSkillNameRouteImport } from './routes/supabase.skills.$skillName'
+import { Route as PrismaSkillsSkillNameRouteImport } from './routes/prisma.skills.$skillName'
 import { Route as JakubkrehelSkillsSkillNameRouteImport } from './routes/jakubkrehel.skills.$skillName'
 import { Route as EmilkowalskiSkillsSkillNameRouteImport } from './routes/emilkowalski.skills.$skillName'
 import { Route as DavidondrejSkillsSkillNameRouteImport } from './routes/davidondrej.skills.$skillName'
@@ -43,9 +52,24 @@ const VercelRoute = VercelRouteImport.update({
   path: '/vercel',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TanstackRoute = TanstackRouteImport.update({
+  id: '/tanstack',
+  path: '/tanstack',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SuperpowersRoute = SuperpowersRouteImport.update({
   id: '/superpowers',
   path: '/superpowers',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SupabaseRoute = SupabaseRouteImport.update({
+  id: '/supabase',
+  path: '/supabase',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrismaRoute = PrismaRouteImport.update({
+  id: '/prisma',
+  path: '/prisma',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MattpocockRoute = MattpocockRouteImport.update({
@@ -98,10 +122,25 @@ const VercelIndexRoute = VercelIndexRouteImport.update({
   path: '/',
   getParentRoute: () => VercelRoute,
 } as any)
+const TanstackIndexRoute = TanstackIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => TanstackRoute,
+} as any)
 const SuperpowersIndexRoute = SuperpowersIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => SuperpowersRoute,
+} as any)
+const SupabaseIndexRoute = SupabaseIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => SupabaseRoute,
+} as any)
+const PrismaIndexRoute = PrismaIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => PrismaRoute,
 } as any)
 const JakubkrehelIndexRoute = JakubkrehelIndexRouteImport.update({
   id: '/',
@@ -143,12 +182,27 @@ const VercelSkillsSkillNameRoute = VercelSkillsSkillNameRouteImport.update({
   path: '/skills/$skillName',
   getParentRoute: () => VercelRoute,
 } as any)
+const TanstackSkillsSkillNameRoute = TanstackSkillsSkillNameRouteImport.update({
+  id: '/skills/$skillName',
+  path: '/skills/$skillName',
+  getParentRoute: () => TanstackRoute,
+} as any)
 const SuperpowersSkillsSkillNameRoute =
   SuperpowersSkillsSkillNameRouteImport.update({
     id: '/skills/$skillName',
     path: '/skills/$skillName',
     getParentRoute: () => SuperpowersRoute,
   } as any)
+const SupabaseSkillsSkillNameRoute = SupabaseSkillsSkillNameRouteImport.update({
+  id: '/skills/$skillName',
+  path: '/skills/$skillName',
+  getParentRoute: () => SupabaseRoute,
+} as any)
+const PrismaSkillsSkillNameRoute = PrismaSkillsSkillNameRouteImport.update({
+  id: '/skills/$skillName',
+  path: '/skills/$skillName',
+  getParentRoute: () => PrismaRoute,
+} as any)
 const JakubkrehelSkillsSkillNameRoute =
   JakubkrehelSkillsSkillNameRouteImport.update({
     id: '/skills/$skillName',
@@ -195,7 +249,10 @@ export interface FileRoutesByFullPath {
   '/emilkowalski': typeof EmilkowalskiRouteWithChildren
   '/jakubkrehel': typeof JakubkrehelRouteWithChildren
   '/mattpocock': typeof MattpocockRoute
+  '/prisma': typeof PrismaRouteWithChildren
+  '/supabase': typeof SupabaseRouteWithChildren
   '/superpowers': typeof SuperpowersRouteWithChildren
+  '/tanstack': typeof TanstackRouteWithChildren
   '/vercel': typeof VercelRouteWithChildren
   '/skills/$skillName': typeof SkillsSkillNameRoute
   '/anthropic/': typeof AnthropicIndexRoute
@@ -204,7 +261,10 @@ export interface FileRoutesByFullPath {
   '/davidondrej/': typeof DavidondrejIndexRoute
   '/emilkowalski/': typeof EmilkowalskiIndexRoute
   '/jakubkrehel/': typeof JakubkrehelIndexRoute
+  '/prisma/': typeof PrismaIndexRoute
+  '/supabase/': typeof SupabaseIndexRoute
   '/superpowers/': typeof SuperpowersIndexRoute
+  '/tanstack/': typeof TanstackIndexRoute
   '/vercel/': typeof VercelIndexRoute
   '/anthropic/skills/$skillName': typeof AnthropicSkillsSkillNameRoute
   '/brooklyn/skills/$skillName': typeof BrooklynSkillsSkillNameRoute
@@ -212,7 +272,10 @@ export interface FileRoutesByFullPath {
   '/davidondrej/skills/$skillName': typeof DavidondrejSkillsSkillNameRoute
   '/emilkowalski/skills/$skillName': typeof EmilkowalskiSkillsSkillNameRoute
   '/jakubkrehel/skills/$skillName': typeof JakubkrehelSkillsSkillNameRoute
+  '/prisma/skills/$skillName': typeof PrismaSkillsSkillNameRoute
+  '/supabase/skills/$skillName': typeof SupabaseSkillsSkillNameRoute
   '/superpowers/skills/$skillName': typeof SuperpowersSkillsSkillNameRoute
+  '/tanstack/skills/$skillName': typeof TanstackSkillsSkillNameRoute
   '/vercel/skills/$skillName': typeof VercelSkillsSkillNameRoute
 }
 export interface FileRoutesByTo {
@@ -226,7 +289,10 @@ export interface FileRoutesByTo {
   '/davidondrej': typeof DavidondrejIndexRoute
   '/emilkowalski': typeof EmilkowalskiIndexRoute
   '/jakubkrehel': typeof JakubkrehelIndexRoute
+  '/prisma': typeof PrismaIndexRoute
+  '/supabase': typeof SupabaseIndexRoute
   '/superpowers': typeof SuperpowersIndexRoute
+  '/tanstack': typeof TanstackIndexRoute
   '/vercel': typeof VercelIndexRoute
   '/anthropic/skills/$skillName': typeof AnthropicSkillsSkillNameRoute
   '/brooklyn/skills/$skillName': typeof BrooklynSkillsSkillNameRoute
@@ -234,7 +300,10 @@ export interface FileRoutesByTo {
   '/davidondrej/skills/$skillName': typeof DavidondrejSkillsSkillNameRoute
   '/emilkowalski/skills/$skillName': typeof EmilkowalskiSkillsSkillNameRoute
   '/jakubkrehel/skills/$skillName': typeof JakubkrehelSkillsSkillNameRoute
+  '/prisma/skills/$skillName': typeof PrismaSkillsSkillNameRoute
+  '/supabase/skills/$skillName': typeof SupabaseSkillsSkillNameRoute
   '/superpowers/skills/$skillName': typeof SuperpowersSkillsSkillNameRoute
+  '/tanstack/skills/$skillName': typeof TanstackSkillsSkillNameRoute
   '/vercel/skills/$skillName': typeof VercelSkillsSkillNameRoute
 }
 export interface FileRoutesById {
@@ -248,7 +317,10 @@ export interface FileRoutesById {
   '/emilkowalski': typeof EmilkowalskiRouteWithChildren
   '/jakubkrehel': typeof JakubkrehelRouteWithChildren
   '/mattpocock': typeof MattpocockRoute
+  '/prisma': typeof PrismaRouteWithChildren
+  '/supabase': typeof SupabaseRouteWithChildren
   '/superpowers': typeof SuperpowersRouteWithChildren
+  '/tanstack': typeof TanstackRouteWithChildren
   '/vercel': typeof VercelRouteWithChildren
   '/skills/$skillName': typeof SkillsSkillNameRoute
   '/anthropic/': typeof AnthropicIndexRoute
@@ -257,7 +329,10 @@ export interface FileRoutesById {
   '/davidondrej/': typeof DavidondrejIndexRoute
   '/emilkowalski/': typeof EmilkowalskiIndexRoute
   '/jakubkrehel/': typeof JakubkrehelIndexRoute
+  '/prisma/': typeof PrismaIndexRoute
+  '/supabase/': typeof SupabaseIndexRoute
   '/superpowers/': typeof SuperpowersIndexRoute
+  '/tanstack/': typeof TanstackIndexRoute
   '/vercel/': typeof VercelIndexRoute
   '/anthropic/skills/$skillName': typeof AnthropicSkillsSkillNameRoute
   '/brooklyn/skills/$skillName': typeof BrooklynSkillsSkillNameRoute
@@ -265,7 +340,10 @@ export interface FileRoutesById {
   '/davidondrej/skills/$skillName': typeof DavidondrejSkillsSkillNameRoute
   '/emilkowalski/skills/$skillName': typeof EmilkowalskiSkillsSkillNameRoute
   '/jakubkrehel/skills/$skillName': typeof JakubkrehelSkillsSkillNameRoute
+  '/prisma/skills/$skillName': typeof PrismaSkillsSkillNameRoute
+  '/supabase/skills/$skillName': typeof SupabaseSkillsSkillNameRoute
   '/superpowers/skills/$skillName': typeof SuperpowersSkillsSkillNameRoute
+  '/tanstack/skills/$skillName': typeof TanstackSkillsSkillNameRoute
   '/vercel/skills/$skillName': typeof VercelSkillsSkillNameRoute
 }
 export interface FileRouteTypes {
@@ -280,7 +358,10 @@ export interface FileRouteTypes {
     | '/emilkowalski'
     | '/jakubkrehel'
     | '/mattpocock'
+    | '/prisma'
+    | '/supabase'
     | '/superpowers'
+    | '/tanstack'
     | '/vercel'
     | '/skills/$skillName'
     | '/anthropic/'
@@ -289,7 +370,10 @@ export interface FileRouteTypes {
     | '/davidondrej/'
     | '/emilkowalski/'
     | '/jakubkrehel/'
+    | '/prisma/'
+    | '/supabase/'
     | '/superpowers/'
+    | '/tanstack/'
     | '/vercel/'
     | '/anthropic/skills/$skillName'
     | '/brooklyn/skills/$skillName'
@@ -297,7 +381,10 @@ export interface FileRouteTypes {
     | '/davidondrej/skills/$skillName'
     | '/emilkowalski/skills/$skillName'
     | '/jakubkrehel/skills/$skillName'
+    | '/prisma/skills/$skillName'
+    | '/supabase/skills/$skillName'
     | '/superpowers/skills/$skillName'
+    | '/tanstack/skills/$skillName'
     | '/vercel/skills/$skillName'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -311,7 +398,10 @@ export interface FileRouteTypes {
     | '/davidondrej'
     | '/emilkowalski'
     | '/jakubkrehel'
+    | '/prisma'
+    | '/supabase'
     | '/superpowers'
+    | '/tanstack'
     | '/vercel'
     | '/anthropic/skills/$skillName'
     | '/brooklyn/skills/$skillName'
@@ -319,7 +409,10 @@ export interface FileRouteTypes {
     | '/davidondrej/skills/$skillName'
     | '/emilkowalski/skills/$skillName'
     | '/jakubkrehel/skills/$skillName'
+    | '/prisma/skills/$skillName'
+    | '/supabase/skills/$skillName'
     | '/superpowers/skills/$skillName'
+    | '/tanstack/skills/$skillName'
     | '/vercel/skills/$skillName'
   id:
     | '__root__'
@@ -332,7 +425,10 @@ export interface FileRouteTypes {
     | '/emilkowalski'
     | '/jakubkrehel'
     | '/mattpocock'
+    | '/prisma'
+    | '/supabase'
     | '/superpowers'
+    | '/tanstack'
     | '/vercel'
     | '/skills/$skillName'
     | '/anthropic/'
@@ -341,7 +437,10 @@ export interface FileRouteTypes {
     | '/davidondrej/'
     | '/emilkowalski/'
     | '/jakubkrehel/'
+    | '/prisma/'
+    | '/supabase/'
     | '/superpowers/'
+    | '/tanstack/'
     | '/vercel/'
     | '/anthropic/skills/$skillName'
     | '/brooklyn/skills/$skillName'
@@ -349,7 +448,10 @@ export interface FileRouteTypes {
     | '/davidondrej/skills/$skillName'
     | '/emilkowalski/skills/$skillName'
     | '/jakubkrehel/skills/$skillName'
+    | '/prisma/skills/$skillName'
+    | '/supabase/skills/$skillName'
     | '/superpowers/skills/$skillName'
+    | '/tanstack/skills/$skillName'
     | '/vercel/skills/$skillName'
   fileRoutesById: FileRoutesById
 }
@@ -363,7 +465,10 @@ export interface RootRouteChildren {
   EmilkowalskiRoute: typeof EmilkowalskiRouteWithChildren
   JakubkrehelRoute: typeof JakubkrehelRouteWithChildren
   MattpocockRoute: typeof MattpocockRoute
+  PrismaRoute: typeof PrismaRouteWithChildren
+  SupabaseRoute: typeof SupabaseRouteWithChildren
   SuperpowersRoute: typeof SuperpowersRouteWithChildren
+  TanstackRoute: typeof TanstackRouteWithChildren
   VercelRoute: typeof VercelRouteWithChildren
   SkillsSkillNameRoute: typeof SkillsSkillNameRoute
 }
@@ -377,11 +482,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof VercelRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/tanstack': {
+      id: '/tanstack'
+      path: '/tanstack'
+      fullPath: '/tanstack'
+      preLoaderRoute: typeof TanstackRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/superpowers': {
       id: '/superpowers'
       path: '/superpowers'
       fullPath: '/superpowers'
       preLoaderRoute: typeof SuperpowersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/supabase': {
+      id: '/supabase'
+      path: '/supabase'
+      fullPath: '/supabase'
+      preLoaderRoute: typeof SupabaseRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/prisma': {
+      id: '/prisma'
+      path: '/prisma'
+      fullPath: '/prisma'
+      preLoaderRoute: typeof PrismaRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/mattpocock': {
@@ -454,12 +580,33 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof VercelIndexRouteImport
       parentRoute: typeof VercelRoute
     }
+    '/tanstack/': {
+      id: '/tanstack/'
+      path: '/'
+      fullPath: '/tanstack/'
+      preLoaderRoute: typeof TanstackIndexRouteImport
+      parentRoute: typeof TanstackRoute
+    }
     '/superpowers/': {
       id: '/superpowers/'
       path: '/'
       fullPath: '/superpowers/'
       preLoaderRoute: typeof SuperpowersIndexRouteImport
       parentRoute: typeof SuperpowersRoute
+    }
+    '/supabase/': {
+      id: '/supabase/'
+      path: '/'
+      fullPath: '/supabase/'
+      preLoaderRoute: typeof SupabaseIndexRouteImport
+      parentRoute: typeof SupabaseRoute
+    }
+    '/prisma/': {
+      id: '/prisma/'
+      path: '/'
+      fullPath: '/prisma/'
+      preLoaderRoute: typeof PrismaIndexRouteImport
+      parentRoute: typeof PrismaRoute
     }
     '/jakubkrehel/': {
       id: '/jakubkrehel/'
@@ -517,12 +664,33 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof VercelSkillsSkillNameRouteImport
       parentRoute: typeof VercelRoute
     }
+    '/tanstack/skills/$skillName': {
+      id: '/tanstack/skills/$skillName'
+      path: '/skills/$skillName'
+      fullPath: '/tanstack/skills/$skillName'
+      preLoaderRoute: typeof TanstackSkillsSkillNameRouteImport
+      parentRoute: typeof TanstackRoute
+    }
     '/superpowers/skills/$skillName': {
       id: '/superpowers/skills/$skillName'
       path: '/skills/$skillName'
       fullPath: '/superpowers/skills/$skillName'
       preLoaderRoute: typeof SuperpowersSkillsSkillNameRouteImport
       parentRoute: typeof SuperpowersRoute
+    }
+    '/supabase/skills/$skillName': {
+      id: '/supabase/skills/$skillName'
+      path: '/skills/$skillName'
+      fullPath: '/supabase/skills/$skillName'
+      preLoaderRoute: typeof SupabaseSkillsSkillNameRouteImport
+      parentRoute: typeof SupabaseRoute
+    }
+    '/prisma/skills/$skillName': {
+      id: '/prisma/skills/$skillName'
+      path: '/skills/$skillName'
+      fullPath: '/prisma/skills/$skillName'
+      preLoaderRoute: typeof PrismaSkillsSkillNameRouteImport
+      parentRoute: typeof PrismaRoute
     }
     '/jakubkrehel/skills/$skillName': {
       id: '/jakubkrehel/skills/$skillName'
@@ -653,6 +821,33 @@ const JakubkrehelRouteWithChildren = JakubkrehelRoute._addFileChildren(
   JakubkrehelRouteChildren,
 )
 
+interface PrismaRouteChildren {
+  PrismaIndexRoute: typeof PrismaIndexRoute
+  PrismaSkillsSkillNameRoute: typeof PrismaSkillsSkillNameRoute
+}
+
+const PrismaRouteChildren: PrismaRouteChildren = {
+  PrismaIndexRoute: PrismaIndexRoute,
+  PrismaSkillsSkillNameRoute: PrismaSkillsSkillNameRoute,
+}
+
+const PrismaRouteWithChildren =
+  PrismaRoute._addFileChildren(PrismaRouteChildren)
+
+interface SupabaseRouteChildren {
+  SupabaseIndexRoute: typeof SupabaseIndexRoute
+  SupabaseSkillsSkillNameRoute: typeof SupabaseSkillsSkillNameRoute
+}
+
+const SupabaseRouteChildren: SupabaseRouteChildren = {
+  SupabaseIndexRoute: SupabaseIndexRoute,
+  SupabaseSkillsSkillNameRoute: SupabaseSkillsSkillNameRoute,
+}
+
+const SupabaseRouteWithChildren = SupabaseRoute._addFileChildren(
+  SupabaseRouteChildren,
+)
+
 interface SuperpowersRouteChildren {
   SuperpowersIndexRoute: typeof SuperpowersIndexRoute
   SuperpowersSkillsSkillNameRoute: typeof SuperpowersSkillsSkillNameRoute
@@ -665,6 +860,20 @@ const SuperpowersRouteChildren: SuperpowersRouteChildren = {
 
 const SuperpowersRouteWithChildren = SuperpowersRoute._addFileChildren(
   SuperpowersRouteChildren,
+)
+
+interface TanstackRouteChildren {
+  TanstackIndexRoute: typeof TanstackIndexRoute
+  TanstackSkillsSkillNameRoute: typeof TanstackSkillsSkillNameRoute
+}
+
+const TanstackRouteChildren: TanstackRouteChildren = {
+  TanstackIndexRoute: TanstackIndexRoute,
+  TanstackSkillsSkillNameRoute: TanstackSkillsSkillNameRoute,
+}
+
+const TanstackRouteWithChildren = TanstackRoute._addFileChildren(
+  TanstackRouteChildren,
 )
 
 interface VercelRouteChildren {
@@ -690,7 +899,10 @@ const rootRouteChildren: RootRouteChildren = {
   EmilkowalskiRoute: EmilkowalskiRouteWithChildren,
   JakubkrehelRoute: JakubkrehelRouteWithChildren,
   MattpocockRoute: MattpocockRoute,
+  PrismaRoute: PrismaRouteWithChildren,
+  SupabaseRoute: SupabaseRouteWithChildren,
   SuperpowersRoute: SuperpowersRouteWithChildren,
+  TanstackRoute: TanstackRouteWithChildren,
   VercelRoute: VercelRouteWithChildren,
   SkillsSkillNameRoute: SkillsSkillNameRoute,
 }

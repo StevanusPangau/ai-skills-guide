@@ -14,6 +14,9 @@ const collections = [
   ['vercel', 'vercel-skills.ts', 'vercel'],
   ['anthropic', 'anthropic-skills.ts', 'anthropic'],
   ['cloudflare', 'cloudflare-skills.ts', 'cloudflare'],
+  ['supabase', 'supabase-skills.ts', 'supabase'],
+  ['prisma', 'prisma-skills.ts', 'prisma'],
+  ['tanstack', 'tanstack-skills.ts', 'tanstack'],
 ]
 
 const urls = ['/', '/collections']

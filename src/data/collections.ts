@@ -7,6 +7,9 @@ import { SUPERPOWERS_SKILL_COUNT } from '@/data/superpowers-skills-meta'
 import { VERCEL_SKILL_COUNT } from '@/data/vercel-skills-meta'
 import { ANTHROPIC_SKILL_COUNT } from '@/data/anthropic-skills-meta'
 import { CLOUDFLARE_SKILL_COUNT } from '@/data/cloudflare-skills-meta'
+import { SUPABASE_SKILL_COUNT } from '@/data/supabase-skills-meta'
+import { PRISMA_SKILL_COUNT } from '@/data/prisma-skills-meta'
+import { TANSTACK_SKILL_COUNT } from '@/data/tanstack-skills-meta'
 import { m } from '@/paraglide/messages.js'
 
 export type CollectionStatus = 'available' | 'coming-soon'
@@ -146,6 +149,42 @@ export function getCollections(): Collection[] {
       status: 'available',
       source: 'github.com/cloudflare/skills',
       tags: ['workers', 'zero-trust', 'edge'],
+    },
+    {
+      slug: 'supabase',
+      to: '/supabase',
+      author: 'Supabase',
+      avatarSrc: '/avatars/supabase.svg',
+      title: 'Official Supabase Skills',
+      description: m.collection_supabase_description(),
+      skillCount: SUPABASE_SKILL_COUNT,
+      status: 'available',
+      source: 'github.com/supabase/agent-skills',
+      tags: ['postgres', 'rls', 'database'],
+    },
+    {
+      slug: 'prisma',
+      to: '/prisma',
+      author: 'Prisma',
+      avatarSrc: '/avatars/prisma.svg',
+      title: 'Official Prisma Skills',
+      description: m.collection_prisma_description(),
+      skillCount: PRISMA_SKILL_COUNT,
+      status: 'available',
+      source: 'github.com/prisma/skills',
+      tags: ['orm', 'prisma7', 'database'],
+    },
+    {
+      slug: 'tanstack',
+      to: '/tanstack',
+      author: 'TanStack',
+      avatarSrc: '/avatars/tanstack.svg',
+      title: 'Official TanStack Skills',
+      description: m.collection_tanstack_description(),
+      skillCount: TANSTACK_SKILL_COUNT,
+      status: 'available',
+      source: 'github.com/tanstack-skills/tanstack-skills',
+      tags: ['router', 'query', 'headless-ui'],
     },
   ]
 }
