@@ -10,6 +10,9 @@ import { CLOUDFLARE_SKILL_COUNT } from '@/data/cloudflare-skills-meta'
 import { SUPABASE_SKILL_COUNT } from '@/data/supabase-skills-meta'
 import { PRISMA_SKILL_COUNT } from '@/data/prisma-skills-meta'
 import { TANSTACK_SKILL_COUNT } from '@/data/tanstack-skills-meta'
+import { EXPO_SKILL_COUNT } from '@/data/expo-skills-meta'
+import { GSAP_SKILL_COUNT } from '@/data/gsap-skills-meta'
+import { IMPECCABLE_SKILL_COUNT } from '@/data/impeccable-skills-meta'
 import { m } from '@/paraglide/messages.js'
 
 export type CollectionStatus = 'available' | 'coming-soon'
@@ -185,6 +188,43 @@ export function getCollections(): Collection[] {
       status: 'available',
       source: 'github.com/tanstack-skills/tanstack-skills',
       tags: ['router', 'query', 'headless-ui'],
+    },
+    {
+      slug: 'expo',
+      to: '/expo',
+      author: 'Expo',
+      avatarSrc: '/avatars/expo.svg',
+      title: 'Official Expo Skills',
+      description: m.collection_expo_description(),
+      skillCount: EXPO_SKILL_COUNT,
+      status: 'available',
+      source: 'github.com/expo/skills',
+      tags: ['react-native', 'mobile', 'eas'],
+    },
+    {
+      slug: 'gsap',
+      to: '/gsap',
+      author: 'GreenSock',
+      avatarSrc: '/avatars/gsap.svg',
+      title: 'Official GSAP Skills',
+      description: m.collection_gsap_description(),
+      skillCount: GSAP_SKILL_COUNT,
+      status: 'available',
+      source: 'github.com/greensock/gsap-skills',
+      tags: ['animation', 'motion', 'scrolltrigger'],
+    },
+    {
+      slug: 'impeccable',
+      to: '/impeccable',
+      author: 'Paul Bakaus',
+      avatarSrc: '/avatars/impeccable.svg',
+      xHandle: 'pbakaus',
+      title: 'Impeccable by Paul Bakaus',
+      description: m.collection_impeccable_description(),
+      skillCount: IMPECCABLE_SKILL_COUNT,
+      status: 'available',
+      source: 'github.com/pbakaus/impeccable',
+      tags: ['design-system', 'visual-craft', 'anti-ai-slop'],
     },
   ]
 }

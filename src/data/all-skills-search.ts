@@ -10,6 +10,9 @@ import { cloudflareSkills } from '@/data/cloudflare-skills'
 import { supabaseSkills } from '@/data/supabase-skills'
 import { prismaSkills } from '@/data/prisma-skills'
 import { tanstackSkills } from '@/data/tanstack-skills'
+import { expoSkills } from '@/data/expo-skills'
+import { gsapSkills } from '@/data/gsap-skills'
+import { impeccableSkills } from '@/data/impeccable-skills'
 import { getLocale } from '@/paraglide/runtime.js'
 
 export type SearchableSkill = {
@@ -177,6 +180,45 @@ export function getAllSearchableSkills(): SearchableSkill[] {
       category: s.category,
       description: isEn ? s.description.en : s.description.id,
       href: `/tanstack/skills/${s.name}`,
+    })
+  }
+
+  // 13. Expo
+  for (const s of expoSkills) {
+    list.push({
+      id: `expo-${s.name}`,
+      name: s.name,
+      collection: 'expo',
+      collectionName: 'Expo',
+      category: s.category,
+      description: isEn ? s.description.en : s.description.id,
+      href: `/expo/skills/${s.name}`,
+    })
+  }
+
+  // 14. GSAP
+  for (const s of gsapSkills) {
+    list.push({
+      id: `gsap-${s.name}`,
+      name: s.name,
+      collection: 'gsap',
+      collectionName: 'GreenSock',
+      category: s.category,
+      description: isEn ? s.description.en : s.description.id,
+      href: `/gsap/skills/${s.name}`,
+    })
+  }
+
+  // 15. Impeccable
+  for (const s of impeccableSkills) {
+    list.push({
+      id: `impeccable-${s.name}`,
+      name: s.name,
+      collection: 'impeccable',
+      collectionName: 'Paul Bakaus',
+      category: s.category,
+      description: isEn ? s.description.en : s.description.id,
+      href: `/impeccable/skills/${s.name}`,
     })
   }
 

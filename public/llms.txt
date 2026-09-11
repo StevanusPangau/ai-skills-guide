@@ -222,3 +222,69 @@ The guide curates and explains work by the attributed upstream authors. Each col
 - tanstack-config: https://skills.stevanuspangau.dev/tanstack/skills/tanstack-config
 - tanstack-pacer: https://skills.stevanuspangau.dev/tanstack/skills/tanstack-pacer
 - tanstack-ranger: https://skills.stevanuspangau.dev/tanstack/skills/tanstack-ranger
+
+## expo
+
+- Collection: https://skills.stevanuspangau.dev/expo
+- eas-app-stores: https://skills.stevanuspangau.dev/expo/skills/eas-app-stores
+- eas-hosting: https://skills.stevanuspangau.dev/expo/skills/eas-hosting
+- eas-observe: https://skills.stevanuspangau.dev/expo/skills/eas-observe
+- eas-simulator: https://skills.stevanuspangau.dev/expo/skills/eas-simulator
+- eas-update: https://skills.stevanuspangau.dev/expo/skills/eas-update
+- eas-update-insights: https://skills.stevanuspangau.dev/expo/skills/eas-update-insights
+- eas-workflows: https://skills.stevanuspangau.dev/expo/skills/eas-workflows
+- expo-animation: https://skills.stevanuspangau.dev/expo/skills/expo-animation
+- expo-app-clip: https://skills.stevanuspangau.dev/expo/skills/expo-app-clip
+- expo-brownfield: https://skills.stevanuspangau.dev/expo/skills/expo-brownfield
+- expo-data-fetching: https://skills.stevanuspangau.dev/expo/skills/expo-data-fetching
+- expo-design-system: https://skills.stevanuspangau.dev/expo/skills/expo-design-system
+- expo-dev-client: https://skills.stevanuspangau.dev/expo/skills/expo-dev-client
+- expo-dom: https://skills.stevanuspangau.dev/expo/skills/expo-dom
+- expo-examples: https://skills.stevanuspangau.dev/expo/skills/expo-examples
+- expo-migrate-module: https://skills.stevanuspangau.dev/expo/skills/expo-migrate-module
+- expo-module: https://skills.stevanuspangau.dev/expo/skills/expo-module
+- expo-native-ui: https://skills.stevanuspangau.dev/expo/skills/expo-native-ui
+- expo-overview: https://skills.stevanuspangau.dev/expo/skills/expo-overview
+- expo-project-structure: https://skills.stevanuspangau.dev/expo/skills/expo-project-structure
+- expo-router: https://skills.stevanuspangau.dev/expo/skills/expo-router
+- expo-skill-feedback: https://skills.stevanuspangau.dev/expo/skills/expo-skill-feedback
+- expo-ui: https://skills.stevanuspangau.dev/expo/skills/expo-ui
+- expo-upgrade: https://skills.stevanuspangau.dev/expo/skills/expo-upgrade
+- expo-web-to-native: https://skills.stevanuspangau.dev/expo/skills/expo-web-to-native
+
+## gsap
+
+- Collection: https://skills.stevanuspangau.dev/gsap
+- gsap-core: https://skills.stevanuspangau.dev/gsap/skills/gsap-core
+- gsap-scrolltrigger: https://skills.stevanuspangau.dev/gsap/skills/gsap-scrolltrigger
+- gsap-react: https://skills.stevanuspangau.dev/gsap/skills/gsap-react
+- gsap-timeline: https://skills.stevanuspangau.dev/gsap/skills/gsap-timeline
+- gsap-plugins: https://skills.stevanuspangau.dev/gsap/skills/gsap-plugins
+- gsap-performance: https://skills.stevanuspangau.dev/gsap/skills/gsap-performance
+- gsap-frameworks: https://skills.stevanuspangau.dev/gsap/skills/gsap-frameworks
+- gsap-utils: https://skills.stevanuspangau.dev/gsap/skills/gsap-utils
+
+## impeccable
+
+- Collection: https://skills.stevanuspangau.dev/impeccable
+- adapt: https://skills.stevanuspangau.dev/impeccable/skills/adapt
+- animate: https://skills.stevanuspangau.dev/impeccable/skills/animate
+- audit: https://skills.stevanuspangau.dev/impeccable/skills/audit
+- bolder: https://skills.stevanuspangau.dev/impeccable/skills/bolder
+- clarify: https://skills.stevanuspangau.dev/impeccable/skills/clarify
+- colorize: https://skills.stevanuspangau.dev/impeccable/skills/colorize
+- critique: https://skills.stevanuspangau.dev/impeccable/skills/critique
+- delight: https://skills.stevanuspangau.dev/impeccable/skills/delight
+- distill: https://skills.stevanuspangau.dev/impeccable/skills/distill
+- doctor: https://skills.stevanuspangau.dev/impeccable/skills/doctor
+- document: https://skills.stevanuspangau.dev/impeccable/skills/document
+- extract: https://skills.stevanuspangau.dev/impeccable/skills/extract
+- harden: https://skills.stevanuspangau.dev/impeccable/skills/harden
+- init: https://skills.stevanuspangau.dev/impeccable/skills/init
+- live: https://skills.stevanuspangau.dev/impeccable/skills/live
+- normalize: https://skills.stevanuspangau.dev/impeccable/skills/normalize
+- onboard: https://skills.stevanuspangau.dev/impeccable/skills/onboard
+- optimize: https://skills.stevanuspangau.dev/impeccable/skills/optimize
+- polish: https://skills.stevanuspangau.dev/impeccable/skills/polish
+- quieter: https://skills.stevanuspangau.dev/impeccable/skills/quieter
+- typeset: https://skills.stevanuspangau.dev/impeccable/skills/typeset

@@ -17,6 +17,9 @@ const collections = [
   ['supabase', 'supabase-skills.ts', 'supabase'],
   ['prisma', 'prisma-skills.ts', 'prisma'],
   ['tanstack', 'tanstack-skills.ts', 'tanstack'],
+  ['expo', 'expo-skills.ts', 'expo'],
+  ['gsap', 'gsap-skills.ts', 'gsap'],
+  ['impeccable', 'impeccable-skills.ts', 'impeccable'],
 ]
 
 const urls = ['/', '/collections']
