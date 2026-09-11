@@ -5,6 +5,7 @@ import {
   CloudflareOverview,
 } from '@/features/cloudflare/guide'
 import { CloudflareConcepts } from '@/features/cloudflare/concepts'
+import { CloudflareEdgeMatrix } from '@/features/cloudflare/matrix'
 import { CloudflareWorkflows } from '@/features/cloudflare/workflows'
 import { CloudflareInstall } from '@/features/cloudflare/install'
 import { StandardSkillsSection } from '@/components/standard-skills-section'
@@ -20,6 +21,7 @@ function CloudflareIndexPage() {
     () => [
       { id: 'overview', label: m.cloudflare_sidebar_overview() },
       { id: 'concepts', label: m.sidebar_concepts() },
+      { id: 'edge-matrix', label: m.cloudflare_sidebar_matrix() },
       {
         id: 'skills',
         label: m.cloudflare_sidebar_skills({ count: String(cloudflareSkills.length) }),
@@ -45,13 +47,14 @@ function CloudflareIndexPage() {
     >
       <CloudflareOverview />
       <CloudflareConcepts />
+      <CloudflareEdgeMatrix />
       <StandardSkillsSection
         collectionSlug="cloudflare"
         skills={cloudflareSkills}
         categories={categories}
         title={m.cloudflare_catalog_title({ count: String(cloudflareSkills.length) })}
         description={m.cloudflare_catalog_desc()}
-        repoUrl="github.com/cloudflares/skills"
+        repoUrl="github.com/cloudflare/skills"
       />
       <CloudflareWorkflows />
       <CloudflareInstall />
