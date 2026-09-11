@@ -1,12 +1,12 @@
 {
   "name": "ai-skills-guide",
   "private": true,
-  "version": "1.5.0",
+  "version": "1.6.0",
   "type": "module",
   "engines": {
     "node": ">=20"
   },
-  "description": "Panduan bilingual untuk 100+ AI coding-agent skills dari enam koleksi praktisi software engineering. Vite + React 19 + TanStack Router.",
+  "description": "Panduan bilingual untuk 220+ AI coding-agent skills dari 15 koleksi praktisi software engineering dan enterprise frameworks. Vite + React 19 + TanStack Router.",
   "license": "MIT",
   "author": "Stevanus Pangau",
   "homepage": "https://skills.stevanuspangau.dev",
