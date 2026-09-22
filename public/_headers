@@ -1,3 +1,21 @@
+# Security headers — applied to every route.
+# CSP script hashes match the two inline scripts in index.html (theme boot +
+# JSON-LD). If index.html inline scripts change, regenerate hashes with:
+#   python3 - <<'EOF'
+#   import re, hashlib, base64
+#   html = open("dist/index.html", encoding="utf-8").read()
+#   for _, body in re.findall(r'<script(?![^>]*\bsrc=)([^>]*)>(.*?)</script>', html, re.S):
+#       print("'sha256-%s='" % base64.b64encode(hashlib.sha256(body.encode()).digest()).decode())
+#   EOF
+/*
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'sha256-0t7xAl9adfkDHI77ve8ASiF0ph1pEcRBU0TntUx6ZYc=' 'sha256-6eZcC8oMTuyY9bAYFWqbJOf+GhPpsw1YfLovK21YV8o='; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; worker-src 'self'; manifest-src 'self'; upgrade-insecure-requests
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
+  Cross-Origin-Opener-Policy: same-origin
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+
 # HTML pages — always revalidate (so new deploys are picked up immediately)
 /
   Cache-Control: public, max-age=0, must-revalidate
