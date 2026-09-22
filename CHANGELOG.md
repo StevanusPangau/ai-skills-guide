@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v1.7.0] - 2026-09-15
+
+### Added
+- **Cloudflare: `nextjs-on-cloudflare` skill** — `cloudflare/skills` (Apache-2.0): build/migrate/deploy Next.js on Cloudflare Workers via vinext (App Router/Pages Router/RSC on Vite, native workerd execution and bindings), vinext-vs-OpenNext decision, upstream routing via `npx skills add cloudflare/vinext`.
+- **Cloudflare: `security-audit` skill** — `cloudflare/security-audit-skill` (MIT, separate upstream repo): defensive source-first vulnerability review with guidance vs six-phase full-audit modes, coverage ledger, independent per-finding verification, write isolation, quick/standard/deep profiles, and a strict budget gate.
+
+### Changed
+- **Cloudflare collection refreshed to upstream `b052c32`** (pin was `f96bff7`, 2026-08-07): `cloudflare` product-discovery rewrite (need-to-product mapping, deciding-requirement guidance), `agents-sdk` turned into a 30+-topic retrieval map into Cloudflare docs (chat agents, Client SDK, MCP, voice), `cloudflare-email-service` explicit source-of-truth hierarchy, `cloudflare-one` reusable Access policy API guidance, `cloudflare-one-migrations` description alignment.
+- Cloudflare collection count 13 → 15; sidebar stats, hero, catalog, and README updated; `CLOUDFLARE_SOURCE_SHA` bumped to `b052c32` with new `CLOUDFLARE_SECURITY_AUDIT_*` provenance constants.
+
 ## [v1.6.0] - 2026-09-11
 
 ### Added

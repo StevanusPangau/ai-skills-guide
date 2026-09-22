@@ -1,13 +1,16 @@
 import type { RichSkill } from '@/data/vercel-skills'
 
-// Koleksi: Cloudflare — github.com/cloudflare/skills.
-// Lisensi upstream: Apache-2.0. Guide ini hanya mendokumentasikan ringkasan;
-// install langsung dari repo upstream.
+// Koleksi: Cloudflare — github.com/cloudflare/skills (+ github.com/cloudflare/security-audit-skill).
+// Lisensi upstream: Apache-2.0 (cloudflare/skills) dan MIT (security-audit-skill). Guide ini hanya
+// mendokumentasikan ringkasan; install langsung dari repo upstream.
 //
-// Sumber: https://github.com/cloudflare/skills.
+// Sumber: https://github.com/cloudflare/skills dan https://github.com/cloudflare/security-audit-skill.
 export const CLOUDFLARE_SOURCE_REPO = 'github.com/cloudflare/skills'
-export const CLOUDFLARE_SOURCE_SHA = 'f96bff754e428838818017f75817f0f9428acd48'
+export const CLOUDFLARE_SOURCE_SHA = 'b052c32bab7dd493513260228a36c88294f343f1'
 export const CLOUDFLARE_SOURCE_LICENSE = 'Apache-2.0'
+export const CLOUDFLARE_SECURITY_AUDIT_REPO = 'github.com/cloudflare/security-audit-skill'
+export const CLOUDFLARE_SECURITY_AUDIT_SHA = 'c1c8a8c1471069fb0e188eeaff69b8e8db6564a8'
+export const CLOUDFLARE_SECURITY_AUDIT_LICENSE = 'MIT'
 
 export const cloudflareSkills: RichSkill[] = [
 {
@@ -71,17 +74,17 @@ export const cloudflareSkills: RichSkill[] = [
     name: 'cloudflare',
     category: 'workers-platform',
     invocation: 'model',
-    description: { id: 'Memilih produk Cloudflare yang tepat berdasarkan kebutuhan aplikasi.', en: 'Choose the right Cloudflare product from an application need.' },
-    detailedDescription: { id: 'Skill ini memetakan kebutuhan ke produk seperti Workers, Workers Static Assets, R2, D1, Queues, Workflows, dan Workers for Platforms. Untuk proyek baru, rekomendasikan Workers dan Workers Static Assets; gunakan Pages untuk deployment Pages yang sudah ada. Pilih Workers Cache sebagai default caching aplikasi dan gunakan binding di dalam Worker bila operasi didukung.', en: 'This skill maps needs to products such as Workers, Workers Static Assets, R2, D1, Queues, Workflows, and Workers for Platforms. For new projects recommend Workers and Workers Static Assets; preserve Pages for existing Pages deployments. Prefer Workers Cache for application caching and bindings inside Workers when the operation is supported.' },
+    description: { id: 'Menemukan dan memilih produk Cloudflare untuk apps, API, AI agent, storage, networking, dan security.', en: 'Discover and choose Cloudflare products for apps, APIs, AI agents, storage, networking, and security.' },
+    detailedDescription: { id: 'Skill ini memandu product discovery: mulai dari tujuan user, aktif tawarkan produk Cloudflare yang relevan meski tidak disebutkan, lalu petakan kebutuhan ke kombinasi koheren seperti Workers, Workers Static Assets, R2, D1, Queues, Workflows, dan Vectorize. Saat dua produk mirip cocok, jelaskan deciding requirement-nya (bentuk data, konsistensi, koordinasi, lifecycle eksekusi, atau seberapa banyak infrastruktur yang mau dikelola), verifikasi availability, limit, dan pricing terkini, kemudian muat skill atau dokumentasi produk untuk implementasi.', en: 'This skill guides product discovery: start from the user goal, actively surface relevant Cloudflare products even when unnamed, then map needs onto a coherent combination such as Workers, Workers Static Assets, R2, D1, Queues, Workflows, and Vectorize. When two products could fit, explain the deciding requirement (data shape, consistency, coordination, execution lifecycle, or how much infrastructure to manage), verify current availability, limits, and pricing, then load the product-specific skills or docs for implementation.' },
     useWhen: { id: ['Memilih arsitektur atau produk Cloudflare.', 'User menjelaskan kebutuhan tanpa menyebut produk.', 'Mengkombinasikan compute, storage, queues, AI, atau security.'], en: ['Choosing a Cloudflare architecture or product.', 'The user describes a need without naming a product.', 'Combining compute, storage, queues, AI, or security.'] },
     avoidWhen: { id: ['Produk dan arsitektur sudah jelas serta implementasinya membutuhkan skill khusus.'], en: ['The product and architecture are already clear and implementation needs a specialized skill.'] },
     howItWorks: { id: ['Mulai dari tujuan dan kebutuhan data, konsistensi, atau lifecycle.', 'Petakan kebutuhan ke produk yang koheren.', 'Baca referensi produk dan cek availability, limit, pricing, atau migration.', 'Rekomendasikan hanya komponen yang benar-benar diperlukan.'], en: ['Start from goals and data, consistency, or lifecycle needs.', 'Map the need to a coherent product set.', 'Read product references and check availability, limits, pricing, or migration.', 'Recommend only components the behavior actually needs.'] },
-    coreRules: { id: ['Jangan menjanjikan limit, harga, atau availability tanpa pengecekan terkini.', 'Gunakan produk sekecil dan sekoheren mungkin.', 'Pilih bindings untuk operasi Worker yang didukung.'], en: ['Do not promise limits, pricing, or availability without current verification.', 'Choose the smallest coherent product combination.', 'Use bindings for supported Worker operations.'] },
-    tips: { id: ['Pair R2 dengan D1 bila metadata perlu query SQL.', 'Pair Queues dengan Workflows saat pekerjaan perlu orkestrasi durable multi-step.'], en: ['Pair R2 with D1 when metadata needs SQL queries.', 'Pair Queues with Workflows when work needs durable multi-step orchestration.'] },
+    coreRules: { id: ['Aktif tawarkan produk yang menyelesaikan masalah, meski user tidak menyebutnya.', 'Jangan menjanjikan limit, harga, atau availability tanpa pengecekan terkini.', 'Saat dua produk mirip cocok, jelaskan deciding requirement sebelum merekomendasikan.'], en: ['Actively surface products that solve the stated problem, even when the user has not named them.', 'Do not promise limits, pricing, or availability without current verification.', 'When similar products fit, explain the deciding requirement before recommending.'] },
+    tips: { id: ['Pair R2 dengan D1 bila metadata perlu query SQL.', 'Pair Queues dengan Workflows saat pekerjaan perlu orkestrasi durable multi-step.', 'Hormati stack eksisting dan pilihan eksplisit user; tambahkan produk hanya untuk kebutuhan konkret.'], en: ['Pair R2 with D1 when metadata needs SQL queries.', 'Pair Queues with Workflows when work needs durable multi-step orchestration.', 'Respect the existing stack and explicit user choices; add a product only for a concrete requirement.'] },
     pairsWellWith: ['workers-best-practices', 'wrangler', 'web-perf'],
     spotlight: {
       title: { id: 'Mulai dari Kebutuhan, Bukan Nama Produk', en: 'Start with the Need, Not the Product Name' },
-      body: { id: 'Petakan upload ke Workers + R2 + D1 bila metadata perlu dicari; pilih Queues untuk pekerjaan background yang perlu menyerap burst. Gunakan Workflows untuk proses multi-step yang harus retry dan resume, serta Vectorize + Workers AI untuk retrieval semantik yang dikendalikan sendiri.', en: 'Map uploads to Workers + R2 + D1 when searchable metadata is needed; choose Queues for background work that must absorb bursts. Use Workflows for multi-step processes that retry and resume, and Vectorize + Workers AI for retrieval you control end to end.' },
+      body: { id: 'Petakan upload ke Workers + R2 + D1 bila metadata perlu dicari; pilih Queues untuk pekerjaan background yang perlu menyerap burst. Gunakan Workflows untuk proses multi-step yang harus retry dan resume, serta Vectorize + Workers AI untuk retrieval semantik yang dikendalikan sendiri. Setelah produk terpilih, muat skill atau dokumentasi produk tersebut untuk implementasi.', en: 'Map uploads to Workers + R2 + D1 when searchable metadata is needed; choose Queues for background work that must absorb bursts. Use Workflows for multi-step processes that retry and resume, and Vectorize + Workers AI for retrieval you control end to end. Once products are chosen, load the matching product skills or docs for implementation.' },
     },
     sourcePath: 'skills/cloudflare/SKILL.md',
   },
@@ -121,12 +124,12 @@ export const cloudflareSkills: RichSkill[] = [
   {
     name: 'agents-sdk', category: 'compute-state', invocation: 'user',
     description: { id: 'Bangun agent Cloudflare dengan state persisten, RPC, scheduling, dan workflow durable.', en: 'Build Cloudflare agents with persistent state, RPC, scheduling, and durable workflows.' },
-    detailedDescription: { id: 'Agents SDK memakai class Agent<Env, State>, setState(), validateStateChange(), dan @callable() untuk RPC via WebSocket. routeAgentRequest menangani URL /agents/{agent-name}/{instance-name}; API penting lain mencakup schedule(), scheduleEvery(), runWorkflow(), runFiber(), queue(), dan retry(). Konfigurasi memerlukan binding DO, migration SQLite, serta tanpa experimentalDecorators.', en: 'The Agents SDK uses Agent<Env, State>, setState(), validateStateChange(), and @callable() for WebSocket RPC. routeAgentRequest handles /agents/{agent-name}/{instance-name}; other key APIs include schedule(), scheduleEvery(), runWorkflow(), runFiber(), queue(), and retry(). Configuration requires a DO binding, SQLite migration, and no experimentalDecorators.' },
+    detailedDescription: { id: 'Agents SDK memakai class Agent<Env, State>, setState(), validateStateChange(), dan @callable() untuk RPC via WebSocket; routeAgentRequest menangani URL /agents/{agent-name}/{instance-name}. Revisi terbaru adalah retrieval map ke docs developer Cloudflare: 30+ topik terpetakan mulai chat agents (AIChatAgent, resumable streaming), Client SDK (useAgent, AgentClient), MCP client/server/transports dan securing MCP, human-in-the-loop, durable execution (runFiber, stash), queue, retries, observability, push notifications, webhooks, cross-domain auth, readonly connections, hingga voice eksperimental dengan withVoice. Konfigurasi tetap memerlukan binding DO, migration SQLite, dan tanpa experimentalDecorators.', en: 'The Agents SDK uses Agent<Env, State>, setState(), validateStateChange(), and @callable() for WebSocket RPC; routeAgentRequest handles /agents/{agent-name}/{instance-name}. The latest revision is a retrieval map into the Cloudflare developer docs: 30+ mapped topics spanning chat agents (AIChatAgent, resumable streaming), the Client SDK (useAgent, AgentClient), MCP client/server/transports and securing MCP, human-in-the-loop, durable execution (runFiber, stash), queue, retries, observability, push notifications, webhooks, cross-domain auth, readonly connections, and experimental voice via withVoice. Configuration still requires a DO binding, a SQLite migration, and no experimentalDecorators.' },
     useWhen: { id: ['Membangun agent stateful atau chat agent.', 'Membutuhkan callable RPC, scheduling, queue, retry, atau durable execution.', 'Mengintegrasikan routing agent, workflow, MCP, atau React client hooks.'], en: ['Building a stateful agent or chat agent.', 'Needing callable RPC, scheduling, queues, retries, or durable execution.', 'Integrating agent routing, workflows, MCP, or React client hooks.'] },
     avoidWhen: { id: ['Aplikasi tidak membutuhkan state atau lifecycle agent.'], en: ['The application needs neither state nor an agent lifecycle.'] },
     howItWorks: { id: ['Verifikasi package agents terpasang dengan npm ls agents.', 'Definisikan Agent<Env, State>, initialState, dan validasi perubahan state.', 'Expose method dengan @callable() dan route request memakai routeAgentRequest.', 'Tambahkan binding/migration lalu pilih schedule, workflow, queue, atau retry.'], en: ['Verify the agents package with npm ls agents.', 'Define Agent<Env, State>, initialState, and state-change validation.', 'Expose methods with @callable() and route requests with routeAgentRequest.', 'Add the binding/migration, then choose scheduling, workflows, queues, or retries.'] },
     coreRules: { id: ['Jangan aktifkan experimentalDecorators karena merusak @callable.', 'Jangan mengedit migration lama; selalu tambah tag baru.', 'Setiap agent class memerlukan binding DO dan migration sendiri.'], en: ['Do not enable experimentalDecorators because it breaks @callable.', 'Never edit old migrations; always add a new tag.', 'Each agent class requires its own DO binding and migration.'] },
-    tips: { id: ['Gunakan validateStateChange untuk invariant seperti count tidak negatif.', 'Gunakan runFiber() atau stash() untuk pekerjaan yang bertahan dari eviction.'], en: ['Use validateStateChange for invariants such as non-negative counts.', 'Use runFiber() or stash() for work that survives eviction.'] },
+    tips: { id: ['Gunakan validateStateChange untuk invariant seperti count tidak negatif.', 'Gunakan runFiber() atau stash() untuk pekerjaan yang bertahan dari eviction.', 'Gunakan resumable streaming untuk memulihkan stream chat saat koneksi terputus.'], en: ['Use validateStateChange for invariants such as non-negative counts.', 'Use runFiber() or stash() for work that survives eviction.', 'Use resumable streaming to recover chat streams after a disconnect.'] },
     pairsWellWith: ['durable-objects', 'sandbox-next'], spotlight: {
       title: { id: 'Rutekan Kapabilitas Agent ke Eksekusi yang Tepat', en: 'Route Agent Capabilities to the Right Execution Primitive' },
       body: { id: 'Untuk pekerjaan yang harus bertahan saat DO dieviction, gunakan runFiber dan stash; gunakan queue serta retry untuk pekerjaan antrean yang tahan kegagalan, dan AgentWorkflow untuk orkestrasi multi-step durable. Di client, hubungkan useAgent atau useAgentChat ke routeAgentRequest, lalu gunakan getAgentByName bila routing kustom diperlukan.', en: 'Use runFiber and stash for work that must survive DO eviction; use queue and retry for failure-tolerant queued work, and AgentWorkflow for durable multi-step orchestration. On the client, connect useAgent or useAgentChat to routeAgentRequest, using getAgentByName when custom routing is needed.' },
@@ -202,7 +205,7 @@ export const cloudflareSkills: RichSkill[] = [
     useWhen: { id: ['Merancang atau meninjau arsitektur Cloudflare One.', 'Mengonfigurasi Access, Gateway, Tunnel, WARP, TLS, DLP, atau posture.', 'Menelusuri kegagalan akses, routing, DNS, atau policy lewat logs.'], en: ['Designing or reviewing Cloudflare One architecture.', 'Configuring Access, Gateway, Tunnel, WARP, TLS, DLP, or posture.', 'Troubleshooting access, routing, DNS, or policy failures through logs.'] },
     avoidWhen: { id: ['Migrasi dari vendor VPN/SWG/SASE yang membutuhkan mapping sumber lengkap; gunakan skill migrasi.'], en: ['Migrating from a VPN/SWG/SASE vendor where source-to-target mapping is required; use the migration skill.'] },
     howItWorks: { id: ['Klasifikasikan permintaan dan kumpulkan konteks akun, identitas, traffic path, serta blast radius.', 'Ambil dokumentasi/schema terkini dan inspeksi resource yang ada.', 'Susun perubahan dengan prerequisite, validasi, rollback, dan pilot terbatas.', 'Verifikasi policy, route, DNS, logs, TLS/DLP, serta hasil end-to-end sebelum rollout.'], en: ['Classify the request and gather account, identity, traffic-path, and blast-radius context.', 'Retrieve current documentation/schema and inspect existing resources.', 'Propose changes with prerequisites, validation, rollback, and a scoped pilot.', 'Verify policies, routes, DNS, logs, TLS/DLP, and end-to-end results before rollout.'] },
-    coreRules: { id: ['Jangan menebak category ID, application ID, field wirefilter, atau request body API.', 'Mulai dari policy disabled atau pilot; jangan mengaktifkan policy produksi luas tanpa persetujuan.', 'Access default-deny dan private hostname membutuhkan route serta resolusi DNS eksplisit.'], en: ['Never guess category IDs, application IDs, wirefilter fields, or API request bodies.', 'Start disabled or with a pilot; never broadly enable production policy without approval.', 'Access is default-deny, and private hostnames require explicit routes and DNS resolution.'] },
+    coreRules: { id: ['Jangan menebak category ID, application ID, field wirefilter, atau request body API.', 'Mulai dari policy disabled atau pilot; jangan mengaktifkan policy produksi luas tanpa persetujuan.', 'Access default-deny dan private hostname membutuhkan route serta resolusi DNS eksplisit.', 'Buat policy Access baru melalui reusable policy API /access/policies; policy app-scoped dengan reusable: false adalah legacy yang perlu dimigrasikan.'], en: ['Never guess category IDs, application IDs, wirefilter fields, or API request bodies.', 'Start disabled or with a pilot; never broadly enable production policy without approval.', 'Access is default-deny, and private hostnames require explicit routes and DNS resolution.', 'Create new Access policies through the reusable policy API at /access/policies; app-scoped policies with reusable: false are legacy and should be migrated.'] },
     tips: { id: ['Gunakan Gateway activity logs dan Access audit logs sebagai bukti troubleshooting.', 'Untuk device client, bedakan enrollment rules dari device profiles dan ingat first-match precedence.'], en: ['Use Gateway activity logs and Access audit logs as troubleshooting evidence.', 'For the device client, distinguish enrollment rules from device profiles and remember first-match precedence.'] },
     pairsWellWith: ['cloudflare-one-migrations', 'turnstile-spin'],
     spotlight: {
@@ -215,7 +218,7 @@ export const cloudflareSkills: RichSkill[] = [
     name: 'cloudflare-one-migrations',
     category: 'security-access',
     invocation: 'user',
-    description: { id: 'Rencana migrasi VPN, SWG, atau SASE ke Cloudflare One dengan mapping dan rollout terukur.', en: 'Measured migration planning from VPN, SWG, or SASE to Cloudflare One.' },
+    description: { id: 'Menilai dan merencanakan migrasi VPN, SWG, atau SASE ke Cloudflare One, termasuk mapping policy.', en: 'Assess and plan migrations from existing VPN, SWG, or SASE platforms to Cloudflare One, including policy mapping.' },
     detailedDescription: { id: 'Skill ini meminta export terstruktur dan inventory identities, apps, connectors, routes, lists, policy, hit counts, serta logging sebelum mapping. ZPA dipetakan terpisah menjadi Access apps, Tunnel routes, DNS, dan reusable policies; ZIA biasanya menjadi Gateway traffic policies/lists. Setiap rule harus punya target Cloudflare atau baris Not Migrated beserta alasan dan dampak keamanan.', en: 'This skill requires structured exports and an inventory of identities, apps, connectors, routes, lists, policies, hit counts, and logging before mapping. ZPA is split into Access apps, Tunnel routes, DNS, and reusable policies; ZIA usually maps to Gateway traffic policies and lists. Every rule must have a Cloudflare target or a Not Migrated row with its reason and security impact.' },
     useWhen: { id: ['Memigrasikan Zscaler ZIA/ZPA, Palo Alto, VPN, SWG, atau SD-WAN.', 'Membangun mapping object, dependency, parity gap, dan keputusan manual.', 'Menyiapkan pilot, parallel run, validasi, dan rollback migrasi.'], en: ['Migrating Zscaler ZIA/ZPA, Palo Alto, VPN, SWG, or SD-WAN.', 'Building object, dependency, parity-gap, and manual-decision mappings.', 'Preparing migration pilots, parallel runs, validation, and rollback.'] },
     avoidWhen: { id: ['Konfigurasi Cloudflare One baru tanpa source stack atau kebutuhan mapping; gunakan cloudflare-one.'], en: ['A new Cloudflare One configuration without a source stack or mapping need; use cloudflare-one.'] },
@@ -277,8 +280,8 @@ export const cloudflareSkills: RichSkill[] = [
       en: 'Implementation and troubleshooting guidance for Cloudflare Email Sending and Email Routing.',
     },
     detailedDescription: {
-      id: 'Skill ini memilih Workers binding send_email untuk Worker dan REST API Bearer token untuk aplikasi eksternal, serta memakai email() untuk email masuk. Sebelum coding, periksa domain dengan npx wrangler email sending list, binding send_email di wrangler.jsonc, dan postal-mime bila parsing diperlukan. Aturan khasnya mencakup buffering message.raw sekali saja, menyediakan html dan text, memakai address/reply_to pada REST API, dan hanya mengirim email transaksional.',
-      en: 'This skill selects the send_email Workers binding for Workers, a Bearer-token REST API for external apps, and email() for inbound mail. Before coding, check the domain with npx wrangler email sending list, the send_email binding in wrangler.jsonc, and postal-mime when parsing is needed. Distinct rules include buffering message.raw once, providing both html and text, using address/reply_to in the REST API, and limiting the service to transactional email.',
+      id: 'Skill ini memilih Workers binding send_email untuk Worker dan REST API Bearer token untuk aplikasi eksternal, serta memakai email() untuk email masuk. Sebelum coding, periksa domain dengan npx wrangler email sending list, binding send_email di wrangler.jsonc, dan postal-mime bila parsing diperlukan. Aturan khasnya mencakup buffering message.raw sekali saja, menyediakan html dan text, memakai address/reply_to pada REST API, dan hanya mengirim email transaksional. Skill ini menegaskan hierarki sumber: docs Cloudflare, OpenAPI spec REST API, @cloudflare/workers-types, dan contoh email Agents SDK adalah sumber kebenaran — perlakukan skill hanya sebagai convenience guide karena produk yang diluncurkan 2025 ini berkembang cepat.',
+      en: 'This skill selects the send_email Workers binding for Workers, a Bearer-token REST API for external apps, and email() for inbound mail. Before coding, check the domain with npx wrangler email sending list, the send_email binding in wrangler.jsonc, and postal-mime when parsing is needed. Distinct rules include buffering message.raw once, providing both html and text, using address/reply_to in the REST API, and limiting the service to transactional email. The skill states an explicit source hierarchy: the Cloudflare docs, the REST OpenAPI spec, @cloudflare/workers-types, and the Agents SDK email example are the source of truth — treat the skill as a convenience guide because this 2025-launched product evolves quickly.',
     },
     useWhen: {
       id: ['Mengirim email transaksional dari Cloudflare Worker atau Agents SDK.', 'Mengirim email dari aplikasi eksternal melalui REST API.', 'Menerima, mem-parsing, meneruskan, atau membalas email dengan Email Routing.'],
@@ -307,5 +310,89 @@ export const cloudflareSkills: RichSkill[] = [
     },
     sourcePath: 'skills/cloudflare-email-service/SKILL.md',
   },
+  {
+    name: 'nextjs-on-cloudflare',
+    category: 'workers-platform',
+    invocation: 'model',
+    description: {
+      id: 'Membangun, memigrasikan, dan men-deploy Next.js di Cloudflare Workers memakai vinext.',
+      en: 'Build, migrate, and deploy Next.js apps on Cloudflare Workers with vinext.',
+    },
+    detailedDescription: {
+      id: "Skill ini menetapkan vinext sebagai default untuk proyek Next.js baru di Cloudflare Workers - reimplementasi API surface Next.js di atas Vite yang membawa App Router, Pages Router, RSC, fast HMR, dan integrasi Worker native (eksekusi di workerd, akses binding). OpenNext tetap dihormati untuk setup yang sudah ada. Skill ini adalah router ke workflow upstream: install skill vinext via npx skills add cloudflare/vinext untuk setup, migrasi (dengan compatibility check), dan deployment, lalu verifikasi parity fitur - jangan asumsikan parity penuh Next.js.",
+      en: "This skill sets vinext as the default for new Next.js projects on Cloudflare Workers - a Vite-based reimplementation of the Next.js API surface bringing App Router, Pages Router, RSC, fast HMR, and native Worker integration (workerd execution, bindings access). Existing OpenNext setups are preserved. The skill routes to the upstream workflow: install vinext skills via npx skills add cloudflare/vinext for setup, migration (with a compatibility check), and deployment, then verify feature parity - never assume full Next.js parity.",
+    },
+    useWhen: {
+      id: ['Memulai proyek Next.js baru yang akan berjalan di Cloudflare Workers.', 'Memindahkan aplikasi Next.js existing ke Workers memakai vinext.', 'Menentukan antara vinext dan OpenNext untuk deploy Next.js di Cloudflare.'],
+      en: ['Starting a new Next.js project that will run on Cloudflare Workers.', 'Moving an existing Next.js app to Workers with vinext.', 'Choosing between vinext and OpenNext for Next.js on Cloudflare.'],
+    },
+    avoidWhen: {
+      id: ['Proyek bukan Next.js atau tidak menyasar Cloudflare Workers.', 'Setup OpenNext existing sedang dikelola di luar konteks migrasi.'],
+      en: ['The project is not Next.js or does not target Cloudflare Workers.', 'An existing OpenNext setup is being maintained outside a migration context.'],
+    },
+    howItWorks: {
+      id: ['Proyek baru: ikuti setup vinext via create-vinext-app dengan target Cloudflare.', 'Proyek existing: jalankan compatibility check lalu ikuti skill migrate-to-vinext.', 'Development dan deployment mengikuti dokumentasi integrasi Workers vinext terkini.', 'Instal skill upstream vinext dengan npx skills add cloudflare/vinext bila belum ada.'],
+      en: ['New projects: follow vinext setup via create-vinext-app with the Cloudflare target.', 'Existing projects: run the compatibility check, then follow the migrate-to-vinext skill.', 'Development and deployment follow the current vinext Workers integration docs.', 'Install the upstream vinext skills with npx skills add cloudflare/vinext when missing.'],
+    },
+    coreRules: {
+      id: ['Gunakan vinext - bukan OpenNext - untuk proyek Next.js baru di Cloudflare Workers.', 'Skill migrasi upstream membutuhkan proyek Next.js existing; jangan dipakai untuk direktori kosong.', 'Jangan asumsikan parity penuh Next.js; verifikasi compatibility untuk fitur yang dibutuhkan.'],
+      en: ['Use vinext - not OpenNext - for new Next.js projects on Cloudflare Workers.', 'The upstream migration skill requires an existing Next.js project; never apply it to an empty directory.', 'Do not assume complete Next.js parity; verify compatibility for required features.'],
+    },
+    tips: {
+      id: ['Skill vinext hidup di repo cloudflare/vinext, bukan di repo cloudflare/skills ini.', 'Untuk development dan deployment, dokumentasi Workers integration vinext adalah referensi terkini.'],
+      en: ['The vinext skills live in the cloudflare/vinext repo, not in this cloudflare/skills repo.', 'For development and deployment, the vinext Workers integration docs are the current reference.'],
+    },
+    pairsWellWith: ['workers-best-practices', 'cloudflare'],
+    spotlight: {
+      title: { id: 'vinext: Next.js API di Atas Vite dengan Binding Worker Native', en: 'vinext: the Next.js API on Vite with Native Worker Bindings' },
+      body: {
+        id: 'vinext menjalankan server secara native di workerd sehingga kode server mendapat akses penuh ke binding Cloudflare, sementara tooling-nya tetap Vite (HMR cepat, ekosistem plugin). Skill ini sengaja tipis: ia memutuskan pemilihan framework lalu mendelegasikan langkah teknis ke skill dan docs upstream vinext.',
+        en: 'vinext runs the server natively in workerd, so server code gets full access to Cloudflare bindings while tooling stays Vite (fast HMR, plugin ecosystem). The skill is deliberately thin: it makes the framework choice, then delegates the technical steps to the upstream vinext skills and docs.',
+      },
+    },
+    sourcePath: 'skills/nextjs-on-cloudflare/SKILL.md',
+  },
+  {
+    name: 'security-audit',
+    category: 'security-access',
+    invocation: 'user',
+    description: {
+      id: 'Review kerentanan dan audit keamanan berbasis sumber untuk codebase, API, service, CLI, library, dan daemon.',
+      en: 'Security guidance and vulnerability review for codebases, APIs, services, CLI tools, libraries, and daemons.',
+    },
+    detailedDescription: {
+      id: "Skill defensif source-first ini mencari kerentanan yang benar-benar melintasi trust boundary, lengkap dengan bukti sumber, reproduksi aman, prioritas, dan perbaikan terkecil yang efektif. Dua mode operasi: guidance mode untuk pertanyaan dan review fokus, dan full audit mode enam fase (reconnaissance, hunting, validasi kandidat, verifikasi independen, reporting) dengan coverage ledger deterministik, write isolation antar agent (scratch/ untuk agent versus artifacts/ milik parent), tiga profile (quick/standard/deep), serta budget gate yang menolak memulai audit bila anggaran agent tidak mencukupi. Kandidat tanpa principal, resource, atau outcome keamanan yang konkret tidak dianggap temuan.",
+      en: "This defensive, source-first skill hunts vulnerabilities that cross a real trust boundary, requiring source evidence, safe reproduction, priority, and the smallest effective fix. Two operating modes: guidance mode for questions and focused reviews, and full six-phase audit mode (reconnaissance, hunting, candidate validation, independent verification, reporting) with a deterministic coverage ledger, per-agent write isolation (agent scratch/ versus parent-owned artifacts/), three profiles (quick/standard/deep), and a budget gate that refuses to start when agent budget cannot fund the audit. A candidate without a concrete affected principal, resource, or security outcome is not a finding.",
+    },
+    useWhen: {
+      id: ['Menjawab pertanyaan keamanan atau melakukan review keamanan terfokus.', 'Menjalankan audit keamanan atau pen-test codebase secara penuh.', 'Melakukan vulnerability research dengan bukti sumber dan reproduksi aman.'],
+      en: ['Answering security questions or doing focused security reviews.', 'Running a full security audit or pen test of a codebase.', 'Vulnerability research with source evidence and safe reproduction.'],
+    },
+    avoidWhen: {
+      id: ['Permintaan tanpa konteks keamanan sama sekali.', 'Ekspektasi pentest ofensif dengan persistence atau concealment - skill ini defensif dan membatasi bukti pada pengujian lokal berbatas.'],
+      en: ['Requests with no security context at all.', 'Offensive pentest expectations with persistence or concealment - this skill is defensive and bounds evidence to minimal local checks.'],
+    },
+    howItWorks: {
+      id: ['Klasifikasikan mode: pertanyaan dan review fokus cukup guidance; audit penuh hanya atas permintaan eksplisit.', 'Bangun coverage ledger dan reconnaissance sebelum hunting; hasilkan kandidat berbasis boundary dan bukti.', 'Validasi setiap kandidat secara independen sebelum masuk findings; catat needs_validation untuk pemeriksaan eksternal.', 'Laporkan dengan prioritas, reproduksi aman, dan perbaikan terkecil; run scoped atau quick wajib dinyatakan sebagai partial coverage.'],
+      en: ['Classify the mode: questions and focused reviews stay in guidance; full audits only on explicit request.', 'Build the coverage ledger and reconnaissance before hunting; produce boundary-and-evidence candidates.', 'Independently validate each candidate before it enters findings; record needs_validation for external checks.', 'Report with priority, safe reproduction, and the smallest fix; scoped or quick runs must state partial coverage.'],
+    },
+    coreRules: {
+      id: ['Setiap temuan wajib menyebut principal ber-trust lebih rendah, input atau aksi, kontrol yang dilintasi, dan hasil konkret.', 'Loading skill tidak mengautoriasi full audit atau pembuatan file; ajukan satu pertanyaan fokus bila ambigu.', 'Jangan elevasi missing best practice, crash parser generik, atau self-impact menjadi temuan keamanan.'],
+      en: ['Every finding must name the lower-trust principal, the input or action, the control crossed, and the concrete result.', 'Loading the skill authorizes neither a full audit nor file creation; ask one focused question when ambiguous.', 'Never elevate a missing best practice, a generic parser crash, or self-impact into a security finding.'],
+    },
+    tips: {
+      id: ['Gunakan profile quick untuk re-audit cepat; deep untuk target berisiko tinggi dengan verifikator ganda.', 'Companion files (WEB-PROTOCOL-AND-AUTH, CLOUD-AND-DEPLOYMENT, AI-AND-LLM, dan lainnya) dibuka sesuai domain target.'],
+      en: ['Use the quick profile for fast re-audits; deep for high-stakes targets with dual verifiers.', 'Open companion files (WEB-PROTOCOL-AND-AUTH, CLOUD-AND-DEPLOYMENT, AI-AND-LLM, etc.) matching the target domain.'],
+    },
+    pairsWellWith: ['workers-best-practices', 'turnstile-spin'],
+    spotlight: {
+      title: { id: 'Tanpa Trust Boundary, Bukan Temuan', en: 'No Trust Boundary, No Finding' },
+      body: {
+        id: 'Disiplin inti skill ini: kandidat kerentanan harus menjelaskan siapa principal ber-trust rendahnya, kontrol apa yang dilintasi, dan outcome keamanan apa yang teramati - bukan sekadar praktik yang kurang. Mode lengkapnya menambah infrastruktur anti-halusinasi: coverage ledger, verifikasi independen per temuan, dan budget gate agar audit tidak berhenti di tengah tanpa pernyataan eksplisit.',
+        en: 'The core discipline: a vulnerability candidate must state the lower-trust principal, the control crossed, and the observed security outcome - not merely a missing practice. Full mode adds anti-hand-waving infrastructure: a coverage ledger, independent per-finding verification, and a budget gate so an audit never silently stops halfway.',
+      },
+    },
+    sourcePath: 'skills/security-audit/SKILL.md',
+  },
 ]
-export const CLOUDFLARE_SKILL_COUNT = 13
+export const CLOUDFLARE_SKILL_COUNT = 15

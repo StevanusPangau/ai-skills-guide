@@ -38,7 +38,7 @@ Snapshot of what ships today (220+ skills across 15 collections):
 | Jesse Vincent — Agentic SDLC & Superpowers | [`/superpowers`](https://skills.stevanuspangau.dev/superpowers) | [obra/superpowers](https://github.com/obra/superpowers) | 14 | Upstream via skills.sh |
 | Official Vercel Agent Skills | [`/vercel`](https://skills.stevanuspangau.dev/vercel) | [vercel-labs/agent-skills](https://github.com/vercel-labs/agent-skills) | 9 | Upstream via skills.sh |
 | Official Anthropic Agent Skills | [`/anthropic`](https://skills.stevanuspangau.dev/anthropic) | [anthropics/skills](https://github.com/anthropics/skills) | 19 | Upstream via skills.sh |
-| Official Cloudflare Edge Skills | [`/cloudflare`](https://skills.stevanuspangau.dev/cloudflare) | [cloudflare/skills](https://github.com/cloudflare/skills) | 13 | Upstream via skills.sh |
+| Official Cloudflare Edge Skills | [`/cloudflare`](https://skills.stevanuspangau.dev/cloudflare) | [cloudflare/skills](https://github.com/cloudflare/skills) + [cloudflare/security-audit-skill](https://github.com/cloudflare/security-audit-skill) | 15 | Upstream via skills.sh |
 | Official Supabase Postgres Skills | [`/supabase`](https://skills.stevanuspangau.dev/supabase) | [supabase/agent-skills](https://github.com/supabase/agent-skills) | 2 | Upstream via skills.sh |
 | Official Prisma ORM v7 Skills | [`/prisma`](https://skills.stevanuspangau.dev/prisma) | [prisma/skills](https://github.com/prisma/skills) | 9 | Upstream via skills.sh |
 | Official TanStack Framework Skills | [`/tanstack`](https://skills.stevanuspangau.dev/tanstack) | [tanstack-skills/tanstack-skills](https://github.com/tanstack-skills/tanstack-skills) | 14 | Upstream / npm Intent |
