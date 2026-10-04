@@ -702,6 +702,31 @@ export const davidondrejSkills: DavidSkill[] = [
     prerequisites: ['macOS'],
     notes:
       'Aturan: tidak pernah menjalankan caffeinate dengan & / nohup / disown / launchctl submit, dan sesi lama otomatis dihentikan tanpa konfirmasi saat durasi baru diminta. Sukses hanya dilaporkan bila verify mengembalikan STATUS=running dan ASSERTIONS=active.',
+    useWhen: [
+      'User secara eksplisit memanggil /anti-sleep untuk menjaga Mac tetap terjaga selama durasi tertentu.',
+      'Mac harus tetap terjaga selama sebuah proses (PID) berjalan.',
+    ],
+    avoidWhen: [
+      'User tidak memanggil /anti-sleep secara eksplisit.',
+      'Anda ingin menjaga backlight keyboard tetap menyala; caffeinate tidak bisa, pengaturannya manual di System Settings.',
+    ],
+    steps: [
+      'Resolve scripts/anti-sleep.sh relatif terhadap SKILL.md, lalu jalankan status untuk memeriksa sesi aktif.',
+      'Bila ada sesi aktif dan user meminta durasi baru, hentikan sesi lama dengan stop tanpa meminta konfirmasi.',
+      'Mulai timer dengan start <detik> (atau start-pid <PID> untuk proses tertentu), dengan flag default -d -i.',
+      'Di panggilan shell terpisah setelah start kembali, jalankan verify.',
+      'Laporkan sukses hanya bila verify mengembalikan STATUS=running dan ASSERTIONS=active, beserta PID, flag, dan waktu kedaluwarsa.',
+      'Jika verify gagal, jalankan stop dan jangan klaim Mac terlindungi.',
+    ],
+    rules: [
+      'Jangan menjalankan caffeinate dengan &, nohup, disown, atau launchctl submit.',
+      'Jangan pernah meminta konfirmasi sebelum menghentikan sesi lama saat durasi baru diminta.',
+      'Launcher tidak pernah memakai pkill luas.',
+      'Bila launchctl bootstrap gagal, pakai terminal persisten atau pane cmux yang terlihat, atau beri tahu user.',
+    ],
+    tips: [
+      'Flag -i mencegah idle sleep (layar boleh redup), -d mencegah display sleep, dan -d -i -s juga mencegah system sleep saat di AC.',
+    ],
   },
   {
     name: 'setup-help',
@@ -714,6 +739,28 @@ export const davidondrejSkills: DavidSkill[] = [
     sourcePath: 'skills/ops-and-setup/setup-help/SKILL.md',
     notes:
       'Daftar langkah kanonis disusun dulu dan diaudit tiap respons; langkah baru yang ditemukan di tengah jalan langsung ditambahkan. Bila tidak ada yang tersisa, nyatakan setup selesai.',
+    useWhen: [
+      'User secara eksplisit memanggil /setup-help untuk dipandu setup apa pun.',
+      'Setup punya banyak langkah dan user ingin satu langkah koheren sekali waktu beserta sisa langkahnya.',
+    ],
+    avoidWhen: [
+      'User tidak memanggil /setup-help secara eksplisit.',
+    ],
+    steps: [
+      'Bangun checklist kanonis lengkap dari outline user, repo/docs, layar saat ini, dan prasyarat yang ditemukan.',
+      'Tulis Current step: satu langkah koheren dalam 1-4 baris singkat, termasuk semua nilai yang dibutuhkan.',
+      'Tambahkan pembatas ----.',
+      'Tulis Still remaining: daftar bernomor maksimal 8 item, hanya headline.',
+      'Setelah user selesai, naikkan item remaining berikutnya menjadi Current step dan perbarui daftar.',
+      'Jika tidak ada yang tersisa, nyatakan setup selesai alih-alih menampilkan daftar.',
+    ],
+    rules: [
+      'Daftar Still remaining tidak pernah lebih dari 8 item; sisanya digabung menjadi item level fase dan tidak pernah dibuang dari pelacakan internal.',
+      'Item remaining hanya headline: tanpa perintah, URL, nilai, atau penjelasan.',
+      'Hanya beri instruksi untuk Current step; jangan melompat ke depan atau memecah form menjadi micro-step.',
+      'Langkah baru yang ditemukan di tengah jalan segera ditambahkan ke Still remaining sesuai urutan.',
+      'Audit Current step plus Still remaining terhadap checklist kanonis sebelum setiap respons.',
+    ],
   },
   {
     name: 'boat',
@@ -1367,6 +1414,29 @@ export const davidondrejSkills: DavidSkill[] = [
     prerequisites: ['Python 3'],
     notes:
       'NOT_FOUND bukan jaminan bisa dibeli (reservasi, aturan registrasi, atau harga premium). Hanya domain langsung di bawah TLD (bukan .co.uk); konkurensi dibatasi 4. Gunakan registrar untuk ketersediaan akhir.',
+    useWhen: [
+      'User secara eksplisit memanggil /domain-checker.',
+      'Kamu perlu memeriksa status registrasi banyak domain sekaligus tanpa key atau login.',
+    ],
+    avoidWhen: [
+      'Kamu butuh kepastian bisa dibeli, harga premium, atau clearance merek: gunakan registrar.',
+      'Domainnya memakai suffix multi-label seperti .co.uk.',
+    ],
+    steps: [
+      'Siapkan domain lengkap (bukan nama brand atau URL), perluas tiap kombinasi nama dan TLD.',
+      'Jalankan python3 scripts/check_domains.py dengan daftar domain dan --json, resolve path relatif terhadap SKILL.md.',
+      'Baca array {domain, status, detail}: REGISTERED, NOT_FOUND, UNAVAILABLE, UNKNOWN, atau INVALID.',
+      'Laporkan singkat sebagai snapshot live dengan domain dan status persis, serta jelaskan alasan UNKNOWN.',
+    ],
+    rules: [
+      'NOT_FOUND bukan konfirmasi tersedia; reservasi, aturan registrasi, atau harga premium bisa menghalangi pembelian.',
+      'UNKNOWN tidak pernah dianggap tersedia.',
+      'Pakai batch kecil; konkurensi dibatasi 4 dan jangan dinaikkan saat terkena rate limit.',
+      'Ketiadaan DNS dan error redirect-service RDAP tidak membuktikan ketersediaan.',
+    ],
+    tips: [
+      'Bootstrap gagal berarti exit nonzero dan tidak ada pengecekan yang selesai.',
+    ],
   },
   {
     name: 'fireflies-transcript',
@@ -1380,6 +1450,31 @@ export const davidondrejSkills: DavidSkill[] = [
     prerequisites: ['API key Fireflies.ai', 'curl', 'jq'],
     notes:
       'Filter transcripts(title:) bersifat exact-match, jadi daftar meeting terbaru lalu grep lokal. date dalam epoch milidetik. Skill youtube-transcript yang dirujuk tidak ada di snapshot ini.',
+    useWhen: [
+      'User secara eksplisit memanggil /fireflies-transcript.',
+      'Kamu perlu transkrip rapat Fireflies.ai mentah, berlabel speaker.',
+    ],
+    avoidWhen: [
+      'Sumbernya video YouTube: pakai youtube-transcript.',
+      'Kamu butuh menulis atau mengubah data di Fireflies; skill ini read-only.',
+    ],
+    steps: [
+      'Muat API key dari file kredensial; bila kosong, berhenti dan beri tahu user.',
+      'Daftar meeting terbaru lewat transcripts(limit: 25) lalu grep lokal untuk menemukan ID.',
+      'Tarik transcript(id:) dengan sentences { speaker_name text } dan simpan ke file.',
+      'Keluarkan teks berlabel speaker lewat jq.',
+      'Verifikasi jumlah kalimat lebih dari 0 dan speaker/topik cocok dengan meeting yang diminta.',
+    ],
+    rules: [
+      'Jangan commit atau cetak kredensial.',
+      'Simpan transkrip ke file; jangan dump ke stdout atau chat.',
+      'Filter transcripts(title:) exact-match, jadi daftar meeting terbaru lalu grep lokal.',
+      'Jangan hanya percaya judul; cek beberapa baris pertama.',
+    ],
+    tips: [
+      'date berupa epoch milidetik; meeting ad-hoc berjudul Untitled sehingga kenali lewat tanggal dan jam.',
+      'sentences: null berarti rekaman masih diproses atau tidak ada audio; 401 berarti key dirotasi.',
+    ],
   },
   {
     name: 'online-shopping',
@@ -1394,6 +1489,34 @@ export const davidondrejSkills: DavidSkill[] = [
     dependencies: ['deepapi'],
     notes:
       'Diinvokasi otomatis untuk pembelian online (jangan tambahkan disable-model-invocation). Bukan fokus utama guide software engineering.',
+    useWhen: [
+      'User meminta saran pembelian, harga wajar, atau subscription.',
+      'User membagikan foto, link, atau layar checkout produk.',
+      'Layar checkout atau SaaS menampilkan baris VAT/GST/pajak.',
+    ],
+    avoidWhen: [
+      'Pembelian murah dan jelas: jawab langsung tanpa scrape atau deep research.',
+      'Kamu diminta menaruh order atau memasukkan data pembayaran; skill ini riset saja.',
+    ],
+    steps: [
+      'Berikan kesan pertama 1-2 kalimat sebelum riset, ditandai sebagai awal; sertakan pengingat VAT ID bila ada pajak.',
+      'Identifikasi barang dan tujuan beli; tanya satu pertanyaan singkat hanya bila ketidakpastian mengubah rekomendasi.',
+      'Skalakan riset menurut harga: jelas, murah (di bawah sekitar $50), menengah, atau mahal ($1.000+).',
+      'Pakai DeepAPI (search/web, scrape/website, research/deep, scrape/twitter/search) dengan maxCostUsd eksplisit.',
+      'Verifikasi toko yang tidak dikenal dan hindari toko scam atau dropshipping.',
+      'Jawab ringkas: verdict tebal, rentang harga wajar, dan 2-3 tempat beli terbaik dengan link.',
+    ],
+    rules: [
+      'Riset saja: jangan order, buat akun toko, atau memasukkan data pembayaran, alamat, perusahaan, atau VAT; ingatkan user dan jangan simpan nilainya.',
+      'Hanya kutip harga yang benar-benar ditemukan; tandai estimasi awal dan beri tahu bila hasil tipis.',
+      'Jangan menyarankan VPN, alamat palsu, atau kartu pinjaman untuk pajak.',
+      'Jangan janjikan penghapusan pajak tanpa memeriksa kelayakan bisnis dan VAT ID.',
+      'Jangan menambahkan disable-model-invocation; skill ini auto-invoke.',
+    ],
+    tips: [
+      'Untuk merch bermerek, cek toko resmi dulu; bila tidak ada, sarankan print-on-demand dan label tidak resmi.',
+      'Mengganti mata uang tidak menghilangkan VAT; reverse charge B2B dengan VAT ID bisa menghilangkannya untuk pembelian digital UE yang memenuhi syarat.',
+    ],
   },
   {
     name: 'varied-search',
