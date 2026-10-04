@@ -1,7 +1,12 @@
 import type { BilingualString, BilingualList } from '@/types/skill'
 
+// Verified 2026-10-04 against prisma/skills @ be16a87 (HEAD, 38 commits). The repo has no tags;
+// "7.9.1" is only metadata.version of three SKILL.md files. Upstream README lists 8 real skills.
+// prisma-database-setup and prisma-postgres are deprecated stubs upstream (aliases of
+// prisma-orm-setup / prisma-postgres-setup) and are intentionally not listed here.
+
 export const PRISMA_SOURCE_REPO = 'github.com/prisma/skills'
-export const PRISMA_SOURCE_SHA = '7.9.1'
+export const PRISMA_SOURCE_SHA = 'be16a8740d01363d13552b317042431ee8dfc581'
 export const SOURCE_REPO = PRISMA_SOURCE_REPO
 export const SOURCE_SHA = PRISMA_SOURCE_SHA
 
@@ -34,8 +39,8 @@ export const prismaSkills: RichSkill[] = [
       en: 'Complete migration guide from Prisma ORM v6 to v7: new prisma-client generator, mandatory driver adapters, prisma.config.ts, and explicit env loading.',
     },
     detailedDescription: {
-      id: 'Skill resmi untuk memandu migrasi aplikasi Prisma ORM dari versi 6 ke versi 7. Versi 7 membawa perubahan arsitektur terbesar: generator `prisma-client-js` digantikan oleh generator `prisma-client`, driver adapters berbasis JavaScript (seperti @prisma/adapter-pg, @prisma/adapter-neon, @prisma/adapter-d1) kini wajib digunakan untuk koneksi basis data menggantikan C++ query engine rust bawaan, file konfigurasi `prisma.config.ts` menggantikan konfigurasi lama, file `.env` tidak lagi dimuat secara otomatis melainkan harus eksplisit, dan entri import client berpindah ke path kustom tergenerasi.',
-      en: 'Official skill guiding the migration of Prisma ORM applications from v6 to v7. Prisma 7 introduces fundamental architectural shifts: the legacy `prisma-client-js` generator is replaced by `prisma-client`, JavaScript-based driver adapters (such as @prisma/adapter-pg, @prisma/adapter-neon, @prisma/adapter-d1) are now mandatory for database communication, a typed `prisma.config.ts` configuration file replaces legacy schema flags, `.env` files are no longer loaded implicitly by default, and client entrypoints move to generated paths.',
+      id: 'Skill resmi untuk memandu migrasi aplikasi Prisma ORM dari versi 6 ke versi 7. Perubahan utamanya: generator `prisma-client` menjadi default dengan `output` eksplisit (generator `prisma-client-js` masih ada untuk setup legacy), driver adapters berbasis JavaScript (seperti @prisma/adapter-pg, @prisma/adapter-neon, @prisma/adapter-d1) wajib untuk provider SQL, file `prisma.config.ts` menjadi tempat konfigurasi koneksi dan migrasi, file `.env` tidak lagi dimuat otomatis, ESM-first (dengan `moduleFormat = "cjs"` untuk CommonJS), entrypoint client tergenerasi (`client`, `browser`, `models`, `enums`), `Prisma.validator` diganti `satisfies`, middleware `$use` dan metrics dihapus, plus catatan khusus pengguna Accelerate. Butuh Node.js 20.19+ dan TypeScript 5.4+.',
+      en: 'Official skill guiding the migration of Prisma ORM applications from v6 to v7. Key changes: the `prisma-client` generator is the default and needs an explicit `output` (`prisma-client-js` still exists for legacy setups), JavaScript driver adapters (such as @prisma/adapter-pg, @prisma/adapter-neon, @prisma/adapter-d1) are required for SQL providers, `prisma.config.ts` holds connection and migration configuration, `.env` files are no longer loaded automatically, ESM-first (with `moduleFormat = "cjs"` for CommonJS), generated client entrypoints (`client`, `browser`, `models`, `enums`), `Prisma.validator` replaced by `satisfies`, `$use` middleware and metrics removed, plus special handling for Accelerate users. Requires Node.js 20.19+ and TypeScript 5.4+.',
     },
     useWhen: {
       id: [
@@ -62,14 +67,14 @@ export const prismaSkills: RichSkill[] = [
     howItWorks: {
       id: [
         'Agent memeriksa versi dependensi dan skema schema.prisma yang ada.',
-        'Memperbarui blok generator dari `provider = "prisma-client-js"` menjadi `provider = "prisma-client"`.',
+        'Memperbarui blok generator ke `provider = "prisma-client"` dengan `output` eksplisit (mis. `../generated/prisma`).',
         'Menginstal adapter driver yang sesuai (misal `@prisma/adapter-pg` dan `pg`).',
         'Membuat file `prisma.config.ts` untuk mengelola koneksi dan migrasi secara terpusat.',
         'Memperbarui import `@prisma/client` menjadi import path kustom yang didefinisikan generator.',
       ],
       en: [
         'Agent audits existing dependencies and schema.prisma generator declarations.',
-        'Updates the generator block from `provider = "prisma-client-js"` to `provider = "prisma-client"`.',
+        'Updates the generator block to `provider = "prisma-client"` with an explicit `output` (e.g. `../generated/prisma`).',
         'Installs the matching driver adapter package (e.g. `@prisma/adapter-pg` and `pg`).',
         'Scaffolds `prisma.config.ts` for centralized connection and migration management.',
         'Rewrites `@prisma/client` imports to point to the designated generated entrypoint.',
@@ -77,35 +82,35 @@ export const prismaSkills: RichSkill[] = [
     },
     coreRules: {
       id: [
-        'Generator `prisma-client-js` tidak lagi didukung di Prisma 7; wajib ganti ke `prisma-client`.',
+        'Di Prisma 7 `prisma-client` adalah generator default dan `output` wajib eksplisit; `prisma-client-js` masih ada hanya untuk setup legacy.',
         'Driver adapter wajib diinisialisasi dan dioper ke konstruktor PrismaClient.',
         'Dilarang mengandalkan auto-loading `.env`; pastikan variabel lingkungan diekspor atau dimuat dengan dotenv/tsx.',
       ],
       en: [
-        'The `prisma-client-js` generator is obsolete in Prisma 7; replace with `prisma-client`.',
+        'In Prisma 7 `prisma-client` is the default generator and `output` must be explicit; `prisma-client-js` still exists only for legacy setups.',
         'A database driver adapter must be instantiated and passed into the PrismaClient constructor.',
         'Never rely on implicit `.env` autoloading; ensure environment variables are explicitly loaded.',
       ],
     },
     tips: {
       id: [
-        'Aktifkan preview fitur `typedSql` di Prisma 7 untuk mendapatkan static type inference pada raw SQL queries.',
+        'Ganti `Prisma.validator()` dengan operator TypeScript `satisfies` (mis. `{ id: true } satisfies Prisma.UserSelect`).',
         'Jalankan `npx prisma generate` segera setelah memperbarui schema untuk memastikan entrypoint baru terbentuk.',
       ],
       en: [
-        'Enable the `typedSql` preview feature in Prisma 7 for compile-time typed raw SQL queries.',
+        'Replace `Prisma.validator()` with the TypeScript `satisfies` operator (e.g. `{ id: true } satisfies Prisma.UserSelect`).',
         'Run `npx prisma generate` immediately following schema updates to produce the designated client files.',
       ],
     },
-    pairsWellWith: ['prisma-driver-adapter-implementation', 'prisma-cli', 'prisma-database-setup'],
+    pairsWellWith: ['prisma-driver-adapter-implementation', 'prisma-cli', 'prisma-orm-setup'],
     spotlight: {
       title: {
         id: 'Arsitektur Wajib Driver Adapter di Prisma 7',
         en: 'Mandatory Driver Adapter Architecture in Prisma 7',
       },
       body: {
-        id: 'Pada Prisma 6 ke bawah, query engine binary (C++/Rust) menangani koneksi socket database secara internal. Di Prisma 7, binary engine dipangkas demi ukuran bundle yang ringan dan kompatibilitas serverless/edge. Hasilnya: driver adapter JavaScript (seperti node-postgres, Neon serverless, atau D1) kini wajib dipasang oleh developer. Kode inisialisasi client harus secara eksplisit mengoper instance adapter ke `new PrismaClient({ adapter })`.',
-        en: 'In Prisma 6 and earlier, internal Rust/C++ binaries handled database socket connections directly. In Prisma 7, binary engines were eliminated to minimize bundle sizes and achieve native serverless/edge compatibility. Consequently, JavaScript driver adapters (such as node-postgres, Neon serverless, or D1) are now mandatory. Client initialization must explicitly pass the adapter instance into `new PrismaClient({ adapter })`.',
+        id: 'Pada Prisma 6 ke bawah, query engine berbasis Rust menangani koneksi database secara internal. Di Prisma 7 pengaturan engine Rust lama sudah hilang dan koneksi SQL lewat driver adapter. Hasilnya: driver adapter JavaScript (seperti node-postgres, Neon serverless, atau D1) kini wajib dipasang oleh developer. Kode inisialisasi client harus secara eksplisit mengoper instance adapter ke `new PrismaClient({ adapter })`.',
+        en: 'In Prisma 6 and earlier, the Rust-based query engine handled database connections internally. In Prisma 7 the legacy Rust engine settings are gone and SQL connections go through driver adapters. Consequently, JavaScript driver adapters (such as node-postgres, Neon serverless, or D1) are now mandatory. Client initialization must explicitly pass the adapter instance into `new PrismaClient({ adapter })`.',
       },
     },
     sourcePath: 'prisma-upgrade-v7/SKILL.md',
@@ -148,13 +153,13 @@ export const prismaSkills: RichSkill[] = [
       id: [
         'Agent memilih metode Prisma Client yang paling tepat dan hemat alokasi memori.',
         'Menggunakan `select` untuk membatasi kolom yang ditarik, menghindari `select *` implisit yang membebani transfer data.',
-        'Menerapkan nested writes untuk menyimpan data relasi dalam satu panggilan atomik tanpa kueri tambahan.',
+        'Menerapkan nested writes (`create`, `connect`, `connectOrCreate`) untuk menyimpan data relasi dalam satu panggilan.',
         'Membungkus mutasi yang saling bergantung ke dalam transaksi interaktif dengan error handling eksplisit.',
       ],
       en: [
         'Agent selects the most performant Prisma Client method to minimize heap overhead.',
         'Enforces targeted `select` clauses to retrieve only necessary columns, avoiding wasteful implicit full-row fetches.',
-        'Applies nested writes to persist relational records in a single atomic database pass.',
+        'Applies nested writes (`create`, `connect`, `connectOrCreate`) to persist relational records in a single call.',
         'Encapsulates dependent write operations inside interactive transactions with explicit rollback boundaries.',
       ],
     },
@@ -173,22 +178,22 @@ export const prismaSkills: RichSkill[] = [
     tips: {
       id: [
         'Gunakan `prisma.$extends` untuk menambahkan computed fields atau logging tanpa memodifikasi schema.prisma.',
-        'Hindari nesting `include` yang terlalu dalam (> 3 tingkat) karena dapat memicu JOIN SQL yang sangat berat.',
+        'Gunakan `omit` untuk mengecualikan kolom tertentu (mis. `password`) atau `select` untuk memilih kolom secara eksplisit.',
       ],
       en: [
         'Use `prisma.$extends` to add computed fields or query telemetry without modifying schema.prisma.',
-        'Avoid deeply nested `include` trees (> 3 levels) which generate expensive relational SQL JOIN trees.',
+        'Use `omit` to exclude specific fields (e.g. `password`) or `select` to pick fields explicitly.',
       ],
     },
-    pairsWellWith: ['prisma-upgrade-v7', 'prisma-cli', 'supabase-postgres-best-practices'],
+    pairsWellWith: ['prisma-upgrade-v7', 'prisma-cli'],
     spotlight: {
       title: {
-        id: 'Nested Writes: Keandalan Atomik Tanpa Transaksi Manual',
-        en: 'Nested Writes: Atomic Reliability Without Manual Transactions',
+        id: 'Nested Writes: Relasi dalam Satu Panggilan',
+        en: 'Nested Writes: Relations in a Single Call',
       },
       body: {
-        id: 'Prisma Client memungkinkan penulisan relasi bertingkat (misal membuat User sekaligus profil dan post perdananya) melalui blok `create: { posts: { create: [...] } }`. Secara internal, Prisma otomatis membungkus seluruh hierarki penulisan tersebut ke dalam satu transaksi database tunggal. Jika salah satu insert gagal, seluruh operasi di-rollback otomatis tanpa perlu kode boilerplate `$transaction`.',
-        en: 'Prisma Client supports hierarchical relational writes (e.g. creating a User alongside their Profile and first Post) via `create: { posts: { create: [...] } }`. Internally, Prisma automatically wraps the entire relational write graph inside a single database transaction. If any nested insertion fails, the complete operation rolls back automatically without boilerplate `$transaction` code.',
+        id: 'Prisma Client memungkinkan penulisan relasi bertingkat (misal membuat User sekaligus profil dan post perdananya) melalui blok `create: { posts: { create: [...] } }`. Referensi relasi di skill ini juga mendokumentasikan `connect` dan `connectOrCreate`. Untuk operasi yang saling bergantung dan butuh kontrol eksplisit atas isolation level atau timeout, gunakan transaksi interaktif `$transaction` (lihat referensi transactions).',
+        en: 'Prisma Client supports hierarchical relational writes (e.g. creating a User alongside their Profile and first Post) via `create: { posts: { create: [...] } }`. The skill\'s relations reference also documents `connect` and `connectOrCreate`. For dependent operations that need explicit control over isolation level or timeout, use interactive `$transaction` (see the transactions reference).',
       },
     },
     sourcePath: 'prisma-client-api/SKILL.md',
@@ -202,8 +207,8 @@ export const prismaSkills: RichSkill[] = [
       en: 'Complete Prisma CLI commands reference: init, generate, migrate dev/deploy, db push, db pull, validate, studio, and MCP server.',
     },
     detailedDescription: {
-      id: 'Skill operasional untuk seluruh siklus perintah Prisma ORM CLI. Membedakan dengan jelas batasan antara ORM CLI (`npx prisma`) dan Prisma Platform/Compute CLI. Menguraikan alur kerja migrasi pengembangan (`prisma migrate dev`), deployment produksi (`prisma migrate deploy`), sinkronisasi skema cepat tanpa migrasi (`prisma db push`), inspeksi database visual (`prisma studio`), validasi & format skema (`prisma validate`, `prisma format`), serta integrasi Prisma MCP server untuk asisten AI.',
-      en: 'Operational command reference for the complete Prisma ORM CLI lifecycle. Clearly distinguishes between the core ORM CLI (`npx prisma`) and the Prisma Platform/Compute CLI. Outlines developmental migration workflows (`prisma migrate dev`), production zero-downtime rollouts (`prisma migrate deploy`), rapid schema prototyping (`prisma db push`), visual data inspection (`prisma studio`), schema linting (`prisma validate`, `prisma format`), and the Prisma MCP server integration for AI coding agents.',
+      id: 'Referensi perintah Prisma ORM 7 CLI untuk aplikasi Prisma 7 yang sudah ada atau workflow Prisma 7 yang dipilih eksplisit (untuk setup, perbaikan koneksi, atau Prisma 8 gunakan prisma-orm-setup). Membedakan batasan antara ORM CLI (`prisma`) dan Platform CLI beta (`@prisma/cli`, binary `prisma-cli`) yang dipakai untuk Compute dan database Platform. Gunakan CLI yang versinya cocok dengan proyek, jangan memasang `prisma@latest`. Menguraikan alur kerja migrasi pengembangan (`prisma migrate dev`), deployment produksi (`prisma migrate deploy`), sinkronisasi skema cepat tanpa migrasi (`prisma db push`), inspeksi database visual (`prisma studio`), validasi & format skema (`prisma validate`, `prisma format`), serta integrasi Prisma MCP server untuk asisten AI.',
+      en: 'Operational command reference for the complete Prisma ORM CLI lifecycle. Reference for the Prisma ORM 7 CLI in existing Prisma 7 applications or explicitly selected Prisma 7 workflows (for setup, connection repair, or Prisma 8 use prisma-orm-setup). Distinguishes the ORM CLI (`prisma`) from the public-beta Platform CLI (`@prisma/cli`, binary `prisma-cli`) used for Compute and Platform databases. Use the project\'s version-matched CLI; do not install `prisma@latest`. Outlines developmental migration workflows (`prisma migrate dev`), production rollouts (`prisma migrate deploy`), rapid schema prototyping (`prisma db push`), visual data inspection (`prisma studio`), schema linting (`prisma validate`, `prisma format`), and the Prisma MCP server integration for AI coding agents.',
     },
     useWhen: {
       id: [
@@ -232,11 +237,13 @@ export const prismaSkills: RichSkill[] = [
         'Agent memilih perintah CLI yang aman sesuai target lingkungan (dev vs production).',
         'Memastikan `prisma migrate deploy` digunakan pada CI/CD karena tidak membutuhkan interaksi prompt terminal.',
         'Mendeteksi konflik skema atau migration drift dan menyarankan penanganan terukur sebelum mengeksekusi reset.',
+        'Sebelum perintah destruktif (`migrate reset`, `db push --force-reset`, `db push --accept-data-loss`), agent menjelaskan dampak kehilangan data dan meminta persetujuan eksplisit pengguna.',
       ],
       en: [
         'Agent selects the safe and appropriate CLI command matching the runtime target (dev vs production).',
         'Ensures `prisma migrate deploy` is used in automated CI/CD because it requires zero interactive terminal prompts.',
         'Detects migration drift or unapplied steps and recommends targeted fixes before prompting a destructive reset.',
+        'Before destructive commands (`migrate reset`, `db push --force-reset`, `db push --accept-data-loss`), agent explains the data-loss impact and asks for explicit user consent.',
       ],
     },
     coreRules: {
@@ -244,32 +251,34 @@ export const prismaSkills: RichSkill[] = [
         'Jangan pernah jalankan `prisma db push` di produksi jika skema memiliki data penting; gunakan migrasi terencana.',
         'Di produksi, selalu gunakan `npx prisma migrate deploy` untuk menerapkan migrasi tertunda.',
         'Jalankan `npx prisma validate` sebelum commit untuk memastikan integritas relasi skema.',
+        'AI Safety Checkpoint: Prisma memblokir `migrate reset`, `db push --force-reset`, dan `db push --accept-data-loss` saat mendeteksi agent AI sampai ada persetujuan eksplisit pengguna. Jangan menyimpulkan atau mengarang persetujuan; jika otomasi butuh, set `PRISMA_USER_CONSENT_FOR_DANGEROUS_AI_ACTION` ke pesan persetujuan persis dari pengguna.',
       ],
       en: [
         'Never run `prisma db push` in production if preserving critical data; use planned migrations.',
         'In production environments, always execute `npx prisma migrate deploy` to apply pending migrations.',
         'Run `npx prisma validate` prior to git commit to guarantee schema and relation integrity.',
+        'AI Safety Checkpoint: Prisma blocks `migrate reset`, `db push --force-reset`, and `db push --accept-data-loss` when it detects an AI agent until the user gives explicit consent. Never infer or fabricate consent; if automation needs it, set `PRISMA_USER_CONSENT_FOR_DANGEROUS_AI_ACTION` to the user\'s exact consent message.',
       ],
     },
     tips: {
       id: [
         'Gunakan `prisma migrate diff` untuk membandingkan skema lokal dengan database remote tanpa membuat migration file.',
-        'Gunakan flag `--skip-generate` pada CI/CD bila client sudah di-generate di langkah build terpisah.',
+        'Di Prisma 7 `migrate dev` dan `db push` tidak lagi menjalankan generate otomatis (flag `--skip-generate` dihapus): jalankan `prisma generate` secara eksplisit saat butuh output client baru, dan `prisma db seed` secara eksplisit jika butuh seed.',
       ],
       en: [
         'Use `prisma migrate diff` to compare local schema against remote databases without generating migration files.',
-        'Pass `--skip-generate` in CI pipelines if the Prisma Client was already built in an earlier step.',
+        'In Prisma 7 `migrate dev` and `db push` no longer run generate automatically (the `--skip-generate` flag was removed): run `prisma generate` explicitly when you need fresh client output, and `prisma db seed` explicitly when you need seed data.',
       ],
     },
-    pairsWellWith: ['prisma-database-setup', 'prisma-upgrade-v7', 'prisma-client-api'],
+    pairsWellWith: ['prisma-orm-setup', 'prisma-upgrade-v7', 'prisma-client-api'],
     spotlight: {
       title: {
         id: 'Disiplin CI/CD: migrate dev vs migrate deploy',
         en: 'CI/CD Discipline: migrate dev vs migrate deploy',
       },
       body: {
-        id: 'Kesalahan paling umum yang dilakukan agen otomatis adalah memanggil `prisma migrate dev` di dalam skrip deploy CI/CD. Perintah `migrate dev` dirancang interaktif: ia mendeteksi drift dan dapat meminta konfirmasi untuk mereset seluruh database! Pada pipeline produksi tanpa terminal interaktif, perintah ini akan hang atau menghapus data. Di CI/CD produksi, satu-satunya perintah yang sah adalah `prisma migrate deploy`.',
-        en: 'The single most catastrophic automated error is invoking `prisma migrate dev` inside CI/CD deployment scripts. `migrate dev` is an interactive command: it evaluates schema drift and may prompt to drop the database! In headless production pipelines, it either hangs indefinitely or causes catastrophic data loss. In production CI/CD, the only approved command is `prisma migrate deploy`.',
+        id: 'Kesalahan paling umum yang dilakukan agen otomatis adalah memanggil `prisma migrate dev` di dalam skrip deploy CI/CD. Perintah `migrate dev` dirancang interaktif: ia mendeteksi drift dan dapat meminta konfirmasi untuk mereset seluruh database! Pada pipeline produksi tanpa terminal interaktif, perintah ini akan hang atau menghapus data. Di CI/CD produksi, satu-satunya perintah yang sah adalah `prisma migrate deploy`. Selain itu, Prisma memblokir perintah destruktif saat mendeteksi agent AI sampai pengguna memberi persetujuan eksplisit; jangan melewati checkpoint itu.',
+        en: 'The single most catastrophic automated error is invoking `prisma migrate dev` inside CI/CD deployment scripts. `migrate dev` is an interactive command: it evaluates schema drift and may prompt to drop the database! In headless production pipelines, it either hangs indefinitely or causes catastrophic data loss. In production CI/CD, the only approved command is `prisma migrate deploy`. Prisma also blocks destructive commands when it detects an AI agent until the user gives explicit consent; never bypass that checkpoint.',
       },
     },
     sourcePath: 'prisma-cli/SKILL.md',
@@ -283,8 +292,8 @@ export const prismaSkills: RichSkill[] = [
       en: 'Implementation guide for Prisma ORM 7 SQL driver adapters: SqlDriverAdapter protocol, transaction lifecycle, savepoints, type mapping, and error preservation.',
     },
     detailedDescription: {
-      id: 'Skill spesifikasi teknis tingkat mendalam untuk mengembangkan atau memodifikasi SQL Driver Adapter di Prisma 7. Driver adapter bertindak sebagai protokol batas antara engine query Prisma dan driver database eksternal. Menguraikan kontrak antarmuka `SqlDriverAdapter`, penanganan query parametrik, siklus hidup transaksi (`startTransaction`, `commit`, `rollback`), dukungan hook savepoint opsional, normalisasi konversi tipe data (DATE, NUMERIC, JSON, UUID), serta kewajiban mempreservasi `DriverAdapterError` asli agar kode aplikasi dapat menangkap kode error Postgres/MySQL yang sesungguhnya.',
-      en: 'Deep-dive technical specification skill for engineering or customizing SQL Driver Adapters in Prisma 7. Driver adapters serve as the protocol boundary between Prisma query planning and external database drivers. Details the `SqlDriverAdapter` interface contract, parameterized query handling, transaction lifecycles (`startTransaction`, `commit`, `rollback`), optional savepoint hook extensions, datatype normalizations (DATE, NUMERIC, JSON, UUID), and the strict requirement to preserve original `DriverAdapterError` causes so application code receives authentic native database error codes.',
+      id: 'Skill spesifikasi teknis tingkat mendalam untuk mengembangkan atau memodifikasi SQL Driver Adapter di Prisma 7. Driver adapter bertindak sebagai protokol batas antara engine query Prisma dan driver database eksternal. Menguraikan kontrak antarmuka `SqlDriverAdapter`, penanganan query parametrik, siklus hidup transaksi (`startTransaction`, `commit`, `rollback`), dukungan hook savepoint opsional, normalisasi konversi tipe data (DATE, NUMERIC, JSON, UUID), serta kewajiban mempreservasi kode dan pesan error database asli di `DriverAdapterError` agar kode aplikasi dapat menangkap kode error yang sesungguhnya.',
+      en: 'Deep-dive technical specification skill for engineering or customizing SQL Driver Adapters in Prisma 7. Driver adapters serve as the protocol boundary between Prisma query planning and external database drivers. Details the `SqlDriverAdapter` interface contract, parameterized query handling, transaction lifecycles (`startTransaction`, `commit`, `rollback`), optional savepoint hook extensions, datatype normalizations (DATE, NUMERIC, JSON, UUID), and the strict requirement to preserve the original database error code and message in `DriverAdapterError` so application code receives authentic native error codes.',
     },
     useWhen: {
       id: [
@@ -312,12 +321,12 @@ export const prismaSkills: RichSkill[] = [
       id: [
         'Agent memvalidasi kesesuaian implementasi terhadap interface `@prisma/driver-adapter-utils`.',
         'Memeriksa apakah koneksi transaksi dibebaskan kembali ke pool pada setiap cabang kegagalan (try/finally).',
-        'Memastikan error dari native driver dibungkus tanpa menghilangkan properti asli seperti `code` atau `message`.',
+        'Memastikan error dari native driver dibungkus dalam `DriverAdapterError` (dipetakan ke `MappedError` bila dikenali) tanpa menghilangkan kode dan pesan aslinya.',
       ],
       en: [
         'Agent verifies implementation fidelity against `@prisma/driver-adapter-utils` contracts.',
         'Confirms transactional connections are released back to the pool across all failure paths (try/finally).',
-        'Ensures native database errors are wrapped without stripping underlying properties like error codes or messages.',
+        'Ensures native database errors are wrapped in `DriverAdapterError` (mapped to `MappedError` kinds when recognized) without stripping the original code and message.',
       ],
     },
     coreRules: {
@@ -334,250 +343,195 @@ export const prismaSkills: RichSkill[] = [
     },
     tips: {
       id: [
-        'Implementasikan savepoint opsional untuk mendukung nested transactions di Prisma Client.',
-        'Perhatikan serialisasi BigInt dan Date: pastikan dipetakan sesuai ekspektasi query engine Prisma.',
+        'Implementasikan savepoint opsional pada objek Transaction (bukan kedalaman global di adapter) untuk mendukung nested transactions.',
+        '`commit()` dan `rollback()` pada Transaction adalah hook siklus hidup: lepaskan koneksi tepat sekali dan jangan mengeluarkan SQL COMMIT/ROLLBACK kedua (Prisma yang menjalankannya lewat `executeRaw`).',
       ],
       en: [
-        'Implement optional savepoint hooks to support nested transactions in Prisma Client.',
-        'Pay special attention to BigInt and Date serialization to match Prisma query engine expectations.',
+        'Implement optional savepoint methods on the Transaction object (not an adapter-global depth) to support nested transactions.',
+        '`commit()` and `rollback()` on the Transaction are lifecycle hooks: release the connection exactly once and do not issue a second SQL COMMIT/ROLLBACK (Prisma runs it through `executeRaw`).',
       ],
     },
-    pairsWellWith: ['prisma-upgrade-v7', 'workers-best-practices', 'supabase-postgres-best-practices'],
+    pairsWellWith: ['prisma-upgrade-v7', 'prisma-client-api'],
     spotlight: {
       title: {
         id: 'Protokol Preservasi Error Asli Database',
         en: 'Native Database Error Preservation Protocol',
       },
       body: {
-        id: 'Driver adapter yang ditulis serampangan sering kali mengonversi error database menjadi objek JavaScript generik bertuliskan "Query failed". Ini merusak logika aplikasi yang bergantung pada kode error PostgreSQL spesifik (seperti 23505 untuk Unique Violation). Driver adapter wajib mengemas error native ke dalam `DriverAdapterError` dengan menyertakan referensi `cause` asli dan kode status utuh.',
-        en: 'Carelessly written driver adapters often collapse specific database errors into generic "Query failed" strings. This breaks downstream application logic expecting native PostgreSQL codes (like 23505 for unique violations). Adapters must wrap native exceptions into `DriverAdapterError` while fully preserving the underlying `cause` object and status metadata.',
+        id: 'Adapter yang menelan detail error database merusak logika aplikasi yang bergantung pada kode error spesifik (seperti 23505 untuk Unique Violation di PostgreSQL) dan fallback `P2039`. Adapter wajib membungkus error driver yang dikenali dalam `DriverAdapterError`, memetakannya ke `MappedError` bila ada, dan mempertahankan kode serta pesan database asli (`originalCode` / `originalMessage`).',
+        en: 'Adapters that discard database error details break application logic that expects specific codes (like 23505 for PostgreSQL unique violations) and the `P2039` fallback. Adapters must wrap recognized driver failures in `DriverAdapterError`, map them to `MappedError` kinds where one exists, and preserve the original database code and message (`originalCode` / `originalMessage`).',
       },
     },
     sourcePath: 'prisma-driver-adapter-implementation/SKILL.md',
   },
   {
-    name: 'prisma-database-setup',
+    name: 'prisma-orm-setup',
     category: 'database-setup',
     invocation: 'model',
     description: {
-      id: 'Panduan konfigurasi koneksi Prisma dengan berbagai provider database: PostgreSQL, MySQL, SQLite, SQL Server, dan CockroachDB.',
-      en: 'Configuration guide for connecting Prisma with diverse database engines: PostgreSQL, MySQL, SQLite, SQL Server, and CockroachDB.',
+      id: 'Setup Prisma ORM di aplikasi, hubungkan database, atau perbaiki koneksi aplikasi Prisma 6, 7, atau 8. Aplikasi baru default ke Prisma ORM 8; aplikasi Prisma 6/7 tetap di versinya.',
+      en: 'Set up Prisma ORM in an application, connect its database, or troubleshoot the connection of an existing Prisma 6, 7, or 8 app. New applications default to Prisma ORM 8; existing Prisma 6/7 apps stay on their version.',
     },
     detailedDescription: {
-      id: 'Skill referensi konfigurasi multi-database untuk Prisma ORM. Membantu developer menyusun connection strings yang benar, mengonfigurasi pooler (PgBouncer, Supavisor, AWS RDS Proxy), mengatur opsi SSL/TLS (`sslmode=require`), dan menyesuaikan flag provider di `schema.prisma`. Memberikan panduan spesifik per vendor cloud (Supabase, Neon, PlanetScale, AWS Aurora, Azure SQL, local SQLite).',
-      en: 'Multi-database configuration skill for Prisma ORM. Guides engineers through crafting robust connection strings, configuring connection poolers (PgBouncer, Supavisor, AWS RDS Proxy), configuring SSL/TLS requirements (`sslmode=require`), and configuring provider directives in `schema.prisma`. Delivers cloud-vendor recipes across Supabase, Neon, PlanetScale, AWS Aurora, Azure SQL, and local SQLite.',
+      id: 'Skill (v1.0.0) yang memegang pemilihan versi ORM untuk pekerjaan setup dan koneksi, menggantikan prisma-database-setup yang kini hanya alias deprecated. Langkah: 1) deteksi titik awal (manifest, lockfile, config, schema, import; versi CLI saja tidak menentukan versi aplikasi); 2) upgrade mayor ditangani terpisah (prisma-upgrade-v7 untuk 6 ke 7, prisma-mongodb-upgrade untuk MongoDB 6 ke 8); 3) bootstrap aplikasi baru dengan CLI Prisma 8 yang di-pin, mis. `prisma orm init --yes --target postgres --authoring psl`; 4) `prisma skills sync` lalu baca `prisma-8/SKILL.md` yang tersinkron; 5) untuk versi lebih lama, ikuti referensi provider (PostgreSQL, MySQL/MariaDB/PlanetScale, SQLite/Turso, SQL Server/Azure SQL, CockroachDB, MongoDB di Prisma 6, Prisma Postgres di Prisma 7); 6) hubungkan dan verifikasi dengan kueri read-only lewat client aplikasi.',
+      en: 'A v1.0.0 skill that owns ORM version selection for setup and connection work, replacing prisma-database-setup, which is now only a deprecated alias. Steps: 1) detect the starting point (manifest, lockfile, config, schema, imports; the CLI version alone does not identify the app\'s version); 2) major upgrades are handled separately (prisma-upgrade-v7 for 6 to 7, prisma-mongodb-upgrade for MongoDB 6 to 8); 3) bootstrap new apps with a pinned Prisma 8 CLI, e.g. `prisma orm init --yes --target postgres --authoring psl`; 4) `prisma skills sync`, then read the synced `prisma-8/SKILL.md`; 5) for earlier versions follow the provider references (PostgreSQL, MySQL/MariaDB/PlanetScale, SQLite/Turso, SQL Server/Azure SQL, CockroachDB, MongoDB on Prisma 6, Prisma Postgres on Prisma 7); 6) connect and verify with a read-only query through the app\'s client.',
     },
     useWhen: {
       id: [
-        'Memulai proyek baru dan menghubungkan Prisma ke database lokal atau cloud.',
-        'Beralih provider database (misal dari SQLite lokal ke PostgreSQL cloud).',
-        'Mengonfigurasi parameter koneksi pooling dan SSL mode.',
+        'Memulai aplikasi baru dan menghubungkan Prisma ORM ke database.',
+        'Memperbaiki koneksi aplikasi Prisma 6, 7, atau 8 yang sudah ada tanpa upgrade mayor.',
+        'Memilih referensi provider untuk PostgreSQL, MySQL, SQLite, SQL Server, CockroachDB, MongoDB, atau Prisma Postgres.',
       ],
       en: [
-        'Initializing a new project and establishing connections to local or cloud databases.',
-        'Migrating between database engines (e.g. from local SQLite to cloud PostgreSQL).',
-        'Tuning connection pooling parameters and SSL connection modes.',
+        'Starting a new application and connecting Prisma ORM to a database.',
+        'Repairing the connection of an existing Prisma 6, 7, or 8 app without a major upgrade.',
+        'Choosing the provider reference for PostgreSQL, MySQL, SQLite, SQL Server, CockroachDB, MongoDB, or Prisma Postgres.',
       ],
     },
     avoidWhen: {
       id: [
-        'Proyek Prisma yang sudah terhubung stabil dan tidak mengubah infrastruktur database.',
+        'Hanya membutuhkan database Prisma Postgres tanpa konfigurasi ORM (gunakan prisma-postgres-setup).',
+        'Upgrade mayor 6 ke 7 (gunakan prisma-upgrade-v7) atau MongoDB 6 ke 8 (gunakan prisma-mongodb-upgrade).',
       ],
       en: [
-        'Stable Prisma projects with no pending database infrastructure changes.',
+        'You only need a Prisma Postgres database without ORM configuration (use prisma-postgres-setup).',
+        'Major upgrades 6 to 7 (use prisma-upgrade-v7) or MongoDB 6 to 8 (use prisma-mongodb-upgrade).',
       ],
     },
     howItWorks: {
       id: [
-        'Agent memverifikasi format URL koneksi database yang dideklarasikan di environment.',
-        'Memisahkan URL pooling untuk aplikasi runtime dan Direct URL untuk migrasi skema.',
-        'Mengonfigurasi schema.prisma dengan `provider` dan `directUrl` yang tepat.',
+        'Agent membaca manifest, lockfile, konfigurasi Prisma, schema, dan import untuk menentukan versi ORM, provider database, dan runtime.',
+        'Untuk aplikasi baru, agent memeriksa dukungan provider dan persyaratan runtime Prisma 8, memasang CLI Prisma 8 yang di-pin, lalu menjalankan init.',
+        'Agent menjalankan `prisma skills sync` dan membaca `prisma-8/SKILL.md` yang tersinkron; sync saja belum memuat instruksinya.',
+        'Untuk Prisma 6/7, agent memakai referensi provider yang sesuai dan tidak menyalin konfigurasi Prisma 7 ke aplikasi Prisma 6.',
+        'Agent memverifikasi dengan kueri read-only lewat client aplikasi ke database yang dituju.',
       ],
       en: [
-        'Agent audits the connection URL syntax declared in environment variables.',
-        'Segregates pooled application URLs from unpooled Direct URLs used for schema migrations.',
-        'Configures `schema.prisma` with the correct `provider` and `directUrl` parameters.',
+        'Agent reads the manifest, lockfile, Prisma configuration, schema, and imports to identify the ORM version, database provider, and runtime.',
+        'For new apps, agent checks Prisma 8 provider support and runtime requirements, installs a pinned Prisma 8 CLI, then runs init.',
+        'Agent runs `prisma skills sync` and reads the synced `prisma-8/SKILL.md`; syncing alone does not load the instructions.',
+        'For Prisma 6/7, agent uses the matching provider reference and does not copy Prisma 7 configuration into a Prisma 6 app.',
+        'Agent verifies with a read-only query through the app\'s client against the intended database.',
       ],
     },
     coreRules: {
       id: [
-        'Saat menggunakan connection pooler (port 6543 / PgBouncer), selalu sertakan `directUrl` di schema untuk perintah migrasi.',
-        'Jangan pernah commit connection string yang berisi password mentah ke repositori publik.',
-        'Pastikan parameter `sslmode=require` aktif saat terhubung ke database cloud publik.',
+        'Pertahankan versi ORM dan database yang dituju aplikasi; perbaikan koneksi tidak memerlukan upgrade mayor.',
+        'Aplikasi baru default ke Prisma ORM 8; jika provider tidak didukung, jelaskan batasannya dan tawarkan versi lama secara eksplisit, jangan diam-diam berpindah database.',
+        'Simpan kredensial di file environment yang di-ignore atau secret host; CLI dan aplikasi bisa memuat file environment berbeda.',
+        'Instalasi paket atau sync skill saja bukan setup yang selesai: verifikasi dengan kueri read-only.',
       ],
       en: [
-        'When using connection poolers (port 6543 / PgBouncer), always define `directUrl` in schema for migration commands.',
-        'Never commit raw connection strings containing database credentials to source control.',
-        'Ensure `sslmode=require` is present when connecting to public cloud databases.',
+        'Preserve the application\'s ORM version and intended database; a connection repair does not require a major upgrade.',
+        'New apps default to Prisma ORM 8; if the provider is unsupported, explain the limitation and offer an earlier version explicitly, never silently switch databases.',
+        'Keep credentials in ignored environment files or the host\'s secret configuration; the CLI and the app can load different env files.',
+        'Package installation or a skill sync alone is not a finished setup: verify with a read-only query.',
       ],
     },
     tips: {
       id: [
-        'Gunakan `file:./dev.db` untuk SQLite saat membuat prototipe cepat di local development.',
-        'Tambahkan parameter `connection_limit=10` pada URL koneksi untuk mencegah serverless functions membanjiri pool database.',
+        'Pin versi CLI Prisma 8 yang dipublikasikan dan verifikasi versinya sebelum init; jangan bergantung pada `latest` yang mengambang.',
+        'Untuk provider PostgreSQL pada Prisma 8: `prisma orm init --yes --target postgres --authoring psl`.',
       ],
       en: [
-        'Use `file:./dev.db` for SQLite during rapid local prototyping.',
-        'Append `connection_limit=10` to connection strings to prevent serverless workers from exhausting database pools.',
+        'Pin a published Prisma 8 CLI release and verify its version before init; do not rely on a floating `latest`.',
+        'For PostgreSQL on Prisma 8: `prisma orm init --yes --target postgres --authoring psl`.',
       ],
     },
-    pairsWellWith: ['prisma-cli', 'supabase-postgres-best-practices', 'prisma-postgres-setup'],
+    pairsWellWith: ['prisma-postgres-setup', 'prisma-cli', 'prisma-upgrade-v7'],
     spotlight: {
       title: {
-        id: 'Pemisahan URL Pooling vs Direct URL untuk Migrasi',
-        en: 'Pooled URL vs Direct URL Segregation for Migrations',
+        id: 'Versi CLI Tidak Sama dengan Versi Aplikasi',
+        en: 'CLI Version Is Not the App Version',
       },
       body: {
-        id: 'Banyak database cloud serverless (seperti Supabase atau Neon) menyediakan endpoint pooling melalui PgBouncer (mode transaksi). Endpoint ini sangat cepat untuk kueri aplikasi biasa, tetapi menolak operasi DDL seperti `ALTER TABLE` atau `CREATE INDEX CONCURRENTLY`. Oleh karena itu, Prisma mewajibkan deklarasi `directUrl = env("DIRECT_URL")` di schema.prisma yang langsung menembus port database asli (5432) untuk eksekusi migrasi.',
-        en: 'Serverless cloud databases (like Supabase or Neon) provide pooled endpoints via PgBouncer in transaction mode. While ideal for application queries, poolers reject DDL statements like `ALTER TABLE` or `CREATE INDEX CONCURRENTLY`. Prisma solves this by allowing a `directUrl = env("DIRECT_URL")` declaration in `schema.prisma` targeting port 5432 directly for migrations.',
+        id: 'Menurut skill ini, CLI Prisma 8 bisa hidup berdampingan dengan client lama, jadi versi CLI saja tidak menunjukkan versi ORM aplikasi. Periksa `@prisma/client`, `@prisma/prisma7`, schema, dan konfigurasi sebelum memutuskan jalur setup. Skill prisma-database-setup yang lama kini hanya alias deprecated yang mengarahkan ke skill ini.',
+        en: 'Per this skill, a Prisma 8 CLI can coexist with a legacy client, so the CLI version alone does not identify the app\'s ORM version. Inspect `@prisma/client`, `@prisma/prisma7`, the schema, and the configuration before choosing a setup path. The old prisma-database-setup skill is now only a deprecated alias that points here.',
       },
     },
-    sourcePath: 'prisma-database-setup/SKILL.md',
-  },
-  {
-    name: 'prisma-postgres',
-    category: 'cloud-database',
-    invocation: 'model',
-    description: {
-      id: 'Operasi dan panduan Prisma Postgres: Console, create-db CLI, Management API SDK, token service, dan integrasi caching bawaan.',
-      en: 'Prisma Postgres guidance and operations: Console, create-db CLI, Management API SDK, service tokens, and built-in caching.',
-    },
-    detailedDescription: {
-      id: 'Panduan pengelolaan database serverless Prisma Postgres resmi dari Prisma. Meliputi pembuatan database via Console interaktif atau CLI `create-db`, otomatisasi provisioning via Management API SDK (@prisma/management-sdk), manajemen environment staging vs production, pemanfaatan caching bawaan query engine, serta integrasi service token untuk CI/CD.',
-      en: 'Official operational guide for Prisma Postgres, Prisma\'s managed serverless database. Covers database provisioning via interactive Console or `create-db` CLI, programmatic lifecycle automation through the Management API SDK (@prisma/management-sdk), staging vs production workspace management, leveraging built-in query caching, and service token workflows for CI/CD.',
-    },
-    useWhen: {
-      id: [
-        'Menyediakan atau mengelola instance database Prisma Postgres.',
-        'Mengonfigurasi token service dan akses Management API terprogram.',
-        'Mengaktifkan query caching bawaan pada Prisma Postgres.',
-      ],
-      en: [
-        'Provisioning or maintaining Prisma Postgres database instances.',
-        'Configuring service tokens and programmatic Management API access.',
-        'Enabling built-in query caching on Prisma Postgres.',
-      ],
-    },
-    avoidWhen: {
-      id: [
-        'Database PostgreSQL self-hosted atau vendor pihak ketiga (AWS RDS, Supabase, Neon).',
-      ],
-      en: [
-        'Self-hosted PostgreSQL instances or non-Prisma managed cloud vendors (AWS RDS, Supabase, Neon).',
-      ],
-    },
-    howItWorks: {
-      id: [
-        'Agent memandu alur pembuatan database menggunakan CLI atau Console.',
-        'Mengekstrak connection string terkelola yang sudah mencakup connection pooler dan caching proxy.',
-        'Menyusun variabel lingkungan `DATABASE_URL` pada file `.env` lokal proyek.',
-      ],
-      en: [
-        'Agent assists database creation workflows via CLI or Console.',
-        'Extracts managed connection strings with embedded connection pooling and caching proxies.',
-        'Configures the project `.env` file with the verified `DATABASE_URL`.',
-      ],
-    },
-    coreRules: {
-      id: [
-        'Simpan service token di vault rahasia; jangan pernah memasukkannya ke commit git.',
-        'Gunakan region database yang paling dekat dengan lokasi deployment serverless compute aplikasi Anda.',
-      ],
-      en: [
-        'Store service tokens securely in environment secrets; never commit them to git.',
-        'Deploy the database in the cloud region closest to your serverless application compute.',
-      ],
-    },
-    tips: {
-      id: [
-        'Manfaatkan fitur zero-cold-start Prisma Postgres untuk menghemat biaya lingkungan staging.',
-      ],
-      en: [
-        'Leverage Prisma Postgres zero-cold-start capabilities to cut idle staging costs.',
-      ],
-    },
-    pairsWellWith: ['prisma-postgres-setup', 'prisma-upgrade-v7', 'prisma-compute'],
-    spotlight: {
-      title: {
-        id: 'Query Caching Bawaan di Edge Proxy',
-        en: 'Edge Proxy Built-in Query Caching',
-      },
-      body: {
-        id: 'Prisma Postgres menempatkan proxy pintar di depan database yang memungkinkan query caching transparan. Anda dapat mengontrol waktu simpan cache langsung di kueri Prisma Client dengan opsi `swr` (stale-while-revalidate), sehingga pembacaan data berulang tidak membebani komputasi PostgreSQL.',
-        en: 'Prisma Postgres deploys intelligent proxies in front of database nodes, unlocking transparent query caching. Developers can control cache TTL directly from Prisma Client queries using `swr` (stale-while-revalidate) semantics, sparing Postgres compute on high-frequency read paths.',
-      },
-    },
-    sourcePath: 'prisma-postgres/SKILL.md',
+    sourcePath: 'prisma-orm-setup/SKILL.md',
   },
   {
     name: 'prisma-postgres-setup',
     category: 'cloud-database',
     invocation: 'model',
     description: {
-      id: 'Prosedur setup database Prisma Postgres baru dan menghubungkannya ke proyek lokal via Management API.',
-      en: 'Procedural guide to provisioning a new Prisma Postgres database and connecting it to a local project via Management API.',
+      id: 'Gunakan ulang atau dapatkan database Prisma Postgres dan hubungkan aplikasi; konfigurasi ORM diserahkan ke prisma-orm-setup.',
+      en: 'Obtain or reuse a Prisma Postgres database and connect an application; Prisma ORM configuration is handed off to prisma-orm-setup.',
     },
     detailedDescription: {
-      id: 'Skill prosedural langkah-demi-langkah untuk membuat database Prisma Postgres baru, mendapatkan token autentikasi, memilih region cloud (misal us-east-1, eu-central-1), menghasilkan skema awal, dan menghubungkan aplikasi lokal ke database cloud yang baru dibuat.',
-      en: 'Step-by-step procedural skill for provisioning a fresh Prisma Postgres database, obtaining authentication credentials, selecting cloud regions (e.g. us-east-1, eu-central-1), generating initial schema definitions, and binding local applications to the newly created cloud database.',
+      id: 'Skill (v2.0.0) yang memisahkan provisioning database dari konfigurasi ORM agar database yang sudah ada dipakai ulang. Alur: 1) periksa proyek (ORM/driver pilihan pengguna, paket, koneksi, file environment); 2) gunakan ulang koneksi atau integrasi yang ada; untuk v0 atau Vercel Marketplace pakai alur integrasi native; untuk database persisten pakai Platform CLI terautentikasi (`npx -y @prisma/cli@latest database --help`), MCP, Console, atau Management API dengan service token workspace; untuk database sementara pakai `create-db` (aktif 24 jam dan dihapus jika tidak diklaim); 3) simpan koneksi di konfigurasi secret proyek; 4) serahkan konfigurasi ORM ke prisma-orm-setup dan verifikasi dengan kueri read-only. Skill prisma-postgres yang lama kini hanya alias deprecated untuk skill ini.',
+      en: 'A v2.0.0 skill that keeps database provisioning separate from ORM configuration so an existing database is reused. Flow: 1) inspect the project (user-requested ORM/driver, packages, connection, env files); 2) reuse an existing connection or integration; for v0 or the Vercel Marketplace use the native integration flow; for a persistent database use the authenticated Platform CLI (`npx -y @prisma/cli@latest database --help`), MCP, Console, or the Management API with a workspace service token; for a temporary database use `create-db` (available for 24 hours and deleted if unclaimed); 3) store the connection in the project\'s secret configuration; 4) hand ORM configuration to prisma-orm-setup and verify with a read-only query. The old prisma-postgres skill is now only a deprecated alias for this one.',
     },
     useWhen: {
       id: [
-        'Membuat database baru di Prisma Postgres dari terminal.',
-        'Menghubungkan aplikasi web baru ke Prisma Postgres cloud.',
+        'Menyiapkan database Prisma Postgres atau menghubungkan aplikasi ke Prisma Postgres.',
+        'Setup Prisma Postgres lewat v0 atau Vercel Marketplace.',
+        'Membutuhkan database sementara yang bisa diklaim untuk pengembangan (`create-db`).',
       ],
       en: [
-        'Provisioning a fresh database on Prisma Postgres directly from the terminal.',
-        'Binding a new web application to Prisma Postgres cloud.',
+        'Setting up a Prisma Postgres database or connecting an application to Prisma Postgres.',
+        'Prisma Postgres setup through v0 or the Vercel Marketplace.',
+        'Needing a temporary, claimable development database (`create-db`).',
       ],
     },
     avoidWhen: {
       id: [
-        'Proyek yang sudah memiliki database aktif dan hanya membutuhkan kueri data.',
+        'Proyek yang sudah memiliki koneksi aktif dan hanya butuh kueri atau skema (gunakan skill ORM yang sesuai versi).',
+        'Konfigurasi Prisma ORM itu sendiri (gunakan prisma-orm-setup).',
       ],
       en: [
-        'Projects with existing active databases that only require query authoring.',
+        'Projects with an existing working connection that only need queries or schema work (use the version-matched ORM skill).',
+        'Prisma ORM configuration itself (use prisma-orm-setup).',
       ],
     },
     howItWorks: {
       id: [
-        'Memeriksa ketersediaan autentikasi Prisma di mesin lokal.',
-        'Menjalankan perintah provisioning dan memilih nama proyek serta region.',
-        'Menyimpan connection string ke file `.env` dan menjalankan `prisma db push` perdana.',
+        'Agent memeriksa ORM/driver yang diminta, paket terpasang, koneksi, dan file environment tanpa menampilkan nilai secret.',
+        'Menggunakan ulang koneksi yang ada, atau memutuskan jalur: Marketplace, database persisten, atau database sementara.',
+        'Menentukan workspace, project, dan region sebelum membuat; jika ada beberapa kandidat, agent bertanya.',
+        'Menyimpan koneksi di konfigurasi secret, menyerahkan setup ORM ke prisma-orm-setup, lalu memverifikasi dengan kueri read-only.',
       ],
       en: [
-        'Verifies active Prisma authentication tokens locally.',
-        'Executes provisioning workflows selecting project name and region parameters.',
-        'Writes the generated connection string into `.env` and executes initial `prisma db push`.',
+        'Agent checks the requested ORM/driver, installed packages, connection, and env files without printing secret values.',
+        'Reuses an existing connection, or picks a path: Marketplace, persistent database, or temporary database.',
+        'Resolves workspace, project, and region before creating; if several fit, the agent asks.',
+        'Stores the connection in secret configuration, hands ORM setup to prisma-orm-setup, then verifies with a read-only query.',
       ],
     },
     coreRules: {
       id: [
-        'Pastikan koneksi internet stabil saat proses provisioning berlangsung.',
-        'Verifikasi konektivitas database dengan perintah `npx prisma db pull` atau `prisma db push`.',
+        'Hormati pilihan eksplisit seperti Drizzle, `pg`, atau setup database-only.',
+        'Gunakan ulang database yang ada; jangan membuat database lain hanya karena variabel tidak terlihat di shell (CLI dan aplikasi bisa memuat file environment berbeda).',
+        'Jangan menghapus resource lain atau berpindah workspace untuk mengakali masalah izin atau kuota; laporkan hambatannya.',
+        'Simpan koneksi di konfigurasi secret, bukan di kode sumber atau chat.',
       ],
       en: [
-        'Ensure network stability throughout the provisioning lifecycle.',
-        'Verify database connectivity immediately using `npx prisma db pull` or `prisma db push`.',
+        'Honor explicit choices such as Drizzle, `pg`, or database-only setup.',
+        'Reuse an existing database; do not provision another one just because a variable is missing from the shell (the CLI and the app can load different env files).',
+        'Do not delete another resource or switch workspaces to get around permission or quota blocks; report the blocker.',
+        'Store the connection in secret configuration, never in source code or chat.',
       ],
     },
     tips: {
       id: [
-        'Pilih region yang sama persis dengan hosting Vercel atau Cloudflare untuk memangkas network latency.',
+        'Untuk database sementara: `npx create-db@latest create --help` dan `npx create-db@latest regions --help` menunjukkan opsi dan region yang tersedia.',
+        'Klaim database `create-db` lewat claim URL sebelum kedaluwarsa jika ingin mempertahankannya (butuh akun Prisma).',
       ],
       en: [
-        'Select the exact same region as your Vercel or Cloudflare hosting to minimize latency.',
+        'For a temporary database: `npx create-db@latest create --help` and `npx create-db@latest regions --help` show the available options and regions.',
+        'Claim a `create-db` database through its claim URL before it expires if you want to keep it (requires a Prisma account).',
       ],
     },
-    pairsWellWith: ['prisma-postgres', 'prisma-database-setup', 'prisma-cli'],
+    pairsWellWith: ['prisma-orm-setup', 'prisma-cli', 'prisma-compute'],
     spotlight: {
       title: {
-        id: 'Konektivitas Instan Tanpa Instalasi Software Database Lokal',
-        en: 'Instant Cloud Connectivity Without Local Database Daemons',
+        id: 'Provisioning Terpisah dari Konfigurasi ORM',
+        en: 'Provisioning Kept Separate from ORM Configuration',
       },
       body: {
-        id: 'Prisma Postgres Setup menghilangkan kerepotan menginstal PostgreSQL daemon di komputer lokal atau konfigurasi Docker Compose rumit. Dalam satu perintah, database cloud serverless aktif dan siap pakai dengan connection string otomatis.',
-        en: 'Prisma Postgres Setup eliminates the friction of maintaining local PostgreSQL daemons or Docker Compose setups. With a single command, a fully managed serverless cloud database is online with auto-configured connection strings.',
+        id: 'Skill ini hanya mengurus database: menggunakan ulang atau membuatnya, lalu menyimpan koneksi dengan aman. Konfigurasi ORM diserahkan ke prisma-orm-setup, dan setup dianggap selesai hanya setelah kueri read-only lewat client aplikasi berhasil. Jika langkah tertentu terblokir atau belum diuji, laporkan apa adanya.',
+        en: 'This skill only handles the database: reuse or create it, then store the connection safely. ORM configuration is handed to prisma-orm-setup, and setup counts as complete only after a read-only query through the app\'s client succeeds. If a step is blocked or untested, say so instead of claiming success.',
       },
     },
     sourcePath: 'prisma-postgres-setup/SKILL.md',
@@ -591,19 +545,19 @@ export const prismaSkills: RichSkill[] = [
       en: 'Deployment and hosting guide for Prisma Compute: prisma.compute.ts, 0.0.0.0 port binding, and multi-framework deploy readiness.',
     },
     detailedDescription: {
-      id: 'Panduan lengkap untuk men-deploy aplikasi full-stack di platform Prisma Compute (`@prisma/cli app deploy`). Membahas konfigurasi `prisma.compute.ts`, binding host `0.0.0.0` (bukan localhost yang memblokir traffic luar), pemetaan port dinamis via `process.env.PORT`, autentikasi service token `PRISMA_SERVICE_TOKEN`, serta penyesuaian build artifact untuk Hono, Next.js, TanStack Start, Elysia, Nuxt, dan Astro.',
-      en: 'Complete guide for deploying full-stack web applications to the Prisma Compute platform (`@prisma/cli app deploy`). Covers `prisma.compute.ts` configuration, mandatory `0.0.0.0` network host binding (localhost blocks ingress container traffic), dynamic port binding via `process.env.PORT`, `PRISMA_SERVICE_TOKEN` deployment auth, and build packaging recipes across Hono, Next.js, TanStack Start, Elysia, Nuxt, and Astro.',
+      id: 'Panduan untuk membuat dan men-deploy aplikasi di Prisma Compute memakai Platform CLI (`bunx @prisma/cli@latest app deploy`, bukan `prisma app deploy` dari ORM CLI). Membahas `prisma.compute.ts` (`defineComputeConfig`, `app` vs `apps`), binding host `0.0.0.0`, port via `process.env.PORT`, autentikasi (login workspace atau `PRISMA_SERVICE_TOKEN`), batas 60 detik ingress (504), `app deploy --no-promote`, dan framework yang didukung deploy: nextjs, nuxt, astro, hono, nestjs, tanstack-start, custom, dan bun.',
+      en: 'Guide for creating and deploying apps on Prisma Compute with the Platform CLI (`bunx @prisma/cli@latest app deploy`, not `prisma app deploy` from the ORM CLI). Covers `prisma.compute.ts` (`defineComputeConfig`, `app` vs `apps`), `0.0.0.0` host binding, `process.env.PORT`, auth (workspace login or `PRISMA_SERVICE_TOKEN`), the 60-second ingress limit (504), `app deploy --no-promote`, and the frameworks supported for deploy: nextjs, nuxt, astro, hono, nestjs, tanstack-start, custom, and bun.',
     },
     useWhen: {
       id: [
-        'Men-deploy aplikasi Node.js/TypeScript ke Prisma Compute.',
+        'Men-deploy aplikasi TypeScript ke Prisma Compute.',
         'Mengonfigurasi `prisma.compute.ts` dan setting network container.',
-        'Mengatasi masalah container yang crash karena port binding localhost.',
+        'Mengatasi aplikasi yang tidak bisa dijangkau karena binding localhost atau port yang salah.',
       ],
       en: [
-        'Deploying Node.js/TypeScript applications to Prisma Compute.',
+        'Deploying TypeScript applications to Prisma Compute.',
         'Configuring `prisma.compute.ts` and container networking directives.',
-        'Troubleshooting container boot crashes caused by localhost port binding.',
+        'Troubleshooting apps that are unreachable because of localhost binding or a wrong port.',
       ],
     },
     avoidWhen: {
@@ -617,44 +571,48 @@ export const prismaSkills: RichSkill[] = [
     howItWorks: {
       id: [
         'Agent memeriksa skrip build dan start pada `package.json`.',
-        'Memastikan server mendengarkan host `0.0.0.0` dan port `process.env.PORT || 3000`.',
-        'Membuat konfigurasi `prisma.compute.ts` dan mengeksekusi deployment.',
+        'Memastikan server mendengarkan host `0.0.0.0` dan port deploy (baca `process.env.PORT` atau teruskan `--http-port` yang sama).',
+        'Memverifikasi CLI dengan `--help`, lalu men-deploy lewat `@prisma/cli app deploy` (atau skrip `compute:deploy` yang ada), dengan `prisma.compute.ts` bila perlu.',
       ],
       en: [
         'Agent audits build and startup scripts in `package.json`.',
-        'Verifies the application binds to host `0.0.0.0` and port `process.env.PORT || 3000`.',
-        'Generates `prisma.compute.ts` configuration and executes the deployment CLI.',
+        'Verifies the application binds to host `0.0.0.0` and the deployed HTTP port (read `process.env.PORT` or pass the matching `--http-port`).',
+        'Verifies the CLI with `--help`, then deploys through `@prisma/cli app deploy` (or the existing `compute:deploy` script), using `prisma.compute.ts` when needed.',
       ],
     },
     coreRules: {
       id: [
         'Wajib bind ke `0.0.0.0`, bukan `localhost` atau `127.0.0.1`.',
         'Wajib baca port dari variabel lingkungan `process.env.PORT`.',
-        'Sediakan build script yang menghasilkan output mandiri sebelum deployment dimulai.',
+        'Compute membutuhkan server entrypoint atau artifact framework, bukan hanya output statis; untuk Next.js dibutuhkan output standalone.',
+        'Ingress memberi aplikasi 60 detik untuk mulai merespons, lalu mengembalikan 504; jalankan pekerjaan panjang di luar request.',
       ],
       en: [
         'Always bind to `0.0.0.0`, never to `localhost` or `127.0.0.1`.',
         'Always listen on `process.env.PORT` injected dynamically by the container runtime.',
-        'Provide an autonomous production build script prior to triggering deployment.',
+        'Compute needs a server entrypoint or framework artifact, not only static output; Next.js needs standalone output.',
+        'The ingress gives the app 60 seconds to start responding, then returns 504; run long work outside the request.',
       ],
     },
     tips: {
       id: [
-        'Gunakan perintah `prisma app logs` untuk streaming log container produksi secara realtime.',
+        'Gunakan `bunx @prisma/cli@latest app logs` (Platform CLI, bukan `prisma app logs` dari ORM CLI) untuk melihat log runtime; `app logs --deployment <id>` untuk deployment tertentu.',
+        'Gunakan `app deploy --no-promote` untuk build lalu verifikasi kandidat di URL-nya sendiri sebelum dipromosikan dengan `app promote <deployment-id>`.',
       ],
       en: [
-        'Use `prisma app logs` to stream real-time container production logs during troubleshooting.',
+        'Use `bunx @prisma/cli@latest app logs` (the Platform CLI, not `prisma app logs` from the ORM CLI) for runtime logs; `app logs --deployment <id>` targets a specific deployment.',
+        'Use `app deploy --no-promote` to build and verify a candidate at its own URL before promoting it with `app promote <deployment-id>`.',
       ],
     },
-    pairsWellWith: ['prisma-postgres', 'prisma-cli', 'hono-cloudflare-workers'],
+    pairsWellWith: ['prisma-postgres-setup', 'prisma-cli'],
     spotlight: {
       title: {
         id: 'Aturan Wajib Host Binding 0.0.0.0',
         en: 'Mandatory 0.0.0.0 Host Binding Rule',
       },
       body: {
-        id: 'Jebakan paling sering dialami pada container deployment adalah membiarkan server default mendengarkan `localhost` (127.0.0.1). Di dalam container Prisma Compute, `127.0.0.1` hanya menerima koneksi internal loopback container itu sendiri, sehingga load balancer luar menganggap aplikasi offline dan menghasilkan HTTP 502. Mengubah host menjadi `0.0.0.0` wajib dilakukan.',
-        en: 'The most frequent container deployment failure is letting servers listen on `localhost` (127.0.0.1). Inside Prisma Compute containers, `127.0.0.1` only accepts internal loopback traffic, causing ingress health checks to fail with 502 Bad Gateway. Explicitly binding to `0.0.0.0` is mandatory.',
+        id: 'Jebakan paling sering dialami pada container deployment adalah membiarkan server default mendengarkan `localhost` (127.0.0.1). Menurut skill ini, readiness Compute hanya memantau port yang didengarkan, sehingga listener loopback bisa terlihat siap padahal ingress publik tidak bisa menjangkaunya. Karena itu bind ke semua interface (`0.0.0.0`) dan ke port deploy wajib dilakukan.',
+        en: 'The most frequent container deployment failure is letting servers listen on `localhost` (127.0.0.1). Per this skill, Compute readiness only watches listening ports, so a loopback-only listener can look ready while public ingress cannot reach it. Binding to all interfaces (`0.0.0.0`) and to the deployed port is therefore mandatory.',
       },
     },
     sourcePath: 'prisma-compute/SKILL.md',
@@ -664,21 +622,21 @@ export const prismaSkills: RichSkill[] = [
     category: 'migrations-upgrade',
     invocation: 'model',
     description: {
-      id: 'Panduan keputusan strategis proyek Prisma MongoDB di v6: pemahaman bahwa v6 adalah rilis terminal untuk MongoDB dan navigasi migrasi ke Prisma Next.',
-      en: 'Strategic decision guide for Prisma MongoDB projects on v6: understanding v6 as the terminal MongoDB release and navigating migration to Prisma Next.',
+      id: 'Panduan keputusan dan migrasi untuk proyek Prisma MongoDB di v6, yang tidak punya jalur ke v7: v6 adalah rilis mayor terminal, jalur penerusnya adalah Prisma 8 (dukungan MongoDB masih Early Access).',
+      en: 'Decision and migration guide for Prisma MongoDB projects on v6, which have no upgrade path to v7: v6 is the terminal major, and the successor path is Prisma 8 (MongoDB support is Early Access).',
     },
     detailedDescription: {
-      id: 'Skill keputusan krusial bagi developer yang menggunakan MongoDB dengan Prisma ORM. Menegaskan fakta teknis penting: Prisma ORM v6 adalah rilis terminal terakhir yang mendukung konektor MongoDB. Prisma ORM v7 tidak pernah merilis konektor MongoDB. Proyek MongoDB dihadapkan pada dua pilihan resmi: 1) Tetap berada di Prisma v6 yang didukung pembaruan keamanan jangka panjang, atau 2) Mengevaluasi migrasi ke Prisma Next (generasi penerus Prisma engine modern) yang membuka dukungan MongoDB di fase Early Access.',
-      en: 'Crucial strategic decision guide for teams operating MongoDB with Prisma ORM. Explicitly details the core architectural reality: Prisma ORM v6 is the terminal release series supporting the MongoDB connector. Prisma ORM v7 will NEVER ship a MongoDB connector. MongoDB projects face two official pathways: 1) Pin to Prisma v6 with long-term security maintenance, or 2) Transition toward Prisma Next (the next-generation Prisma engine) which introduces MongoDB support under Early Access.',
+      id: 'Skill keputusan (v0.2.0) bagi tim yang memakai MongoDB dengan Prisma ORM. Fakta intinya: v6 adalah mayor klasik terakhir untuk MongoDB, dan v7 tidak pernah merilis konektor MongoDB. Jalur penerusnya adalah Prisma 8, tempat dukungan MongoDB berstatus Early Access lewat `@prisma/orm-mongo` (butuh Node.js 22.18+, TypeScript 5.9+, MongoDB 8.0+, dan `mongodb@7`). Upstream menyatakan migrasi ke Prisma 8 sebagai jalur yang didorong; bertahan di v6 tetap sah bila ada hambatan keras, misalnya Prisma 8 belum punya metode transaksi MongoDB atau tim tidak dapat menyerap perubahan antar release candidate. Skill ini juga membawa referensi pemetaan schema, client API, migrasi, dan checklist cutover tanpa memindahkan data.',
+      en: 'A v0.2.0 decision skill for teams running MongoDB with Prisma ORM. The core fact: v6 is the terminal classic major for MongoDB, and v7 never ships a MongoDB connector. The successor path is Prisma 8, where MongoDB support is Early Access via `@prisma/orm-mongo` (needs Node.js 22.18+, TypeScript 5.9+, MongoDB 8.0+, and `mongodb@7`). Upstream calls migrating to Prisma 8 the encouraged path; staying on v6 remains legitimate where a hard blocker applies, such as Prisma 8 having no MongoDB transaction method yet or a team that cannot absorb changes between release candidates. The skill also carries mapping references for schema, client API, and migrations, plus a no-data-moves cutover checklist.',
     },
     useWhen: {
       id: [
         'Proyek dengan `provider = "mongodb"` menanyakan kemungkinan upgrade ke Prisma 7.',
-        'Mengevaluasi arsitektur database masa depan untuk proyek Prisma berbasis MongoDB.',
+        'Mengevaluasi perpindahan dari Prisma v6 ke Prisma 8 untuk proyek berbasis MongoDB.',
       ],
       en: [
         'Projects with `provider = "mongodb"` inquiring about upgrading to Prisma 7.',
-        'Evaluating database architecture roadmaps for existing MongoDB-backed Prisma systems.',
+        'Evaluating a move from Prisma v6 to Prisma 8 for a MongoDB-backed project.',
       ],
     },
     avoidWhen: {
@@ -691,43 +649,51 @@ export const prismaSkills: RichSkill[] = [
     },
     howItWorks: {
       id: [
-        'Agent mendeteksi deklarasi `provider = "mongodb"` di dalam file schema.prisma.',
-        'Segera memperingatkan pengguna bahwa upgrade ke Prisma 7 tidak didukung untuk MongoDB.',
-        'Menyajikan opsi bertahan di v6 dengan dependensi terisolasi atau migrasi ke Prisma Next.',
+        'Agent mendeteksi `provider = "mongodb"` di schema.prisma.',
+        'Segera menegaskan bahwa Prisma 7 tidak punya konektor MongoDB dan panduan prisma-upgrade-v7 tidak berlaku.',
+        'Menyajikan keputusan: migrasi ke Prisma 8 (didorong) atau bertahan di v6 bila ada hambatan keras, memeriksa penggunaan `$transaction` lewat grep, bukan bertanya.',
+        'Untuk migrasi, memakai referensi pemetaan dan menjalankan checklist cutover (database yang sama, paritas index, uji round-trip bertahap).',
       ],
       en: [
-        'Agent detects `provider = "mongodb"` declarations inside schema.prisma.',
-        'Immediately flags that upgrading to Prisma 7 is not supported for MongoDB.',
-        'Outlines strategic options: pinning on stable v6 or exploring Prisma Next.',
+        'Agent detects `provider = "mongodb"` in schema.prisma.',
+        'Immediately states that Prisma 7 has no MongoDB connector and the prisma-upgrade-v7 guide does not apply.',
+        'Presents the decision: migrate to Prisma 8 (encouraged) or stay on v6 where a hard blocker applies, checking `$transaction` usage with grep instead of asking.',
+        'For migration, uses the mapping references and runs the cutover checklist (same database, index parity, staged round-trip).',
       ],
     },
     coreRules: {
       id: [
-        'Jangan pernah mencoba menjalankan `npm install @prisma/client@7` pada proyek MongoDB.',
-        'Kunci versi dependensi di `^6.x` pada `package.json` untuk proyek MongoDB.',
+        'Jangan pernah menyarankan proyek MongoDB untuk "upgrade ke Prisma 7"; konektornya tidak ada.',
+        'Jangan pernah menyelesaikan pertanyaan versi dengan menulis ulang aplikasi ke database SQL; mengganti engine database adalah keputusan terpisah yang jauh lebih besar.',
+        'Jika bertahan di v6: pin ke 6.x terbaru, ikuti patch 6.x, pantau advisory keamanan, dan pertahankan setup MongoDB klasik (`url = env("DATABASE_URL")` di schema, alur `db push`, tanpa SQL driver adapter).',
+        'Sebelum bertindak berdasarkan klaim Prisma 8, periksa versi terpasang (`npm ls @prisma/orm-mongo`) dan skill `prisma-8` yang tersinkron, karena dukungan MongoDB masih berubah antar release candidate.',
       ],
       en: [
-        'Never attempt executing `npm install @prisma/client@7` on MongoDB projects.',
-        'Pin dependencies to `^6.x` in `package.json` for all MongoDB applications.',
+        'Never advise a MongoDB project to "upgrade to Prisma 7"; the connector does not exist there.',
+        'Never solve the version question by rewriting the app onto a SQL database; changing the database engine is a separate, much larger decision.',
+        'If staying on v6: pin to the latest 6.x, keep taking 6.x patches, track security advisories, and keep the classic MongoDB setup (`url = env("DATABASE_URL")` in the schema, `db push` workflow, no SQL driver adapters).',
+        'Before acting on any Prisma 8 claim, check the installed version (`npm ls @prisma/orm-mongo`) and the synced `prisma-8` skill, since MongoDB support still changes between release candidates.',
       ],
     },
     tips: {
       id: [
-        'Jika membutuhkan fitur modern Prisma 7, pertimbangkan migrasi data dari MongoDB ke PostgreSQL (Supabase/Prisma Postgres).',
+        'Jika berisiko tinggi tetapi tertarik, arahkan Prisma 8 ke schema v6 dengan `prisma6Schema(...)`, latih di salinan database, lalu migrasi.',
+        'Setelah pindah ke Prisma 8, jalankan `prisma skills sync` dan baca `prisma-8/SKILL.md`; jangan terus bekerja dari ringkasan skill ini.',
       ],
       en: [
-        'If Prisma 7 features are critical, consider migrating data from MongoDB to PostgreSQL.',
+        'If risk-averse but interested, point Prisma 8 at the v6 schema with `prisma6Schema(...)`, rehearse on a copy of the database, then migrate.',
+        'After switching to Prisma 8, run `prisma skills sync` and read `prisma-8/SKILL.md`; do not keep working from this skill\'s summaries.',
       ],
     },
-    pairsWellWith: ['prisma-upgrade-v7', 'prisma-client-api', 'prisma-database-setup'],
+    pairsWellWith: ['prisma-upgrade-v7', 'prisma-client-api', 'prisma-orm-setup'],
     spotlight: {
       title: {
-        id: 'Fakta Kritis: Prisma v6 Adalah Rilis Terminal untuk MongoDB',
-        en: 'Critical Fact: Prisma v6 is the Terminal Release for MongoDB',
+        id: 'Fakta Kritis: v6 Rilis Terminal untuk MongoDB, Penerusnya Prisma 8',
+        en: 'Critical Fact: v6 Is the Terminal MongoDB Release, Prisma 8 Is the Successor',
       },
       body: {
-        id: 'Prisma 7 berfokus 100% pada arsitektur relational SQL berbasis driver adapters. Konektor MongoDB resmi dihentikan di Prisma 6 dan tidak memiliki upgrade path langsung ke Prisma 7. Jangan buang waktu mencoba membongkar error adapter MongoDB di Prisma 7; keputusan resminya adalah bertahan di v6 atau bertransisi ke Prisma Next.',
-        en: 'Prisma 7 focuses 100% on relational SQL architectures powered by driver adapters. The official MongoDB connector ended its lifecycle in Prisma 6 and has no direct upgrade path to Prisma 7. Do not spend time troubleshooting MongoDB adapter failures on Prisma 7; the official recommendation is to pin to v6 or migrate to Prisma Next.',
+        id: 'Prisma 7 tidak pernah punya konektor MongoDB, jadi jangan menghabiskan waktu men-debug adapter MongoDB di Prisma 7. Keputusan nyatanya: migrasi ke Prisma 8 (jalur yang didorong, MongoDB masih Early Access) atau bertahan di v6 secara sengaja bila ada hambatan keras. Mengganti database ke SQL bukan jawaban atas pertanyaan versi.',
+        en: 'Prisma 7 never had a MongoDB connector, so do not spend time debugging MongoDB adapters on Prisma 7. The real decision: migrate to Prisma 8 (the encouraged path, MongoDB still Early Access) or deliberately stay on v6 where a hard blocker applies. Switching the database to SQL is not an answer to the version question.',
       },
     },
     sourcePath: 'prisma-mongodb-upgrade/SKILL.md',

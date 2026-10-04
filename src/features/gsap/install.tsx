@@ -6,8 +6,10 @@ import { getLocale } from '@/paraglide/runtime.js'
 const INSTALL = [
   'npx skills@latest add greensock/gsap-skills',
   '# Pilih skill saat prompt (mis. gsap-core, gsap-scrolltrigger, gsap-react, gsap-timeline)',
-  '# Install langsung dari repository resmi GreenSock (MIT)',
+  '# Target satu agent: tambahkan --agent <agent>',
 ].join('\n')
+
+const CLAUDE_CODE = '/plugin marketplace add greensock/gsap-skills'
 
 export function GsapInstall() {
   const isEn = getLocale() === 'en'
@@ -38,7 +40,19 @@ export function GsapInstall() {
               ? 'GSAP is framework-agnostic. For React/Next.js projects, install @gsap/react for the official useGSAP hook.'
               : 'GSAP bersifat framework-agnostic. Untuk proyek React/Next.js, pasang @gsap/react untuk memanfaatkan hook resmi useGSAP.'}
           </p>
-          <p className="text-xs text-muted-foreground">Licensed under the MIT License © GreenSock.</p>
+          <p className="text-sm text-muted-foreground">
+            {isEn
+              ? 'Claude Code: use the plugin marketplace instead. Cursor: Settings → Rules → Add Rule → Remote Rule (GitHub) with greensock/gsap-skills.'
+              : 'Claude Code: gunakan plugin marketplace. Cursor: Settings → Rules → Add Rule → Remote Rule (GitHub) dengan greensock/gsap-skills.'}
+          </p>
+          <CodeBlock code={CLAUDE_CODE} shell />
+          <div className="rounded border-l-2 border-primary/50 bg-muted/40 p-3 text-xs leading-relaxed text-muted-foreground">
+            <strong className="text-foreground">{isEn ? 'GSAP is 100% free. ' : 'GSAP 100% gratis. '}</strong>
+            {isEn
+              ? 'Every plugin (SplitText, MorphSVG, and the rest) is free for everyone, including commercial use, since Webflow’s acquisition. Install everything from the public gsap npm package; no Club GSAP membership, .npmrc auth token, or private registry is needed.'
+              : 'Semua plugin (SplitText, MorphSVG, dan lainnya) gratis untuk semua orang, termasuk penggunaan komersial, sejak akuisisi Webflow. Install semuanya dari paket npm publik gsap; tidak perlu keanggotaan Club GSAP, token .npmrc, atau registry privat.'}
+          </div>
+          <p className="text-xs text-muted-foreground">Skills licensed under the MIT License © GreenSock.</p>
         </CardContent>
       </Card>
     </section>

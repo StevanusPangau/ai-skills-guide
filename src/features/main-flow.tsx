@@ -23,7 +23,7 @@ export function MainFlow() {
       {
         id: 'multi',
         kind: 'decision',
-        label: 'Multi-session?',
+        label: m.flow_multi_label(),
         description: m.flow_node_multi(),
         position: { x: 260, y: 140 },
       },
@@ -33,7 +33,7 @@ export function MainFlow() {
         kind: 'skill',
         label: '/to-spec',
         description: m.flow_node_to_spec(),
-        subtitle: 'YES · multi-session',
+        subtitle: m.flow_branch_yes(),
         position: { x: 20, y: 300 },
       },
       {
@@ -78,7 +78,7 @@ export function MainFlow() {
         kind: 'skill',
         label: '/implement',
         description: m.flow_node_implement(),
-        subtitle: 'NO · single session',
+        subtitle: m.flow_branch_no(),
         position: { x: 460, y: 300 },
       },
       {
@@ -100,8 +100,8 @@ export function MainFlow() {
         id: 'wayfinder',
         kind: 'onramp',
         label: '/wayfinder',
-        description: 'ON-RAMP: Proyek hijau / inisiatif besar yang masih berkabut — buat peta keputusan di tracker sebelum to-spec.',
-        subtitle: 'Greenfield / Foggy effort',
+        description: m.flow_node_wayfinder(),
+        subtitle: m.flow_wayfinder_subtitle(),
         position: { x: 40, y: 1160 },
       },
       {
@@ -154,7 +154,7 @@ export function MainFlow() {
             rel="noopener noreferrer"
             className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-md border border-border bg-background hover:bg-muted text-foreground transition-colors shadow-xs"
           >
-            <span>Buka Pipeline HD Standalone (Archify) ↗</span>
+            <span>{m.flow_open_standalone()}</span>
           </a>
         </div>
       </div>

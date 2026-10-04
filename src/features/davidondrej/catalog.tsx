@@ -9,7 +9,6 @@ import { getCollectionBySlug } from '@/data/collections'
 import {
   davidCategoryLabels,
   davidondrejSkills,
-  type DavidBundleStatus,
   type DavidCategory,
   type DavidCompatibility,
   type DavidInvocation,
@@ -24,7 +23,6 @@ type Filter =
   | DavidCategory
   | DavidInvocation
   | DavidCompatibility
-  | DavidBundleStatus
 
 const CATEGORY_KEYS = Object.keys(davidCategoryLabels) as DavidCategory[]
 
@@ -40,14 +38,13 @@ export function DavidCatalog() {
         !q ||
         s.name.toLowerCase().includes(q) ||
         s.description.toLowerCase().includes(q) ||
-        s.adaptationNotes.toLowerCase().includes(q)
+        s.notes.toLowerCase().includes(q)
 
       const matchesFilter =
         filter === 'all' ||
         s.category === filter ||
         s.invocation === filter ||
-        s.compatibility === filter ||
-        s.bundleStatus === filter
+        s.compatibility === filter
 
       return matchesSearch && matchesFilter
     })
@@ -61,9 +58,10 @@ export function DavidCatalog() {
     })),
     { label: m.david_invocation_manual(), value: 'manual' },
     { label: m.david_invocation_model(), value: 'model' },
-    { label: m.david_bundle_first_wave(), value: 'first-wave' },
     { label: m.david_compat_portable(), value: 'portable' },
     { label: m.david_compat_adapt(), value: 'adapt' },
+    { label: m.david_compat_agent_specific(), value: 'agent-specific' },
+    { label: m.david_compat_vendor_specific(), value: 'vendor-specific' },
   ]
 
   return (

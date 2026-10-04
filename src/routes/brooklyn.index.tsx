@@ -33,9 +33,10 @@ function BrooklynIndexPage() {
   )
 
   const categories = [
-    { label: 'PR Lifecycle', value: 'pr-lifecycle' },
-    { label: 'Quality & Audit', value: 'quality' },
-    { label: 'System & Tooling', value: 'system' },
+    { label: 'Shipping', value: 'shipping' },
+    { label: 'Review', value: 'review' },
+    { label: 'Engineering', value: 'engineering' },
+    { label: 'Visual', value: 'visual' },
   ]
 
   return (

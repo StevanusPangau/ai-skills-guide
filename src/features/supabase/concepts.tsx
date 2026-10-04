@@ -96,55 +96,55 @@ export function SupabaseConcepts() {
         </CardContent>
       </Card>
 
-      {/* Model 2: SECURITY DEFINER Search Path Injection */}
+      {/* Model 2: SECURITY DEFINER bypasses RLS */}
       <Card className="border border-border">
         <CardHeader className="pb-3">
           <CardTitle className="text-base font-semibold">
             {isEn
-              ? 'Security Invariant: SECURITY DEFINER & Search Path Poisoning'
-              : 'Invarian Keamanan: SECURITY DEFINER & Search Path Poisoning'}
+              ? 'Security Invariant: SECURITY DEFINER Bypasses RLS'
+              : 'Invarian Keamanan: SECURITY DEFINER Mem-bypass RLS'}
           </CardTitle>
           <p className="text-xs text-muted-foreground">
             {isEn
-              ? 'Database functions running as superuser/postgres must lock the schema lookup path.'
-              : 'Fungsi database yang berjalan dengan hak superuser/postgres wajib mengunci jalur pencarian skema.'}
+              ? 'Prefer SECURITY INVOKER. If DEFINER is unavoidable, keep it out of exposed schemas and check the caller.'
+              : 'Utamakan SECURITY INVOKER. Jika DEFINER tak terhindarkan, jauhkan dari skema yang diekspos dan cek identitas pemanggil.'}
           </p>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="grid gap-4 md:grid-cols-2 font-mono text-xs">
             <div className="border-2 border-destructive/50 rounded-lg p-4 bg-destructive/5 space-y-3">
               <div className="flex items-center justify-between">
-                <span className="font-bold text-destructive">✕ Vulnerable Function</span>
+                <span className="font-bold text-destructive">✕ DEFINER in public</span>
                 <span className="text-[10px] bg-destructive/20 text-destructive px-2 py-0.5 rounded">
-                  Privilege Escalation Risk
+                  RLS bypass
                 </span>
               </div>
               <pre className="bg-background/80 p-2.5 rounded border border-destructive/30 text-destructive text-[11px] overflow-x-auto">
-                {`CREATE FUNCTION delete_user()\nRETURNS void SECURITY DEFINER AS $$\nBEGIN\n  DELETE FROM users WHERE id = auth.uid();\nEND; $$ LANGUAGE plpgsql;`}
+                {`create function public.delete_user(target uuid)\nreturns void\nlanguage sql\nsecurity definer as $$\n  delete from public.users where id = target;\n$$;`}
               </pre>
               <p className="text-[11px] text-muted-foreground font-sans leading-relaxed">
                 {isEn
-                  ? 'Attacker can create a fake "users" table in a temporary schema and hijack elevated admin permissions.'
-                  : 'Penyerang dapat membuat tabel "users" palsu di skema sementara dan membajak hak istimewa admin.'}
+                  ? 'Runs with its creator\'s privileges (often bypassrls), and Postgres grants EXECUTE to PUBLIC by default, so anon and authenticated can call it as an API endpoint.'
+                  : 'Berjalan dengan hak pembuatnya (sering bypassrls), dan Postgres memberi EXECUTE ke PUBLIC secara default, sehingga anon dan authenticated dapat memanggilnya sebagai endpoint API.'}
               </p>
             </div>
 
             <div className="border-2 border-emerald-500/50 rounded-lg p-4 bg-emerald-500/5 space-y-3">
               <div className="flex items-center justify-between">
                 <span className="font-bold text-emerald-600 dark:text-emerald-400">
-                  ✓ Safe Function with Locked Search Path
+                  ✓ Private schema + checks
                 </span>
                 <span className="text-[10px] bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 px-2 py-0.5 rounded">
-                  Secure
+                  Safer
                 </span>
               </div>
               <pre className="bg-background/80 p-2.5 rounded border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 text-[11px] overflow-x-auto">
-                {`CREATE FUNCTION delete_user()\nRETURNS void SECURITY DEFINER\nSET search_path = public AS $$\nBEGIN\n  DELETE FROM users WHERE id = (SELECT auth.uid());\nEND; $$ LANGUAGE plpgsql;`}
+                {`create function private.is_team_member(team_id bigint)\nreturns boolean\nlanguage sql\nsecurity definer\nset search_path = ''\nas $$ ... user_id = (select auth.uid()) ... $$;\n\nrevoke execute on function private.is_team_member(bigint)\n  from PUBLIC, anon, authenticated;`}
               </pre>
               <p className="text-[11px] text-muted-foreground font-sans leading-relaxed">
                 {isEn
-                  ? 'Schema resolution is pinned to public. Coupled with (SELECT auth.uid()) for single-evaluation performance.'
-                  : 'Resolusi skema dikunci ke public. Digabung dengan (SELECT auth.uid()) untuk performa evaluasi tunggal.'}
+                  ? 'Pattern from the upstream RLS reference: non-exposed schema, empty search_path, an auth.uid() check in the body, and EXECUTE revoked from public roles. Run supabase db advisors afterwards.'
+                  : 'Pola dari referensi RLS upstream: skema yang tidak diekspos, search_path kosong, cek auth.uid() di badan fungsi, dan EXECUTE dicabut dari role publik. Jalankan supabase db advisors setelahnya.'}
               </p>
             </div>
           </div>

@@ -10,18 +10,15 @@ export function SupabaseRlsLab() {
   const [concurrentUsers, setConcurrentUsers] = useState<number>(250)
 
   // RLS stats
-  const rlsLatency = rlsMode === 'naive' ? 840 : 18
   const rlsCalls = rlsMode === 'naive' ? '1,000,000 calls' : '1 call (cached)'
 
   // Pagination stats
   const pageSize = 20
   const rowsScannedOffset = pageNumber * pageSize
-  const offsetLatencyMs = Math.round(pageNumber * 0.45)
-  const cursorLatencyMs = 2
 
   // Connection pooling stats
-  const directRamMb = concurrentUsers * 2.5
-  const pooledRamMb = 35 // pool size = 15
+  // Illustrative only: pool size is a placeholder, not an upstream recommendation.
+  const pooledConnections = 15
 
   return (
     <section id="rls-lab" className="scroll-mt-20 space-y-6">
@@ -36,8 +33,8 @@ export function SupabaseRlsLab() {
         </div>
         <p className="text-muted-foreground mt-1 text-sm">
           {isEn
-            ? 'Interactive simulations of official Supabase Postgres rules: single-evaluation RLS subqueries, cursor vs OFFSET pagination, and connection pooling RAM exhaustion.'
-            : 'Simulasi interaktif aturan resmi Supabase Postgres: subquery RLS evaluasi tunggal, pagination cursor vs OFFSET, dan connection pooling pembebasan RAM.'}
+            ? 'Illustrative simulations of official Supabase Postgres rules (no measured benchmarks): single-evaluation RLS subqueries, cursor vs OFFSET pagination, and connection pooling RAM exhaustion.'
+            : 'Simulasi ilustratif aturan resmi Supabase Postgres (bukan hasil benchmark): subquery RLS evaluasi tunggal, pagination cursor vs OFFSET, dan connection pooling pembebasan RAM.'}
         </p>
       </div>
 
@@ -54,8 +51,8 @@ export function SupabaseRlsLab() {
                 </CardTitle>
                 <p className="text-xs text-muted-foreground mt-0.5">
                   {isEn
-                    ? 'Rule: security-rls-performance (CRITICAL) — wrap auth functions in (select auth.uid()) to cache execution across rows.'
-                    : 'Aturan: security-rls-performance (CRITICAL) — bungkus fungsi auth dalam (select auth.uid()) agar hasil dicache untuk seluruh scan.'}
+                    ? 'Rule: security-rls-performance (upstream rates it 5-10x faster, workload-dependent) — wrap auth functions in (select auth.uid()) so they are evaluated once.'
+                    : 'Aturan: security-rls-performance (CRITICAL) — bungkus fungsi auth dalam (select auth.uid()) agar dievaluasi sekali (upstream: 5-10x lebih cepat, bergantung beban kerja).'}
                 </p>
               </div>
               <div className="flex gap-1.5 bg-muted/60 p-1 rounded-lg border border-border">
@@ -88,7 +85,7 @@ export function SupabaseRlsLab() {
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 font-mono text-xs">
               <div className="border border-border rounded p-2.5 bg-muted/30">
                 <span className="text-[10px] text-muted-foreground block uppercase">
-                  {isEn ? 'Simulated Table Size' : 'Ukuran Tabel Uji'}
+                  {isEn ? 'Illustrative Table Size' : 'Ukuran Tabel Ilustrasi'}
                 </span>
                 <span className="text-base font-bold text-foreground">1,000,000 rows</span>
               </div>
@@ -108,7 +105,7 @@ export function SupabaseRlsLab() {
               </div>
               <div className="border border-border rounded p-2.5 bg-muted/30 col-span-2 sm:col-span-1">
                 <span className="text-[10px] text-muted-foreground block uppercase">
-                  {isEn ? 'Scan Latency' : 'Latensi Scan'}
+                  {isEn ? 'Evaluation' : 'Evaluasi'}
                 </span>
                 <span
                   className={`text-base font-bold ${
@@ -117,7 +114,9 @@ export function SupabaseRlsLab() {
                       : 'text-emerald-600 dark:text-emerald-400'
                   }`}
                 >
-                  {rlsLatency} ms {rlsMode === 'cached' && '(-97% time)'}
+                  {rlsMode === 'naive'
+                    ? isEn ? 'per row' : 'per baris'
+                    : isEn ? 'once (initplan)' : 'sekali (initplan)'}
                 </span>
               </div>
             </div>
@@ -170,8 +169,8 @@ export function SupabaseRlsLab() {
                   <span className="font-bold text-destructive block">OFFSET {rowsScannedOffset.toLocaleString()}</span>
                   <p className="text-muted-foreground text-[11px]">
                     {isEn
-                      ? `Scans ${rowsScannedOffset.toLocaleString()} dead rows to discard them (~${offsetLatencyMs}ms).`
-                      : `Men-scan ${rowsScannedOffset.toLocaleString()} baris mati untuk dibuang (~${offsetLatencyMs}ms).`}
+                      ? `Reads and discards ${rowsScannedOffset.toLocaleString()} rows before returning the page; cost grows with page depth.`
+                      : `Membaca dan membuang ${rowsScannedOffset.toLocaleString()} baris sebelum mengembalikan halaman; biaya naik seiring kedalaman halaman.`}
                   </p>
                 </div>
                 <div className="border border-emerald-500/30 bg-emerald-500/5 rounded p-2.5 space-y-1">
@@ -180,8 +179,8 @@ export function SupabaseRlsLab() {
                   </span>
                   <p className="text-muted-foreground text-[11px]">
                     {isEn
-                      ? `Instant B-tree seek: scans exactly 20 rows (~${cursorLatencyMs}ms constant O(1)).`
-                      : `B-tree index seek instan: hanya men-scan tepat 20 baris (~${cursorLatencyMs}ms O(1)).`}
+                      ? `Index seek on the last id: reads only the ${pageSize} rows of the page, regardless of depth.`
+                      : `Index seek pada id terakhir: hanya membaca ${pageSize} baris halaman, berapa pun kedalamannya.`}
                   </p>
                 </div>
               </div>
@@ -207,8 +206,8 @@ export function SupabaseRlsLab() {
                     {isEn ? 'Concurrent Users / Workers:' : 'Pengguna / Pekerja Konkuren:'}{' '}
                     <strong>{concurrentUsers}</strong>
                   </span>
-                  <span className={directRamMb > 500 ? 'text-destructive font-bold' : 'text-muted-foreground'}>
-                    {directRamMb > 500 ? (isEn ? 'CRITICAL RAM PRESSURE' : 'TEKANAN RAM KRITIS') : 'Normal'}
+                  <span className="text-muted-foreground">
+                    {isEn ? 'illustrative' : 'ilustrasi'}
                   </span>
                 </div>
                 <input
@@ -226,25 +225,25 @@ export function SupabaseRlsLab() {
                 <div className="border border-destructive/30 bg-destructive/5 rounded p-2.5 space-y-1">
                   <span className="font-bold text-destructive block">Direct Connections</span>
                   <div className="text-base font-mono font-bold text-destructive">
-                    {Math.round(directRamMb)} MB RAM
+                    {concurrentUsers} {isEn ? 'connections' : 'koneksi'}
                   </div>
                   <p className="text-[11px] text-muted-foreground">
                     {isEn
-                      ? `${concurrentUsers} backend processes spawned; risks Postgres OOM crash.`
-                      : `${concurrentUsers} proses Postgres dibuat; risiko crash Out-of-Memory.`}
+                      ? `${concurrentUsers} backend processes, each using roughly 1-3MB RAM (upstream conn-limits); can exhaust memory and max_connections.`
+                      : `${concurrentUsers} proses backend, masing-masing sekitar 1-3MB RAM (upstream conn-limits); bisa menghabiskan memori dan max_connections.`}
                   </p>
                 </div>
                 <div className="border border-emerald-500/30 bg-emerald-500/5 rounded p-2.5 space-y-1">
                   <span className="font-bold text-emerald-600 dark:text-emerald-400 block">
-                    PgBouncer / Supavisor
+                    Pooler (e.g. PgBouncer)
                   </span>
                   <div className="text-base font-mono font-bold text-emerald-600 dark:text-emerald-400">
-                    {pooledRamMb} MB RAM
+                    {pooledConnections} {isEn ? 'connections' : 'koneksi'}
                   </div>
                   <p className="text-[11px] text-muted-foreground">
                     {isEn
-                      ? '15 pooled connections reused across thousands of requests.'
-                      : '15 koneksi ter-pool dipakai bergantian oleh ribuan request.'}
+                      ? 'A small fixed pool of connections reused across many requests (pool size here is only an example).'
+                      : 'Pool koneksi kecil dan tetap dipakai bergantian oleh banyak request (ukuran pool di sini hanya contoh).'}
                   </p>
                 </div>
               </div>

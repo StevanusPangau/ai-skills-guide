@@ -23,7 +23,7 @@ const workflows: Wf[] = [
     steps: [
       'queryOptions factory (Query)',
       'createColumnHelper columns (Table)',
-      'useReactTable({ data, columns })',
+      'useReactTable({ data, columns }) (v8; v9: useTable)',
       'render tailwind / shadcn <table>',
       'integrate pagination controls',
     ],

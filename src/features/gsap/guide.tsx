@@ -45,7 +45,10 @@ export function GsapOverview() {
       </div>
       <div className="flex flex-wrap gap-x-10 gap-y-4">
         <Stat value={String(gsapSkills.length)} label={m.gsap_stat_skills()} />
-        <Stat value="6" label={m.gsap_stat_categories()} />
+        <Stat
+          value={String(new Set(gsapSkills.map((s) => s.category)).size)}
+          label={m.gsap_stat_categories()}
+        />
       </div>
       <Card className="border-2 border-primary/30 bg-primary/5">
         <CardHeader className="pb-2">

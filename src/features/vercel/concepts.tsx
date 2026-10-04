@@ -27,8 +27,8 @@ export function VercelConcepts() {
           </CardTitle>
           <p className="text-xs text-muted-foreground">
             {isEn
-              ? 'Agent attention is strictly prioritized: fix execution blockers before micro-optimizations.'
-              : 'Perhatian agen diprioritaskan secara ketat: perbaiki blocker eksekusi sebelum mikro-optimasi.'}
+              ? 'The 8 categories of react-best-practices are ordered by impact: fix waterfalls and bundle size before micro-optimizations. Composition patterns are a separate skill.'
+              : '8 kategori react-best-practices diurutkan berdasarkan dampak: perbaiki waterfall dan bundle size sebelum mikro-optimasi. Composition patterns adalah skill terpisah.'}
           </p>
         </CardHeader>
         <CardContent className="space-y-4">
@@ -38,7 +38,7 @@ export function VercelConcepts() {
                 <Badge variant="destructive" className="text-[10px] uppercase font-bold">
                   CRITICAL
                 </Badge>
-                <span className="text-[11px] text-muted-foreground">Impact 10/10</span>
+                <span className="text-[11px] text-muted-foreground">react-best-practices #1</span>
               </div>
               <p className="font-semibold text-foreground text-xs">Eliminate Waterfalls</p>
               <p className="text-[11px] text-muted-foreground leading-tight font-sans">
@@ -50,46 +50,46 @@ export function VercelConcepts() {
 
             <div className="rounded-lg border-2 border-amber-500/80 bg-amber-500/5 p-3 space-y-1.5">
               <div className="flex items-center justify-between">
-                <Badge className="bg-amber-500/20 text-amber-600 dark:text-amber-400 border border-amber-500/30 text-[10px] uppercase font-bold">
-                  HIGH
+                <Badge variant="destructive" className="text-[10px] uppercase font-bold">
+                  CRITICAL
                 </Badge>
-                <span className="text-[11px] text-muted-foreground">Impact 8/10</span>
+                <span className="text-[11px] text-muted-foreground">react-best-practices #2</span>
               </div>
-              <p className="font-semibold text-foreground text-xs">Bundle & Composition</p>
+              <p className="font-semibold text-foreground text-xs">Bundle Size Optimization</p>
               <p className="text-[11px] text-muted-foreground leading-tight font-sans">
                 {isEn
-                  ? 'Kill barrel imports, dynamic import heavy dialogs, compound components.'
-                  : 'Hapus barrel imports, dynamic import dialog berat, compound components.'}
+                  ? 'Avoid barrel imports, dynamically import heavy components, defer non-critical third-party libraries.'
+                  : 'Hindari barrel imports, dynamic import komponen berat, tunda library pihak ketiga non-kritis.'}
               </p>
             </div>
 
             <div className="rounded-lg border border-sky-500/80 bg-sky-500/5 p-3 space-y-1.5">
               <div className="flex items-center justify-between">
-                <Badge className="bg-sky-500/20 text-sky-600 dark:text-sky-400 border border-sky-500/30 text-[10px] uppercase font-bold">
-                  MEDIUM
+                <Badge className="bg-amber-500/20 text-amber-600 dark:text-amber-400 border border-amber-500/30 text-[10px] uppercase font-bold">
+                  HIGH
                 </Badge>
-                <span className="text-[11px] text-muted-foreground">Impact 5/10</span>
+                <span className="text-[11px] text-muted-foreground">react-best-practices #3</span>
               </div>
-              <p className="font-semibold text-foreground text-xs">Re-render Hygiene</p>
+              <p className="font-semibold text-foreground text-xs">Server-Side Performance</p>
               <p className="text-[11px] text-muted-foreground leading-tight font-sans">
                 {isEn
-                  ? 'Derived state in render, memoize expensive computations, useTransitions.'
-                  : 'Derived state saat render, memoize kalkulasi berat, useTransitions.'}
+                  ? 'Authenticate Server Actions, per-request React.cache(), LRU across requests, after() for non-blocking work.'
+                  : 'Autentikasi Server Actions, React.cache() per-request, LRU lintas request, after() untuk pekerjaan non-blocking.'}
               </p>
             </div>
 
             <div className="rounded-lg border border-zinc-500/50 bg-zinc-500/5 p-3 space-y-1.5">
               <div className="flex items-center justify-between">
                 <Badge variant="outline" className="text-[10px] uppercase font-bold">
-                  LOW
+                  MEDIUM / LOW
                 </Badge>
-                <span className="text-[11px] text-muted-foreground">Impact 2/10</span>
+                <span className="text-[11px] text-muted-foreground">#4 - #8</span>
               </div>
-              <p className="font-semibold text-foreground text-xs">Micro Patterns</p>
+              <p className="font-semibold text-foreground text-xs">Client, Re-render, Rendering, JS, Advanced</p>
               <p className="text-[11px] text-muted-foreground leading-tight font-sans">
                 {isEn
-                  ? 'Variable hoisting, inline function allocations, micro styling tweaks.'
-                  : 'Variable hoisting, alokasi fungsi inline, penyesuaian styling mikro.'}
+                  ? 'Client data fetching (MEDIUM-HIGH), re-render and rendering (MEDIUM), JavaScript performance (LOW-MEDIUM), advanced patterns (LOW).'
+                  : 'Client data fetching (MEDIUM-HIGH), re-render dan rendering (MEDIUM), JavaScript performance (LOW-MEDIUM), advanced patterns (LOW).'}
               </p>
             </div>
           </div>
@@ -115,7 +115,7 @@ export function VercelConcepts() {
               <div className="flex items-center justify-between">
                 <span className="font-bold text-destructive">✕ Barrel Import (Slow / Heavy)</span>
                 <span className="text-[10px] bg-destructive/20 text-destructive px-2 py-0.5 rounded">
-                  +1.8s Cold Dev
+                  ~2.8s extra dev
                 </span>
               </div>
               <div className="bg-background/80 p-2.5 rounded border border-destructive/30 text-destructive font-mono text-[11px]">
@@ -123,8 +123,8 @@ export function VercelConcepts() {
               </div>
               <div className="h-16 rounded border border-dashed border-destructive/40 flex items-center justify-center text-center p-2 text-muted-foreground text-[11px] font-sans">
                 {isEn
-                  ? 'Bundler parses 1,400+ icon ASTs just to extract 1 single SVG icon component.'
-                  : 'Bundler mem-parse 1.400+ AST icon hanya untuk mengambil 1 komponen icon SVG.'}
+                  ? 'Per the source, lucide-react loads 1,583 modules (~2.8s extra in dev, 200-800ms on every cold start) for a few icons.'
+                  : 'Menurut sumber, lucide-react memuat 1.583 modul (~2,8 dtk ekstra di dev, 200-800 ms di setiap cold start) hanya untuk beberapa icon.'}
               </div>
             </div>
 
@@ -132,19 +132,19 @@ export function VercelConcepts() {
             <div className="border-2 border-emerald-500/50 rounded-lg p-4 bg-emerald-500/5 space-y-3">
               <div className="flex items-center justify-between">
                 <span className="font-bold text-emerald-600 dark:text-emerald-400">
-                  ✓ Deep Subpath or optimizePackageImports
+                  ✓ optimizePackageImports or Direct Import
                 </span>
                 <span className="text-[10px] bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 px-2 py-0.5 rounded">
-                  Instant Tree-shake
+                  Fewer modules
                 </span>
               </div>
               <div className="bg-background/80 p-2.5 rounded border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 font-mono text-[11px]">
-                import LucideIcon from &apos;lucide-react/dist/esm/icons/check&apos;
+                // next.config.js: experimental.optimizePackageImports
               </div>
               <div className="h-16 rounded border border-dashed border-emerald-500/40 flex items-center justify-center text-center p-2 text-muted-foreground text-[11px] font-sans">
                 {isEn
-                  ? 'Zero AST overhead: only the exact file is resolved and compiled into the bundle.'
-                  : 'Nol overhead AST: hanya file yang tepat yang di-resolve dan dikompilasi ke bundle.'}
+                  ? 'Prefer optimizePackageImports (Next.js 13.5+). Caution: lucide-react deep paths ship no .d.ts and resolve to implicit any.'
+                  : 'Utamakan optimizePackageImports (Next.js 13.5+). Perhatian: deep path lucide-react tidak punya .d.ts sehingga menjadi implicit any.'}
               </div>
             </div>
           </div>
@@ -176,19 +176,19 @@ export function VercelConcepts() {
               </p>
             </div>
             <div className="rounded-lg border border-border bg-card p-3 space-y-1.5">
-              <div className="font-semibold text-foreground font-mono">2. use(Context) in Loops</div>
+              <div className="font-semibold text-foreground font-mono">2. use() vs useContext()</div>
               <p className="text-muted-foreground leading-relaxed">
                 {isEn
-                  ? 'Unlike useContext(), use() can be called conditionally inside if blocks or loops without breaking hook rules.'
-                  : 'Berbeda dari useContext(), use() bisa dipanggil secara kondisional di dalam blok if tanpa melanggar aturan hook.'}
+                  ? 'use() replaces useContext() in React 19 and, unlike useContext(), can be called conditionally.'
+                  : 'use() menggantikan useContext() di React 19 dan, berbeda dari useContext(), bisa dipanggil secara kondisional.'}
               </p>
             </div>
             <div className="rounded-lg border border-border bg-card p-3 space-y-1.5">
-              <div className="font-semibold text-foreground font-mono">3. Server/Client Boundary</div>
+              <div className="font-semibold text-foreground font-mono">3. Skip on React 18</div>
               <p className="text-muted-foreground leading-relaxed">
                 {isEn
-                  ? 'Push "use client" as far down the component tree as possible. Keep data fetching in Server Components.'
-                  : 'Dorong "use client" sejauh mungkin ke bawah pohon komponen. Pertahankan fetch data di Server Components.'}
+                  ? 'The react19-no-forwardref rule is React 19+ only: skip it if the project is on React 18 or earlier.'
+                  : 'Aturan react19-no-forwardref hanya untuk React 19+: lewati jika proyek memakai React 18 atau lebih lama.'}
               </p>
             </div>
           </div>

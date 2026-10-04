@@ -32,11 +32,11 @@ export function BrooklynConcepts() {
           <CardContent className="space-y-3 text-sm text-muted-foreground">
             <p>
               {isEn
-                ? 'Never build multi-turn tasks on the dirty primary working branch. Spin up a separate git worktree per feature or bugfix so uncommitted experiments remain isolated.'
-                : 'Jangan pernah mengerjakan task besar di branch utama yang kotor. Jalankan git worktree terpisah untuk tiap fitur atau bugfix agar eksperimen lokal tidak saling tumpang tindih.'}
+                ? 'Do real work in a dedicated git worktree, not the primary checkout. /work mirrors the repo\'s own branch prefix and worktree naming instead of imposing one, and never uses git stash (the stash list is shared by every worktree).'
+                : 'Kerjakan pekerjaan nyata di git worktree khusus, bukan checkout utama. /work meniru prefiks branch dan penamaan worktree yang sudah dipakai repo, bukan memaksakan pola sendiri, dan tidak pernah memakai git stash (daftar stash dibagi semua worktree).'}
             </p>
             <div className="rounded-md bg-muted/60 p-2.5 font-mono text-xs text-foreground">
-              git worktree add ../feature-branch -b feat/task-name
+              {'git worktree add -b <prefix>/<slug> ../<repo>-<short> origin/<default>'}
             </div>
           </CardContent>
         </Card>
@@ -54,11 +54,11 @@ export function BrooklynConcepts() {
           <CardContent className="space-y-3 text-sm text-muted-foreground">
             <p>
               {isEn
-                ? 'A Pull Request is a piece of documentation for reviewers. Purge debugging console.logs, commented dead code, and experimental cruft before triggering handoff.'
-                : 'Pull Request adalah dokumen yang harus dinikmati oleh reviewer manusia. Pangkas console.log sementara, kode mati yang dikomentari, dan eksperimen usang sebelum membuka PR.'}
+                ? 'A Pull Request is a piece of documentation for reviewers. Purge debugging console.logs, commented dead code, and experimental cruft before any PR handoff. Clean means polish, not running the test suite.'
+                : 'Pull Request adalah dokumen yang harus dinikmati oleh reviewer manusia. Pangkas console.log sementara, kode mati yang dikomentari, dan eksperimen usang sebelum handoff PR apa pun. Clean berarti memoles, bukan menjalankan test suite.'}
             </p>
             <div className="rounded-md bg-muted/60 p-2.5 font-mono text-xs text-foreground">
-              /clean → Re-read diff, strip dead code, extend existing helpers
+              /clean → Re-read diff, strip dead code, extend existing helpers (polish, not a test run)
             </div>
           </CardContent>
         </Card>
@@ -76,11 +76,11 @@ export function BrooklynConcepts() {
           <CardContent className="space-y-3 text-sm text-muted-foreground">
             <p>
               {isEn
-                ? 'Strip synthetic boilerplate words (e.g. delve, robust, tapestry, landscape, seamlessly) from PR descriptions and commit logs. Write like a concise human engineer.'
-                : 'Bersihkan kata-kata klise AI (delve, robust, tapestry, landscape, seamlessly) dari deskripsi PR dan commit log. Tulis pesan teknis yang tajam, padat, dan manusiawi.'}
+                ? 'Revise prose against a catalog of AI writing tropes (e.g. delve, robust, tapestry, landscape, quietly, serves as) before publishing PR descriptions and commit messages. Write like a concise human engineer.'
+                : 'Revisi tulisan terhadap katalog tropes tulisan AI (mis. delve, robust, tapestry, landscape, quietly, serves as) sebelum memublikasikan deskripsi PR dan commit message. Tulis seperti engineer manusia yang ringkas.'}
             </p>
             <div className="rounded-md bg-muted/60 p-2.5 font-mono text-xs text-foreground">
-              Reference tropes.fyi: replace vague puffery with concrete stats
+              Catalog: tropes.fyi (tropes-reference.md)
             </div>
           </CardContent>
         </Card>
@@ -98,11 +98,11 @@ export function BrooklynConcepts() {
           <CardContent className="space-y-3 text-sm text-muted-foreground">
             <p>
               {isEn
-                ? 'Engineering responsibility doesn\'t stop at opening a PR. The agent continuously monitors CI checks, retries flaky builds, and resolves merge conflicts until green.'
-                : 'Tanggung jawab engineer tidak berhenti saat tombol PR ditekan. Agent terus memantau status CI GitHub Actions, merestart flaky build, dan membereskan konflik hingga hijau.'}
+                ? 'Responsibility does not stop at opening a PR. The agent stays on it: polls checks, kicks stalled CI, reruns flakes, and handles late review threads until green or merged. It only makes small branch-caused fixes (bigger rebases belong to /pr-ready) and merges only when asked.'
+                : 'Tanggung jawab tidak berhenti saat PR dibuka. Agent tetap di PR: polling check, menendang CI yang macet, rerun flake, dan menangani review thread yang terlambat sampai hijau atau merged. Hanya perbaikan kecil akibat branch ini (rebase besar urusan /pr-ready), dan merge hanya bila diminta.'}
             </p>
             <div className="rounded-md bg-muted/60 p-2.5 font-mono text-xs text-foreground">
-              gh pr checks --watch → report only on state transitions
+              bounded sleep loop (30-60s) → report state changes only
             </div>
           </CardContent>
         </Card>

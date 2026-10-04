@@ -19,6 +19,7 @@ The guide curates and explains work by the attributed upstream authors. Each col
 - setup-matt-pocock-skills: https://skills.stevanuspangau.dev/skills/setup-matt-pocock-skills
 - to-tickets: https://skills.stevanuspangau.dev/skills/to-tickets
 - implement: https://skills.stevanuspangau.dev/skills/implement
+- implement-spec: https://skills.stevanuspangau.dev/skills/implement-spec
 - to-spec: https://skills.stevanuspangau.dev/skills/to-spec
 - prototype: https://skills.stevanuspangau.dev/skills/prototype
 - diagnosing-bugs: https://skills.stevanuspangau.dev/skills/diagnosing-bugs
@@ -27,7 +28,8 @@ The guide curates and explains work by the attributed upstream authors. Each col
 - domain-modeling: https://skills.stevanuspangau.dev/skills/domain-modeling
 - codebase-design: https://skills.stevanuspangau.dev/skills/codebase-design
 - code-review: https://skills.stevanuspangau.dev/skills/code-review
-- resolving-merge-conflicts: https://skills.stevanuspangau.dev/skills/resolving-merge-conflicts
+- pr: https://skills.stevanuspangau.dev/skills/pr
+- retro: https://skills.stevanuspangau.dev/skills/retro
 - grill-me: https://skills.stevanuspangau.dev/skills/grill-me
 - handoff: https://skills.stevanuspangau.dev/skills/handoff
 - teach: https://skills.stevanuspangau.dev/skills/teach
@@ -40,33 +42,62 @@ The guide curates and explains work by the attributed upstream authors. Each col
 ## davidondrej
 
 - Collection: https://skills.stevanuspangau.dev/davidondrej
-- agent-self-scheduling: https://skills.stevanuspangau.dev/davidondrej/skills/agent-self-scheduling
 - goal-loop: https://skills.stevanuspangau.dev/davidondrej/skills/goal-loop
-- codex-subagent: https://skills.stevanuspangau.dev/davidondrej/skills/codex-subagent
 - handoff: https://skills.stevanuspangau.dev/davidondrej/skills/handoff
-- cmux: https://skills.stevanuspangau.dev/davidondrej/skills/cmux
-- run-deep-swe: https://skills.stevanuspangau.dev/davidondrej/skills/run-deep-swe
+- codex-subagent: https://skills.stevanuspangau.dev/davidondrej/skills/codex-subagent
+- git-worktree: https://skills.stevanuspangau.dev/davidondrej/skills/git-worktree
+- fable-review: https://skills.stevanuspangau.dev/davidondrej/skills/fable-review
+- gpt-review: https://skills.stevanuspangau.dev/davidondrej/skills/gpt-review
+- total-review: https://skills.stevanuspangau.dev/davidondrej/skills/total-review
 - fable-safe-prompt: https://skills.stevanuspangau.dev/davidondrej/skills/fable-safe-prompt
+- cmux: https://skills.stevanuspangau.dev/davidondrej/skills/cmux
+- herdr: https://skills.stevanuspangau.dev/davidondrej/skills/herdr
+- bb-cli: https://skills.stevanuspangau.dev/davidondrej/skills/bb-cli
+- bb-plugins: https://skills.stevanuspangau.dev/davidondrej/skills/bb-plugins
+- nagent: https://skills.stevanuspangau.dev/davidondrej/skills/nagent
+- larp-detector: https://skills.stevanuspangau.dev/davidondrej/skills/larp-detector
+- new-grok-bot: https://skills.stevanuspangau.dev/davidondrej/skills/new-grok-bot
+- reset-cursor-acp: https://skills.stevanuspangau.dev/davidondrej/skills/reset-cursor-acp
+- self-archive: https://skills.stevanuspangau.dev/davidondrej/skills/self-archive
 - anti-sleep: https://skills.stevanuspangau.dev/davidondrej/skills/anti-sleep
 - setup-help: https://skills.stevanuspangau.dev/davidondrej/skills/setup-help
-- cyber-audit: https://skills.stevanuspangau.dev/davidondrej/skills/cyber-audit
-- pi-custom-model: https://skills.stevanuspangau.dev/davidondrej/skills/pi-custom-model
-- research-prompt: https://skills.stevanuspangau.dev/davidondrej/skills/research-prompt
+- boat: https://skills.stevanuspangau.dev/davidondrej/skills/boat
+- create-readonly-db-role: https://skills.stevanuspangau.dev/davidondrej/skills/create-readonly-db-role
+- cua-driver: https://skills.stevanuspangau.dev/davidondrej/skills/cua-driver
+- github-outside-sandbox: https://skills.stevanuspangau.dev/davidondrej/skills/github-outside-sandbox
+- global-agent-guardrails: https://skills.stevanuspangau.dev/davidondrej/skills/global-agent-guardrails
+- openrouter: https://skills.stevanuspangau.dev/davidondrej/skills/openrouter
+- persistent-localhost: https://skills.stevanuspangau.dev/davidondrej/skills/persistent-localhost
+- prompt-for-others: https://skills.stevanuspangau.dev/davidondrej/skills/prompt-for-others
+- rename-process: https://skills.stevanuspangau.dev/davidondrej/skills/rename-process
+- repo-sync: https://skills.stevanuspangau.dev/davidondrej/skills/repo-sync
+- risky-changes: https://skills.stevanuspangau.dev/davidondrej/skills/risky-changes
 - browser-harness: https://skills.stevanuspangau.dev/davidondrej/skills/browser-harness
+- browser-use: https://skills.stevanuspangau.dev/davidondrej/skills/browser-use
 - deep-research: https://skills.stevanuspangau.dev/davidondrej/skills/deep-research
-- online-shopping: https://skills.stevanuspangau.dev/davidondrej/skills/online-shopping
-- youtube-transcript: https://skills.stevanuspangau.dev/davidondrej/skills/youtube-transcript
+- deep-scrape: https://skills.stevanuspangau.dev/davidondrej/skills/deep-scrape
 - deepapi: https://skills.stevanuspangau.dev/davidondrej/skills/deepapi
-- pi-web-search: https://skills.stevanuspangau.dev/davidondrej/skills/pi-web-search
+- domain-checker: https://skills.stevanuspangau.dev/davidondrej/skills/domain-checker
+- fireflies-transcript: https://skills.stevanuspangau.dev/davidondrej/skills/fireflies-transcript
+- online-shopping: https://skills.stevanuspangau.dev/davidondrej/skills/online-shopping
+- varied-search: https://skills.stevanuspangau.dev/davidondrej/skills/varied-search
+- who-is-this: https://skills.stevanuspangau.dev/davidondrej/skills/who-is-this
 - effective-agent-skills: https://skills.stevanuspangau.dev/davidondrej/skills/effective-agent-skills
-- folder-specific-claude-and-agents-md: https://skills.stevanuspangau.dev/davidondrej/skills/folder-specific-claude-and-agents-md
 - distribute-skill-to-all-agents: https://skills.stevanuspangau.dev/davidondrej/skills/distribute-skill-to-all-agents
-- push-skill-to-github: https://skills.stevanuspangau.dev/davidondrej/skills/push-skill-to-github
-- brain-to-docs: https://skills.stevanuspangau.dev/davidondrej/skills/brain-to-docs
-- level-up: https://skills.stevanuspangau.dev/davidondrej/skills/level-up
-- prompt-me: https://skills.stevanuspangau.dev/davidondrej/skills/prompt-me
+- push-skills: https://skills.stevanuspangau.dev/davidondrej/skills/push-skills
+- adr-verbatim: https://skills.stevanuspangau.dev/davidondrej/skills/adr-verbatim
+- ask-then-build: https://skills.stevanuspangau.dev/davidondrej/skills/ask-then-build
+- before-building: https://skills.stevanuspangau.dev/davidondrej/skills/before-building
+- decisions: https://skills.stevanuspangau.dev/davidondrej/skills/decisions
+- file-tree: https://skills.stevanuspangau.dev/davidondrej/skills/file-tree
+- image-prompt: https://skills.stevanuspangau.dev/davidondrej/skills/image-prompt
+- keep-track: https://skills.stevanuspangau.dev/davidondrej/skills/keep-track
 - read-all-adrs: https://skills.stevanuspangau.dev/davidondrej/skills/read-all-adrs
-- short: https://skills.stevanuspangau.dev/davidondrej/skills/short
+- remind: https://skills.stevanuspangau.dev/davidondrej/skills/remind
+- rename: https://skills.stevanuspangau.dev/davidondrej/skills/rename
+- save-idea: https://skills.stevanuspangau.dev/davidondrej/skills/save-idea
+- signal-from-expert: https://skills.stevanuspangau.dev/davidondrej/skills/signal-from-expert
+- stop-overthinking: https://skills.stevanuspangau.dev/davidondrej/skills/stop-overthinking
 - teach: https://skills.stevanuspangau.dev/davidondrej/skills/teach
 
 ## emilkowalski
@@ -78,6 +109,14 @@ The guide curates and explains work by the attributed upstream authors. Each col
 - find-animation-opportunities: https://skills.stevanuspangau.dev/emilkowalski/skills/find-animation-opportunities
 - review-animations: https://skills.stevanuspangau.dev/emilkowalski/skills/review-animations
 - improve-animations: https://skills.stevanuspangau.dev/emilkowalski/skills/improve-animations
+- animate: https://skills.stevanuspangau.dev/emilkowalski/skills/animate
+- animate-expo: https://skills.stevanuspangau.dev/emilkowalski/skills/animate-expo
+- write-swift: https://skills.stevanuspangau.dev/emilkowalski/skills/write-swift
+- pick-ui-library: https://skills.stevanuspangau.dev/emilkowalski/skills/pick-ui-library
+- prototype: https://skills.stevanuspangau.dev/emilkowalski/skills/prototype
+- mobile-native: https://skills.stevanuspangau.dev/emilkowalski/skills/mobile-native
+- break-ui: https://skills.stevanuspangau.dev/emilkowalski/skills/break-ui
+- ask-sonner: https://skills.stevanuspangau.dev/emilkowalski/skills/ask-sonner
 
 ## jakubkrehel
 
@@ -114,6 +153,7 @@ The guide curates and explains work by the attributed upstream authors. Each col
 - runtime-debug: https://skills.stevanuspangau.dev/brooklyn/skills/runtime-debug
 - stacked-pr: https://skills.stevanuspangau.dev/brooklyn/skills/stacked-pr
 - ticket-ship: https://skills.stevanuspangau.dev/brooklyn/skills/ticket-ship
+- triage: https://skills.stevanuspangau.dev/brooklyn/skills/triage
 - ui-only: https://skills.stevanuspangau.dev/brooklyn/skills/ui-only
 - ui-system: https://skills.stevanuspangau.dev/brooklyn/skills/ui-system
 - visual-verify: https://skills.stevanuspangau.dev/brooklyn/skills/visual-verify
@@ -123,6 +163,7 @@ The guide curates and explains work by the attributed upstream authors. Each col
 
 - Collection: https://skills.stevanuspangau.dev/superpowers
 - brainstorming: https://skills.stevanuspangau.dev/superpowers/skills/brainstorming
+- diagnosing-superpowers: https://skills.stevanuspangau.dev/superpowers/skills/diagnosing-superpowers
 - dispatching-parallel-agents: https://skills.stevanuspangau.dev/superpowers/skills/dispatching-parallel-agents
 - executing-plans: https://skills.stevanuspangau.dev/superpowers/skills/executing-plans
 - finishing-a-development-branch: https://skills.stevanuspangau.dev/superpowers/skills/finishing-a-development-branch
@@ -153,6 +194,10 @@ The guide curates and explains work by the attributed upstream authors. Each col
 ## anthropic
 
 - Collection: https://skills.stevanuspangau.dev/anthropic
+- docx: https://skills.stevanuspangau.dev/anthropic/skills/docx
+- pdf: https://skills.stevanuspangau.dev/anthropic/skills/pdf
+- pptx: https://skills.stevanuspangau.dev/anthropic/skills/pptx
+- xlsx: https://skills.stevanuspangau.dev/anthropic/skills/xlsx
 - frontend-design: https://skills.stevanuspangau.dev/anthropic/skills/frontend-design
 - canvas-design: https://skills.stevanuspangau.dev/anthropic/skills/canvas-design
 - brand-guidelines: https://skills.stevanuspangau.dev/anthropic/skills/brand-guidelines
@@ -185,6 +230,9 @@ The guide curates and explains work by the attributed upstream authors. Each col
 - cloudflare-one-migrations: https://skills.stevanuspangau.dev/cloudflare/skills/cloudflare-one-migrations
 - turnstile-spin: https://skills.stevanuspangau.dev/cloudflare/skills/turnstile-spin
 - cloudflare-email-service: https://skills.stevanuspangau.dev/cloudflare/skills/cloudflare-email-service
+- nextjs-on-cloudflare: https://skills.stevanuspangau.dev/cloudflare/skills/nextjs-on-cloudflare
+- basin: https://skills.stevanuspangau.dev/cloudflare/skills/basin
+- k2: https://skills.stevanuspangau.dev/cloudflare/skills/k2
 
 ## supabase
 
@@ -199,8 +247,7 @@ The guide curates and explains work by the attributed upstream authors. Each col
 - prisma-client-api: https://skills.stevanuspangau.dev/prisma/skills/prisma-client-api
 - prisma-cli: https://skills.stevanuspangau.dev/prisma/skills/prisma-cli
 - prisma-driver-adapter-implementation: https://skills.stevanuspangau.dev/prisma/skills/prisma-driver-adapter-implementation
-- prisma-database-setup: https://skills.stevanuspangau.dev/prisma/skills/prisma-database-setup
-- prisma-postgres: https://skills.stevanuspangau.dev/prisma/skills/prisma-postgres
+- prisma-orm-setup: https://skills.stevanuspangau.dev/prisma/skills/prisma-orm-setup
 - prisma-postgres-setup: https://skills.stevanuspangau.dev/prisma/skills/prisma-postgres-setup
 - prisma-compute: https://skills.stevanuspangau.dev/prisma/skills/prisma-compute
 - prisma-mongodb-upgrade: https://skills.stevanuspangau.dev/prisma/skills/prisma-mongodb-upgrade
@@ -226,31 +273,31 @@ The guide curates and explains work by the attributed upstream authors. Each col
 ## expo
 
 - Collection: https://skills.stevanuspangau.dev/expo
-- eas-app-stores: https://skills.stevanuspangau.dev/expo/skills/eas-app-stores
-- eas-hosting: https://skills.stevanuspangau.dev/expo/skills/eas-hosting
-- eas-observe: https://skills.stevanuspangau.dev/expo/skills/eas-observe
-- eas-simulator: https://skills.stevanuspangau.dev/expo/skills/eas-simulator
-- eas-update: https://skills.stevanuspangau.dev/expo/skills/eas-update
-- eas-update-insights: https://skills.stevanuspangau.dev/expo/skills/eas-update-insights
-- eas-workflows: https://skills.stevanuspangau.dev/expo/skills/eas-workflows
-- expo-animation: https://skills.stevanuspangau.dev/expo/skills/expo-animation
-- expo-app-clip: https://skills.stevanuspangau.dev/expo/skills/expo-app-clip
-- expo-brownfield: https://skills.stevanuspangau.dev/expo/skills/expo-brownfield
-- expo-data-fetching: https://skills.stevanuspangau.dev/expo/skills/expo-data-fetching
-- expo-design-system: https://skills.stevanuspangau.dev/expo/skills/expo-design-system
-- expo-dev-client: https://skills.stevanuspangau.dev/expo/skills/expo-dev-client
-- expo-dom: https://skills.stevanuspangau.dev/expo/skills/expo-dom
-- expo-examples: https://skills.stevanuspangau.dev/expo/skills/expo-examples
-- expo-migrate-module: https://skills.stevanuspangau.dev/expo/skills/expo-migrate-module
-- expo-module: https://skills.stevanuspangau.dev/expo/skills/expo-module
-- expo-native-ui: https://skills.stevanuspangau.dev/expo/skills/expo-native-ui
 - expo-overview: https://skills.stevanuspangau.dev/expo/skills/expo-overview
 - expo-project-structure: https://skills.stevanuspangau.dev/expo/skills/expo-project-structure
 - expo-router: https://skills.stevanuspangau.dev/expo/skills/expo-router
-- expo-skill-feedback: https://skills.stevanuspangau.dev/expo/skills/expo-skill-feedback
+- expo-animation: https://skills.stevanuspangau.dev/expo/skills/expo-animation
+- expo-native-ui: https://skills.stevanuspangau.dev/expo/skills/expo-native-ui
+- expo-design-system: https://skills.stevanuspangau.dev/expo/skills/expo-design-system
 - expo-ui: https://skills.stevanuspangau.dev/expo/skills/expo-ui
-- expo-upgrade: https://skills.stevanuspangau.dev/expo/skills/expo-upgrade
+- expo-data-fetching: https://skills.stevanuspangau.dev/expo/skills/expo-data-fetching
+- expo-dom: https://skills.stevanuspangau.dev/expo/skills/expo-dom
 - expo-web-to-native: https://skills.stevanuspangau.dev/expo/skills/expo-web-to-native
+- expo-module: https://skills.stevanuspangau.dev/expo/skills/expo-module
+- expo-brownfield: https://skills.stevanuspangau.dev/expo/skills/expo-brownfield
+- expo-dev-client: https://skills.stevanuspangau.dev/expo/skills/expo-dev-client
+- expo-examples: https://skills.stevanuspangau.dev/expo/skills/expo-examples
+- expo-app-clip: https://skills.stevanuspangau.dev/expo/skills/expo-app-clip
+- expo-upgrade: https://skills.stevanuspangau.dev/expo/skills/expo-upgrade
+- expo-skill-feedback: https://skills.stevanuspangau.dev/expo/skills/expo-skill-feedback
+- eas-app-stores: https://skills.stevanuspangau.dev/expo/skills/eas-app-stores
+- eas-hosting: https://skills.stevanuspangau.dev/expo/skills/eas-hosting
+- eas-workflows: https://skills.stevanuspangau.dev/expo/skills/eas-workflows
+- eas-observe: https://skills.stevanuspangau.dev/expo/skills/eas-observe
+- eas-update: https://skills.stevanuspangau.dev/expo/skills/eas-update
+- eas-update-insights: https://skills.stevanuspangau.dev/expo/skills/eas-update-insights
+- eas-simulator: https://skills.stevanuspangau.dev/expo/skills/eas-simulator
+- expo-migrate-module: https://skills.stevanuspangau.dev/expo/skills/expo-migrate-module
 
 ## gsap
 
@@ -267,24 +314,28 @@ The guide curates and explains work by the attributed upstream authors. Each col
 ## impeccable
 
 - Collection: https://skills.stevanuspangau.dev/impeccable
-- adapt: https://skills.stevanuspangau.dev/impeccable/skills/adapt
-- animate: https://skills.stevanuspangau.dev/impeccable/skills/animate
-- audit: https://skills.stevanuspangau.dev/impeccable/skills/audit
-- bolder: https://skills.stevanuspangau.dev/impeccable/skills/bolder
-- clarify: https://skills.stevanuspangau.dev/impeccable/skills/clarify
-- colorize: https://skills.stevanuspangau.dev/impeccable/skills/colorize
-- critique: https://skills.stevanuspangau.dev/impeccable/skills/critique
-- delight: https://skills.stevanuspangau.dev/impeccable/skills/delight
-- distill: https://skills.stevanuspangau.dev/impeccable/skills/distill
-- doctor: https://skills.stevanuspangau.dev/impeccable/skills/doctor
+- craft: https://skills.stevanuspangau.dev/impeccable/skills/craft
+- shape: https://skills.stevanuspangau.dev/impeccable/skills/shape
+- init: https://skills.stevanuspangau.dev/impeccable/skills/init
 - document: https://skills.stevanuspangau.dev/impeccable/skills/document
 - extract: https://skills.stevanuspangau.dev/impeccable/skills/extract
-- harden: https://skills.stevanuspangau.dev/impeccable/skills/harden
-- init: https://skills.stevanuspangau.dev/impeccable/skills/init
-- live: https://skills.stevanuspangau.dev/impeccable/skills/live
-- normalize: https://skills.stevanuspangau.dev/impeccable/skills/normalize
-- onboard: https://skills.stevanuspangau.dev/impeccable/skills/onboard
-- optimize: https://skills.stevanuspangau.dev/impeccable/skills/optimize
+- critique: https://skills.stevanuspangau.dev/impeccable/skills/critique
+- audit: https://skills.stevanuspangau.dev/impeccable/skills/audit
 - polish: https://skills.stevanuspangau.dev/impeccable/skills/polish
+- bolder: https://skills.stevanuspangau.dev/impeccable/skills/bolder
 - quieter: https://skills.stevanuspangau.dev/impeccable/skills/quieter
+- distill: https://skills.stevanuspangau.dev/impeccable/skills/distill
+- harden: https://skills.stevanuspangau.dev/impeccable/skills/harden
+- onboard: https://skills.stevanuspangau.dev/impeccable/skills/onboard
+- animate: https://skills.stevanuspangau.dev/impeccable/skills/animate
+- colorize: https://skills.stevanuspangau.dev/impeccable/skills/colorize
 - typeset: https://skills.stevanuspangau.dev/impeccable/skills/typeset
+- layout: https://skills.stevanuspangau.dev/impeccable/skills/layout
+- delight: https://skills.stevanuspangau.dev/impeccable/skills/delight
+- overdrive: https://skills.stevanuspangau.dev/impeccable/skills/overdrive
+- clarify: https://skills.stevanuspangau.dev/impeccable/skills/clarify
+- adapt: https://skills.stevanuspangau.dev/impeccable/skills/adapt
+- optimize: https://skills.stevanuspangau.dev/impeccable/skills/optimize
+- live: https://skills.stevanuspangau.dev/impeccable/skills/live
+- generate: https://skills.stevanuspangau.dev/impeccable/skills/generate
+- doctor: https://skills.stevanuspangau.dev/impeccable/skills/doctor

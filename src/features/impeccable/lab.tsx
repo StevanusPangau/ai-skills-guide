@@ -13,7 +13,7 @@ export function ImpeccableLab() {
       <div>
         <div className="flex items-center gap-2">
           <h2 className="text-2xl font-bold tracking-tight text-balance">
-            {isEn ? 'Anti-AI Slop & Craft Polish Lab' : 'Lab Anti-AI Slop & Pemolesan Craft'}
+            {isEn ? 'Anti-AI Slop & Craft Lab' : 'Lab Anti-AI Slop & Craft'}
           </h2>
           <Badge variant="secondary" className="font-mono text-xs">
             Interactive
@@ -21,8 +21,8 @@ export function ImpeccableLab() {
         </div>
         <p className="text-muted-foreground mt-1 text-sm">
           {isEn
-            ? 'Interactive comparison between generic AI-generated interface slop and humanized, senior designer-grade craft.'
-            : 'Perbandingan interaktif antara antarmuka AI generik yang membosankan dan pemolesan craft kelas desainer senior.'}
+            ? 'Interactive comparison between a generic AI-template look and a more deliberate one. The sample copy and styling are illustrative only.'
+            : 'Perbandingan interaktif antara tampilan template AI generik dan yang lebih disengaja. Contoh copy dan styling hanya ilustrasi.'}
         </p>
       </div>
 
@@ -39,8 +39,8 @@ export function ImpeccableLab() {
                 </CardTitle>
                 <p className="text-xs text-muted-foreground mt-0.5">
                   {isEn
-                    ? 'Rule: bolder & colorize — replace gray-on-gray blandness with intentional personality.'
-                    : 'Aturan: bolder & colorize — ganti nuansa abu-abu tanpa jiwa dengan karakter visual berani.'}
+                    ? 'Rules (bolder, colorize): amplify what the system owns, add color roles, keep body contrast at WCAG AA.'
+                    : 'Aturan (bolder, colorize): perkuat apa yang dimiliki sistem, tambah peran warna, jaga kontras body di batas WCAG AA.'}
                 </p>
               </div>
               <div className="flex gap-2 font-mono">
@@ -77,10 +77,10 @@ export function ImpeccableLab() {
                     AI Generated Feature Card
                   </span>
                   <h3 className="text-base font-normal text-zinc-600 dark:text-zinc-400">
-                    Robust and seamless cloud infrastructure solutions
+                    Seamless solutions for modern teams
                   </h3>
                   <p className="text-[11px] text-zinc-400 leading-relaxed">
-                    Empowering modern engineering teams to effortlessly elevate velocity with cutting-edge synergy.
+                    Empowering teams to effortlessly unlock value with cutting-edge synergy.
                   </p>
                 </div>
                 <div className="flex gap-2">
@@ -92,7 +92,7 @@ export function ImpeccableLab() {
                   </div>
                 </div>
                 <div className="text-[10px] text-destructive italic">
-                  Problem: zero visual hierarchy, gray-on-gray low contrast, synthetic AI jargon, weak button states.
+                  Tells: weak hierarchy, gray text on gray, vague jargon, indistinct buttons.
                 </div>
               </div>
             ) : (
@@ -100,17 +100,17 @@ export function ImpeccableLab() {
                 <div className="space-y-1.5">
                   <div className="flex items-center justify-between">
                     <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-primary">
-                      Architecture Engine
+                      Sample card
                     </span>
                     <Badge variant="outline" className="text-[10px] font-mono">
-                      v2.4 GA
+                      Illustrative
                     </Badge>
                   </div>
                   <h3 className="text-lg font-bold text-foreground tracking-tight">
-                    Deploy Edge Clusters in 80ms
+                    Ship your first project today
                   </h3>
                   <p className="text-xs text-muted-foreground leading-relaxed">
-                    Sub-millisecond cold starts across 310 global edge points. Deterministic failover and automatic TLS certificates.
+                    Concrete headline, plain language, and one clear primary action.
                   </p>
                 </div>
                 <div className="flex items-center gap-3">
@@ -122,7 +122,7 @@ export function ImpeccableLab() {
                   </button>
                 </div>
                 <div className="text-[10px] text-emerald-600 dark:text-emerald-400 font-semibold">
-                  ✓ High contrast (4.5:1+), punchy headline, human copy, intentional action button with depth.
+                  ✓ Clear hierarchy, readable contrast, specific copy, one primary action.
                 </div>
               </div>
             )}
@@ -135,12 +135,12 @@ export function ImpeccableLab() {
           <Card className="border border-border">
             <CardHeader className="pb-3">
               <CardTitle className="text-base font-semibold">
-                {isEn ? '2. Spacing Normalization (4px/8px Grid)' : '2. Normalisasi Spasi (Grid 4px/8px)'}
+                {isEn ? '2. Spacing Rhythm (layout)' : '2. Ritme Spasi (layout)'}
               </CardTitle>
               <p className="text-xs text-muted-foreground mt-0.5">
                 {isEn
-                  ? 'Rule: normalize — replace random pixel magic numbers with harmonious rhythm.'
-                  : 'Aturan: normalize — ganti angka acak piksel dengan ritme vertikal harmonis.'}
+                  ? 'Rule (layout, craft floor): tight groups, generous separation, more space above a heading than below. Values here are illustrative.'
+                  : 'Aturan (layout, craft floor): grup rapat, pemisahan lega, lebih banyak ruang di atas heading daripada di bawah. Nilai di sini hanya ilustrasi.'}
               </p>
             </CardHeader>
             <CardContent className="space-y-4 text-xs">
@@ -154,7 +154,7 @@ export function ImpeccableLab() {
                       : 'border-border text-muted-foreground hover:text-foreground'
                   }`}
                 >
-                  Random (13px, 17px, 23px)
+                  Arbitrary values
                 </button>
                 <button
                   type="button"
@@ -165,7 +165,7 @@ export function ImpeccableLab() {
                       : 'border-border text-muted-foreground hover:text-foreground'
                   }`}
                 >
-                  8px Grid Scale
+                  Deliberate scale
                 </button>
               </div>
 
@@ -195,38 +195,38 @@ export function ImpeccableLab() {
           <Card className="border border-border">
             <CardHeader className="pb-3">
               <CardTitle className="text-base font-semibold">
-                {isEn ? '3. Structured Audit Severity (P0-P3)' : '3. Skoring Severity Audit Terstruktur (P0-P3)'}
+                {isEn ? '3. Audit Severity (P0-P3)' : '3. Severity Audit (P0-P3)'}
               </CardTitle>
               <p className="text-xs text-muted-foreground mt-0.5">
                 {isEn
-                  ? 'Rule: audit — prioritized technical review across accessibility and UX.'
-                  : 'Aturan: audit — tinjauan teknis berprioritas tinggi dari aksesibilitas hingga UX.'}
+                  ? 'Rule (audit): every issue is tagged P0-P3, and each dimension is scored 0-4.'
+                  : 'Aturan (audit): setiap isu ditandai P0-P3, dan tiap dimensi diberi skor 0-4.'}
               </p>
             </CardHeader>
             <CardContent className="space-y-3 text-xs">
               <div className="grid grid-cols-2 gap-2 font-mono">
                 <div className="border border-destructive/40 bg-destructive/5 rounded p-2 space-y-1">
-                  <span className="font-bold text-destructive block">P0: Critical Blocker</span>
+                  <span className="font-bold text-destructive block">P0: Blocking</span>
                   <p className="text-[10px] text-muted-foreground font-sans">
-                    Contrast &lt; 3:1, missing form labels, broken keyboard trap.
+                    Prevents task completion. Fix immediately.
                   </p>
                 </div>
                 <div className="border border-amber-500/40 bg-amber-500/5 rounded p-2 space-y-1">
-                  <span className="font-bold text-amber-600 dark:text-amber-400 block">P1: High Impact</span>
+                  <span className="font-bold text-amber-600 dark:text-amber-400 block">P1: Major</span>
                   <p className="text-[10px] text-muted-foreground font-sans">
-                    Layout shift (CLS &gt; 0.1), tap targets &lt; 44x44px.
+                    Significant difficulty or a WCAG AA violation. Fix before release.
                   </p>
                 </div>
                 <div className="border border-sky-500/40 bg-sky-500/5 rounded p-2 space-y-1">
-                  <span className="font-bold text-sky-600 dark:text-sky-400 block">P2: Moderate Polish</span>
+                  <span className="font-bold text-sky-600 dark:text-sky-400 block">P2: Minor</span>
                   <p className="text-[10px] text-muted-foreground font-sans">
-                    Inconsistent border radius, missing focus outline styles.
+                    Annoyance, a workaround exists. Fix in the next pass.
                   </p>
                 </div>
                 <div className="border border-zinc-500/40 bg-zinc-500/5 rounded p-2 space-y-1">
-                  <span className="font-bold text-zinc-400 block">P3: Minor Polish</span>
+                  <span className="font-bold text-zinc-400 block">P3: Polish</span>
                   <p className="text-[10px] text-muted-foreground font-sans">
-                    Micro optical alignment tweaks, subpixel anti-aliasing.
+                    Nice-to-fix, no real user impact. Fix if time permits.
                   </p>
                 </div>
               </div>

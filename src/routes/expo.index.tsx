@@ -31,20 +31,10 @@ function ExpoIndexPage() {
   )
 
   const categories = [
-    { label: 'Framework Core', value: 'framework-core' },
-    { label: 'Native UI', value: 'native-ui' },
-    { label: 'EAS Cloud', value: 'eas-cloud' },
-    { label: 'Motion & Graphics', value: 'motion-graphics' },
-    { label: 'Dev Tooling', value: 'dev-tooling' },
-    { label: 'Architecture', value: 'architecture' },
-    { label: 'Design System', value: 'design-system' },
-    { label: 'Maintenance', value: 'maintenance' },
-    { label: 'Native Development', value: 'native-development' },
-    { label: 'Platform Extensions', value: 'platform-extensions' },
-    { label: 'Advanced Framework', value: 'advanced-framework' },
-    { label: 'Migration', value: 'migration' },
-    { label: 'Learning Reference', value: 'learning-reference' },
-    { label: 'Tooling', value: 'tooling' },
+    { label: 'Start Here', value: 'start-here' },
+    { label: 'Framework (open source)', value: 'framework' },
+    { label: 'Services (paid EAS)', value: 'services' },
+    { label: 'Experimental', value: 'experimental' },
   ]
 
   return (

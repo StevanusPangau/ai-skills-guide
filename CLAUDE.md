@@ -4,10 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this is
 
-Interactive multi-collection reference SPA for AI-agent coding skills. Two products in one repo:
-
-- **Guide SPA** (`src/`) — landing + per-collection guides (overview, flow diagram, catalog, workflows, concepts, install).
-- **Hermes bundles** (`skills/<collection>/`) — adapted installable `SKILL.md` files, one subdir per collection.
+Interactive multi-collection reference SPA for AI-agent coding skills: landing + per-collection guides (overview, flow diagram, catalog, workflows, concepts, install). It ships no skill files of its own; each collection documents an upstream repo.
 
 Client-rendered only; deployed as static assets to Cloudflare Workers (no Worker script).
 
@@ -33,12 +30,14 @@ Package manager is **npm** (`package-lock.json` is canonical). `bun.lock` is git
 
 **Routing** — TanStack Router file-based routes in `src/routes/`. The router plugin (vite.config.ts) auto-generates `routeTree.gen.ts` and must load before the React plugin. `__root.tsx` holds the header/nav/theme/locale shell; each collection gets a top-level route (`mattpocock.tsx`, `davidondrej.tsx`) plus deep-link skill pages (`*.skills.$skillName.tsx`).
 
+**Skill detail pages** — every `*.skills.$skillName.tsx` route is a thin wrapper around the shared `src/features/skill-page/` (`SkillPage`). A route maps its data record to a `SkillView` (`adapters.ts` for the rich bilingual shape, `adapters-special.ts` for mattpocock/davidondrej/emilkowalski) and supplies the install block. Each skill gets a deterministic accent colour + glyph (`identity.ts`) and sections only render when the data has them, so richer records give richer pages. Don't copy a route per collection or add per-collection page chrome; extend `SkillView` instead. Strings live in `skillpage_*` messages.
+
 **Collection pattern** — each collection is a self-contained slice:
 - data: `src/data/<collection>-skills.ts` (skill records) — registered in `src/data/collections.ts`
 - UI: `src/features/<collection>/` (or shared `src/features/*` for mattpocock, the original collection)
-- bundle: `skills/<collection>/` (optional adapted SKILL.md files + ATTRIBUTION.md/UPSTREAM.md)
+- provenance: the data file's `*_SOURCE_REPO` / `*_SOURCE_SHA` (a real, verified upstream commit) and per-skill `sourcePath`
 
-Adding a collection = new data record set + routes + features dir + optional skills bundle + a row in `collections.ts`.
+Adding a collection = new data record set + `*-skills-meta.ts` count + routes + features dir + a row in `collections.ts` + a mapping in `scripts/generate-seo-artifacts.mjs`.
 
 **i18n (Paraglide)** — base locale `id`, plus `en`. Source strings live in `messages/id.json` + `messages/en.json`; **keep key sets in sync**. Import via `import { m } from '@/paraglide/messages.js'` and call `m.key_name()`. Locale switch (`__root.tsx`) does a full `window.location.reload()`.
 
@@ -49,6 +48,6 @@ Adding a collection = new data record set + routes + features dir + optional ski
 ## Conventions
 
 - UI copy is bilingual; skill data files mix Indonesian prose with English technical terms — match the existing file when editing.
-- Keep diffs collection-scoped. A skill change that ships in a bundle means updating **both** the collection's data file **and** `skills/<collection>/**/SKILL.md`.
-- Preserve upstream attribution files (`ATTRIBUTION.md` / `UPSTREAM.md`) and their pinned commits/versions when syncing.
+- Keep diffs collection-scoped. Update the collection's data file **and** its `*-skills-meta.ts` count together; `npm run seo:generate` fails if they disagree.
+- When syncing, pin a real upstream commit SHA (never `main`), re-verify claims against upstream `SKILL.md`, and never invent numbers, benchmarks, APIs, or licenses. `pairsWellWith`/`related` must resolve within the same collection.
 - oxlint enforces `react/rules-of-hooks`; `only-export-components` is relaxed for `src/routes/**` and `src/components/ui/**`.

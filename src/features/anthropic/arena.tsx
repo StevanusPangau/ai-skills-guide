@@ -3,64 +3,64 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { getLocale } from '@/paraglide/runtime.js'
 
-type EvalScenario = 'docx' | 'pptx' | 'pdf'
+type EvalStep = 'spawn' | 'grade' | 'aggregate' | 'review'
 
 export function AnthropicEvalArena() {
   const isEn = getLocale() === 'en'
   const [strategy, setStrategy] = useState<'monolithic' | 'progressive'>('progressive')
-  const [scenario, setScenario] = useState<EvalScenario>('docx')
+  const [step, setStep] = useState<EvalStep>('spawn')
 
-  // Data for Progressive Disclosure
-  const tokenStats = {
+  // Qualitative description of what sits in context under each strategy.
+  // Source: skill-creator SKILL.md "Progressive Disclosure" (three-level loading system).
+  const contextView = {
     monolithic: {
-      tokens: 48500,
-      costPer1k: '$7.28',
-      ttftMs: 3400,
-      contextClarity: '24% (High noise / distraction)',
+      titleId: 'Semua isi skill dimuat sekaligus',
+      titleEn: 'Everything in the skill is loaded at once',
+      bodyId: 'Instruksi, referensi, dan isi skrip masuk ke context di setiap tugas, termasuk bagian yang tidak relevan. Inilah yang dihindari desain tiga level.',
+      bodyEn: 'Instructions, references, and script contents all enter context on every task, including irrelevant parts. This is what the three-level design avoids.',
     },
     progressive: {
-      tokens: 5800,
-      costPer1k: '$0.87',
-      ttftMs: 520,
-      contextClarity: '96% (Sharp, focused reasoning)',
+      titleId: 'Tiga level pemuatan',
+      titleEn: 'Three-level loading',
+      bodyId: 'Metadata (name + description) selalu ada di context; badan SKILL.md dimuat saat skill terpicu; resource terbundel dimuat sesuai kebutuhan.',
+      bodyEn: 'Metadata (name + description) is always in context; the SKILL.md body loads when the skill triggers; bundled resources load as needed.',
     },
   }
 
-  const evalScenarios = {
-    docx: {
-      titleId: 'Generasi Dokumen Word Kompleks (.docx)',
-      titleEn: 'Complex Word Document Generation (.docx)',
-      baselinePass: '32%',
-      withSkillPass: '98%',
-      baselineCorrupt: '41% (XML schema tags unclosed, run splits)',
-      withSkillCorrupt: '0% (Verified with merge_runs.py)',
-      rubricId: 'Validasi lint OOXML, margin konsisten, run merging tanpa tag ganda.',
-      rubricEn: 'OOXML lint validation, consistent margins, run merging without duplicate tags.',
+  // Source: skill-creator SKILL.md, eval iteration loop (Step 1-5).
+  const evalSteps = {
+    spawn: {
+      titleId: '1. Jalankan with-skill dan baseline',
+      titleEn: '1. Run with-skill and baseline',
+      bodyId: 'Untuk setiap test case, dua subagent dijalankan pada giliran yang sama: satu memakai skill, satu tanpa skill (atau memakai versi lama saat memperbaiki skill). Hasil disimpan per iterasi di <skill-name>-workspace/iteration-N/eval-ID/.',
+      bodyEn: 'For each test case, two subagents are spawned in the same turn: one with the skill, one without (or with the old version when improving a skill). Results are stored per iteration under <skill-name>-workspace/iteration-N/eval-ID/.',
+      artifact: 'with_skill/outputs · without_skill/outputs',
     },
-    pptx: {
-      titleId: 'Theming Presentasi Pitch Deck (.pptx)',
-      titleEn: 'Pitch Deck Presentation Theming (.pptx)',
-      baselinePass: '28%',
-      withSkillPass: '95%',
-      baselineCorrupt: '52% (Shape offsets shift, slide layout regressed)',
-      withSkillCorrupt: '2% (Flags pre-existing layout vs new changes)',
-      rubricId: 'Validasi python validate.py --original, preservasi slide master.',
-      rubricEn: 'Validated against python validate.py --original, preserves slide master.',
+    grade: {
+      titleId: '2. Nilai assertion',
+      titleEn: '2. Grade assertions',
+      bodyId: 'Grader (agents/grader.md) mengevaluasi tiap assertion terhadap output dan menyimpan grading.json dengan field text, passed, dan evidence. Assertion yang bisa dicek programatis sebaiknya dicek dengan skrip.',
+      bodyEn: 'A grader (agents/grader.md) evaluates each assertion against the outputs and writes grading.json with text, passed, and evidence fields. Assertions that can be checked programmatically should be checked with a script.',
+      artifact: 'grading.json',
     },
-    pdf: {
-      titleId: 'Ekstraksi PDF Terproteksi Password & Form',
-      titleEn: 'Password-Protected PDF & Form Field Extraction',
-      baselinePass: '45%',
-      withSkillPass: '99%',
-      baselineCorrupt: '38% (Binary buffer crash, hallucinated fields)',
-      withSkillCorrupt: '0% (Deterministic pypdf + pdfplumber pipeline)',
-      rubricId: 'Auto-fallback OCR saat scan, ekstraksi form stream bytes tanpa distorsi.',
-      rubricEn: 'Auto-fallback to OCR for scans, stream byte extraction without distortion.',
+    aggregate: {
+      titleId: '3. Agregasi benchmark',
+      titleEn: '3. Aggregate the benchmark',
+      bodyId: 'python -m scripts.aggregate_benchmark menghasilkan benchmark.json dan benchmark.md berisi pass_rate, waktu, dan token per konfigurasi, dengan mean ± stddev serta delta.',
+      bodyEn: 'python -m scripts.aggregate_benchmark produces benchmark.json and benchmark.md with pass_rate, time, and tokens per configuration, with mean ± stddev and the delta.',
+      artifact: 'benchmark.json · benchmark.md',
+    },
+    review: {
+      titleId: '4. Review manusia lewat viewer',
+      titleEn: '4. Human review in the viewer',
+      bodyId: 'eval-viewer/generate_review.py menampilkan output dan metrik kuantitatif agar pengguna bisa memberi feedback; skill lalu diperbaiki dan iterasi berikutnya dijalankan ulang, termasuk baseline.',
+      bodyEn: 'eval-viewer/generate_review.py shows outputs and quantitative metrics so the user can leave feedback; the skill is then improved and the next iteration is rerun, baselines included.',
+      artifact: 'feedback.json',
     },
   }
 
-  const currentEval = evalScenarios[scenario]
-  const currentTokens = tokenStats[strategy]
+  const currentContext = contextView[strategy]
+  const currentStep = evalSteps[step]
 
   return (
     <section id="eval-arena" className="scroll-mt-20 space-y-6">
@@ -75,8 +75,8 @@ export function AnthropicEvalArena() {
         </div>
         <p className="text-muted-foreground mt-1 text-sm">
           {isEn
-            ? 'Explore how Anthropic builds skills: progressive disclosure token economics, deterministic Python tools, and baseline-vs-skill evaluation loops.'
-            : 'Eksplorasi cara Anthropic merancang skill: ekonomi token progressive disclosure, perkakas Python deterministik, dan loop evaluasi baseline-vs-skill.'}
+            ? 'Explore how Anthropic builds skills: progressive disclosure, deterministic Python tools, and baseline-vs-skill evaluation loops.'
+            : 'Eksplorasi cara Anthropic merancang skill: progressive disclosure, perkakas Python deterministik, dan loop evaluasi baseline-vs-skill.'}
         </p>
       </div>
 
@@ -93,8 +93,8 @@ export function AnthropicEvalArena() {
                 </CardTitle>
                 <p className="text-xs text-muted-foreground mt-0.5">
                   {isEn
-                    ? 'Context window hygiene: load SKILL.md summary first, fetch references only on demand.'
-                    : 'Higiene context window: muat ringkasan SKILL.md dulu, ambil referensi hanya saat dibutuhkan.'}
+                    ? 'Context window hygiene: metadata always, SKILL.md body when triggered, bundled resources only as needed.'
+                    : 'Higiene context window: metadata selalu ada, badan SKILL.md saat terpicu, resource terbundel hanya saat dibutuhkan.'}
                 </p>
               </div>
               <div className="flex gap-1.5 bg-muted/60 p-1 rounded-lg border border-border">
@@ -118,114 +118,64 @@ export function AnthropicEvalArena() {
                       : 'text-muted-foreground hover:text-foreground'
                   }`}
                 >
-                  {isEn ? 'Progressive 3-Tier (Anthropic)' : 'Progressive 3-Tier (Anthropic)'}
+                  {isEn ? 'Progressive 3-Level (skill-creator)' : 'Progressive 3-Level (skill-creator)'}
                 </button>
               </div>
             </div>
           </CardHeader>
           <CardContent className="space-y-4">
-            {/* Visual Token Gauge Bar */}
-            <div className="rounded-lg bg-muted/30 p-4 border border-border space-y-4">
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs font-mono">
-                <div className="border border-border rounded p-2 bg-card">
-                  <span className="text-muted-foreground block text-[10px]">
-                    {isEn ? 'TOKEN USAGE' : 'KONSUMSI TOKEN'}
-                  </span>
-                  <span
-                    className={`font-bold text-sm ${
-                      strategy === 'progressive'
-                        ? 'text-emerald-600 dark:text-emerald-400'
-                        : 'text-destructive'
-                    }`}
-                  >
-                    {currentTokens.tokens.toLocaleString()} tokens
-                  </span>
-                </div>
-                <div className="border border-border rounded p-2 bg-card">
-                  <span className="text-muted-foreground block text-[10px]">
-                    {isEn ? 'COST / 1K RUNS' : 'BIAYA / 1K RUNS'}
-                  </span>
-                  <span className="font-bold text-sm text-foreground">
-                    {currentTokens.costPer1k}
-                  </span>
-                </div>
-                <div className="border border-border rounded p-2 bg-card">
-                  <span className="text-muted-foreground block text-[10px]">
-                    {isEn ? 'TIME TO 1ST TOKEN' : 'RESPON PERTAMA'}
-                  </span>
-                  <span className="font-bold text-sm text-foreground">
-                    {currentTokens.ttftMs} ms
-                  </span>
-                </div>
-                <div className="border border-border rounded p-2 bg-card">
-                  <span className="text-muted-foreground block text-[10px]">
-                    {isEn ? 'REASONING SHARPNESS' : 'KETAPAJAMAN NALAR'}
-                  </span>
-                  <span className="font-bold text-xs text-foreground">
-                    {currentTokens.contextClarity}
-                  </span>
-                </div>
+            <div className="rounded-lg bg-muted/30 p-4 border border-border space-y-1.5 text-xs">
+              <div className="font-semibold text-foreground">
+                {isEn ? currentContext.titleEn : currentContext.titleId}
               </div>
-
-              {/* Graphical Context Window Usage */}
-              <div className="space-y-1.5 pt-1">
-                <div className="flex justify-between text-[11px] font-mono text-muted-foreground">
-                  <span>Context Window Consumption (200k max)</span>
-                  <span>{Math.round((currentTokens.tokens / 200000) * 100)}%</span>
-                </div>
-                <div className="h-5 w-full bg-secondary/60 rounded-full overflow-hidden relative">
-                  <div
-                    className={`h-full rounded-full transition-all duration-500 ${
-                      strategy === 'progressive'
-                        ? 'bg-gradient-to-r from-emerald-500 to-teal-400'
-                        : 'bg-gradient-to-r from-amber-500 to-destructive'
-                    }`}
-                    style={{
-                      width: `${Math.max(4, (currentTokens.tokens / 200000) * 100)}%`,
-                    }}
-                  />
-                </div>
-              </div>
+              <p className="text-muted-foreground leading-relaxed">
+                {isEn ? currentContext.bodyEn : currentContext.bodyId}
+              </p>
+              <p className="text-[11px] text-muted-foreground italic">
+                {isEn
+                  ? 'Illustrative, no measured figures: the upstream skill gives only approximate sizes (~100 words of metadata, SKILL.md under 500 lines).'
+                  : 'Ilustratif, tanpa angka terukur: sumber hanya memberi ukuran perkiraan (~100 kata metadata, SKILL.md di bawah 500 baris).'}
+              </p>
             </div>
 
             {/* Breakdown of 3-Tier Architecture */}
             <div className="grid gap-3 sm:grid-cols-3 font-mono text-xs">
               <div className="border border-border rounded-lg p-3 bg-card space-y-1">
                 <div className="flex items-center justify-between">
-                  <Badge variant="outline" className="text-[10px]">Tier 1</Badge>
-                  <span className="text-emerald-600 dark:text-emerald-400 font-semibold text-[10px]">~1.2k tokens</span>
+                  <Badge variant="outline" className="text-[10px]">Level 1</Badge>
+                  <span className="text-emerald-600 dark:text-emerald-400 font-semibold text-[10px]">always in context</span>
                 </div>
-                <p className="font-semibold text-foreground font-sans">SKILL.md Summary</p>
+                <p className="font-semibold text-foreground font-sans">Metadata (name + description)</p>
                 <p className="text-[11px] text-muted-foreground font-sans">
                   {isEn
-                    ? 'Workflow triggers, short overview, and pointer to specific reference files.'
-                    : 'Pemicu alur kerja, ikhtisar singkat, dan penunjuk ke file referensi spesifik.'}
+                    ? 'About 100 words, always in context; this is what decides whether the skill triggers.'
+                    : 'Sekitar 100 kata, selalu ada di context; inilah yang menentukan apakah skill terpicu.'}
                 </p>
               </div>
 
               <div className="border border-border rounded-lg p-3 bg-card space-y-1">
                 <div className="flex items-center justify-between">
-                  <Badge variant="outline" className="text-[10px]">Tier 2</Badge>
-                  <span className="text-sky-600 dark:text-sky-400 font-semibold text-[10px]">~4.5k on demand</span>
+                  <Badge variant="outline" className="text-[10px]">Level 2</Badge>
+                  <span className="text-sky-600 dark:text-sky-400 font-semibold text-[10px]">when triggered</span>
                 </div>
-                <p className="font-semibold text-foreground font-sans">references/*.md</p>
+                <p className="font-semibold text-foreground font-sans">SKILL.md body</p>
                 <p className="text-[11px] text-muted-foreground font-sans">
                   {isEn
-                    ? 'Deep XML tags, API schemas, and formulas loaded only when the task explicitly calls for them.'
-                    : 'Tag XML mendalam, skema API, dan formula yang hanya dimuat saat tugas membutuhkannya.'}
+                    ? 'In context whenever the skill triggers; under 500 lines is ideal, with pointers to deeper files when it grows.'
+                    : 'Ada di context setiap kali skill terpicu; di bawah 500 baris ideal, dengan penunjuk ke berkas lebih dalam saat membesar.'}
                 </p>
               </div>
 
               <div className="border border-border rounded-lg p-3 bg-card space-y-1">
                 <div className="flex items-center justify-between">
-                  <Badge variant="outline" className="text-[10px]">Tier 3</Badge>
-                  <span className="text-purple-600 dark:text-purple-400 font-semibold text-[10px]">0 LLM tokens</span>
+                  <Badge variant="outline" className="text-[10px]">Level 3</Badge>
+                  <span className="text-purple-600 dark:text-purple-400 font-semibold text-[10px]">as needed</span>
                 </div>
-                <p className="font-semibold text-foreground font-sans">scripts/*.py</p>
+                <p className="font-semibold text-foreground font-sans">Bundled resources (references, scripts)</p>
                 <p className="text-[11px] text-muted-foreground font-sans">
                   {isEn
-                    ? 'Deterministic Python programs run in subprocess; results return cleanly to the session.'
-                    : 'Program Python deterministik yang berjalan di subprocess; hasil kembali bersih ke sesi.'}
+                    ? 'Loaded as needed; scripts can be executed without being loaded into context.'
+                    : 'Dimuat sesuai kebutuhan; skrip bisa dijalankan tanpa dimuat ke context.'}
                 </p>
               </div>
             </div>
@@ -234,73 +184,48 @@ export function AnthropicEvalArena() {
 
         {/* Module 2 & 3 */}
         <div className="grid gap-6 md:grid-cols-2">
-          {/* Module 2: Skill-Creator Eval Benchmark */}
+          {/* Module 2: Skill-Creator Eval Loop */}
           <Card className="border border-border">
             <CardHeader className="pb-3">
               <CardTitle className="text-base font-semibold">
-                {isEn ? '2. Skill-Creator Eval Benchmark Engine' : '2. Engine Benchmark Evaluasi skill-creator'}
+                {isEn ? '2. skill-creator Eval Loop' : '2. Loop Evaluasi skill-creator'}
               </CardTitle>
               <p className="text-xs text-muted-foreground mt-0.5">
                 {isEn
-                  ? 'A skill is never published without proving a statistically significant win over raw Baseline.'
-                  : 'Sebuah skill dilarang dirilis tanpa bukti kemenangan terukur di atas Baseline mentah.'}
+                  ? 'skill-creator compares each skill against a baseline, aggregates mean ± stddev and the delta, and leaves the verdict to human review.'
+                  : 'skill-creator membandingkan skill dengan baseline, mengagregasi mean ± stddev dan delta, dan menyerahkan keputusan akhir pada review manusia.'}
               </p>
             </CardHeader>
             <CardContent className="space-y-4">
-              {/* Scenario Selector */}
               <div className="flex gap-1.5 bg-muted/60 p-1 rounded-lg border border-border">
-                {(['docx', 'pptx', 'pdf'] as EvalScenario[]).map((sc) => (
+                {(['spawn', 'grade', 'aggregate', 'review'] as EvalStep[]).map((st, i) => (
                   <button
-                    key={sc}
+                    key={st}
                     type="button"
-                    onClick={() => setScenario(sc)}
-                    className={`flex-1 py-1 text-xs font-mono uppercase font-bold rounded transition-colors ${
-                      scenario === sc
+                    onClick={() => setStep(st)}
+                    className={`flex-1 py-1 text-xs font-mono font-bold rounded transition-colors ${
+                      step === st
                         ? 'bg-primary text-primary-foreground'
                         : 'text-muted-foreground hover:text-foreground'
                     }`}
                   >
-                    {sc}
+                    {i + 1}
                   </button>
                 ))}
               </div>
 
-              {/* Comparison Card */}
-              <div className="rounded-lg border border-border bg-card p-3 space-y-3 text-xs">
-                <div className="font-semibold text-foreground">
-                  {isEn ? currentEval.titleEn : currentEval.titleId}
+              <div className="rounded-lg border border-border bg-card p-3 space-y-2 text-xs">
+                <div className="flex items-center justify-between gap-2">
+                  <span className="font-semibold text-foreground">
+                    {isEn ? currentStep.titleEn : currentStep.titleId}
+                  </span>
+                  <Badge variant="outline" className="font-mono text-[10px]">
+                    {currentStep.artifact}
+                  </Badge>
                 </div>
-
-                <div className="grid grid-cols-2 gap-3">
-                  <div className="border border-destructive/30 bg-destructive/5 rounded p-2.5 space-y-1">
-                    <span className="text-[10px] font-mono text-destructive font-bold block">
-                      ✕ BASELINE (NO SKILL)
-                    </span>
-                    <div className="text-lg font-bold text-destructive font-mono">
-                      {currentEval.baselinePass}
-                    </div>
-                    <p className="text-[11px] text-muted-foreground">
-                      {currentEval.baselineCorrupt}
-                    </p>
-                  </div>
-
-                  <div className="border border-emerald-500/30 bg-emerald-500/5 rounded p-2.5 space-y-1">
-                    <span className="text-[10px] font-mono text-emerald-600 dark:text-emerald-400 font-bold block">
-                      ✓ WITH SKILL (ANTHROPIC)
-                    </span>
-                    <div className="text-lg font-bold text-emerald-600 dark:text-emerald-400 font-mono">
-                      {currentEval.withSkillPass}
-                    </div>
-                    <p className="text-[11px] text-muted-foreground">
-                      {currentEval.withSkillCorrupt}
-                    </p>
-                  </div>
-                </div>
-
-                <div className="border-t border-border pt-2 text-[11px] text-muted-foreground">
-                  <span className="font-semibold text-foreground">Rubrik Penilaian: </span>
-                  {isEn ? currentEval.rubricEn : currentEval.rubricId}
-                </div>
+                <p className="text-muted-foreground leading-relaxed">
+                  {isEn ? currentStep.bodyEn : currentStep.bodyId}
+                </p>
               </div>
             </CardContent>
           </Card>

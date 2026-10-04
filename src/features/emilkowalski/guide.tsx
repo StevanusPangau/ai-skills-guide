@@ -22,8 +22,13 @@ import { m } from '@/paraglide/messages.js'
 const workflow = [
   ['animation-vocabulary', () => m.emil_workflow_name()],
   ['find-animation-opportunities', () => m.emil_workflow_decide()],
+  ['animate', () => m.emil_workflow_build()],
   ['review-animations', () => m.emil_workflow_review()],
   ['improve-animations', () => m.emil_workflow_audit()],
+  ['break-ui', () => m.emil_workflow_stress()],
+  ['prototype', () => m.emil_workflow_explore()],
+  ['pick-ui-library', () => m.emil_workflow_library()],
+  ['mobile-native', () => m.emil_workflow_mobile()],
 ] as const
 
 export function EmilOverview() {

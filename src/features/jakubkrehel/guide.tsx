@@ -1,10 +1,10 @@
 import { RiGithubFill } from '@remixicon/react'
 import { AuthorAvatar } from '@/components/author-avatar'
 import { XHandleLink } from '@/components/x-handle-link'
-import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import {
   JAKUBKREHEL_SOURCE_REPO,
+  JAKUBKREHEL_SOURCE_SHA,
   jakubkrehelSkills,
 } from '@/data/jakubkrehel-skills'
 import { getCollectionBySlug } from '@/data/collections'
@@ -12,6 +12,7 @@ import { m } from '@/paraglide/messages.js'
 
 export function JakubOverview() {
   const author = getCollectionBySlug('jakubkrehel')
+  const categoryCount = new Set(jakubkrehelSkills.map((skill) => skill.category)).size
 
   return (
     <section id="overview" className="scroll-mt-20 space-y-7">
@@ -45,19 +46,22 @@ export function JakubOverview() {
           {m.jakub_hero_description()}
         </p>
         <a
-          href={`https://github.com/jakubkrehel/skills`}
+          href={`https://github.com/jakubkrehel/skills/tree/${JAKUBKREHEL_SOURCE_SHA}`}
           target="_blank"
           rel="noopener noreferrer"
           className="mt-4 inline-flex items-center gap-1.5 rounded-sm text-sm text-primary hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50"
         >
           <RiGithubFill className="size-4" aria-hidden="true" />
-          <span>github.com/jakubkrehel/skills</span>
+          <span>
+            {m.jakub_overview_pinned()}{' '}
+            <span className="font-mono">{JAKUBKREHEL_SOURCE_SHA.slice(0, 10)}</span>
+          </span>
         </a>
       </div>
 
       <div className="flex flex-wrap gap-x-10 gap-y-4">
         <Stat value={String(jakubkrehelSkills.length)} label={m.jakub_stat_skills()} />
-        <Stat value="5" label={m.jakub_stat_categories()} />
+        <Stat value={String(categoryCount)} label={m.jakub_stat_categories()} />
         <Stat value="interfaces.dev" label={m.jakub_stat_focus()} />
       </div>
 
@@ -71,43 +75,6 @@ export function JakubOverview() {
           </p>
         </CardContent>
       </Card>
-    </section>
-  )
-}
-
-export function JakubCatalog() {
-  return (
-    <section id="skills" className="scroll-mt-20 space-y-6">
-      <div>
-        <h2 className="font-heading text-2xl font-bold tracking-tight">Daftar Skills ({jakubkrehelSkills.length})</h2>
-        <p className="mt-1 text-muted-foreground text-sm">
-          Semua skill presisi desain dari Jakub Krehel yang siap dipakai di agent.
-        </p>
-      </div>
-
-      <div className="grid gap-3 sm:grid-cols-2">
-        {jakubkrehelSkills.map((skill) => (
-          <div key={skill.name} className="rounded-xl border border-border bg-card p-4 space-y-2 shadow-xs hover:border-primary/40 transition-colors">
-            <div className="flex items-center justify-between">
-              <span className="font-mono text-sm font-bold text-foreground">/{skill.name}</span>
-              <Badge variant="outline" className="text-[10px] uppercase font-mono">{skill.category}</Badge>
-            </div>
-            <p className="text-xs text-muted-foreground leading-relaxed line-clamp-2">
-              {(skill.description as any)?.id ?? skill.description}
-            </p>
-            <div className="pt-2 text-right">
-              <a
-                href={`https://github.com/jakubkrehel/skills/tree/main/${skill.sourcePath}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-[11px] font-mono text-primary hover:underline"
-              >
-                Lihat SKILL.md ↗
-              </a>
-            </div>
-          </div>
-        ))}
-      </div>
     </section>
   )
 }

@@ -16,7 +16,7 @@ import { m } from '@/paraglide/messages.js'
 export function DavidOverview() {
   const total = davidondrejSkills.length
   const categories = Object.keys(davidCategoryLabels).length
-  const firstWave = davidondrejSkills.filter((s) => s.bundleStatus === 'first-wave').length
+  const manual = davidondrejSkills.filter((s) => s.invocation === 'manual').length
   const shortSha = DAVIDONDREJ_SOURCE_SHA.slice(0, 10)
   const author = getCollectionBySlug('davidondrej')
 
@@ -24,13 +24,13 @@ export function DavidOverview() {
     {
       title: m.david_overview_problem_1_title(),
       description: m.david_overview_problem_1_description(),
-      fix: ['/folder-specific-…', '/brain-to-docs'],
+      fix: ['/before-building', '/ask-then-build'],
       borderClass: 'border-l-4 border-orange-600',
     },
     {
       title: m.david_overview_problem_2_title(),
       description: m.david_overview_problem_2_description(),
-      fix: ['/research-prompt', '/deep-research'],
+      fix: ['/deep-research', '/varied-search'],
       borderClass: 'border-l-4 border-sky-600',
     },
     {
@@ -42,7 +42,7 @@ export function DavidOverview() {
     {
       title: m.david_overview_problem_4_title(),
       description: m.david_overview_problem_4_description(),
-      fix: ['/handoff', '/agent-self-scheduling'],
+      fix: ['/handoff', '/git-worktree'],
       borderClass: 'border-l-4 border-violet-600',
     },
   ]
@@ -108,7 +108,7 @@ export function DavidOverview() {
       <div className="flex flex-wrap gap-x-10 gap-y-4">
         <Stat value={String(total)} label={m.david_stat_skills()} />
         <Stat value={String(categories)} label={m.david_stat_categories()} />
-        <Stat value={String(firstWave)} label={m.david_stat_first_wave()} />
+        <Stat value={String(manual)} label={m.david_stat_manual()} />
       </div>
 
       <div className="rounded-lg border border-amber-500/40 bg-amber-500/5 p-4">
@@ -135,15 +135,15 @@ export function DavidOverview() {
           </p>
           <div className="flex flex-wrap items-center gap-2 font-mono text-xs">
             <Badge variant="default" className="px-3 py-1 text-xs">
-              context files
+              setup-help / before-building
             </Badge>
             <span className="text-muted-foreground">→</span>
             <Badge variant="default" className="px-3 py-1 text-xs">
-              brain-to-docs
+              ask-then-build
             </Badge>
             <span className="text-muted-foreground">→</span>
             <Badge variant="default" className="px-3 py-1 text-xs">
-              research-prompt?
+              deep-research?
             </Badge>
             <span className="text-muted-foreground">→</span>
             <Badge variant="default" className="px-3 py-1 text-xs">
@@ -151,7 +151,7 @@ export function DavidOverview() {
             </Badge>
             <span className="text-muted-foreground">→</span>
             <Badge variant="default" className="px-3 py-1 text-xs">
-              handoff / schedule
+              handoff / review
             </Badge>
           </div>
           <div className="mt-2 grid gap-2 text-xs text-muted-foreground">

@@ -1,1 +1,1 @@
-export const EMILKOWALSKI_SKILL_COUNT = 6
+export const EMILKOWALSKI_SKILL_COUNT = 14

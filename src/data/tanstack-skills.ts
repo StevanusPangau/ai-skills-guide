@@ -1,7 +1,13 @@
 import type { BilingualString, BilingualList } from '@/types/skill'
 
+// Verified 2026-10-04 against tanstack-skills/tanstack-skills @ 6f5521e (HEAD; 2 commits, last 2026-01-29).
+// This is a COMMUNITY repository (MIT, "Copyright (c) 2026 tanstack-skills"); it is NOT published by
+// TanStack LLC / Tanner Linsley. TanStack's own mechanism for agent skills is TanStack Intent.
+// Upstream skill text predates current package releases (react-table 9, store createStore, Start on
+// vite.config.ts, ...), so the entries below state the current API where the upstream text is outdated.
+
 export const TANSTACK_SOURCE_REPO = 'github.com/tanstack-skills/tanstack-skills'
-export const TANSTACK_SOURCE_SHA = 'main'
+export const TANSTACK_SOURCE_SHA = '6f5521ecbdfbfa3d54d335eba6c8b4df0b804c03'
 export const SOURCE_REPO = TANSTACK_SOURCE_REPO
 export const SOURCE_SHA = TANSTACK_SOURCE_SHA
 
@@ -34,8 +40,8 @@ export const tanstackSkills: RichSkill[] = [
       en: '100% type-safe routing for React & Solid: file-based routing, first-class search params management, integrated data loading, and automatic code splitting.',
     },
     detailedDescription: {
-      id: 'Skill resmi untuk TanStack Router (@tanstack/react-router). Membangun rute aplikasi dengan inferensi tipe end-to-end dari URL path, search params, hingga loader data. Mendukung struktur file routes (`routeTree.gen.ts`), validasi schema search params dengan Zod/Valibot, pemuatan data rute via loader dengan caching SWR bawaan, hooks `beforeLoad` untuk auth guard & redirects, preloading link cerdas, serta penanganan error boundary dan notFound(). Menjadi pondasi routing inti untuk framework TanStack Start.',
-      en: 'Official skill for TanStack Router (@tanstack/react-router). Constructs application routes with end-to-end type safety across path segments, query search parameters, and route loader payloads. Supports file-based route generation (`routeTree.gen.ts`), schema-validated search params with Zod/Valibot, declarative data loading with integrated SWR caching, `beforeLoad` hooks for authentication guards & redirects, intelligent link preloading, and graceful error boundaries & notFound() states. Serves as the foundational routing engine for TanStack Start.',
+      id: 'Skill komunitas untuk TanStack Router (@tanstack/react-router). Membangun rute aplikasi dengan inferensi tipe end-to-end dari URL path, search params, hingga loader data. Mendukung struktur file routes (`routeTree.gen.ts`), validasi schema search params dengan Zod, pemuatan data rute via loader dengan cache bawaan (`staleTime`), hooks `beforeLoad` untuk auth guard & redirects, preloading link cerdas, serta penanganan error boundary dan notFound(). Menjadi pondasi routing inti untuk framework TanStack Start.',
+      en: 'Community skill for TanStack Router (@tanstack/react-router). Constructs application routes with end-to-end type safety across path segments, query search parameters, and route loader payloads. Supports file-based route generation (`routeTree.gen.ts`), schema-validated search params with Zod, declarative data loading with built-in loader caching (`staleTime`), `beforeLoad` hooks for authentication guards & redirects, intelligent link preloading, and graceful error boundaries & notFound() states. Serves as the foundational routing engine for TanStack Start.',
     },
     useWhen: {
       id: [
@@ -115,8 +121,8 @@ export const tanstackSkills: RichSkill[] = [
     category: 'state-fetching',
     invocation: 'model',
     description: {
-      id: 'Pengelolaan asynchronous server state standar industri: caching otomatis, background refetching, SWR, pagination, infinite scroll, dan optimistic updates.',
-      en: 'Industry-standard asynchronous server state management: automatic caching, background refetching, SWR, pagination, infinite scroll, and optimistic updates.',
+      id: 'Pengelolaan asynchronous server state: caching otomatis, background refetching, SWR, pagination, infinite scroll, dan optimistic updates.',
+      en: 'Asynchronous server state management: automatic caching, background refetching, SWR, pagination, infinite scroll, and optimistic updates.',
     },
     detailedDescription: {
       id: 'Skill referensi utama untuk TanStack Query (@tanstack/react-query, sebelumnya React Query). Mengelola siklus hidup data server secara deklaratif: deduplikasi request, caching cerdas, sinkronisasi latar belakang saat window focus, garbage collection data usang, pagination bertahap, infinite queries, serta mutasi dengan pembaruan UI optimis (optimistic updates) dan rollback otomatis saat terjadi kegagalan jaringan.',
@@ -202,8 +208,8 @@ export const tanstackSkills: RichSkill[] = [
       en: 'Headless UI for high-performance datagrids: sorting, fuzzy filtering, pagination, column pinning, grouping, and row selection.',
     },
     detailedDescription: {
-      id: 'Skill resmi untuk TanStack Table (@tanstack/react-table, sebelumnya React Table). Merupakan library headless 100%: menyediakan seluruh logika komputasi data tabel (sorting multi-kolom, filter teks dan facet, pagination klien/server, grouping, expanding baris, column reordering, resizing, dan visibility) tanpa memaksakan satu pun elemen HTML atau class CSS. Memberikan kebebasan total bagi developer untuk merender tabel menggunakan Tailwind, shadcn/ui, atau sistem desain kustom.',
-      en: 'Official skill for TanStack Table (@tanstack/react-table, formerly React Table). Operates as a pure 100% headless library: encapsulates all datagrid state logic (multi-column sorting, facet & text filters, client/server pagination, row grouping, sub-row expansion, column pinning, resizing, and visibility) without dictating any HTML tags or CSS styles. Grants engineers complete aesthetic freedom to render markup via Tailwind CSS, shadcn/ui, or proprietary design tokens.',
+      id: 'Skill komunitas untuk TanStack Table (@tanstack/react-table, sebelumnya React Table). Teks upstream ditulis untuk Table v8 (`useReactTable`, `getSortedRowModel`, dll.); @tanstack/react-table terbaru adalah v9, yang memakai `useTable` dengan opsi `features` (`tableFeatures({ rowSortingFeature, ... })`) dan row model factory seperti `createSortedRowModel()`; lihat panduan migrasi v9 sebelum menyalin contoh v8. Merupakan library headless 100%: menyediakan seluruh logika komputasi data tabel (sorting multi-kolom, filter teks dan facet, pagination klien/server, grouping, expanding baris, column reordering, resizing, dan visibility) tanpa memaksakan satu pun elemen HTML atau class CSS. Memberikan kebebasan total bagi developer untuk merender tabel menggunakan Tailwind, shadcn/ui, atau sistem desain kustom.',
+      en: 'Community skill for TanStack Table (@tanstack/react-table, formerly React Table). The upstream text targets Table v8 (`useReactTable`, `getSortedRowModel`, etc.); the latest @tanstack/react-table is v9, which uses `useTable` with a `features` option (`tableFeatures({ rowSortingFeature, ... })`) and row-model factories such as `createSortedRowModel()`; check the v9 migration guide before copying v8 examples. Operates as a pure 100% headless library: encapsulates all datagrid state logic (multi-column sorting, facet & text filters, client/server pagination, row grouping, sub-row expansion, column pinning, resizing, and visibility) without dictating any HTML tags or CSS styles. Grants engineers complete aesthetic freedom to render markup via Tailwind CSS, shadcn/ui, or proprietary design tokens.',
     },
     useWhen: {
       id: [
@@ -228,25 +234,25 @@ export const tanstackSkills: RichSkill[] = [
     howItWorks: {
       id: [
         'Mendefinisikan kolom secara type-safe menggunakan helper `createColumnHelper`.',
-        'Memanggil hook `useReactTable` dengan memasukkan dataset dan konfigurasi fitur yang diinginkan.',
+        'Memanggil hook `useReactTable` (v8; di v9 bernama `useTable`) dengan memasukkan dataset dan konfigurasi fitur yang diinginkan.',
         'Melakukan iterasi pada `table.getHeaderGroups()` untuk merender elemen `<th>` dan `table.getRowModel().rows` untuk `<tr>`.',
-        'Menerapkan fungsi fleksibel untuk sorting (`getSortedRowModel`), filtering (`getFilteredRowModel`), dan pagination (`getPaginationRowModel`).',
+        'Menerapkan row model untuk sorting (`getSortedRowModel`), filtering (`getFilteredRowModel`), dan pagination (`getPaginationRowModel`) di v8; v9 memakai `tableFeatures()` dengan `createSortedRowModel()` dst.',
       ],
       en: [
         'Declares type-safe columns using `createColumnHelper`.',
-        'Invokes `useReactTable` passing the dataset and feature configurations.',
+        'Invokes `useReactTable` (v8; named `useTable` in v9) passing the dataset and feature configurations.',
         'Maps over `table.getHeaderGroups()` to output `<th>` elements and `table.getRowModel().rows` for `<tr>` rows.',
-        'Chains pipeline processors for sorting (`getSortedRowModel`), filtering (`getFilteredRowModel`), and pagination (`getPaginationRowModel`).',
+        'Applies row models for sorting (`getSortedRowModel`), filtering (`getFilteredRowModel`), and pagination (`getPaginationRowModel`) in v8; v9 uses `tableFeatures()` with `createSortedRowModel()` etc.',
       ],
     },
     coreRules: {
       id: [
-        'Pastikan data array di-memoize atau distabilkan agar `useReactTable` tidak me-recompute seluruh baris pada setiap render.',
+        'Pastikan data array di-memoize atau distabilkan agar tabel tidak me-recompute seluruh baris pada setiap render.',
         'Gunakan `createColumnHelper<T>()` untuk menjaga inferensi TypeScript yang akurat pada setiap accessor kolom.',
         'Pisahkan pagination server-side (`manualPagination: true`) untuk dataset besar daripada memuat seluruh data ke klien.',
       ],
       en: [
-        'Memoize or stabilize data arrays so `useReactTable` avoids recalculating rows on extraneous re-renders.',
+        'Memoize or stabilize data arrays so the table avoids recalculating rows on extraneous re-renders.',
         'Use `createColumnHelper<T>()` to maintain compile-time type safety across column accessor keys.',
         'Enable server-side pagination (`manualPagination: true`) on large enterprise datasets.',
       ],
@@ -254,11 +260,11 @@ export const tanstackSkills: RichSkill[] = [
     tips: {
       id: [
         'Pasangkan dengan `@tanstack/match-sorter-utils` untuk mendapatkan fuzzy search filtering berkecepatan tinggi.',
-        'Gabungkan dengan `@tanstack/react-virtual` jika tabel harus merender lebih dari 1.000 baris secara simultan.',
+        'Gabungkan dengan `@tanstack/react-virtual` jika tabel harus merender banyak baris secara simultan.',
       ],
       en: [
         'Pair with `@tanstack/match-sorter-utils` for instant fuzzy search filtering.',
-        'Combine with `@tanstack/react-virtual` when rendering tables exceeding 1,000 concurrent rows.',
+        'Combine with `@tanstack/react-virtual` when rendering very large numbers of rows at once.',
       ],
     },
     pairsWellWith: ['tanstack-virtual', 'tanstack-query', 'tanstack-form'],
@@ -279,12 +285,12 @@ export const tanstackSkills: RichSkill[] = [
     category: 'form-management',
     invocation: 'model',
     description: {
-      id: 'Manajemen form headless dan type-safe: validasi sinkron/asinkron tingkat field & form, array fields, fine-grained reactivity, dan adapter Zod/Valibot.',
-      en: 'Headless, type-safe form management: field & form-level sync/async validation, array fields, fine-grained reactivity, and Zod/Valibot adapters.',
+      id: 'Manajemen form headless dan type-safe: validasi sinkron/asinkron tingkat field & form, array fields, fine-grained reactivity, dan validasi Standard Schema (Zod, Valibot, dll.).',
+      en: 'Headless, type-safe form management: field & form-level sync/async validation, array fields, fine-grained reactivity, and Standard Schema validation (Zod, Valibot, etc.).',
     },
     detailedDescription: {
-      id: 'Skill resmi untuk TanStack Form (@tanstack/react-form). Mengelola status formulir kompleks dengan reaktivitas presisi tinggi (hanya komponen field yang berubah yang me-re-render, bukan seluruh formulir). Mendukung validasi ganda (sync on-change, async on-blur), integrasi skema validasi deklaratif via adapter (@tanstack/zod-form-adapter, @tanstack/valibot-form-adapter), manipulasi dynamic array fields, form submission terkelola, dan integrasi mulus dengan server actions atau API endpoints.',
-      en: 'Official skill for TanStack Form (@tanstack/react-form). Governs complex form state with surgical fine-grained reactivity (only touched field nodes re-render rather than the whole form tree). Supports dual validation pipelines (synchronous on-change, asynchronous on-blur), schema integration via adapters (@tanstack/zod-form-adapter, @tanstack/valibot-form-adapter), dynamic array fields, controlled submissions, and clean integration with Server Functions and APIs.',
+      id: 'Skill komunitas untuk TanStack Form (@tanstack/react-form). Mengelola status formulir kompleks dengan reaktivitas presisi tinggi (hanya komponen field yang berubah yang me-re-render, bukan seluruh formulir). Mendukung validasi ganda (sync on-change, async on-blur), validasi skema deklaratif lewat Standard Schema (Zod, Valibot, ArkType, Effect Schema didukung langsung sejak Form v1, tanpa paket adapter; `@tanstack/zod-form-adapter` dan `@tanstack/valibot-form-adapter` sudah usang), manipulasi dynamic array fields, form submission terkelola, dan integrasi mulus dengan server actions atau API endpoints.',
+      en: 'Community skill for TanStack Form (@tanstack/react-form). Governs complex form state with surgical fine-grained reactivity (only touched field nodes re-render rather than the whole form tree). Supports dual validation pipelines (synchronous on-change, asynchronous on-blur), declarative schema validation via Standard Schema (Zod, Valibot, ArkType, Effect Schema are supported natively since Form v1, no adapter package; `@tanstack/zod-form-adapter` and `@tanstack/valibot-form-adapter` are obsolete), dynamic array fields, controlled submissions, and clean integration with Server Functions and APIs.',
     },
     useWhen: {
       id: [
@@ -320,12 +326,12 @@ export const tanstackSkills: RichSkill[] = [
     },
     coreRules: {
       id: [
-        'Gunakan validator adapter (misal Zod) untuk validasi skema menyeluruh agar tipe TypeScript sinkron.',
-        'Gunakan `field.Subscribe` untuk komponen yang hanya perlu mendengarkan sebagian kecil status field.',
+        'Berikan skema Standard Schema (misal Zod atau Valibot) langsung ke `validators` untuk validasi menyeluruh agar tipe TypeScript sinkron; tidak perlu paket adapter.',
+        'Gunakan `form.Subscribe` dengan `selector` untuk komponen yang hanya perlu mendengarkan sebagian kecil status form.',
       ],
       en: [
-        'Employ validation adapters (e.g. Zod) to guarantee compile-time TypeScript type synchronization.',
-        'Use `field.Subscribe` for components that only need to observe narrow field slices.',
+        'Pass a Standard Schema (e.g. Zod or Valibot) directly to `validators` for full validation and synchronized TypeScript types; no adapter package needed.',
+        'Use `form.Subscribe` with a `selector` for components that only need to observe narrow slices of form state.',
       ],
     },
     tips: {
@@ -354,23 +360,23 @@ export const tanstackSkills: RichSkill[] = [
     category: 'fullstack-framework',
     invocation: 'model',
     description: {
-      id: 'Full-stack React framework bertenaga TanStack Router, Vite, dan Nitro: SSR streaming, server functions (RPC), middleware, dan deploy ke host mana saja.',
-      en: 'Full-stack React framework powered by TanStack Router, Vite, and Nitro: SSR streaming, server functions (RPC), middleware, and deploy to any hosting target.',
+      id: 'Full-stack React framework bertenaga TanStack Router dan Vite: SSR streaming, server functions (RPC), middleware, dan deploy ke berbagai host. Status upstream: RC.',
+      en: 'Full-stack React framework powered by TanStack Router and Vite: SSR streaming, server functions (RPC), middleware, and deployment to various hosts. Upstream status: RC.',
     },
     detailedDescription: {
-      id: 'Skill arsitektur untuk framework full-stack TanStack Start (@tanstack/react-start). Menggabungkan kekuatan TanStack Router, kompilator Vite, dan server engine Nitro (via Vinxi). Menyediakan server-side rendering (SSR) dengan streaming HTML, pemanggilan server functions type-safe (`createServerFn`), middleware keamanan terpadu, penanganan API routes, serta kemampuan deployment lintas platform (Cloudflare Workers, Vercel, Node.js, AWS, Deno) via Nitro presets.',
-      en: 'Architectural skill for the TanStack Start full-stack React framework (@tanstack/react-start). Unifies TanStack Router, Vite compilation, and the Nitro server runtime (via Vinxi). Delivers server-side rendering (SSR) with streaming HTML, type-safe Server Functions (`createServerFn`), unified middleware security pipelines, API route handlers, and multi-cloud deployment portability (Cloudflare Workers, Vercel, Node.js, AWS, Deno) via Nitro presets.',
+      id: 'Skill arsitektur untuk framework full-stack TanStack Start (@tanstack/react-start). Menggabungkan TanStack Router dan Vite. Teks upstream masih menyebut `app.config.ts` dan Nitro via Vinxi; Start saat ini dikonfigurasi di `vite.config.ts` lewat plugin `tanstackStart()` dari `@tanstack/react-start/plugin/vite` (atau Rsbuild), dan Nitro hanya plugin opsional (`nitro/vite`). Menyediakan server-side rendering (SSR) dengan streaming HTML, server functions type-safe (`createServerFn`), middleware, dan server routes (`createFileRoute(...)({ server: { handlers } })`). Deployment lewat plugin per host, mis. `@cloudflare/vite-plugin` untuk Cloudflare Workers; mitra hosting resmi di dokumentasi Start adalah Cloudflare, Netlify, dan Railway.',
+      en: 'Architectural skill for the TanStack Start full-stack React framework (@tanstack/react-start). Combines TanStack Router and Vite. The upstream text still mentions `app.config.ts` and Nitro via Vinxi; Start is now configured in `vite.config.ts` through the `tanstackStart()` plugin from `@tanstack/react-start/plugin/vite` (or Rsbuild), and Nitro is only an optional plugin (`nitro/vite`). Delivers server-side rendering (SSR) with streaming HTML, type-safe Server Functions (`createServerFn`), middleware, and server routes (`createFileRoute(...)({ server: { handlers } })`). Deployment goes through per-host plugins, e.g. `@cloudflare/vite-plugin` for Cloudflare Workers; the official hosting partners in the Start docs are Cloudflare, Netlify, and Railway.',
     },
     useWhen: {
       id: [
         'Membangun aplikasi web full-stack React modern dengan kebutuhan SSR dan SEO optimal.',
         'Mengeksekusi logika backend (kueri database, autentikasi) via Server Functions tanpa membuat endpoint REST terpisah.',
-        'Mendeploy aplikasi full-stack ke platform edge seperti Cloudflare Workers atau serverless Vercel.',
+        'Mendeploy aplikasi full-stack ke host yang didukung seperti Cloudflare Workers, Netlify, atau Railway.',
       ],
       en: [
         'Building modern full-stack React web applications with SSR and SEO requirements.',
         'Executing backend logic (database queries, auth) via type-safe Server Functions without manual REST endpoints.',
-        'Deploying full-stack workloads across edge platforms like Cloudflare Workers or serverless Vercel.',
+        'Deploying full-stack workloads to supported hosts such as Cloudflare Workers, Netlify, or Railway.',
       ],
     },
     avoidWhen: {
@@ -383,16 +389,16 @@ export const tanstackSkills: RichSkill[] = [
     },
     howItWorks: {
       id: [
-        'Mengonfigurasi aplikasi dengan file `app.config.ts`.',
+        'Mengonfigurasi aplikasi di `vite.config.ts` dengan plugin `tanstackStart()` (tidak ada lagi `app.config.ts`/Vinxi).',
         'Menulis server functions menggunakan `createServerFn({ method: "GET" | "POST" })` dengan validasi payload Zod.',
         'Memanggil server function langsung di dalam loader rute atau event handler komponen dengan inferensi tipe utuh.',
-        'Mengkompilasi artifact produksi dan mendeploy sesuai preset Nitro target.',
+        'Mengkompilasi artifact produksi dan mendeploy lewat plugin host target (mis. `@cloudflare/vite-plugin`, plugin Netlify, atau Nitro).',
       ],
       en: [
-        'Configures application bundling via `app.config.ts`.',
+        'Configures the app in `vite.config.ts` with the `tanstackStart()` plugin (no more `app.config.ts`/Vinxi).',
         'Authors Server Functions via `createServerFn({ method: "GET" | "POST" })` with Zod input validation.',
         'Invokes Server Functions directly inside route loaders or component handlers with full type inference.',
-        'Compiles production bundles targeting designated Nitro deployment presets.',
+        'Compiles production bundles and deploys through the target host\'s plugin (e.g. `@cloudflare/vite-plugin`, the Netlify plugin, or Nitro).',
       ],
     },
     coreRules: {
@@ -413,7 +419,7 @@ export const tanstackSkills: RichSkill[] = [
         'Adopt middleware chaining to enforce centralized authentication across clusters of Server Functions.',
       ],
     },
-    pairsWellWith: ['tanstack-router', 'tanstack-query', 'cloudflare-workers-access-tunnel'],
+    pairsWellWith: ['tanstack-router', 'tanstack-query'],
     spotlight: {
       title: {
         id: 'Server Functions (RPC): Backend Type-Safe Tanpa API Boilerplate',
@@ -506,12 +512,12 @@ export const tanstackSkills: RichSkill[] = [
     category: 'state-management',
     invocation: 'model',
     description: {
-      id: 'Store reaktif imutabel yang framework-agnostic: primitif state ringan mirip signal, derived computed values, batch updates, dan efek.',
-      en: 'Framework-agnostic immutable reactive data store: lightweight signal-like state primitives, derived values, batch updates, and effects.',
+      id: 'Store reaktif imutabel yang framework-agnostic: primitif state ringan mirip signal, store turunan, dan batch updates (status upstream: Alpha).',
+      en: 'Framework-agnostic immutable reactive data store: lightweight signal-like state primitives, derived stores, and batch updates (upstream status: Alpha).',
     },
     detailedDescription: {
-      id: 'Skill untuk TanStack Store (@tanstack/store, @tanstack/react-store). Merupakan engine reaktif berbasis imutabel yang menjadi pondasi internal perpustakaan TanStack lainnya. Menyediakan kelas `Store` untuk menyimpan state, `Derived` untuk nilai turunan ter-memoize, `Effect` untuk efek samping reaktif, serta utilitas `batch` untuk menggabungkan banyak mutasi state ke dalam satu notifikasi render tunggal.',
-      en: 'Skill for TanStack Store (@tanstack/store, @tanstack/react-store). Lightweight, framework-agnostic reactive immutable state store that powers TanStack internals. Provides `Store` instances for state, `Derived` for memoized computations, `Effect` for reactive side-effects, and `batch` utilities to consolidate multiple state mutations into a single render notification pass.',
+      id: 'Skill untuk TanStack Store (@tanstack/store, @tanstack/react-store; status upstream: Alpha). Engine reaktif berbasis imutabel yang menjadi pondasi internal perpustakaan TanStack lainnya. Teks upstream memakai API lama (kelas `Store`, `Derived`, `Effect`); @tanstack/store 0.11 memakai `createStore(initial)` untuk state dan `createStore(() => ...)` untuk store turunan, dengan hook React `useSelector` (`useStore` kini alias usang), serta `batch` untuk menggabungkan beberapa mutasi.',
+      en: 'Skill for TanStack Store (@tanstack/store, @tanstack/react-store; upstream status: Alpha). Lightweight, framework-agnostic reactive immutable state store that powers TanStack internals. The upstream text uses the old API (`Store` class, `Derived`, `Effect`); @tanstack/store 0.11 uses `createStore(initial)` for state and `createStore(() => ...)` for derived stores, with the React hook `useSelector` (`useStore` is now a deprecated alias), plus `batch` to consolidate multiple mutations.',
     },
     useWhen: {
       id: [
@@ -533,22 +539,22 @@ export const tanstackSkills: RichSkill[] = [
     },
     howItWorks: {
       id: [
-        'Membuat store mandiri `new Store(initialState)`.',
-        'Menggunakan selector di dalam komponen React via `useStore(store, selector)`.',
+        'Membuat store mandiri `createStore(initialState)` (upstream lama: `new Store(initialState)`).',
+        'Menggunakan selector di dalam komponen React via `useSelector(store, selector)` (`useStore` adalah alias usang).',
         'Memperbarui state menggunakan `store.setState(updater)`.',
       ],
       en: [
-        'Creates autonomous stores via `new Store(initialState)`.',
-        'Subscribes with selectors in React components via `useStore(store, selector)`.',
+        'Creates autonomous stores via `createStore(initialState)` (older upstream text: `new Store(initialState)`).',
+        'Subscribes with selectors in React components via `useSelector(store, selector)` (`useStore` is a deprecated alias).',
         'Updates state payloads with `store.setState(updater)`.',
       ],
     },
     coreRules: {
       id: [
-        'Selalu gunakan selector murni di `useStore` untuk memastikan komponen hanya me-render saat slice data relevan berubah.',
+        'Selalu gunakan selector murni di `useSelector` untuk memastikan komponen hanya me-render saat slice data relevan berubah.',
       ],
       en: [
-        'Always pass pure selector functions into `useStore` to restrict re-renders to touched data slices.',
+        'Always pass pure selector functions into `useSelector` to restrict re-renders to touched data slices.',
       ],
     },
     tips: {
@@ -581,8 +587,8 @@ export const tanstackSkills: RichSkill[] = [
       en: 'Provider-agnostic modular type-safe AI SDK: text streaming, tool calling with approval workflows, Zod structured outputs, and UI hooks.',
     },
     detailedDescription: {
-      id: 'Skill arsitektur integrasi AI modern untuk TanStack AI (@tanstack/ai). Menyediakan adapter modular yang dapat di-tree-shake untuk berbagai provider LLM (OpenAI, Anthropic, Gemini, Ollama). Menangani streaming response tingkat rendah, eksekusi function/tool calling dengan antrean persetujuan (approval gates), parsing output JSON terstruktur yang tervalidasi skema Zod, dukungan multimodal teks/gambar, serta hooks React untuk antarmuka percakapan chat dan generative UI.',
-      en: 'Modern AI architecture skill for TanStack AI (@tanstack/ai). Features tree-shakeable adapters across major LLM providers (OpenAI, Anthropic, Gemini, Ollama). Manages low-level response streaming, function/tool calling execution with human-in-the-loop approval gates, Zod schema-enforced structured JSON output parsing, multimodal media pipelines, and React hooks for interactive chat and generative UI experiences.',
+      id: 'Skill arsitektur integrasi AI modern untuk TanStack AI (@tanstack/ai). Menyediakan adapter modular yang dapat di-tree-shake untuk berbagai provider LLM (OpenAI, Anthropic, Gemini, Ollama). Menangani streaming response tingkat rendah, eksekusi function/tool calling dengan antrean persetujuan (approval gates), parsing output JSON terstruktur yang tervalidasi skema Zod, dukungan multimodal teks/gambar, serta hooks React (paket `@tanstack/ai-react`) untuk antarmuka percakapan chat dan generative UI. Status upstream: Alpha.',
+      en: 'Modern AI architecture skill for TanStack AI (@tanstack/ai). Features tree-shakeable adapters across major LLM providers (OpenAI, Anthropic, Gemini, Ollama). Manages low-level response streaming, function/tool calling execution with human-in-the-loop approval gates, Zod schema-enforced structured JSON output parsing, multimodal media pipelines, and React hooks (the `@tanstack/ai-react` package) for interactive chat and generative UI. Upstream status: Alpha.',
     },
     useWhen: {
       id: [
@@ -608,12 +614,12 @@ export const tanstackSkills: RichSkill[] = [
       id: [
         'Mengonfigurasi client dengan adapter provider yang dipilih (misal OpenAI atau Anthropic).',
         'Mendefinisikan tools dengan nama, deskripsi, skema parameter Zod, dan fungsi eksekutor.',
-        'Menggunakan hook `useChat` atau `useCompletion` untuk streaming token dan status interaksi.',
+        'Menggunakan hook `useChat` dari `@tanstack/ai-react` (mengembalikan mis. `sendMessage`, `isLoading`, `stop`) untuk streaming token dan status interaksi. `useCompletion` adalah hook Vercel AI SDK, bukan TanStack AI.',
       ],
       en: [
         'Configures AI client with designated provider adapters (e.g. OpenAI, Anthropic).',
         'Declares tools with typed names, descriptions, Zod schemas, and executor callbacks.',
-        'Binds chat UI state via `useChat` or `useCompletion` for token streaming and status tracking.',
+        'Binds chat UI state via `useChat` from `@tanstack/ai-react` (returns e.g. `sendMessage`, `isLoading`, `stop`) for token streaming and status tracking. `useCompletion` is a Vercel AI SDK hook, not a TanStack AI one.',
       ],
     },
     coreRules: {
@@ -656,8 +662,8 @@ export const tanstackSkills: RichSkill[] = [
       en: 'Embedded client-side database powered by differential dataflow: normalized collections, live reactive queries, and instant optimistic mutations.',
     },
     detailedDescription: {
-      id: 'Skill untuk TanStack DB (@tanstack/react-db). Menempatkan lapisan database reaktif di memori browser yang didukung algoritma differential dataflow. Mengelola koleksi data ternormalisasi, mengeksekusi kueri langsung (live queries) yang terbarui secara inkremental dalam sub-milidetik bahkan pada 100.000+ baris data, serta terintegrasi mulus dengan TanStack Query untuk sinkronisasi backend.',
-      en: 'Skill for TanStack DB (@tanstack/react-db). Deploys an in-memory client-side database layer powered by differential dataflow. Maintains normalized collections, runs incremental live reactive queries updating in sub-milliseconds across 100k+ rows, and integrates natively with TanStack Query for backend synchronization.',
+      id: 'Skill untuk TanStack DB (@tanstack/react-db; status upstream: Beta v0.5). Menempatkan lapisan database reaktif di memori browser yang didukung algoritma differential dataflow. Mengelola koleksi data ternormalisasi, mengeksekusi kueri langsung (live queries) yang terbarui secara inkremental dalam sub-milidetik bahkan pada 100.000+ baris data, serta terintegrasi mulus dengan TanStack Query untuk sinkronisasi backend.',
+      en: 'Skill for TanStack DB (@tanstack/react-db; upstream status: Beta v0.5). Deploys an in-memory client-side database layer powered by differential dataflow. Maintains normalized collections, runs incremental live reactive queries updating in sub-milliseconds across 100k+ rows, and integrates natively with TanStack Query for backend synchronization.',
     },
     useWhen: {
       id: [
@@ -727,8 +733,8 @@ export const tanstackSkills: RichSkill[] = [
       en: 'Unified extensible devtools panel for TanStack libraries: real-time state inspection, modular plugin architecture, and visual debugging.',
     },
     detailedDescription: {
-      id: 'Skill untuk TanStack Devtools (@tanstack/react-devtools). Mengonsolidasikan panel debugging untuk TanStack Query, Router, Form, dan library lainnya ke dalam satu floating panel terpadu. Dibangun dengan Solid.js untuk performa ultra-ringan tanpa membebani lifecycle render aplikasi host.',
-      en: 'Developer tool skill for TanStack Devtools (@tanstack/react-devtools). Consolidates debugging panels for TanStack Query, Router, Form, and other ecosystem tools into a single extensible panel. Built with Solid.js for lightweight performance with zero render interference on host apps.',
+      id: 'Skill untuk TanStack Devtools (@tanstack/react-devtools; status upstream: Alpha). Mengonsolidasikan panel debugging untuk TanStack Query, Router, Form, dan library lainnya ke dalam satu floating panel terpadu. Dibangun dengan Solid.js untuk performa ultra-ringan tanpa membebani lifecycle render aplikasi host.',
+      en: 'Developer tool skill for TanStack Devtools (@tanstack/react-devtools; upstream status: Alpha). Consolidates debugging panels for TanStack Query, Router, Form, and other ecosystem tools into a single extensible panel. Built with Solid.js for lightweight performance with zero render interference on host apps.',
     },
     useWhen: {
       id: [
@@ -740,10 +746,10 @@ export const tanstackSkills: RichSkill[] = [
     },
     avoidWhen: {
       id: [
-        'Build produksi (devtools otomatis dihilangkan pada bundle production).',
+        'Build produksi kecuali Anda sengaja memuatnya secara kondisional atau lazy: upstream menyebut menyertakan devtools di build produksi tanpa tree-shaking sebagai jebakan umum.',
       ],
       en: [
-        'Production builds (devtools are automatically stripped from production bundles).',
+        'Production builds unless you deliberately include them conditionally or lazy-load them: upstream lists shipping devtools to production without tree-shaking as a common pitfall.',
       ],
     },
     howItWorks: {
@@ -792,8 +798,8 @@ export const tanstackSkills: RichSkill[] = [
       en: 'Project scaffolding CLI for TanStack Start: 30+ pre-built integrations, custom team templates, and MCP server for coding agents.',
     },
     detailedDescription: {
-      id: 'Skill untuk TanStack CLI (@tanstack/cli). Memandu pembuatan proyek TanStack Start interaktif dengan 30+ integrasi siap pakai (database, autentikasi, styling, hosting). Dilengkapi MCP (Model Context Protocol) server bawaan yang memungkinkan agen AI seperti Hermes, Claude Code, dan Cursor membantu konfigurasi proyek secara otomatis.',
-      en: 'Skill for TanStack CLI (@tanstack/cli). Guides interactive scaffolding of TanStack Start projects with 30+ pre-configured integrations (databases, auth, styling, hosting). Features a built-in MCP (Model Context Protocol) server enabling AI agents like Hermes, Claude Code, and Cursor to scaffold and modify projects autonomously.',
+      id: 'Skill untuk TanStack CLI (@tanstack/cli). Memandu pembuatan proyek TanStack Start interaktif dengan 30+ integrasi siap pakai (autentikasi, database, deployment, developer tools). Dilengkapi MCP (Model Context Protocol) server bawaan untuk asisten AI: pencarian dokumentasi, scaffolding, penemuan integrasi, dan panduan deployment (upstream menyebut Claude sebagai contoh).',
+      en: 'Skill for TanStack CLI (@tanstack/cli). Guides interactive scaffolding of TanStack Start projects with 30+ pre-configured integrations (auth, databases, deployment, developer tools). Features a built-in MCP (Model Context Protocol) server for AI assistants: docs search, scaffolding, integration discovery, and deployment guidance (upstream names Claude as the example).',
     },
     useWhen: {
       id: [
@@ -815,10 +821,10 @@ export const tanstackSkills: RichSkill[] = [
     },
     howItWorks: {
       id: [
-        'Menjalankan `npm create @tanstack/app` dan memilih preset integrasi.',
+        'Menjalankan `npx @tanstack/cli create my-app` (opsional `--integrations tanstack-query,clerk,drizzle`; binary `tanstack` jika dipasang global) dan memilih integrasi.',
       ],
       en: [
-        'Executes `npm create @tanstack/app` and selects integration presets.',
+        'Runs `npx @tanstack/cli create my-app` (optionally `--integrations tanstack-query,clerk,drizzle`; the `tanstack` binary if installed globally) and selects integrations.',
       ],
     },
     coreRules: {
@@ -831,21 +837,21 @@ export const tanstackSkills: RichSkill[] = [
     },
     tips: {
       id: [
-        'Pilih template terintegrasi Prisma atau Supabase untuk mendapatkan konfigurasi full-stack instan.',
+        'Gunakan flag `--integrations` untuk memilih integrasi (daftar upstream mencakup mis. drizzle, prisma, neon, clerk, better-auth, tanstack-query) agar setup full-stack siap pakai.',
       ],
       en: [
-        'Select Prisma or Supabase integrated templates for instant full-stack setup.',
+        'Use the `--integrations` flag to pick integrations (the upstream list includes e.g. drizzle, prisma, neon, clerk, better-auth, tanstack-query) for a ready full-stack setup.',
       ],
     },
-    pairsWellWith: ['tanstack-start', 'prisma-database-setup'],
+    pairsWellWith: ['tanstack-start', 'tanstack-query'],
     spotlight: {
       title: {
         id: 'Integrasi MCP Bawaan untuk Coding Agent',
         en: 'Built-in MCP Server for Coding Agents',
       },
       body: {
-        id: 'TanStack CLI menyertakan server MCP (Model Context Protocol) resmi. Agen AI Anda dapat berkomunikasi langsung dengan CLI untuk menanyakan dependensi yang cocok, memvalidasi konfigurasi, dan menambahkan integrasi baru tanpa trial-and-error manual.',
-        en: 'TanStack CLI embeds an official MCP (Model Context Protocol) server. Your AI coding agent can query the CLI directly to inspect compatible dependencies, validate configurations, and wire integrations without manual guesswork.',
+        id: '@tanstack/cli menyertakan server MCP (Model Context Protocol). Menurut skill upstream, kemampuannya meliputi pencarian dokumentasi, scaffolding proyek, penemuan integrasi, dan panduan deployment, sehingga asisten AI tidak perlu menebak-nebak.',
+        en: '@tanstack/cli includes an MCP (Model Context Protocol) server. Per the upstream skill, its capabilities are docs search, project scaffolding, integration discovery, and deployment guidance, so an AI assistant does not have to guess.',
       },
     },
     sourcePath: 'plugins/tanstack-cli/skills/tanstack-cli/SKILL.md',
@@ -859,8 +865,8 @@ export const tanstackSkills: RichSkill[] = [
       en: 'Toolkit for TypeScript package development and publishing: zero-config Vite builds, ESLint presets, semantic versioning, and Changesets.',
     },
     detailedDescription: {
-      id: 'Skill untuk TanStack Config (@tanstack/config). Toolkit standar yang digunakan tim inti TanStack untuk membangun, menguji, dan menerbitkan paket JavaScript/TypeScript modern. Mengatur monorepo pnpm/Nx, build multi-target (ESM/CJS), integrasi Changesets untuk rilis versi otomatis, dan verifikasi CI.',
-      en: 'Skill for TanStack Config (@tanstack/config). The official opinionated toolkit used by the TanStack core team to author, compile, and publish modern JS/TS libraries. Standardizes pnpm/Nx monorepos, multi-target builds (ESM/CJS), Changesets automated publishing, and CI checks.',
+      id: 'Skill untuk TanStack Config (@tanstack/config). Toolkit opinionated yang digunakan proyek TanStack untuk membangun, menguji, dan menerbitkan paket JavaScript/TypeScript modern. Mengatur monorepo pnpm/Nx, build multi-target (ESM/CJS), integrasi Changesets untuk rilis versi otomatis, dan verifikasi CI.',
+      en: 'Skill for TanStack Config (@tanstack/config). The opinionated toolkit used by the TanStack projects to author, compile, and publish modern JS/TS libraries. Standardizes pnpm/Nx monorepos, multi-target builds (ESM/CJS), Changesets automated publishing, and CI checks.',
     },
     useWhen: {
       id: [
@@ -880,10 +886,10 @@ export const tanstackSkills: RichSkill[] = [
     },
     howItWorks: {
       id: [
-        'Mengonfigurasi skrip build dan konfigurasi monorepo mengikuti konvensi resmi TanStack.',
+        'Mengonfigurasi skrip build dan konfigurasi monorepo mengikuti konvensi @tanstack/config.',
       ],
       en: [
-        'Configures build pipelines and monorepo configs matching official TanStack conventions.',
+        'Configures build pipelines and monorepo configs matching @tanstack/config conventions.',
       ],
     },
     coreRules: {
@@ -924,8 +930,8 @@ export const tanstackSkills: RichSkill[] = [
       en: 'Type-safe function execution timing toolkit: debouncing, throttling, rate limiting, queues, and batching.',
     },
     detailedDescription: {
-      id: 'Skill untuk TanStack Pacer (@tanstack/pacer, @tanstack/react-pacer). Menyediakan kontrol presisi atas frekuensi eksekusi fungsi JavaScript: debounce input pencarian, throttle event scroll/resize, rate limiting panggilan API pihak ketiga, antrean eksekusi berurutan (queues), dan pengelompokan panggilan ganda menjadi satu batch.',
-      en: 'Skill for TanStack Pacer (@tanstack/pacer, @tanstack/react-pacer). Delivers unified, type-safe execution timing control: search input debouncing, scroll/resize event throttling, external API rate limiting, sequential execution queues, and batched call aggregation.',
+      id: 'Skill untuk TanStack Pacer (@tanstack/pacer, @tanstack/react-pacer; status upstream: Beta). Menyediakan kontrol presisi atas frekuensi eksekusi fungsi JavaScript: debounce input pencarian, throttle event scroll/resize, rate limiting panggilan API pihak ketiga, antrean eksekusi berurutan (queues), dan pengelompokan panggilan ganda menjadi satu batch.',
+      en: 'Skill for TanStack Pacer (@tanstack/pacer, @tanstack/react-pacer; upstream status: Beta). Delivers unified, type-safe execution timing control: search input debouncing, scroll/resize event throttling, external API rate limiting, sequential execution queues, and batched call aggregation.',
     },
     useWhen: {
       id: [
@@ -947,10 +953,10 @@ export const tanstackSkills: RichSkill[] = [
     },
     howItWorks: {
       id: [
-        'Menggunakan kelas pacer atau React hook `useDebounce` / `useThrottle` dengan interval waktu yang ditentukan.',
+        'Menggunakan kelas pacer atau React hook seperti `useDebouncer`, `useDebouncedCallback`, `useDebouncedValue`, `useThrottler`, `useThrottledCallback`, atau `useRateLimitedCallback` dengan interval waktu yang ditentukan.',
       ],
       en: [
-        'Applies pacer classes or React hooks (`useDebounce`, `useThrottle`) with specified millisecond timings.',
+        'Applies pacer classes or React hooks such as `useDebouncer`, `useDebouncedCallback`, `useDebouncedValue`, `useThrottler`, `useThrottledCallback`, or `useRateLimitedCallback` with specified millisecond timings.',
       ],
     },
     coreRules: {
@@ -963,10 +969,10 @@ export const tanstackSkills: RichSkill[] = [
     },
     tips: {
       id: [
-        'Gunakan batching pacer untuk mengumpulkan 10 event klik atau log analitik ke dalam satu request jaringan.',
+        'Gunakan batching pacer (mis. `useBatcher`) untuk mengumpulkan beberapa event klik atau log analitik ke dalam satu request jaringan.',
       ],
       en: [
-        'Use batching pacers to bundle rapid click events or telemetry pings into a single network payload.',
+        'Use batching pacers (e.g. `useBatcher`) to bundle rapid click events or telemetry pings into a single network payload.',
       ],
     },
     pairsWellWith: ['tanstack-table', 'tanstack-query'],
@@ -991,8 +997,8 @@ export const tanstackSkills: RichSkill[] = [
       en: 'Headless utilities for building fully accessible single-value and multi-thumb range sliders.',
     },
     detailedDescription: {
-      id: 'Skill untuk TanStack Ranger (@tanstack/react-ranger). Menyediakan seluruh perhitungan matematika dan status interaksi untuk komponen slider rentang harga, filter batas nilai, dan multi-thumb range picker. Bekerja secara headless tanpa style atau markup bawaan.',
-      en: 'Skill for TanStack Ranger (@tanstack/react-ranger). Encapsulates all mathematical boundary calculations and interaction states for range sliders, price filter boundaries, and multi-thumb controls. Functions purely headlessly with complete styling freedom.',
+      id: 'Skill untuk TanStack Ranger (@tanstack/react-ranger; header upstream: Stable, namun paket npm masih 0.0.x). Menyediakan seluruh perhitungan matematika dan status interaksi untuk komponen slider rentang harga, filter batas nilai, dan multi-thumb range picker. Bekerja secara headless tanpa style atau markup bawaan.',
+      en: 'Skill for TanStack Ranger (@tanstack/react-ranger; upstream header says Stable, but the npm package is still 0.0.x). Encapsulates all mathematical boundary calculations and interaction states for range sliders, price filter boundaries, and multi-thumb controls. Functions purely headlessly with complete styling freedom.',
     },
     useWhen: {
       id: [

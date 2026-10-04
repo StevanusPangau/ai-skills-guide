@@ -1,11 +1,13 @@
 import { useState } from 'react'
+import { m } from '@/paraglide/messages.js'
 
 export function JakubLab() {
   const [padding, setPadding] = useState(16)
   const [outerRadius, setOuterRadius] = useState(24)
   const [opticalFix, setOpticalFix] = useState(true)
 
-  // Jakub's Concentric Radius Rule: Inner Radius = Outer Radius - Padding
+  // better-ui rule: outer radius = inner radius + padding, so inner = outer - padding
+  // (upstream: past 24px of padding, treat the layers as separate surfaces).
   const correctInnerRadius = Math.max(0, outerRadius - padding)
   const brokenInnerRadius = outerRadius // Common bug: applying same radius to both!
 
@@ -13,10 +15,10 @@ export function JakubLab() {
     <section id="lab" className="scroll-mt-20 space-y-6">
       <div>
         <h2 className="font-heading text-2xl font-bold tracking-tight">
-          Interactive Micro-Details Lab
+          {m.jakub_lab_title()}
         </h2>
         <p className="mt-1 text-muted-foreground text-sm">
-          Eksperimen langsung dengan rumus dan aturan presisi Jakub Krehel: concentric radius matematika & optical centering.
+          {m.jakub_lab_description()}
         </p>
       </div>
 
@@ -24,18 +26,18 @@ export function JakubLab() {
         {/* Experiment 1: Concentric Radius Calculator */}
         <div className="rounded-xl border border-border bg-card p-5 space-y-4 shadow-xs">
           <div className="flex items-center justify-between">
-            <h3 className="font-semibold text-base font-mono">1. Concentric Border Radius</h3>
+            <h3 className="font-semibold text-base font-mono">{m.jakub_lab_radius_title()}</h3>
             <span className="text-xs font-mono px-2 py-0.5 rounded bg-primary/10 text-primary font-bold">
-              R_in = R_out - Padding
+              {m.jakub_lab_radius_rule()}
             </span>
           </div>
           <p className="text-xs text-muted-foreground leading-relaxed">
-            Jika container luar memiliki radius dan padding, elemen dalam <strong>tidak boleh</strong> memakai radius yang sama. Jari-jari dalam harus mengecil sebanding dengan padding agar lengkungan terlihat sepusat.
+            {m.jakub_lab_radius_body()}
           </p>
 
           <div className="space-y-3 pt-2">
             <div className="flex items-center justify-between text-xs font-mono">
-              <span>Outer Radius: {outerRadius}px</span>
+              <span>{m.jakub_lab_outer_radius()}: {outerRadius}px</span>
               <input
                 type="range"
                 min="12"
@@ -46,7 +48,7 @@ export function JakubLab() {
               />
             </div>
             <div className="flex items-center justify-between text-xs font-mono">
-              <span>Padding: {padding}px</span>
+              <span>{m.jakub_lab_padding()}: {padding}px</span>
               <input
                 type="range"
                 min="4"
@@ -56,12 +58,15 @@ export function JakubLab() {
                 className="w-32"
               />
             </div>
+            {padding > 24 ? (
+              <p className="text-[11px] text-muted-foreground">{m.jakub_lab_past_24()}</p>
+            ) : null}
           </div>
 
           <div className="grid grid-cols-2 gap-4 pt-2">
             {/* Broken (naive AI generated) */}
             <div className="text-center space-y-2">
-              <span className="text-[10px] font-mono text-destructive font-semibold">✕ SALAH (R_in = R_out)</span>
+              <span className="text-[10px] font-mono text-destructive font-semibold">{m.jakub_lab_wrong()}</span>
               <div
                 className="mx-auto flex items-center justify-center bg-muted/60 border border-border"
                 style={{
@@ -75,14 +80,14 @@ export function JakubLab() {
                   className="size-full bg-destructive/20 border border-destructive/40 flex items-center justify-center text-[10px] font-mono text-destructive"
                   style={{ borderRadius: `${brokenInnerRadius}px` }}
                 >
-                  Pecah!
+                  {m.jakub_lab_wrong_box()}
                 </div>
               </div>
             </div>
 
             {/* Correct (Jakub rule) */}
             <div className="text-center space-y-2">
-              <span className="text-[10px] font-mono text-emerald-600 dark:text-emerald-400 font-semibold">✓ BENAR (R_in = {correctInnerRadius}px)</span>
+              <span className="text-[10px] font-mono text-emerald-600 dark:text-emerald-400 font-semibold">{m.jakub_lab_right({ radius: String(correctInnerRadius) })}</span>
               <div
                 className="mx-auto flex items-center justify-center bg-muted/60 border border-border"
                 style={{
@@ -96,7 +101,7 @@ export function JakubLab() {
                   className="size-full bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-[10px] font-mono text-emerald-700 dark:text-emerald-400"
                   style={{ borderRadius: `${correctInnerRadius}px` }}
                 >
-                  Concentric
+                  {m.jakub_lab_right_box()}
                 </div>
               </div>
             </div>
@@ -106,17 +111,19 @@ export function JakubLab() {
         {/* Experiment 2: Optical Centering on Play Button */}
         <div className="rounded-xl border border-border bg-card p-5 space-y-4 shadow-xs">
           <div className="flex items-center justify-between">
-            <h3 className="font-semibold text-base font-mono">2. Optical Alignment</h3>
+            <h3 className="font-semibold text-base font-mono">{m.jakub_lab_optical_title()}</h3>
             <button
               type="button"
               onClick={() => setOpticalFix(!opticalFix)}
               className="text-xs font-mono px-2.5 py-1 rounded-md border border-border bg-muted hover:bg-muted/80 text-foreground font-semibold"
             >
-              Mode: {opticalFix ? 'Optical (+2px offset)' : 'Geometric (Center murni)'}
+              {m.jakub_lab_mode({
+                mode: opticalFix ? m.jakub_lab_mode_optical() : m.jakub_lab_mode_geometric(),
+              })}
             </button>
           </div>
           <p className="text-xs text-muted-foreground leading-relaxed">
-            Ikon asimetris seperti segitiga &ldquo;Play&rdquo; memiliki massa visual lebih berat di sebelah kiri. Jika di-center secara geometris murni via CSS flexbox, ia akan terlihat miring ke kiri. Jakub mengajarkan kompensasi optical offset.
+            {m.jakub_lab_optical_body()}
           </p>
 
           <div className="flex flex-col items-center justify-center py-6">
@@ -130,7 +137,7 @@ export function JakubLab() {
               <div
                 className="transition-transform duration-200"
                 style={{
-                  transform: opticalFix ? 'translateX(2.5px)' : 'translateX(0)',
+                  transform: opticalFix ? 'translateX(2px)' : 'translateX(0)',
                 }}
               >
                 <svg className="size-8 fill-current" viewBox="0 0 24 24">
@@ -145,7 +152,7 @@ export function JakubLab() {
                   ? 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 border border-emerald-500/30'
                   : 'bg-destructive/15 text-destructive border border-destructive/30'
               }`}>
-                {opticalFix ? '✓ Optical Balanced (Terlihat pas di tengah mata)' : '✕ Geometric Dead-Center (Terasa miring ke kiri)'}
+                {opticalFix ? m.jakub_lab_optical_ok() : m.jakub_lab_optical_bad()}
               </span>
             </div>
           </div>

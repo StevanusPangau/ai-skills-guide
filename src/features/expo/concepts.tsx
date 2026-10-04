@@ -14,8 +14,8 @@ export function ExpoConcepts() {
         </h2>
         <p className="mt-1 text-muted-foreground text-sm">
           {isEn
-            ? 'Core mental models: universal app architecture, managed cloud pipelines, and the prebuild engine.'
-            : 'Model mental inti: arsitektur universal app, pipeline cloud terkelola, dan engine prebuild kontinu.'}
+            ? 'Core mental models: universal app targets, Continuous Native Generation, and the EAS cloud services.'
+            : 'Model mental inti: target universal app, Continuous Native Generation, dan layanan cloud EAS.'}
         </p>
       </div>
 
@@ -38,13 +38,13 @@ export function ExpoConcepts() {
                 <Badge className="bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 text-[10px]">
                   IOS RUNTIME
                 </Badge>
-                <span className="text-[10px] text-muted-foreground">Swift / UIKit</span>
+                <span className="text-[10px] text-muted-foreground">Swift / Xcode</span>
               </div>
               <p className="font-semibold text-foreground font-sans text-xs">CocoaPods & Xcode</p>
               <p className="text-[11px] text-muted-foreground leading-tight font-sans">
                 {isEn
-                  ? 'Compiles to IPA binary with native UINavigationController and Apple App Store signing.'
-                  : 'Dikompilasi ke binary IPA dengan controller navigasi native dan sertifikat Apple.'}
+                  ? 'Built into an IPA with Xcode/CocoaPods; EAS Build can compile it in the cloud and manage Apple signing credentials.'
+                  : 'Dibangun menjadi IPA dengan Xcode/CocoaPods; EAS Build dapat mengompilasinya di cloud dan mengelola kredensial signing Apple.'}
               </p>
             </div>
 
@@ -58,8 +58,8 @@ export function ExpoConcepts() {
               <p className="font-semibold text-foreground font-sans text-xs">Android Gradle & AAB</p>
               <p className="text-[11px] text-muted-foreground leading-tight font-sans">
                 {isEn
-                  ? 'Compiles to AAB format with native Android Fragment stacks and Play Store Keystore.'
-                  : 'Dikompilasi ke format AAB dengan navigasi Fragment dan keystore Google Play.'}
+                  ? 'Built into an AAB/APK with Gradle; EAS Build can compile it in the cloud and manage Android keystores.'
+                  : 'Dibangun menjadi AAB/APK dengan Gradle; EAS Build dapat mengompilasinya di cloud dan mengelola keystore Android.'}
               </p>
             </div>
 
@@ -73,8 +73,8 @@ export function ExpoConcepts() {
               <p className="font-semibold text-foreground font-sans text-xs">Universal PWA & API</p>
               <p className="text-[11px] text-muted-foreground leading-tight font-sans">
                 {isEn
-                  ? 'Compiles to static responsive web HTML with serverless API Routes via EAS Hosting.'
-                  : 'Dikompilasi ke HTML web responsif dengan API Routes serverless via EAS Hosting.'}
+                  ? 'Exports a web bundle (npx expo export -p web) and Expo Router API routes, deployable with EAS Hosting (Cloudflare Workers) or self-hosted.'
+                  : 'Mengekspor bundle web (npx expo export -p web) dan API routes Expo Router, bisa di-deploy ke EAS Hosting (Cloudflare Workers) atau self-host.'}
               </p>
             </div>
           </div>
@@ -85,12 +85,12 @@ export function ExpoConcepts() {
       <Card className="border border-border">
         <CardHeader className="pb-3">
           <CardTitle className="text-base font-semibold">
-            {isEn ? 'Continuous Native Prebuild (npx expo prebuild)' : 'Continuous Native Prebuild (npx expo prebuild)'}
+            {isEn ? 'Continuous Native Generation (npx expo prebuild)' : 'Continuous Native Generation (npx expo prebuild)'}
           </CardTitle>
           <p className="text-xs text-muted-foreground">
             {isEn
-              ? 'Never edit ios/ and android/ folders directly. Config plugins generate native files ephemerally.'
-              : 'Dilarang mengedit folder ios/ dan android/ secara manual. Plugin konfigurasi menghasilkannya secara ephemeral.'}
+              ? 'With Continuous Native Generation, ios/ and android/ are regenerated from app config and config plugins. If the folders are committed, the project is prebuild/bare and native setup differs.'
+              : 'Dengan Continuous Native Generation, ios/ dan android/ dihasilkan ulang dari app config dan config plugin. Jika folder itu di-commit, proyeknya prebuild/bare dan setup native-nya berbeda.'}
           </p>
         </CardHeader>
         <CardContent className="space-y-3 text-xs">
@@ -98,7 +98,7 @@ export function ExpoConcepts() {
             <div className="flex flex-wrap items-center justify-between gap-2 font-mono text-xs">
               <div className="border border-border rounded p-2 text-center bg-card flex-1 min-w-[120px]">
                 <span className="font-semibold text-foreground block">1. app.json / config</span>
-                <span className="text-[10px] text-muted-foreground">Single Source of Truth</span>
+                <span className="text-[10px] text-muted-foreground">Source of native config</span>
               </div>
               <span className="text-muted-foreground text-sm">→</span>
               <div className="border border-primary/40 rounded p-2 text-center bg-primary/5 flex-1 min-w-[120px]">
@@ -107,15 +107,15 @@ export function ExpoConcepts() {
               </div>
               <span className="text-muted-foreground text-sm">→</span>
               <div className="border border-emerald-500/40 rounded p-2 text-center bg-emerald-500/5 flex-1 min-w-[120px]">
-                <span className="font-semibold text-emerald-600 dark:text-emerald-400 block">3. Ephemeral ios/ android/</span>
-                <span className="text-[10px] text-muted-foreground">Always Cleanly Re-creatable</span>
+                <span className="font-semibold text-emerald-600 dark:text-emerald-400 block">3. Generated ios/ android/</span>
+                <span className="text-[10px] text-muted-foreground">Regenerated by prebuild (CNG)</span>
               </div>
             </div>
           </div>
           <p className="text-muted-foreground leading-relaxed text-[11px] italic">
             {isEn
-              ? 'By keeping native folders gitignored and generating them via prebuild, your codebase upgrades smoothly across SDK versions with zero manual Xcode project merge conflicts.'
-              : 'Dengan meng-git-ignore folder native dan menghasilkannya via prebuild, pembaruan SDK Expo berlangsung mulus tanpa konflik merge project Xcode yang menyiksa.'}
+              ? 'expo-upgrade checks first whether ios/ and android/ exist: without them the project uses CNG and native projects are regenerated at build time, so the prebuild and native-cache steps are skipped.'
+              : 'expo-upgrade memeriksa dulu apakah ios/ dan android/ ada: tanpa keduanya proyek memakai CNG dan project native dihasilkan ulang saat build, sehingga langkah prebuild dan pembersihan cache native dilewati.'}
           </p>
         </CardContent>
       </Card>
@@ -143,20 +143,20 @@ export function ExpoConcepts() {
               </div>
               <p className="text-muted-foreground leading-relaxed">
                 {isEn
-                  ? 'Compiles native artifacts on dedicated cloud runners, orchestrates app store certs, and uploads directly to TestFlight & Google Play.'
-                  : 'Mengkompilasi artifact native di cloud, mengelola sertifikat app store, dan mengunggah langsung ke TestFlight & Google Play.'}
+                  ? 'Compiles native artifacts in the cloud, manages signing credentials, and can submit to TestFlight and Google Play (eas build --auto-submit or eas submit).'
+                  : 'Mengompilasi artifact native di cloud, mengelola kredensial signing, dan dapat submit ke TestFlight & Google Play (eas build --auto-submit atau eas submit).'}
               </p>
             </div>
 
             <div className="rounded-lg border border-border bg-card p-3 space-y-1.5">
               <div className="font-semibold text-foreground font-mono flex items-center justify-between">
                 <span>EAS Update & Observe</span>
-                <Badge variant="outline" className="font-mono text-[10px]">Zero Review</Badge>
+                <Badge variant="outline" className="font-mono text-[10px]">OTA + Metrics</Badge>
               </div>
               <p className="text-muted-foreground leading-relaxed">
                 {isEn
-                  ? 'Distributes instant OTA bug fixes to production devices, streams real-time crash logs, and offers instant rollback gates.'
-                  : 'Mendistribusikan perbaikan bug OTA instan ke ponsel user, streaming log crash realtime, dan menyediakan tombol rollback instan.'}
+                  ? 'EAS Update ships compatible JS/asset changes over the air (a channel points to a branch; the runtime version is the compatibility boundary). EAS Observe measures startup/navigation performance, and eas-update-insights reads update health (crash rate, launches, payload). Observe has no crash reporting.'
+                  : 'EAS Update mengirim perubahan JS/aset yang kompatibel via OTA (channel menunjuk ke branch; runtime version adalah batas kompatibilitas). EAS Observe mengukur performa startup/navigasi, dan eas-update-insights membaca kesehatan update (crash rate, launch, payload). Observe tidak punya crash reporting.'}
               </p>
             </div>
           </div>

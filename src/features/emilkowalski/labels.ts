@@ -10,8 +10,11 @@ export function emilCategoryLabel(category: EmilCategory): string {
     foundations: m.emil_category_foundations(),
     language: m.emil_category_language(),
     discovery: m.emil_category_discovery(),
+    build: m.emil_category_build(),
     review: m.emil_category_review(),
     audit: m.emil_category_audit(),
+    platform: m.emil_category_platform(),
+    library: m.emil_category_library(),
   }[category]
 }
 
@@ -28,5 +31,9 @@ export function emilModeLabel(mode: EmilMode): string {
     'read-only-discovery': m.emil_mode_read_only_discovery(),
     'read-only-review': m.emil_mode_read_only_review(),
     'read-only-planning': m.emil_mode_read_only_planning(),
+    'writes-code': m.emil_mode_writes_code(),
+    'stress-test': m.emil_mode_stress_test(),
+    reference: m.emil_mode_reference(),
+    lookup: m.emil_mode_lookup(),
   }[mode]
 }

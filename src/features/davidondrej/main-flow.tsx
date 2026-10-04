@@ -6,10 +6,10 @@ const FlowCanvas = lazy(() =>
   import('@/features/flow/flow-canvas').then((mod) => ({ default: mod.FlowCanvas })),
 )
 
-// First-wave only on the recommended path.
-// first-wave: folder-specific…, setup-help, brain-to-docs, level-up,
-// research-prompt, goal-loop, anti-sleep, agent-self-scheduling, effective-agent-skills.
-// handoff = optional → not in main flow.
+// Recommended path built only from skills that exist upstream (pinned SHA in
+// davidondrej-skills.ts): setup-help, before-building, ask-then-build,
+// adr-verbatim, deep-research, goal-loop, anti-sleep, git-worktree, handoff,
+// total-review, effective-agent-skills.
 
 export function DavidMainFlow() {
   const [active, setActive] = useState<string | null>(null)
@@ -19,17 +19,17 @@ export function DavidMainFlow() {
       {
         id: 'context',
         kind: 'skill',
-        label: '/folder-specific-…',
+        label: '/setup-help',
         description: m.david_flow_node_context(),
-        subtitle: '+ /setup-help',
+        subtitle: '+ /before-building',
         position: { x: 250, y: 0 },
       },
       {
         id: 'capture',
         kind: 'skill',
-        label: '/brain-to-docs',
+        label: '/ask-then-build',
         description: m.david_flow_node_capture(),
-        subtitle: '+ /level-up',
+        subtitle: '+ /adr-verbatim',
         position: { x: 250, y: 140 },
       },
       {
@@ -42,7 +42,7 @@ export function DavidMainFlow() {
       {
         id: 'research',
         kind: 'skill',
-        label: '/research-prompt',
+        label: '/deep-research',
         description: m.david_flow_node_research(),
         subtitle: m.david_flow_optional_deep(),
         position: { x: 20, y: 450 },
@@ -69,14 +69,22 @@ export function DavidMainFlow() {
         description: m.david_flow_node_session(),
         position: { x: 460, y: 780 },
       },
-      // Sustain on-ramps — first-wave only, no reverse edges (keeps diagram clean)
+      // Sustain on-ramps — no reverse edges (keeps diagram clean)
       {
-        id: 'schedule',
+        id: 'handoff',
         kind: 'onramp',
-        label: '/agent-self-scheduling',
-        description: m.david_flow_node_schedule(),
-        subtitle: m.david_flow_onramp_schedule(),
-        position: { x: 40, y: 960 },
+        label: '/handoff',
+        description: m.david_flow_node_handoff(),
+        subtitle: m.david_flow_onramp_handoff(),
+        position: { x: 0, y: 960 },
+      },
+      {
+        id: 'review',
+        kind: 'onramp',
+        label: '/total-review',
+        description: m.david_flow_node_review(),
+        subtitle: m.david_flow_onramp_review(),
+        position: { x: 250, y: 960 },
       },
       {
         id: 'author',
@@ -84,7 +92,7 @@ export function DavidMainFlow() {
         label: '/effective-agent-skills',
         description: m.david_flow_node_author(),
         subtitle: m.david_flow_onramp_author(),
-        position: { x: 380, y: 960 },
+        position: { x: 500, y: 960 },
       },
     ],
     [],
@@ -104,8 +112,8 @@ export function DavidMainFlow() {
         dashed: true,
       },
       { id: 'e-res-wg', source: 'research', target: 'work-gate' },
-      { id: 'e-wg-long', source: 'work-gate', target: 'goal', label: 'LONG' },
-      { id: 'e-wg-short', source: 'work-gate', target: 'session', label: 'SHORT' },
+      { id: 'e-wg-long', source: 'work-gate', target: 'goal', label: 'YES' },
+      { id: 'e-wg-short', source: 'work-gate', target: 'session', label: 'NO' },
     ],
     [],
   )

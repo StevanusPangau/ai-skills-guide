@@ -27,7 +27,7 @@ export function ImpeccableOverview() {
             <h1 className="font-heading text-3xl font-bold tracking-tight text-balance sm:text-4xl">
               {m.impeccable_hero_title()}
             </h1>
-            <p className="mt-1.5 text-sm font-medium text-foreground/90">Paul Bakaus (Former Google Web Lead)</p>
+            <p className="mt-1.5 text-sm font-medium text-foreground/90">Paul Bakaus</p>
           </div>
         </div>
         <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted-foreground">
@@ -45,7 +45,11 @@ export function ImpeccableOverview() {
       </div>
       <div className="flex flex-wrap gap-x-10 gap-y-4">
         <Stat value={String(impeccableSkills.length)} label={m.impeccable_stat_skills()} />
-        <Stat value="10" label={m.impeccable_stat_categories()} />
+        <Stat value="1" label={m.impeccable_stat_skill()} />
+        <Stat
+          value={String(new Set(impeccableSkills.map((s) => s.category)).size)}
+          label={m.impeccable_stat_categories()}
+        />
       </div>
       <Card className="border-2 border-primary/30 bg-primary/5">
         <CardHeader className="pb-2">

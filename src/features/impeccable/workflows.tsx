@@ -14,46 +14,47 @@ type Wf = {
 
 const workflows: Wf[] = [
   {
-    titleId: 'Inisialisasi Sistem Desain Proyek Baru',
-    titleEn: 'Greenfield Design System Initialization',
-    descId: 'Wawancara penemuan produk, pembuatan PRODUCT.md, ekstraksi token ke DESIGN.md, dan konfigurasi live mode.',
-    descEn: 'Discovery interview, authoring PRODUCT.md, extracting tokens into DESIGN.md, and configuring live mode.',
-    whyId: 'Menulis UI tanpa spesifikasi desain tertulis membuat agen menghasilkan tampilan generik yang tidak konsisten.',
-    whyEn: 'Authoring UI without written design tokens produces inconsistent, generic aesthetic drift.',
+    titleId: 'Setup Proyek: Konteks Produk Lebih Dulu',
+    titleEn: 'Project Setup: Product Context First',
+    descId: 'Memasang Impeccable, lalu init untuk menulis PRODUCT.md; DESIGN.md dibuat terpisah dari kode yang ada atau dunia visual baru.',
+    descEn: 'Install Impeccable, then init writes PRODUCT.md; DESIGN.md is produced separately from existing code or a new visual world.',
+    whyId: 'Setiap command lain membaca PRODUCT.md dan DESIGN.md sebelum bekerja, jadi konteks yang tahan lama mencegah hasil generik.',
+    whyEn: 'Every other command reads PRODUCT.md and DESIGN.md before working, so durable context prevents generic output.',
     steps: [
-      'npx impeccable init',
-      'interview: users, brand character, principles',
-      'generate PRODUCT.md & DESIGN.md',
-      'bind design tokens to Tailwind / CSS variables',
+      'npx impeccable install',
+      '/impeccable init',
+      'interview: users, purpose, constraints (PRODUCT.md)',
+      '/impeccable document (existing UI code → DESIGN.md)',
     ],
   },
   {
-    titleId: 'Audit Teknis dan Pembersihan Anti-Patterns',
-    titleEn: 'Technical Audit & Anti-Pattern Cleanup',
-    descId: 'Menjalankan audit kualitas teknis terstruktur dengan penilaian keparahan P0-P3 dan rencana perbaikan.',
-    descEn: 'Execute structured technical quality audit with P0-P3 severity grading and remediation roadmap.',
-    whyId: 'Audit terstruktur memisahkan blocker aksesibilitas kritis (P0) dari pemolesan mikro kosmetik (P3).',
-    whyEn: 'Structured audits isolate critical accessibility blockers (P0) from minor cosmetic polish (P3).',
+    titleId: 'Evaluasi, Perbaiki, Poles',
+    titleEn: 'Evaluate, Refine, Polish',
+    descId: 'Audit teknis dan kritik UX, lalu perbaiki dengan command yang disarankan, dan akhiri dengan polish.',
+    descEn: 'Run a technical audit and a UX critique, fix with the recommended commands, and finish with polish.',
+    whyId: 'Audit memberi skor 0-4 per dimensi dan keparahan P0-P3 serta urutan command yang disarankan, dengan polish sebagai langkah terakhir.',
+    whyEn: 'Audit gives 0-4 scores per dimension and P0-P3 severity plus a suggested command order, with polish as the last step.',
     steps: [
-      'npx impeccable audit [target-screen]',
-      'review P0-P3 scored report',
-      'apply /normalize on spacing and typography',
-      'apply /colorize for WCAG contrast compliance',
+      '/impeccable audit checkout',
+      '/impeccable critique checkout',
+      '/impeccable layout checkout  (spacing, rhythm, hierarchy)',
+      '/impeccable colorize checkout  (color roles, AA contrast floor)',
+      '/impeccable polish checkout',
     ],
   },
   {
-    titleId: 'Eksperimen Desain Live Interaktif di Browser',
-    titleEn: 'Interactive Live Browser Design Prototyping',
-    descId: 'Memilih elemen di browser aktif, meminta varian desain AI, dan menerapkan hot-swap via HMR.',
-    descEn: 'Select elements on running browser screens, prompt AI variants, and hot-swap via HMR.',
-    whyId: 'Melihat varian visual secara langsung di browser menghemat waktu siklus edit-refresh manual.',
-    whyEn: 'Evaluating visual alternatives directly in browser viewports collapses edit-refresh feedback loops.',
+    titleId: 'Eksperimen Varian Live di Browser',
+    titleEn: 'Live Variant Experiments in the Browser',
+    descId: 'Dengan dev server lokal berjalan, pilih elemen di browser atau minta varian lewat satu kalimat, lalu terima yang terbaik.',
+    descEn: 'With a local dev server running, pick an element in the browser or ask for variants in one sentence, then accept the best one.',
+    whyId: 'Varian diterapkan lewat HMR dev server Anda, jadi dilihat langsung di halaman asli; hanya untuk checkout lokal, bukan situs produksi.',
+    whyEn: 'Variants are applied through your dev server\'s HMR so you see them on the real page; for local checkouts only, not production sites.',
     steps: [
       'start local dev server',
-      'npx impeccable live',
-      'select target element in browser viewport',
-      'generate 3 alternative variants via AI',
-      'apply chosen variant into source code',
+      '/impeccable live',
+      'pick an element and an action in the browser overlay',
+      '/impeccable generate 3 bolder variants of the pricing cards',
+      'accept the chosen variant',
     ],
   },
 ]
@@ -69,8 +70,8 @@ export function ImpeccableWorkflows() {
         </h2>
         <p className="text-muted-foreground mt-1 text-sm">
           {isEn
-            ? 'How Impeccable design skills combine across design engineering workflows.'
-            : 'Cara skill desain Impeccable berkolaborasi dalam siklus rekayasa desain web.'}
+            ? 'How Impeccable commands combine across design engineering workflows.'
+            : 'Cara command Impeccable berkolaborasi dalam siklus rekayasa desain.'}
         </p>
       </div>
       <div className="grid gap-4">

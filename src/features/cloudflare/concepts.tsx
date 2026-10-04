@@ -23,7 +23,7 @@ export function CloudflareConcepts() {
       <Card className="border border-border">
         <CardHeader className="pb-3">
           <CardTitle className="text-base font-semibold">
-            {isEn ? 'The Edge Compute Hierarchy: Isolates to MicroVMs' : 'Hierarki Compute Edge: Dari Isolate ke MicroVM'}
+            {isEn ? 'The Edge Compute Hierarchy: Workers to Containers' : 'Hierarki Compute Edge: Dari Workers ke Containers'}
           </CardTitle>
           <p className="text-xs text-muted-foreground">
             {isEn
@@ -36,15 +36,15 @@ export function CloudflareConcepts() {
             <div className="rounded-lg border-2 border-emerald-500/70 bg-emerald-500/5 p-3 space-y-2">
               <div className="flex items-center justify-between">
                 <Badge className="bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 text-[10px]">
-                  ISOLATES
+                  WORKERS
                 </Badge>
-                <span className="text-[10px] text-muted-foreground">&lt; 5ms boot</span>
+                <span className="text-[10px] text-muted-foreground">Stateless</span>
               </div>
               <p className="font-semibold text-foreground font-sans text-xs">Workers Core</p>
               <p className="text-[11px] text-muted-foreground leading-tight font-sans">
                 {isEn
-                  ? 'Stateless, zero cold start, shared process memory isolation. Pure TypeScript/JS.'
-                  : 'Stateless, nol cold start, isolasi memori proses bersama. Murni TypeScript/JS.'}
+                  ? 'Stateless request handlers with bindings to storage and services. Keep request state out of module scope.'
+                  : 'Handler request stateless dengan binding ke storage dan layanan. Jangan simpan state request di module scope.'}
               </p>
             </div>
 
@@ -68,13 +68,13 @@ export function CloudflareConcepts() {
                 <Badge className="bg-purple-500/20 text-purple-600 dark:text-purple-400 border border-purple-500/30 text-[10px]">
                   CONTAINER
                 </Badge>
-                <span className="text-[10px] text-muted-foreground">MicroVM</span>
+                <span className="text-[10px] text-muted-foreground">Containers</span>
               </div>
               <p className="font-semibold text-foreground font-sans text-xs">Cloudflare Sandbox</p>
               <p className="text-[11px] text-muted-foreground leading-tight font-sans">
                 {isEn
-                  ? 'Arbitrary binaries (Python, Node, Bash) with strict network egress guardrails.'
-                  : 'Biner bebas (Python, Node, Bash) dengan batas egress jaringan yang ketat.'}
+                  ? 'Isolated Linux environments on Cloudflare Containers, driven from Workers. Keep live credentials in the Worker.'
+                  : 'Lingkungan Linux terisolasi di atas Cloudflare Containers, dikendalikan dari Workers. Simpan kredensial live di Worker.'}
               </p>
             </div>
           </div>
@@ -108,7 +108,7 @@ export function CloudflareConcepts() {
               <span className="text-muted-foreground text-sm">→</span>
               <div className="border border-emerald-500/40 rounded p-2 text-center bg-emerald-500/5 flex-1 min-w-[120px]">
                 <span className="font-semibold text-emerald-600 dark:text-emerald-400 block">3. Accurate Coding</span>
-                <span className="text-[10px] text-muted-foreground">Zero stale API hallucination</span>
+                <span className="text-[10px] text-muted-foreground">Docs over memory</span>
               </div>
               <span className="text-muted-foreground text-sm">→</span>
               <div className="border border-sky-500/40 rounded p-2 text-center bg-sky-500/5 flex-1 min-w-[120px]">
@@ -148,8 +148,8 @@ export function CloudflareConcepts() {
               </div>
               <p className="text-muted-foreground leading-relaxed">
                 {isEn
-                  ? 'siteverify must be called server-side. Validate success === true, verify hostname matches your domain, and verify the action string to prevent token reuse.'
-                  : 'siteverify wajib dipanggil server-side. Validasi success === true, pastikan hostname cocok dengan domain Anda, dan cek string action untuk mencegah pemakaian ulang token.'}
+                  ? 'siteverify must be called server-side. Require success === true and check that the action and hostname match what you expect; tokens are single-use, so replays must be rejected (the skill tests this with a fresh token and a replay).'
+                  : 'siteverify wajib dipanggil server-side. Wajibkan success === true dan cek bahwa action dan hostname sesuai harapan; token bersifat sekali pakai, sehingga replay harus ditolak (skill menguji ini dengan token baru dan replay).'}
               </p>
             </div>
 

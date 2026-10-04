@@ -58,8 +58,8 @@ export function TanStackConcepts() {
               <p className="font-semibold text-foreground font-sans text-xs">Reactive Hooks</p>
               <p className="text-[11px] text-muted-foreground leading-tight font-sans">
                 {isEn
-                  ? 'useReactTable, useVirtualizer, useForm, useStore, useQuery. Fine-grained subscriptions.'
-                  : 'useReactTable, useVirtualizer, useForm, useStore, useQuery. Berlangganan reaktif presisi.'}
+                  ? 'useTable (v9) / useReactTable (v8), useVirtualizer, useForm, useSelector, useQuery. Fine-grained subscriptions.'
+                  : 'useTable (v9) / useReactTable (v8), useVirtualizer, useForm, useSelector, useQuery. Berlangganan reaktif presisi.'}
               </p>
             </div>
 

@@ -1,1 +1,1 @@
-export const PRISMA_SKILL_COUNT = 9
+export const PRISMA_SKILL_COUNT = 8

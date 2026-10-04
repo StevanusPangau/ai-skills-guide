@@ -217,3 +217,18 @@
 .react-flow-guide .react-flow__pane {
   cursor: default !important;
 }
+/* Skill detail pages: per-skill accent. Set `--sk-h` (hue) on an ancestor with
+   class `skill-accent`; all derived colours stay decorative, text keeps the
+   regular foreground tokens so contrast does not depend on the hue. */
+.skill-accent {
+  --sk: oklch(0.56 0.16 var(--sk-h, 40));
+  --sk-strong: oklch(0.46 0.14 var(--sk-h, 40));
+  --sk-soft: oklch(0.56 0.16 var(--sk-h, 40) / 0.08);
+  --sk-line: oklch(0.56 0.16 var(--sk-h, 40) / 0.35);
+}
+.dark .skill-accent {
+  --sk: oklch(0.78 0.13 var(--sk-h, 40));
+  --sk-strong: oklch(0.86 0.1 var(--sk-h, 40));
+  --sk-soft: oklch(0.78 0.13 var(--sk-h, 40) / 0.1);
+  --sk-line: oklch(0.78 0.13 var(--sk-h, 40) / 0.4);
+}

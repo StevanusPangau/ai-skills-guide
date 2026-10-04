@@ -1,5 +1,4 @@
 import type {
-  DavidBundleStatus,
   DavidCompatibility,
   DavidInvocation,
   DavidRisk,
@@ -18,16 +17,6 @@ export function compatibilityLabel(c: DavidCompatibility): string {
     draft: m.david_compat_draft,
   }
   return map[c]()
-}
-
-export function bundleLabel(b: DavidBundleStatus): string {
-  const map: Record<DavidBundleStatus, () => string> = {
-    'first-wave': m.david_bundle_first_wave,
-    optional: m.david_bundle_optional,
-    'catalog-only': m.david_bundle_catalog_only,
-    'reuse-existing': m.david_bundle_reuse_existing,
-  }
-  return map[b]()
 }
 
 export function riskLabel(r: DavidRisk): string {

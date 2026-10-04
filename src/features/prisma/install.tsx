@@ -5,7 +5,7 @@ import { getLocale } from '@/paraglide/runtime.js'
 
 const INSTALL = [
   'npx skills@latest add prisma/skills',
-  '# Pilih skill saat prompt (mis. prisma-upgrade-v7, prisma-client-api, prisma-cli)',
+  '# Pilih skill saat prompt (mis. prisma-orm-setup, prisma-postgres-setup, prisma-cli)',
   '# Install langsung dari repository resmi Prisma (MIT)',
 ].join('\n')
 
@@ -35,10 +35,10 @@ export function PrismaInstall() {
           <CodeBlock code={INSTALL} shell />
           <p className="text-sm text-muted-foreground">
             {isEn
-              ? 'Prisma ORM skills require Node.js 20+ and target Prisma 7. For MongoDB projects on v6, reference prisma-mongodb-upgrade.'
-              : 'Skill Prisma ORM membutuhkan Node.js 20+ dan menargetkan Prisma 7. Untuk proyek MongoDB di v6, gunakan prisma-mongodb-upgrade.'}
+              ? 'New setups default to Prisma ORM 8 (install prisma-orm-setup and prisma-postgres-setup); prisma-cli, prisma-upgrade-v7, prisma-client-api and prisma-driver-adapter-implementation cover Prisma 7. For MongoDB projects on v6, reference prisma-mongodb-upgrade.'
+              : 'Setup baru default ke Prisma ORM 8 (pasang prisma-orm-setup dan prisma-postgres-setup); prisma-cli, prisma-upgrade-v7, prisma-client-api, dan prisma-driver-adapter-implementation mencakup Prisma 7. Untuk proyek MongoDB di v6, gunakan prisma-mongodb-upgrade.'}
           </p>
-          <p className="text-xs text-muted-foreground">Licensed under the MIT License © Prisma Data, Inc.</p>
+          <p className="text-xs text-muted-foreground">Licensed under the MIT License © 2025 Prisma</p>
         </CardContent>
       </Card>
     </section>

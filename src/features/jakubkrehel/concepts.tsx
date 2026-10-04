@@ -13,8 +13,8 @@ export function JakubConcepts() {
         </h2>
         <p className="mt-1 text-muted-foreground text-sm">
           {isEn
-            ? 'The mathematical and optical rules behind Jakub Krehel\'s precision UI standards (interfaces.dev).'
-            : 'Aturan matematis dan optis di balik standar antarmuka presisi Jakub Krehel (interfaces.dev).'}
+            ? 'Rules from the better-* skills that make interfaces feel right (jakubkrehel/skills, interfaces.dev).'
+            : 'Aturan dari skill better-* yang membuat antarmuka terasa tepat (jakubkrehel/skills, interfaces.dev).'}
         </p>
       </div>
 
@@ -26,17 +26,18 @@ export function JakubConcepts() {
               <CardTitle className="text-base">
                 {isEn ? 'Concentric Radius Formula' : 'Formula Radius Sepusat'}
               </CardTitle>
-              <Badge variant="outline" className="font-mono text-[11px]">R_in = R_out - P</Badge>
+              <Badge variant="outline" className="font-mono text-[11px]">outer = inner + padding</Badge>
             </div>
           </CardHeader>
           <CardContent className="space-y-3 text-sm text-muted-foreground">
             <p>
               {isEn
-                ? 'Nested elements sharing identical border radius look visually broken. For curves to be concentric, the inner radius must equal the outer radius minus the container padding.'
-                : 'Elemen bersarang dengan border-radius seragam akan terlihat canggung dan tidak harmonis. Agar lengkungan sepusat (concentric), radius dalam harus sama dengan radius luar dikurangi padding.'}
+                ? 'Nested elements sharing an identical border radius look off. For curves to be concentric the outer radius equals the inner radius plus the padding between them. It matters most when surfaces sit close together; past 24px of padding, treat them as separate surfaces.'
+                : 'Elemen bersarang dengan border-radius seragam tampak janggal. Agar lengkungan sepusat, radius luar sama dengan radius dalam ditambah padding di antaranya. Paling penting bila permukaan berdekatan; di atas padding 24px, perlakukan sebagai permukaan terpisah.'}
             </p>
             <div className="rounded-md bg-muted/60 p-2.5 font-mono text-xs text-foreground">
-              border-radius: max(0px, var(--parent-radius) - var(--padding));
+              .card {'{'} border-radius: 20px; padding: 8px; {'}'} /* 12 + 8 */<br />
+              .card-inner {'{'} border-radius: 12px; {'}'}
             </div>
           </CardContent>
         </Card>
@@ -48,17 +49,17 @@ export function JakubConcepts() {
               <CardTitle className="text-base">
                 {isEn ? 'Geometric vs Optical Centering' : 'Pusat Geometri vs Keseimbangan Optis'}
               </CardTitle>
-              <Badge variant="outline" className="font-mono text-[11px]">+2px X-Offset</Badge>
+              <Badge variant="outline" className="font-mono text-[11px]">optical alignment</Badge>
             </div>
           </CardHeader>
           <CardContent className="space-y-3 text-sm text-muted-foreground">
             <p>
               {isEn
-                ? 'Asymmetrical icons (e.g. Play triangle, Chevrons) centered via geometric bounding boxes appear displaced towards their visual weight. They require intentional subpixel optical shifts.'
-                : 'Ikon asimetris (seperti segitiga Play atau panah) yang diletakkan persis di tengah kotak pembungkus geometris akan tampak miring karena distribusi beban visualnya. Butuh kompensasi offset optis manual.'}
+                ? 'When geometric centering looks off, align optically. A play triangle\'s geometric center is not its visual center, so it is shifted slightly right; for buttons with an icon, use slightly less padding on the icon side. For other asymmetric icons (stars, arrows, carets), the best fix is the SVG itself.'
+                : 'Bila pemusatan geometris terlihat janggal, selaraskan secara optis. Pusat geometris segitiga play bukan pusat visualnya, jadi digeser sedikit ke kanan; untuk tombol berikon, beri padding sedikit lebih kecil di sisi ikon. Untuk ikon asimetris lain (bintang, panah, caret), perbaikan terbaik ada di SVG-nya.'}
             </p>
             <div className="rounded-md bg-muted/60 p-2.5 font-mono text-xs text-foreground">
-              /* Play button center shift */ translate-x-[2px]
+              .play-button svg {'{'} transform: translateX(2px); {'}'}
             </div>
           </CardContent>
         </Card>
@@ -68,19 +69,19 @@ export function JakubConcepts() {
           <CardHeader className="pb-2">
             <div className="flex items-center justify-between gap-2">
               <CardTitle className="text-base">
-                {isEn ? 'Perceptual Lightness (OKLCH)' : 'Keseragaman Terang Perseptual (OKLCH)'}
+                {isEn ? 'Gradient Interpolation Space' : 'Ruang Interpolasi Gradasi'}
               </CardTitle>
-              <Badge variant="outline" className="font-mono text-[11px]">in oklch</Badge>
+              <Badge variant="outline" className="font-mono text-[11px]">in oklab</Badge>
             </div>
           </CardHeader>
           <CardContent className="space-y-3 text-sm text-muted-foreground">
             <p>
               {isEn
-                ? 'Traditional sRGB gradients lose saturation and darken at the midpoint. OKLCH interpolates around the perceptual color wheel, keeping brightness uniform across steps.'
-                : 'Gradasi warna sRGB tradisional seringkali menggelap atau menjadi keabuan di titik tengah. OKLCH menginterpolasi warna berdasarkan persepsi mata manusia sehingga tingkat terang tetap konstan.'}
+                ? 'The interpolation space is a look, not a correctness setting. sRGB darkens and mutes at the midpoint; `in oklab` is the best default (even brightness, no hue surprises); `in oklch` arcs around the hue wheel, staying vivid but able to produce hues nobody asked for. Reach for it when a two-hue gradient goes gray in the middle.'
+                : 'Ruang interpolasi adalah soal tampilan, bukan pengaturan kebenaran. sRGB menggelap dan memudar di titik tengah; `in oklab` adalah default terbaik (kecerahan merata, tanpa kejutan hue); `in oklch` melengkung mengelilingi roda hue sehingga tetap cerah tetapi bisa memunculkan hue yang tidak diminta. Pakai bila gradasi dua-hue menjadi abu-abu di tengah.'}
             </p>
             <div className="rounded-md bg-muted/60 p-2.5 font-mono text-xs text-foreground">
-              background: linear-gradient(in oklch to right, #38bdf8, #818cf8);
+              background: linear-gradient(in oklab, #3b82f6, #ec4899);
             </div>
           </CardContent>
         </Card>
@@ -98,8 +99,8 @@ export function JakubConcepts() {
           <CardContent className="space-y-3 text-sm text-muted-foreground">
             <p>
               {isEn
-                ? 'Proportional numbers cause jitter and layout shift as values increment (e.g. timer, metrics, financial tables). Always enforce monospace figures via OpenType tabular numbers.'
-                : 'Angka proporsional standar menyebabkan getaran (layout shift) saat angka berganti cepat (timer, counter, tabel finansial). Wajib gunakan angka dengan lebar seragam via OpenType tabular numbers.'}
+                ? 'Digits have different widths by default, so timers, counters, and prices shift the layout as they update. Apply tabular figures to any value that changes, using the standard CSS property rather than raw OpenType feature tags.'
+                : 'Lebar digit berbeda secara default, sehingga timer, counter, dan harga menggeser layout saat berubah. Terapkan tabular figures pada setiap nilai yang berubah, memakai properti CSS standar, bukan tag fitur OpenType mentah.'}
             </p>
             <div className="rounded-md bg-muted/60 p-2.5 font-mono text-xs text-foreground">
               font-variant-numeric: tabular-nums;

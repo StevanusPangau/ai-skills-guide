@@ -1,65 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
+import { getWorkflows } from '@/features/workflows-data'
 import { m } from '@/paraglide/messages.js'
-
-function getWorkflows() {
-  return [
-    {
-      title: m.workflow_1_title(),
-      description: m.workflow_1_description(),
-      mengapa: m.workflow_1_why(),
-      steps: ['grill-with-docs', 'to-spec', 'to-tickets', 'implement (tdd)', 'code-review'],
-    },
-    {
-      title: m.workflow_2_title(),
-      description: m.workflow_2_description(),
-      mengapa: m.workflow_2_why(),
-      steps: ['diagnosing-bugs (6 fase)', 'fix + regression test', 'code-review'],
-    },
-    {
-      title: m.workflow_3_title(),
-      description: m.workflow_3_description(),
-      mengapa: m.workflow_3_why(),
-      steps: ['improve-codebase-architecture', 'pilih candidate', 'to-tickets', 'implement', 'code-review'],
-    },
-    {
-      title: m.workflow_4_title(),
-      description: m.workflow_4_description(),
-      mengapa: m.workflow_4_why(),
-      steps: ['triage (state machine)', 'ready-for-agent → implement', 'ready-for-human → manual'],
-    },
-    {
-      title: m.workflow_5_title(),
-      description: m.workflow_5_description(),
-      mengapa: m.workflow_5_why(),
-      steps: ['grill-with-docs (singkat)', 'implement (tdd)', 'code-review'],
-    },
-    {
-      title: m.workflow_6_title(),
-      description: m.workflow_6_description(),
-      mengapa: m.workflow_6_why(),
-      steps: ['/handoff (purpose: prototype)', 'session baru: /prototype', '/handoff back learnings', 'lanjut grilling dengan insight'],
-    },
-    {
-      title: m.workflow_7_title(),
-      description: m.workflow_7_description(),
-      mengapa: m.workflow_7_why(),
-      steps: ['/handoff (dari agent A)', 'load di agent B', 'kerja di agent B', '/handoff back (jika perlu)'],
-    },
-    {
-      title: m.workflow_8_title(),
-      description: m.workflow_8_description(),
-      mengapa: m.workflow_8_why(),
-      steps: ['/implement (terbentur manual)', '/wizard (generate bash script)', 'human runs script locally (.env ready)', 'lanjut /implement'],
-    },
-    {
-      title: m.workflow_9_title(),
-      description: m.workflow_9_description(),
-      mengapa: m.workflow_9_why(),
-      steps: ['/to-questionnaire (grill the send)', 'kirim markdown async / live meeting', 'dapat jawaban keputusan', 'feed ke /grill-with-docs atau /to-spec'],
-    },
-  ]
-}
 
 export function Workflows() {
   const workflows = getWorkflows()

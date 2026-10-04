@@ -1,2 +1,2 @@
 /** Keep in sync when adding/removing entries in `skills.ts`. */
-export const MATTPOCOCK_SKILL_COUNT = 25
+export const MATTPOCOCK_SKILL_COUNT = 27

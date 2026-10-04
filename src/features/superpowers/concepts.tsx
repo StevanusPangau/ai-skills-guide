@@ -13,40 +13,62 @@ export function SuperpowersConcepts() {
         </h2>
         <p className="mt-1 text-muted-foreground text-sm">
           {isEn
-            ? 'Core patterns from Jesse Vincent\'s Superpowers framework (281k+ stars) for orchestrating reliable autonomous agents.'
-            : 'Pola-pola arsitektur inti dari framework Superpowers karya Jesse Vincent (281k+ stars) untuk mengorkestrasi agent yang andal.'}
+            ? 'Core patterns from Jesse Vincent\'s Superpowers methodology for orchestrating coding agents reliably.'
+            : 'Pola-pola inti dari metodologi Superpowers karya Jesse Vincent untuk mengorkestrasi coding agent secara andal.'}
         </p>
       </div>
 
       <div className="grid gap-4 md:grid-cols-2">
-        {/* Coordinator vs Implementer Separation */}
+        {/* Auto-triggered skills */}
         <Card className="border-border">
           <CardHeader className="pb-2">
             <div className="flex items-center justify-between gap-2">
               <CardTitle className="text-base">
-                {isEn ? 'Coordinator vs Worker Separation' : 'Pemisahan Koordinator vs Subagent Worker'}
+                {isEn ? 'Skills Trigger Automatically' : 'Skill Terpicu Otomatis'}
               </CardTitle>
-              <Badge variant="outline" className="font-mono text-[11px]">Clean Context</Badge>
+              <Badge variant="outline" className="font-mono text-[11px]">/using-superpowers</Badge>
             </div>
           </CardHeader>
           <CardContent className="space-y-3 text-sm text-muted-foreground">
             <p>
               {isEn
-                ? 'Monolithic agent chats decay quickly once conversation history exceeds 50k tokens. In SDD, the primary coordinator maintains high-level alignment and delegates execution to disposable subagents.'
-                : 'Chat agent tunggal yang menangani semua tugas akan cepat mengalami degradasi penalaran saat riwayat melebihi 50k token. Pada SDD, agent koordinator utama tetap bersih di level arsitektur dan mendelegasikan tugas ke subagent sekali pakai.'}
+                ? 'A plugin bootstrap injected at session start tells the agent to invoke any skill with even a 1% chance of applying before any response, including clarifying questions. Workflows are mandatory, not suggestions. User instructions (CLAUDE.md, AGENTS.md) still win over skills.'
+                : 'Bootstrap plugin yang disuntikkan saat session dimulai menyuruh agent memanggil skill mana pun yang punya peluang 1% berlaku sebelum respons apa pun, termasuk pertanyaan klarifikasi. Workflow bersifat wajib, bukan saran. Instruksi user (CLAUDE.md, AGENTS.md) tetap mengalahkan skill.'}
             </p>
             <div className="rounded-md bg-muted/60 p-2.5 font-mono text-xs text-foreground">
-              Smart Zone budget: Lead &lt; 50k tokens; Subagent: fresh 200k window
+              Using [skill] to [purpose]
             </div>
           </CardContent>
         </Card>
 
-        {/* Socratic Alignment */}
+        {/* Coordinator vs workers */}
         <Card className="border-border">
           <CardHeader className="pb-2">
             <div className="flex items-center justify-between gap-2">
               <CardTitle className="text-base">
-                {isEn ? 'Socratic Alignment Before Plan' : 'Penyelarasan Sokrates Sebelum Coding'}
+                {isEn ? 'Fresh Subagents per Task' : 'Subagent Segar per Task'}
+              </CardTitle>
+              <Badge variant="outline" className="font-mono text-[11px]">/subagent-driven-development</Badge>
+            </div>
+          </CardHeader>
+          <CardContent className="space-y-3 text-sm text-muted-foreground">
+            <p>
+              {isEn
+                ? 'The controller dispatches a fresh implementer per task, then a task review (spec compliance + code quality), with up to five fix rounds and a broad whole-branch review at the end. Subagents never inherit the session history. A progress ledger on disk survives context compaction.'
+                : 'Controller men-dispatch implementer segar per task, lalu review task (kepatuhan spec + kualitas kode), dengan hingga lima putaran perbaikan dan review luas seluruh branch di akhir. Subagent tidak pernah mewarisi riwayat session. Ledger progres di disk bertahan dari kompaksi konteks.'}
+            </p>
+            <div className="rounded-md bg-muted/60 p-2.5 font-mono text-xs text-foreground">
+              Task N → implementer → task review → fix rounds (≤5) → final review
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Three paths */}
+        <Card className="border-border">
+          <CardHeader className="pb-2">
+            <div className="flex items-center justify-between gap-2">
+              <CardTitle className="text-base">
+                {isEn ? 'Brainstorm Paths with a Hard Gate' : 'Jalur Brainstorming dengan Hard Gate'}
               </CardTitle>
               <Badge variant="outline" className="font-mono text-[11px]">/brainstorming</Badge>
             </div>
@@ -54,43 +76,21 @@ export function SuperpowersConcepts() {
           <CardContent className="space-y-3 text-sm text-muted-foreground">
             <p>
               {isEn
-                ? 'Never jump into generating code or plans without clarifying edge cases. Ask one focused question per turn, explore trade-offs, and reach explicit consensus first.'
-                : 'Jangan pernah langsung menulis kode atau file rencana tanpa mengonfirmasi asumsi yang ambigu. Tanyakan satu pertanyaan spesifik per giliran, diskusikan trade-off, dan capai kesepakatan tegas.'}
+                ? 'The agent classifies the request out loud as Spike, Bounded, or Architectural, and takes the heavier path when in doubt. No implementation action happens until that path\'s approval is given; Architectural work needs a written spec and a reviewed plan.'
+                : 'Agent mengklasifikasikan permintaan keras-keras sebagai Spike, Bounded, atau Architectural, dan memilih jalur lebih berat bila ragu. Tidak ada tindakan implementasi sebelum persetujuan jalur itu diberikan; pekerjaan Architectural butuh spec tertulis dan rencana yang direview.'}
             </p>
             <div className="rounded-md bg-muted/60 p-2.5 font-mono text-xs text-foreground">
-              /brainstorming → explore intent, propose 2-3 approaches, lock spec
+              docs/superpowers/specs/YYYY-MM-DD-&lt;topic&gt;-design.md
             </div>
           </CardContent>
         </Card>
 
-        {/* Two-Tier Review Gates */}
+        {/* Bite-sized plans + TDD */}
         <Card className="border-border">
           <CardHeader className="pb-2">
             <div className="flex items-center justify-between gap-2">
               <CardTitle className="text-base">
-                {isEn ? 'Two-Tier Review Gates' : 'Gerbang Review Dua Lapis'}
-              </CardTitle>
-              <Badge variant="outline" className="font-mono text-[11px]">Spec + Quality</Badge>
-            </div>
-          </CardHeader>
-          <CardContent className="space-y-3 text-sm text-muted-foreground">
-            <p>
-              {isEn
-                ? 'Self-reporting by subagents is untrusted. Every task must pass two distinct checks: Spec Compliance (did it meet acceptance criteria?) and Code Quality (no regressions or bloat).'
-                : 'Laporan keberhasilan subagent tidak boleh dipercaya mentah-mentah. Setiap task wajib melewati dua filter ketat: Kepatuhan Spesifikasi (apakah acceptance criteria terpenuhi?) dan Kualitas Kode (tanpa dead code).' }
-            </p>
-            <div className="rounded-md bg-muted/60 p-2.5 font-mono text-xs text-foreground">
-              Pass criteria: Red-Green-Refactor test green + independent diff review
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Atomic Modular Tasks */}
-        <Card className="border-border">
-          <CardHeader className="pb-2">
-            <div className="flex items-center justify-between gap-2">
-              <CardTitle className="text-base">
-                {isEn ? 'Atomic Modular Task Commits' : 'Commit Modular & Bertahap'}
+                {isEn ? 'Bite-Sized Plans, Tests First' : 'Rencana Kecil, Tes Dulu'}
               </CardTitle>
               <Badge variant="outline" className="font-mono text-[11px]">/writing-plans</Badge>
             </div>
@@ -98,11 +98,11 @@ export function SuperpowersConcepts() {
           <CardContent className="space-y-3 text-sm text-muted-foreground">
             <p>
               {isEn
-                ? 'Break architectural work into small bite-sized tasks (2-5 files max). Each completed subagent task results in an atomic commit, making rollbacks effortless if a test fails.'
-                : 'Pecah pekerjaan arsitektur besar menjadi langkah-langkah modular kecil (maksimal 2-5 file per task). Tiap task menghasilkan satu commit terverifikasi sehingga mudah di-rollback bila bermasalah.'}
+                ? 'Plans are written for an engineer with no context: tasks that are bite-sized (about 2-5 minutes each), one action per step, exact file paths and interfaces. Implementation follows test-driven-development: watch the test fail first.'
+                : 'Rencana ditulis untuk engineer tanpa konteks: task yang kecil (sekitar 2-5 menit per task), satu aksi per langkah, path file dan interface yang persis. Implementasi mengikuti test-driven-development: lihat tes gagal dulu.'}
             </p>
             <div className="rounded-md bg-muted/60 p-2.5 font-mono text-xs text-foreground">
-              docs/plans/001-feature.md: Task N → Subagent → Review → Commit
+              docs/superpowers/plans/YYYY-MM-DD-&lt;feature-name&gt;.md
             </div>
           </CardContent>
         </Card>

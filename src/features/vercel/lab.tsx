@@ -30,43 +30,43 @@ export function VercelWaterfallLab() {
   const signalPhases = [
     {
       step: 1,
-      titleId: '1. Ingest Sinyal 14 Hari',
-      titleEn: '1. Ingest 14-Day Signals',
-      descId: 'Baca sinyal produksi dari signals.json (P95 latency, invocation counts, cold starts). Dilarang membaca source code sebelum fase ini selesai.',
-      descEn: 'Ingest production signals from signals.json (P95 latency, invocations, cold starts). Do not inspect source code before this phase finishes.',
-      metric: 'telemetry_window: 14d',
+      titleId: '1. Kumpulkan Sinyal 14 Hari',
+      titleEn: '1. Collect 14-Day Signals',
+      descId: 'Kumpulkan metrik produksi lewat vercel metrics, vercel usage, dan vercel contract ke signals.json (window 14 hari). Dilarang repo-wide grep sebelum signals.json ada.',
+      descEn: 'Collect production metrics via vercel metrics, vercel usage, and vercel contract into signals.json (14-day window). No repo-wide grep before signals.json exists.',
+      metric: 'signals.json · 14d',
     },
     {
       step: 2,
-      titleId: '2. Peringkat Kandidat Berdasarkan Dampak',
-      titleEn: '2. Rank Candidates by Impact',
-      descId: 'Urutkan route atau serverless function berdasarkan dampak kumulatif (P95 duration × invocations). Abaikan route dengan traffic minim.',
-      descEn: 'Sort routes or serverless functions by cumulative impact (P95 duration × invocations). Ignore low-traffic routes.',
-      metric: 'impact = p95_ms × req_count',
+      titleId: '2. Gate Deterministik',
+      titleEn: '2. Deterministic Gate',
+      descId: 'gate-investigations.mjs memilih kandidat dengan ambang batas deterministik (bukan perkalian P95 x jumlah request); default maksimal 6 kandidat dengan diversity guardrail.',
+      descEn: 'gate-investigations.mjs selects candidates with deterministic thresholds (not a P95 x request-count product); at most 6 candidates by default, with a diversity guardrail.',
+      metric: 'gate.json · max 6',
     },
     {
       step: 3,
-      titleId: '3. Isolasi Kode & Waterfall',
-      titleEn: '3. Isolate Code & Waterfalls',
-      descId: 'Hanya baca file sumber yang terkait route kandidat teratas. Audit sequential awaits, barrel exports, dan dynamic imports.',
-      descEn: 'Read only source files tied to the top candidate route. Audit sequential awaits, barrel exports, and dynamic imports.',
-      metric: 'scope: candidate_files_only',
+      titleId: '3. Investigasi Per Kandidat',
+      titleEn: '3. Per-Candidate Investigation',
+      descId: 'deep-dive mengumpulkan bukti, lalu brief per entri diinvestigasi: inline untuk 1-2 brief, satu sub-agent per brief untuk 3+. Hanya berkas yang tercantum di brief (plus import lokal route) yang dibaca.',
+      descEn: 'deep-dive gathers evidence, then each brief is investigated: inline for 1-2 briefs, one sub-agent per brief for 3+. Only files listed in the brief (plus route-local imports) are read.',
+      metric: 'scope: brief files',
     },
     {
       step: 4,
-      titleId: '4. Usulkan Patch Terukur',
-      titleEn: '4. Propose Targeted Patch',
-      descId: 'Buat perubahan kode terkecil yang menyelesaikan bottleneck spesifik (misal Promise.all atau export const runtime).',
-      descEn: 'Produce the minimal code change solving the specific bottleneck (e.g. Promise.all or export const runtime).',
-      metric: 'patch: minimal_diff',
+      titleId: '4. Verifikasi Mekanis',
+      titleEn: '4. Mechanical Verification',
+      descId: 'verify-and-regen memeriksa klaim, berkas, dan sitasi versi framework; brief yang gagal diulang dengan daftar kegagalan sebelumnya.',
+      descEn: 'verify-and-regen checks claims, files, and framework-version citations; briefs that fail are rerun with the previous failures listed.',
+      metric: 'verify-and-regen',
     },
     {
       step: 5,
-      titleId: '5. Bukti Sinyal Pasca-Audit',
-      titleEn: '5. Post-Audit Signal Verification',
-      descId: 'Bandingkan proyeksi penghematan waktu eksekusi dan biaya Vercel sebelum commit diajukan ke user.',
-      descEn: 'Compare projected execution time savings and Vercel compute costs before proposing commit.',
-      metric: 'delta_p95: -45% projected',
+      titleId: '5. Laporan Rekomendasi Berperingkat',
+      titleEn: '5. Ranked Recommendation Report',
+      descId: 'render-report menghasilkan report.md dan final-message.json berisi rekomendasi berperingkat dengan bukti metrik. Skill tidak membuat patch dan memakai frasa magnitudo biaya, bukan angka penghematan $N.',
+      descEn: 'render-report emits report.md and final-message.json with ranked, metric-backed recommendations. The skill does not produce patches and uses cost-magnitude phrases, not $N savings figures.',
+      metric: 'report.md',
     },
   ]
 
@@ -99,8 +99,8 @@ export function VercelWaterfallLab() {
                 </CardTitle>
                 <p className="text-xs text-muted-foreground mt-0.5">
                   {isEn
-                    ? 'Rule: waterfall-promise-all (Rank: CRITICAL) — sequential awaits kill TTFB and wall-clock execution.'
-                    : 'Aturan: waterfall-promise-all (Rank: CRITICAL) — await berurutan merusak TTFB dan durasi eksekusi.'}
+                    ? 'Rule: async-parallel (CRITICAL) — sequential awaits kill TTFB and wall-clock execution.'
+                    : 'Aturan: async-parallel (CRITICAL) — await berurutan merusak TTFB dan durasi eksekusi.'}
                 </p>
               </div>
               <div className="flex gap-1.5 bg-muted/60 p-1 rounded-lg border border-border">
@@ -311,7 +311,7 @@ export function VercelWaterfallLab() {
                     {isEn ? '✓ Vercel Composition Pattern:' : '✓ Pola Komposisi Vercel:'}
                   </div>
                   <code className="text-[11px] block font-mono text-muted-foreground">
-                    {'<Composer.Root>\n  <Composer.Input />\n  <Composer.Footer />\n</Composer.Root>'}
+                    {'<Composer.Frame>\n  <Composer.Input />\n  <Composer.Footer />\n</Composer.Frame>'}
                   </code>
                   <p className="text-[11px] text-muted-foreground mt-1.5 italic">
                     {isEn
@@ -331,8 +331,8 @@ export function VercelWaterfallLab() {
               </CardTitle>
               <p className="text-xs text-muted-foreground mt-0.5">
                 {isEn
-                  ? 'Five strictly ordered phases: never touch code before production telemetry proves the need.'
-                  : 'Lima fase berurutan: dilarang mengubah kode sebelum telemetri produksi membuktikannya.'}
+                  ? 'Five ordered phases: do not read source before production telemetry selects candidates.'
+                  : 'Lima fase berurutan: dilarang membaca source sebelum telemetri produksi memilih kandidat.'}
               </p>
             </CardHeader>
             <CardContent className="space-y-3">
@@ -379,8 +379,8 @@ export function VercelWaterfallLab() {
                   {isEn ? 'Core Rule: ' : 'Aturan Pokok: '}
                 </span>
                 {isEn
-                  ? 'vercel-optimize rejects code modifications if signals.json does not flag the route as a top latency or cost contributor.'
-                  : 'vercel-optimize menolak modifikasi kode bila signals.json tidak mencatat route tersebut sebagai kontributor latensi atau biaya utama.'}
+                  ? 'vercel-optimize traces every recommendation to a metric-backed candidate or a traffic-independent scanner finding; no repo-wide grep beyond candidate scope.'
+                  : 'vercel-optimize melacak setiap rekomendasi ke kandidat berbasis metrik atau temuan scanner yang tidak bergantung traffic; tidak ada repo-wide grep di luar cakupan kandidat.'}
               </div>
             </CardContent>
           </Card>

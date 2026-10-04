@@ -36,6 +36,7 @@ function CloudflareIndexPage() {
     { label: 'Workers Platform', value: 'workers-platform' },
     { label: 'Compute & State', value: 'compute-state' },
     { label: 'Security & Access', value: 'security-access' },
+    { label: 'Data & Streaming', value: 'data-streaming' },
     { label: 'Messaging', value: 'messaging' },
   ]
 
