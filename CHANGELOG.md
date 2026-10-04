@@ -19,6 +19,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Install routes: Claude Code plugin routes (mattpocock, expo, jakubkrehel, tanstack, superpowers per harness), `npx impeccable install`, and `--skill '*'` for Expo.
 
 ### Changed
+- **Performance: entry bundle cut from 1,282 KB (408 KB gzip) to 314 KB (96 KB gzip).** The 15 skill-page route loaders statically imported every collection's data (and so did the global search dialog), so ~1 MB of skill text shipped on first paint. Loaders now `import()` their own collection's data, and the search dialog is lazy-loaded (warmed on hover/focus of the search button). Each collection's data is its own chunk, fetched only when needed.
+- Lighthouse (mobile, simulated slow 4G, gzip): home 72 → 92, skill page 71 → 84, `/gsap` 60 → 77; LCP on home 4.7 s → 2.4 s; total transfer on home 851 → 322 KiB.
+- Avatars resized to 96 px (≈190 KB → 14 KB) and set to `loading="lazy"`; removed `favicon.svg` (a 47 KB SVG wrapping a base64 PNG; PNG/ICO favicons remain); added cache headers for `/avatars/*` and `/diagrams/*`.
 - **Animation previews redesigned** around shared motion primitives (`src/features/motion/`: dotted-grid `MotionStage`, `PlaybackBar` with Replay and 1×/0.5×/0.25× slow motion, `EasingCurve` plot with a moving dot, reduced-motion aware):
   - **Emil Kowalski**: Before and After now sit side by side with real easing-curve plots and durations; the tall skill list became grouped chips; the preview covers 9 of 14 skills with new demos for `animate` (frequency-gated decision order), `break-ui` (worst-case, empty and single-item data) and `mobile-native` (sticky hover, tap highlight, `100vh` vs `100dvh`, 16px input zoom).
   - **GSAP**: the slider-only ScrollTrigger demo is now a real scrollable box comparing `scrub: true` with `scrub: 1`; the position-parameter demo is a timeline track visualiser that recomputes from `<`, `>`, `+=`, `-=`, absolute and label positions; the layout-vs-compositor demo shows which pipeline stages each approach triggers. All are labelled illustrative and load no GSAP package.
@@ -32,6 +35,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - The SEO generator handles 2-space-indented records and fails the build when a skill count disagrees with its `*-skills-meta.ts`.
 
 ### Fixed
+- Global search: the focus timer is cleared on close/unmount; GSAP scrub lab no longer writes a ref during render; `window.open` for source links now uses `noopener,noreferrer`.
 - Install blocks: the `github.com/` prefix was passed as the skills.sh source for expo, gsap, impeccable, prisma, supabase and tanstack; the Cloudflare route used `cloudflares/skills`.
 - `public/sitemap.xml` and `public/llms.txt` omitted `docx`, `pdf`, `pptx` and `xlsx`; they now list all 289 canonical URLs.
 - Broken or self-referencing "Pairs well with" links (cross-collection names, nonexistent skills, a skill pairing with itself) now resolve within their own collection.

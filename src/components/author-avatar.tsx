@@ -44,6 +44,7 @@ export function AuthorAvatar({
       alt={decorative ? '' : m.author_avatar_alt({ name })}
       width={px}
       height={px}
+      loading="lazy"
       decoding="async"
       className={cn(
         'shrink-0 rounded-full bg-muted object-cover ring-1 ring-border/80 ring-offset-1 ring-offset-background',

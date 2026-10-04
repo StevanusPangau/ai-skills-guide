@@ -48,11 +48,11 @@ export function GlobalSearchDialog({
   }, [query])
 
   useEffect(() => {
-    if (open) {
-      setQuery('')
-      setSelectedIndex(0)
-      setTimeout(() => inputRef.current?.focus(), 50)
-    }
+    if (!open) return
+    setQuery('')
+    setSelectedIndex(0)
+    const timer = window.setTimeout(() => inputRef.current?.focus(), 50)
+    return () => window.clearTimeout(timer)
   }, [open])
 
   // Scroll selected into view

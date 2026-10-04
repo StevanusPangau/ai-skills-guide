@@ -27,6 +27,14 @@
 /assets/*
   Cache-Control: public, max-age=31536000, immutable
 
+# Self-hosted images and diagrams are not content-hashed: cache for a day and
+# revalidate in the background for a week, so repeat visits skip the network.
+/avatars/*
+  Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+
+/diagrams/*
+  Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+
 # Service worker / manifest — short cache
 /site.webmanifest
   Cache-Control: public, max-age=0, must-revalidate
