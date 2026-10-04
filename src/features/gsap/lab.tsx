@@ -11,15 +11,23 @@ export function GsapTimelineLab() {
 
   const pipelineCost =
     renderPipeline === 'transform'
-      ? { phases: 'Composite (GPU)', fps: '60 FPS', cpu: '1.2% CPU' }
-      : { phases: 'Style -> Layout -> Paint -> Composite', fps: '24-38 FPS (Jank)', cpu: '38.4% CPU' }
+      ? {
+          phases: 'Composite',
+          noteEn: 'Transforms and opacity keep work on the compositor and avoid layout and most paint.',
+          noteId: 'Transform dan opacity menjaga pekerjaan di compositor dan menghindari layout serta sebagian besar paint.',
+        }
+      : {
+          phases: 'Style -> Layout -> Paint -> Composite',
+          noteEn: 'Layout properties trigger layout and can cause jank. Prefer x/y over left/top.',
+          noteId: 'Properti layout memicu layout dan bisa menyebabkan jank. Utamakan x/y daripada left/top.',
+        }
 
   return (
     <section id="gsap-lab" className="scroll-mt-20 space-y-6">
       <div>
         <div className="flex items-center gap-2">
           <h2 className="text-2xl font-bold tracking-tight text-balance">
-            {isEn ? 'Timeline Choreography & 60FPS Lab' : 'Lab Koreografi Timeline & 60FPS GSAP'}
+            {isEn ? 'Timeline Choreography & Performance Lab' : 'Lab Koreografi Timeline & Performa GSAP'}
           </h2>
           <Badge variant="secondary" className="font-mono text-xs">
             Interactive
@@ -27,8 +35,8 @@ export function GsapTimelineLab() {
         </div>
         <p className="text-muted-foreground mt-1 text-sm">
           {isEn
-            ? 'Interactive exploration of GSAP choreography: position parameter flexibility, ScrollTrigger scrubbing physics, and the layout-vs-transform GPU pipeline.'
-            : 'Eksplorasi interaktif koreografi GSAP: fleksibilitas position parameter, fisika scrubbing ScrollTrigger, dan pipeline render GPU transform vs layout.'}
+            ? 'Interactive exploration of GSAP choreography: position parameter flexibility, ScrollTrigger scrubbing, and layout vs transform properties.'
+            : 'Eksplorasi interaktif koreografi GSAP: fleksibilitas position parameter, scrubbing ScrollTrigger, dan properti layout vs transform.'}
         </p>
       </div>
 
@@ -45,8 +53,8 @@ export function GsapTimelineLab() {
                 </CardTitle>
                 <p className="text-xs text-muted-foreground mt-0.5">
                   {isEn
-                    ? 'Rule: gsap-scrolltrigger — attach scrub: 1 on timeline root for inertial scroll synchronization.'
-                    : 'Aturan: gsap-scrolltrigger — pasang scrub: 1 pada root timeline untuk sinkronisasi scroll berinersia.'}
+                    ? 'Rule (gsap-scrolltrigger): attach scrollTrigger once on the timeline root; a numeric scrub (e.g. scrub: 1) adds smoothing. The values below are illustrative.'
+                    : 'Aturan (gsap-scrolltrigger): pasang scrollTrigger sekali pada root timeline; scrub numerik (mis. scrub: 1) menambah smoothing. Nilai di bawah hanya ilustrasi.'}
                 </p>
               </div>
               <Badge variant="outline" className="font-mono text-xs">
@@ -163,12 +171,12 @@ export function GsapTimelineLab() {
           <Card className="border border-border">
             <CardHeader className="pb-3">
               <CardTitle className="text-base font-semibold">
-                {isEn ? '3. Layout Thrashing vs GPU Composite' : '3. Layout Thrashing vs GPU Composite'}
+                {isEn ? '3. Layout vs Compositor' : '3. Layout vs Compositor'}
               </CardTitle>
               <p className="text-xs text-muted-foreground mt-0.5">
                 {isEn
-                  ? 'Rule: gsap-performance — animate transforms (x, y) to bypass Layout and Paint passes.'
-                  : 'Aturan: gsap-performance — animasikan transform (x, y) untuk melewati fase Layout dan Paint.'}
+                  ? 'Rule (gsap-performance): animate transforms and opacity instead of layout properties.'
+                  : 'Aturan (gsap-performance): animasikan transform dan opacity, bukan properti layout.'}
               </p>
             </CardHeader>
             <CardContent className="space-y-4 text-xs">
@@ -182,7 +190,7 @@ export function GsapTimelineLab() {
                       : 'border-border text-muted-foreground hover:text-foreground'
                   }`}
                 >
-                  x: 100, y: 50 (GPU)
+                  x: 100, y: 50
                 </button>
                 <button
                   type="button"
@@ -204,22 +212,9 @@ export function GsapTimelineLab() {
                     {pipelineCost.phases}
                   </Badge>
                 </div>
-                <div className="flex justify-between items-center font-mono">
-                  <span className="text-muted-foreground">Framerate:</span>
-                  <span
-                    className={`font-bold ${
-                      renderPipeline === 'transform'
-                        ? 'text-emerald-600 dark:text-emerald-400'
-                        : 'text-destructive'
-                    }`}
-                  >
-                    {pipelineCost.fps}
-                  </span>
-                </div>
-                <div className="flex justify-between items-center font-mono">
-                  <span className="text-muted-foreground">CPU Cost:</span>
-                  <span className="font-bold text-foreground">{pipelineCost.cpu}</span>
-                </div>
+                <p className="text-[11px] leading-relaxed text-muted-foreground">
+                  {isEn ? pipelineCost.noteEn : pipelineCost.noteId}
+                </p>
               </div>
             </CardContent>
           </Card>

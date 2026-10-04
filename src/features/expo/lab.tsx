@@ -21,8 +21,8 @@ export function ExpoNativeLab() {
         </div>
         <p className="text-muted-foreground mt-1 text-sm">
           {isEn
-            ? 'Interactive simulator for mobile screen boundaries, safe area notch handling, and the critical OTA vs native binary decision tree.'
-            : 'Simulasi interaktif batas layar mobile, penanganan notch safe area, dan pohon keputusan rilis OTA vs binary native.'}
+            ? 'Interactive demo of safe-area handling and the OTA update vs new native build decision.'
+            : 'Demo interaktif penanganan safe area dan keputusan antara update OTA vs build native baru.'}
         </p>
       </div>
 
@@ -34,13 +34,13 @@ export function ExpoNativeLab() {
               <div>
                 <CardTitle className="text-base font-semibold">
                   {isEn
-                    ? '1. Safe Area Insets: Dynamic Island vs Screen Clipping'
-                    : '1. Safe Area Insets: Dynamic Island vs Terpotong Notch'}
+                    ? '1. Safe Area: Dynamic Island vs Screen Clipping'
+                    : '1. Safe Area: Dynamic Island vs Terpotong Notch'}
                 </CardTitle>
                 <p className="text-xs text-muted-foreground mt-0.5">
                   {isEn
-                    ? 'Rule: expo-native-ui — wrap screens in useSafeAreaInsets to avoid hardware obstruction.'
-                    : 'Aturan: expo-native-ui — gunakan useSafeAreaInsets agar konten tidak terpotong hardware fisik.'}
+                    ? 'Rule (expo-native-ui): prefer contentInsetAdjustmentBehavior="automatic" over SafeAreaView; always account for top and bottom insets.'
+                    : 'Aturan (expo-native-ui): utamakan contentInsetAdjustmentBehavior="automatic" daripada SafeAreaView; selalu hitung inset atas dan bawah.'}
                 </p>
               </div>
               <div className="flex gap-2">
@@ -101,7 +101,7 @@ export function ExpoNativeLab() {
                   {isEn ? 'Recommended Implementation:' : 'Implementasi yang Direkomendasikan:'}
                 </span>
                 <pre className="rounded bg-zinc-950 p-3 text-xs font-mono text-zinc-200 overflow-x-auto border border-zinc-800">
-                  {`import { useSafeAreaInsets } from 'react-native-safe-area-context'\n\nexport function Screen() {\n  const insets = useSafeAreaInsets()\n  return (\n    <View style={{\n      paddingTop: insets.top,\n      paddingBottom: insets.bottom,\n      paddingLeft: insets.left,\n      paddingRight: insets.right,\n    }}>\n      <Header />\n      <Body />\n    </View>\n  )\n}`}
+                  {`export default function Screen() {\n  return (\n    <ScrollView contentInsetAdjustmentBehavior="automatic">\n      <Header />\n      <Body />\n    </ScrollView>\n  )\n}\n// Title lives in the Stack header (Stack.Title),\n// not in a custom Text on the page.`}
                 </pre>
               </div>
             </div>
@@ -118,8 +118,8 @@ export function ExpoNativeLab() {
               </CardTitle>
               <p className="text-xs text-muted-foreground mt-0.5">
                 {isEn
-                  ? 'Rule: eas-update — native runtime changes require new builds; JS changes ship OTA.'
-                  : 'Aturan: eas-update — perubahan native butuh build baru; perubahan JS bisa OTA.'}
+                  ? 'Rule (eas-update): native code or config changes need a new build; compatible JS/asset changes can ship as an update.'
+                  : 'Aturan (eas-update): perubahan kode/config native butuh build baru; perubahan JS/aset yang kompatibel bisa dikirim sebagai update.'}
               </p>
             </CardHeader>
             <CardContent className="space-y-4 text-xs">
@@ -154,15 +154,15 @@ export function ExpoNativeLab() {
                     <span className="font-bold text-emerald-600 dark:text-emerald-400 block">
                       EAS Update (Over-the-Air)
                     </span>
-                    <Badge variant="outline" className="font-mono text-[10px]">~30 detik deploy</Badge>
+                    <Badge variant="outline" className="font-mono text-[10px]">runtime match</Badge>
                   </div>
                   <p className="text-muted-foreground leading-relaxed text-[11px]">
                     {isEn
-                      ? 'Bypasses App Store and Google Play review cycles. Shipped immediately to client devices.'
-                      : 'Mem-bypass antrean review Apple dan Google Play. Terkirim instan ke ponsel pengguna.'}
+                      ? 'Delivers JavaScript and asset changes without a new native binary, to builds whose platform, runtime version and channel match. Release builds may need up to two cold launches to show it.'
+                      : 'Mengirim perubahan JavaScript dan aset tanpa binary native baru, ke build yang platform, runtime version, dan channel-nya cocok. Build rilis mungkin butuh hingga dua cold launch untuk menampilkannya.'}
                   </p>
                   <pre className="rounded bg-zinc-950 p-2 font-mono text-[10px] text-zinc-200">
-                    eas update --branch production --message "Fix checkout button"
+                    eas update --channel production --message "Fix checkout button" --environment production
                   </pre>
                 </div>
               ) : (
@@ -171,15 +171,15 @@ export function ExpoNativeLab() {
                     <span className="font-bold text-primary block">
                       EAS Build & EAS Submit
                     </span>
-                    <Badge variant="outline" className="font-mono text-[10px]">1-3 hari review</Badge>
+                    <Badge variant="outline" className="font-mono text-[10px]">new build</Badge>
                   </div>
                   <p className="text-muted-foreground leading-relaxed text-[11px]">
                     {isEn
-                      ? 'Native Swift, Kotlin, info.plist, or AndroidManifest edits require compiling a new IPA/AAB binary.'
-                      : 'Perubahan Swift, Kotlin, info.plist, atau AndroidManifest wajib mengkompilasi binary IPA/AAB baru.'}
+                      ? 'Native code or native configuration changes (including SDK upgrades) require compiling a new build; then submit it to the stores.'
+                      : 'Perubahan kode atau konfigurasi native (termasuk upgrade SDK) wajib mengompilasi build baru; lalu submit ke store.'}
                   </p>
                   <pre className="rounded bg-zinc-950 p-2 font-mono text-[10px] text-zinc-200">
-                    eas build --platform all --profile production --auto-submit
+                    eas build --profile production --auto-submit
                   </pre>
                 </div>
               )}
@@ -194,8 +194,8 @@ export function ExpoNativeLab() {
               </CardTitle>
               <p className="text-xs text-muted-foreground mt-0.5">
                 {isEn
-                  ? 'Switches from simulated JS controls to genuine SwiftUI and Jetpack Compose.'
-                  : 'Beralih dari kontrol simulasi JS ke SwiftUI dan Jetpack Compose asli.'}
+                  ? 'Real SwiftUI on iOS and Jetpack Compose on Android, wrapped in Host (universal layer needs SDK 56+).'
+                  : 'SwiftUI asli di iOS dan Jetpack Compose di Android, dibungkus Host (lapisan universal butuh SDK 56+).'}
               </p>
             </CardHeader>
             <CardContent className="space-y-3 text-xs">
@@ -203,21 +203,21 @@ export function ExpoNativeLab() {
                 <div className="border border-border rounded p-2.5 bg-muted/20 space-y-1">
                   <span className="font-bold text-foreground block">iOS Target</span>
                   <p className="text-[11px] text-muted-foreground">
-                    SwiftUI Button, Switch, Sheet native widget dengan fisika pegas Apple.
+                    @expo/ui/swift-ui: komponen SwiftUI asli (mis. BottomSheet, Picker, Switch), iOS saja.
                   </p>
                 </div>
                 <div className="border border-border rounded p-2.5 bg-muted/20 space-y-1">
                   <span className="font-bold text-foreground block">Android Target</span>
                   <p className="text-[11px] text-muted-foreground">
-                    Jetpack Compose Material 3 button dengan ripple effect GPU hardware.
+                    @expo/ui/jetpack-compose: komponen Jetpack Compose asli, Android saja.
                   </p>
                 </div>
               </div>
               <div className="rounded bg-muted/40 p-2 text-[11px] text-muted-foreground border-l-2 border-primary/50">
-                <strong className="text-foreground">{isEn ? 'Zero Frame Drops: ' : 'Nol Frame Drop: '}</strong>
+                <strong className="text-foreground">{isEn ? 'Universal first: ' : 'Universal dulu: '}</strong>
                 {isEn
-                  ? 'All animations and drag gestures resolve on the native platform render thread.'
-                  : 'Seluruh animasi dan gesture diselesaikan langsung di thread render platform native.'}
+                  ? 'Components from the @expo/ui root run on iOS, Android and web from one tree; use the platform-specific layers only when a component is missing.'
+                  : 'Komponen dari root @expo/ui berjalan di iOS, Android, dan web dari satu tree; pakai lapisan platform-spesifik hanya bila komponen belum ada.'}
               </div>
             </CardContent>
           </Card>
