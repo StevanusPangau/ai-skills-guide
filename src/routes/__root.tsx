@@ -1,11 +1,18 @@
-import { useState, useEffect } from 'react'
+import { lazy, Suspense, useState, useEffect } from 'react'
 import { createRootRoute, Link, Outlet } from '@tanstack/react-router'
 import { RiGithubFill, RiMoonLine, RiSunLine, RiSearchLine } from '@remixicon/react'
 import { Button } from '@/components/ui/button'
-import { GlobalSearchDialog } from '@/components/global-search-dialog'
 import { externalLinkAriaLabel } from '@/lib/external-link'
 import { m } from '@/paraglide/messages.js'
 import { getLocale, setLocale } from '@/paraglide/runtime.js'
+
+// The search dialog pulls in the data of every collection (~1 MB raw), so it is
+// code-split out of the entry bundle and fetched on first use (warmed when the
+// search button is hovered or focused).
+const loadSearchDialog = () => import('@/components/global-search-dialog')
+const GlobalSearchDialog = lazy(() =>
+  loadSearchDialog().then((mod) => ({ default: mod.GlobalSearchDialog })),
+)
 
 export const Route = createRootRoute({
   component: RootLayout,
@@ -50,12 +57,19 @@ function syncThemeColor(dark: boolean) {
 function RootLayout() {
   const [dark, setDark] = useState(readStoredDark)
   const [searchOpen, setSearchOpen] = useState(false)
+  // Mount the (lazy) dialog only once it has been requested.
+  const [searchMounted, setSearchMounted] = useState(false)
+  const openSearch = () => {
+    setSearchMounted(true)
+    setSearchOpen(true)
+  }
 
   // Global Cmd+K / Ctrl+K shortcut
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
         e.preventDefault()
+        setSearchMounted(true)
         setSearchOpen((prev) => !prev)
       }
     }
@@ -136,7 +150,9 @@ function RootLayout() {
             <Button
               variant="outline"
               size="sm"
-              onClick={() => setSearchOpen(true)}
+              onClick={openSearch}
+              onPointerEnter={() => void loadSearchDialog()}
+              onFocus={() => void loadSearchDialog()}
               className="hidden sm:flex items-center gap-2 h-8 px-2.5 text-xs text-muted-foreground border-border/80 hover:text-foreground hover:bg-muted font-normal"
               title="Cari skill (Cmd+K)"
             >
@@ -150,7 +166,9 @@ function RootLayout() {
             <Button
               variant="ghost"
               size="icon"
-              onClick={() => setSearchOpen(true)}
+              onClick={openSearch}
+              onPointerEnter={() => void loadSearchDialog()}
+              onFocus={() => void loadSearchDialog()}
               className="sm:hidden text-muted-foreground hover:text-foreground"
               aria-label="Cari skill"
             >
@@ -197,7 +215,11 @@ function RootLayout() {
       </header>
 
       <Outlet />
-      <GlobalSearchDialog open={searchOpen} onOpenChange={setSearchOpen} />
+      {searchMounted ? (
+        <Suspense fallback={null}>
+          <GlobalSearchDialog open={searchOpen} onOpenChange={setSearchOpen} />
+        </Suspense>
+      ) : null}
     </div>
   )
 }

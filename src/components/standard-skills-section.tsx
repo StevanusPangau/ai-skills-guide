@@ -160,7 +160,7 @@ export function StandardSkillsSection({
                               onClick={(e) => {
                                 e.preventDefault()
                                 e.stopPropagation()
-                                window.open(`https://${repoUrl}/tree/main/${skill.sourcePath}`, '_blank')
+                                window.open(`https://${repoUrl}/tree/main/${skill.sourcePath}`, '_blank', 'noopener,noreferrer')
                               }}
                               className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-primary transition-colors"
                             >

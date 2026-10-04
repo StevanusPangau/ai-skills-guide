@@ -29,7 +29,10 @@ export function ScrubSimulator() {
   const autoRef = useRef(0)
   const lastRef = useRef(0)
   const pbRef = useRef(pb)
-  pbRef.current = pb
+  // Keep the latest playback in a ref for the rAF loop (not written during render).
+  useEffect(() => {
+    pbRef.current = pb
+  })
   const [vals, setVals] = useState<Vals>({ scroll: 0, target: 0, smooth: 0 })
 
   const step = useCallback((now: number) => {

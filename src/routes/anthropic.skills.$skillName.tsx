@@ -18,7 +18,11 @@ import { m } from '@/paraglide/messages.js'
 import { SkillPage, SkillPageNotFound } from '@/features/skill-page/skill-page'
 
 export const Route = createFileRoute('/anthropic/skills/$skillName')({
-  loader: ({ params }) => {
+  // Dynamic import keeps this collection's data out of the entry bundle: route
+  // loaders are not code-split, so a static import here would ship every
+  // collection's skills on first paint.
+  loader: async ({ params }) => {
+    const { anthropicSkills } = await import('@/data/anthropic-skills')
     const index = anthropicSkills.findIndex((s) => s.name === params.skillName)
     if (index === -1) throw notFound()
     return { index }
