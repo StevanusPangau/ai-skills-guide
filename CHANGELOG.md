@@ -7,21 +7,39 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- **Redesigned skill detail pages** on one shared component (`src/features/skill-page/`) replacing 14 copy-pasted routes:
+  - Per-skill identity: a deterministic accent colour and 5×5 glyph derived from the skill name (decorative, dark-mode safe).
+  - "Skill at a glance" brief: what it does (with read-more), how it is called (copyable command), quick facts (category, invocation, steps, rules, license/risk/compatibility, link to `SKILL.md`).
+  - Dedicated sections that only render when the skill has data: spotlight card, use/avoid decision cards, step-by-step timeline, flow chain, output, rule cards, "signs it is working", tips, collection-specific extras, related-skill cards with summaries, and prev/next with context and position.
+  - Every skill page sets its own meta description from the skill summary; all new strings are bilingual (`skillpage_*`).
+- **New skills synced from upstream**: mattpocock `implement-spec`, `pr`, `retro`; emilkowalski `animate`, `animate-expo`, `ask-sonner`, `break-ui`, `mobile-native`, `pick-ui-library`, `prototype`, `write-swift`; davidondrej 42 new skills; brooklyn `triage` (+ `defaults.md`); superpowers `diagnosing-superpowers`; cloudflare `basin`, `k2`, `nextjs-on-cloudflare`; prisma `prisma-orm-setup`; impeccable `shape`, `layout`, `overdrive`, `generate` and the `craft` alias.
+- Davidondrej skills gained `useWhen`, `avoidWhen`, `steps`, `rules` and `tips`, written from the upstream `SKILL.md`; fields without an upstream basis are left empty rather than invented.
+- Anthropic: per-skill license badge and a warning above the install block for the proprietary document skills.
+- Install routes: Claude Code plugin routes (mattpocock, expo, jakubkrehel, tanstack, superpowers per harness), `npx impeccable install`, and `--skill '*'` for Expo.
+
 ### Changed
-- **Skill detail pages redesigned** on one shared component (`src/features/skill-page/`) instead of 14 copy-pasted routes: per-skill accent colour and glyph, a "Skill at a glance" brief (what it does, how it is called, quick facts), spotlight card, use/avoid decision cards, step-by-step timeline, rule cards, tips, related-skill cards with summaries, and prev/next with context. Sections only appear when the skill has that data; all new strings are bilingual.
-- Davidondrej skills gained `useWhen`, `avoidWhen`, `steps`, `rules` and `tips` taken from upstream SKILL.md.
-- Each skill page now sets its own meta description from the skill summary.
+- **Every collection is pinned to a real, verified upstream commit** (never `main`): mattpocock `d81f3a1`, emilkowalski `e8a175d`, davidondrej `88a3d7c`, jakubkrehel `267330e`, brooklyn `3649573`, superpowers `8ca22db`, vercel `063bee9`, anthropic `8a1541c`, cloudflare `41e0d19`, supabase `c9be0e9`, prisma `be16a87`, tanstack `6f5521e`, expo `13ad8e0`, gsap `aed9cfd`, impeccable `e103efe`.
+- Skill counts are now 272 across 15 collections (mattpocock 27, emilkowalski 14, davidondrej 57, brooklyn 22, superpowers 15, cloudflare 16, prisma 8, impeccable 25 commands, others unchanged).
+- Skill descriptions, behaviors, commands and APIs were re-verified against upstream `SKILL.md` and rewritten where wrong or outdated, including: mattpocock grilling (whole frontier per round), `to-tickets` (one file per ticket) and the `CONTEXT.md` → `GLOSSARY.md` rename; Supabase security guidance (SECURITY INVOKER first, `search_path = ''`, `TO` clause instead of `auth.role()`); Prisma 7/8 claims (`prisma.config.ts`, driver adapters, `@prisma/cli app`, Rust engine); TanStack Start/Store/Table v9/Form/AI/Pacer APIs; Expo (all 25 skills rewritten per-skill, `--auto-submit`); GSAP (`matchMedia`, plugins now free, `contextSafe`); Brooklyn, Superpowers and Jakub Krehel behavior descriptions.
+- **Impeccable** is presented as one user-invocable skill (`/impeccable`) with its commands; the guide counts commands, and `normalize` (removed upstream) is gone.
+- **TanStack** is labelled as a community collection that is not affiliated with TanStack; the TanStack logo and "Official" wording were removed from the collection card.
+- Invocation badges follow upstream frontmatter (`disable-model-invocation`); where upstream gives no signal, skills are shown as model-invoked.
+- The SEO generator handles 2-space-indented records and fails the build when a skill count disagrees with its `*-skills-meta.ts`.
 
 ### Fixed
-- **Content audit of all 15 collections against upstream** (now 272 skills/commands): re-pinned every collection to a verified upstream commit, synced skills added/removed upstream (mattpocock 27, emilkowalski 14, davidondrej 57, brooklyn 22, superpowers 15, cloudflare 16, prisma 8, impeccable 25 commands) and corrected inaccurate skill descriptions, behaviors, commands and APIs.
-- Removed fabricated numbers, benchmarks and APIs from the lab/arena/matrix/concepts pages (Vercel, Anthropic, Cloudflare, Supabase, Prisma, TanStack, GSAP, Expo).
-- Anthropic: per-skill license badges and a warning for the proprietary document skills (docx, pdf, pptx, xlsx) instead of a blanket copyright notice.
-- TanStack: clearly labelled as a community collection, not official TanStack.
-- Impeccable: presented as one user-invocable skill with its commands; removed `normalize`.
-- Install blocks: fixed the source passed to `SkillInstallBlock` (expo, gsap, impeccable, prisma, supabase, tanstack) and the Cloudflare `cloudflares/skills` typo.
-- SEO generator now includes 2-space-indented records (4 missing Anthropic skills) and fails when a skill count disagrees with its `*-skills-meta.ts`.
-- Cross-collection and unresolved `pairsWellWith` links now resolve within their own collection; no self-references.
-- Docs no longer describe a `skills/` Hermes bundle that was removed.
+- Install blocks: the `github.com/` prefix was passed as the skills.sh source for expo, gsap, impeccable, prisma, supabase and tanstack; the Cloudflare route used `cloudflares/skills`.
+- `public/sitemap.xml` and `public/llms.txt` omitted `docx`, `pdf`, `pptx` and `xlsx`; they now list all 289 canonical URLs.
+- Broken or self-referencing "Pairs well with" links (cross-collection names, nonexistent skills, a skill pairing with itself) now resolve within their own collection.
+- Fabricated numbers, benchmarks and APIs were removed from the lab, arena, matrix and concepts pages (Vercel, Anthropic, Cloudflare, Supabase, Prisma, TanStack, GSAP, Expo, Emil, Jakub Krehel), including the Anthropic arena benchmarks and the Cloudflare matrix (`startProcess`, `agents` import, latency figures).
+- Anthropic: the blanket "all rights reserved" notice is replaced by per-skill licenses (14 Apache-2.0; the four document skills are proprietary/source-available).
+- Davidondrej: stale claims removed (4-part goal contract, `anti-sleep` is manual, 13 skills deleted upstream).
+- README, README.id and CLAUDE.md no longer describe a `skills/` Hermes bundle that was removed.
+
+### Removed
+- Prisma `prisma-database-setup` and `prisma-postgres` (deprecated stubs upstream; their deep links now return not-found).
+- Mattpocock `resolving-merge-conflicts` (removed upstream).
+- Unused per-collection skill detail components and `public/avatars/tanstack.svg`.
 
 ## [v1.6.0] - 2026-09-11
 
