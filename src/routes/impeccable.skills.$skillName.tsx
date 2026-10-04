@@ -12,11 +12,20 @@ import { Separator } from '@/components/ui/separator'
 import { SkillInstallBlock } from '@/components/skill-install-block'
 import { CopyAgentRuleButton } from '@/components/copy-agent-rule-button'
 import { getCollectionBySlug } from '@/data/collections'
-import { impeccableSkills, IMPECCABLE_SOURCE_SHA, type RichSkill } from '@/data/impeccable-skills'
+import {
+  impeccableSkills,
+  IMPECCABLE_SKILL_NAME,
+  IMPECCABLE_SKILL_PATH,
+  IMPECCABLE_SOURCE_SHA,
+  type RichSkill,
+} from '@/data/impeccable-skills'
 import { resetSkillDetailScroll } from '@/lib/scroll-to-section'
 import { useDocumentTitle } from '@/lib/use-document-title'
 import { m } from '@/paraglide/messages.js'
 import { getLocale } from '@/paraglide/runtime.js'
+
+// Commands that take no target argument (see command-metadata.json argumentHint).
+const NO_TARGET = new Set(['init', 'document', 'live', 'doctor'])
 
 const skillIndexByName = new Map(
   impeccableSkills.map((skill, index) => [skill.name, index] as const),
@@ -51,7 +60,7 @@ function ImpeccableSkillPage() {
     next: RichSkill | null
   }
   const navigate = useNavigate()
-  useDocumentTitle(`/${skill.name}`)
+  useDocumentTitle(`/impeccable ${skill.name}`)
   const author = getCollectionBySlug('impeccable')
   const isEn = getLocale() === 'en'
 
@@ -109,7 +118,7 @@ function ImpeccableSkillPage() {
                 variant={skill.invocation === 'user' ? 'default' : 'secondary'}
                 className="text-xs"
               >
-                {skill.invocation === 'user' ? 'User-invoked' : 'Model-invoked'}
+                {skill.invocation === 'user' ? 'User-invoked command' : 'Model-invoked'}
               </Badge>
             </div>
 
@@ -120,7 +129,7 @@ function ImpeccableSkillPage() {
                 ) : null}
                 <div>
                   <h1 className="font-mono text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
-                    /{skill.name}
+                    /impeccable {skill.name}
                   </h1>
                   <p className="text-xs text-muted-foreground">by {author?.author}</p>
                 </div>
@@ -128,7 +137,7 @@ function ImpeccableSkillPage() {
 
               <div className="flex flex-wrap items-center gap-2">
                 <CopyAgentRuleButton
-                  skillName={skill.name}
+                  skillName={`${IMPECCABLE_SKILL_NAME} ${skill.name}`}
                   description={isEn ? skill.detailedDescription.en : skill.detailedDescription.id}
                   useWhen={isEn ? skill.useWhen.en : skill.useWhen.id}
                   coreRules={isEn ? skill.coreRules.en : skill.coreRules.id}
@@ -140,7 +149,16 @@ function ImpeccableSkillPage() {
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-1 rounded-md border border-border bg-card px-3 py-1.5 font-mono text-xs text-foreground transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50"
                 >
-                  <span>View SKILL.md</span>
+                  <span>{isEn ? 'View command reference' : 'Lihat referensi command'}</span>
+                  <span aria-hidden="true">↗</span>
+                </a>
+                <a
+                  href={`https://github.com/pbakaus/impeccable/blob/${IMPECCABLE_SOURCE_SHA}/${IMPECCABLE_SKILL_PATH}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1 rounded-md border border-border bg-card px-3 py-1.5 font-mono text-xs text-foreground transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50"
+                >
+                  <span>View SKILL.src.md</span>
                   <span aria-hidden="true">↗</span>
                 </a>
               </div>
@@ -149,6 +167,21 @@ function ImpeccableSkillPage() {
             <p className="text-base leading-relaxed text-muted-foreground">
               {isEn ? skill.description.en : skill.description.id}
             </p>
+
+            <div className="rounded-lg border border-border bg-muted/30 p-3 text-xs leading-relaxed text-muted-foreground">
+              <p>
+                {isEn ? 'This is a command of the single ' : 'Ini adalah command dari satu skill '}
+                <code className="font-mono text-foreground">{IMPECCABLE_SKILL_NAME}</code>
+                {isEn ? ' skill (user-invocable). Run it as ' : ' (dipanggil pengguna). Jalankan sebagai '}
+                <code className="font-mono text-foreground">
+                  /impeccable {skill.name}{NO_TARGET.has(skill.name) ? '' : ' [target]'}
+                </code>
+                .{' '}
+                <Link to="/impeccable" className="text-primary hover:underline">
+                  {isEn ? 'See all commands' : 'Lihat semua command'}
+                </Link>
+              </p>
+            </div>
           </header>
 
           <Separator className="my-8" />
@@ -261,7 +294,7 @@ function ImpeccableSkillPage() {
                         variant="secondary"
                         className="cursor-pointer font-mono text-xs transition-colors hover:border-primary"
                       >
-                        /{pair}
+                        {pair}
                       </Badge>
                     </Link>
                   ))}
@@ -273,8 +306,13 @@ function ImpeccableSkillPage() {
               <h2 className="text-lg font-semibold text-foreground">
                 {isEn ? 'Installation' : 'Instalasi'}
               </h2>
+              <p className="text-sm text-muted-foreground">
+                {isEn
+                  ? 'Impeccable installs as one skill; all commands come with it. Recommended: npx impeccable install, then /impeccable init.'
+                  : 'Impeccable di-install sebagai satu skill; semua command ikut terpasang. Disarankan: npx impeccable install, lalu /impeccable init.'}
+              </p>
               <SkillInstallBlock
-                skillName={skill.name}
+                skillName={IMPECCABLE_SKILL_NAME}
                 source="pbakaus/impeccable"
               />
             </section>

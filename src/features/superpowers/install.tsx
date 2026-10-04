@@ -7,11 +7,15 @@ import {
 } from '@/lib/external-link'
 import { m } from '@/paraglide/messages.js'
 
-const SKILLS_SH_STEPS = [
-  'npx skills@latest add obra/superpowers',
-  '# Pilih skill di prompt (misal: /subagent-driven-development, /brainstorming, dll.)',
-  '# Jalankan /using-superpowers untuk panduan workflow komprehensif',
-].join('\n')
+// Commands copied from the upstream README (obra/superpowers v6.4.2).
+// Installation differs by harness; the plugin carries the session-start
+// bootstrap that makes skills trigger automatically.
+const CLAUDE_CODE = '/plugin install superpowers@claude-plugins-official'
+const CURSOR = '/add-plugin superpowers'
+const HERMES = 'hermes plugins install obra/superpowers --enable'
+const GEMINI = 'gemini extensions install https://github.com/obra/superpowers'
+const PI = 'pi install git:github.com/obra/superpowers'
+const CODEX_CLI = ['/plugins', '# search "superpowers", then Install Plugin'].join('\n')
 
 export function SuperpowersInstall() {
   return (
@@ -21,7 +25,7 @@ export function SuperpowersInstall() {
           {m.installation_title()}
         </h2>
         <p className="mt-2 max-w-2xl text-muted-foreground">
-          Framework SDLC agentic terlengkap oleh Jesse Vincent. Mengubah AI agent menjadi koordinator disiplin dengan Subagent-Driven Development (SDD), Socratic interview, dan review gates.
+          {m.superpowers_install_description()}
         </p>
       </div>
 
@@ -30,34 +34,80 @@ export function SuperpowersInstall() {
           <CardHeader className="pb-3">
             <div className="flex flex-wrap items-center gap-3">
               <CardTitle as="h3" className="text-base">
-                Universal CLI (skills.sh)
+                Claude Code
               </CardTitle>
-              <Badge variant="default">Recommended</Badge>
+              <Badge variant="default">Upstream</Badge>
             </div>
           </CardHeader>
           <CardContent className="space-y-3">
-            <CodeBlock code={SKILLS_SH_STEPS} shell />
+            <CodeBlock code={CLAUDE_CODE} />
             <p className="text-sm text-muted-foreground">
-              Install langsung dari repository resmi Jesse Vincent menggunakan CLI skills.sh interaktif untuk Claude Code, Cursor, Codex, OpenCode, dan agent lainnya.
+              {m.superpowers_install_claude_note()}
             </p>
-            <p className="text-xs text-muted-foreground">
-              {m.installation_skills_sh_ref()}{' '}
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader className="pb-3">
+            <CardTitle as="h3" className="text-base">
+              {m.superpowers_install_other_title()}
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="space-y-1.5">
+              <p className="text-xs font-semibold text-muted-foreground">Cursor</p>
+              <CodeBlock code={CURSOR} />
+            </div>
+            <div className="space-y-1.5">
+              <p className="text-xs font-semibold text-muted-foreground">Hermes Agent</p>
+              <CodeBlock code={HERMES} shell />
+              <p className="text-xs text-muted-foreground">
+                {m.superpowers_install_hermes_note()}
+              </p>
+            </div>
+            <div className="space-y-1.5">
+              <p className="text-xs font-semibold text-muted-foreground">Codex CLI</p>
+              <CodeBlock code={CODEX_CLI} />
+            </div>
+            <div className="space-y-1.5">
+              <p className="text-xs font-semibold text-muted-foreground">Gemini CLI</p>
+              <CodeBlock code={GEMINI} shell />
+            </div>
+            <div className="space-y-1.5">
+              <p className="text-xs font-semibold text-muted-foreground">Pi</p>
+              <CodeBlock code={PI} shell />
+            </div>
+            <p className="text-sm text-muted-foreground">
+              {m.superpowers_install_more_note()}{' '}
               <a
-                href="https://skills.sh/obra/superpowers"
+                href="https://github.com/obra/superpowers#installation"
                 target="_blank"
                 rel="noopener noreferrer"
                 className={externalTextLinkClass}
-                aria-label={externalLinkAriaLabel('skills.sh/obra/superpowers')}
+                aria-label={externalLinkAriaLabel('Superpowers installation README')}
               >
-                skills.sh/obra/superpowers
+                README
               </a>
+            </p>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader className="pb-3">
+            <CardTitle as="h3" className="text-base">
+              {m.superpowers_install_why_title()}
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="text-sm text-muted-foreground">
+              {m.superpowers_install_why_note()}
             </p>
           </CardContent>
         </Card>
       </div>
 
       <p className="text-xs text-muted-foreground">
-        Skills diadaptasi dari{' '}
+        {m.superpowers_install_attribution()}{' '}
         <a
           href="https://github.com/obra/superpowers"
           target="_blank"
@@ -67,7 +117,7 @@ export function SuperpowersInstall() {
         >
           Jesse Vincent (@obra)
         </a>{' '}
-        (MIT License). Framework rekayasa agen otonom terstandarisasi.
+        {m.superpowers_install_license()}
       </p>
     </section>
   )

@@ -1,6 +1,5 @@
 import { RiGithubFill } from '@remixicon/react'
 import { AuthorAvatar } from '@/components/author-avatar'
-import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import {
   SUPERPOWERS_SOURCE_REPO,
@@ -11,6 +10,7 @@ import { m } from '@/paraglide/messages.js'
 
 export function SuperpowersOverview() {
   const author = getCollectionBySlug('superpowers')
+  const categoryCount = new Set(superpowersSkills.map((s) => s.category)).size
 
   return (
     <section id="overview" className="scroll-mt-20 space-y-7">
@@ -48,14 +48,14 @@ export function SuperpowersOverview() {
           className="mt-4 inline-flex items-center gap-1.5 rounded-sm text-sm text-primary hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50"
         >
           <RiGithubFill className="size-4" aria-hidden="true" />
-          <span>github.com/obra/superpowers (281k+ stars)</span>
+          <span>github.com/obra/superpowers</span>
         </a>
       </div>
 
       <div className="flex flex-wrap gap-x-10 gap-y-4">
         <Stat value={String(superpowersSkills.length)} label={m.superpowers_stat_skills()} />
-        <Stat value="3" label={m.superpowers_stat_categories()} />
-        <Stat value="SDD Architecture" label={m.superpowers_stat_focus()} />
+        <Stat value={String(categoryCount)} label={m.superpowers_stat_categories()} />
+        <Stat value="v6.4.2" label={m.superpowers_stat_focus()} />
       </div>
 
       <Card className="border-2 border-primary/30 bg-primary/5">
@@ -68,43 +68,6 @@ export function SuperpowersOverview() {
           </p>
         </CardContent>
       </Card>
-    </section>
-  )
-}
-
-export function SuperpowersCatalog() {
-  return (
-    <section id="skills" className="scroll-mt-20 space-y-6">
-      <div>
-        <h2 className="font-heading text-2xl font-bold tracking-tight">Daftar Skills ({superpowersSkills.length})</h2>
-        <p className="mt-1 text-muted-foreground text-sm">
-          Semua skill metodologi agentic SDLC dari Jesse Vincent (Superpowers).
-        </p>
-      </div>
-
-      <div className="grid gap-3 sm:grid-cols-2">
-        {superpowersSkills.map((skill) => (
-          <div key={skill.name} className="rounded-xl border border-border bg-card p-4 space-y-2 shadow-xs hover:border-primary/40 transition-colors">
-            <div className="flex items-center justify-between">
-              <span className="font-mono text-sm font-bold text-foreground">/{skill.name}</span>
-              <Badge variant="outline" className="text-[10px] uppercase font-mono">{skill.category}</Badge>
-            </div>
-            <p className="text-xs text-muted-foreground leading-relaxed line-clamp-2">
-              {(skill.description as any)?.id ?? skill.description}
-            </p>
-            <div className="pt-2 text-right">
-              <a
-                href={`https://github.com/obra/superpowers/tree/main/${skill.sourcePath}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-[11px] font-mono text-primary hover:underline"
-              >
-                Lihat SKILL.md ↗
-              </a>
-            </div>
-          </div>
-        ))}
-      </div>
     </section>
   )
 }

@@ -31,22 +31,13 @@ function ImpeccableIndexPage() {
   )
 
   const categories = [
-    { label: 'Project Setup', value: 'project-setup' },
-    { label: 'Design Tokens', value: 'design-tokens' },
-    { label: 'Component Architecture', value: 'component-architecture' },
-    { label: 'Interactive Prototyping', value: 'interactive-prototyping' },
-    { label: 'Responsive Design', value: 'responsive-design' },
-    { label: 'Motion & Delight', value: 'motion-delight' },
-    { label: 'Quality Assurance', value: 'quality-assurance' },
-    { label: 'Visual Craft', value: 'visual-craft' },
-    { label: 'UX Writing', value: 'ux-writing' },
-    { label: 'Color Tokens', value: 'color-tokens' },
-    { label: 'Design Review', value: 'design-review' },
-    { label: 'Micro Interactions', value: 'micro-interactions' },
-    { label: 'Robustness', value: 'robustness' },
-    { label: 'Spacing & Typography', value: 'spacing-typography' },
-    { label: 'Performance', value: 'performance' },
-    { label: 'Micro Details', value: 'micro-details' },
+    { label: 'Build', value: 'build' },
+    { label: 'Evaluate', value: 'evaluate' },
+    { label: 'Refine', value: 'refine' },
+    { label: 'Enhance', value: 'enhance' },
+    { label: 'Fix', value: 'fix' },
+    { label: 'Iterate', value: 'iterate' },
+    { label: 'Maintenance', value: 'maintenance' },
   ]
 
   return (

@@ -33,10 +33,10 @@ function SuperpowersIndexPage() {
   )
 
   const categories = [
-    { label: 'Planning', value: 'planning' },
-    { label: 'Subagent Execution', value: 'execution' },
-    { label: 'Quality & Review', value: 'quality' },
-    { label: 'Meta', value: 'meta' },
+    { label: 'Architecture & Planning', value: 'architecture' },
+    { label: 'Engineering', value: 'engineering' },
+    { label: 'Review', value: 'review' },
+    { label: 'Shipping', value: 'shipping' },
   ]
 
   return (

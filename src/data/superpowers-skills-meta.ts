@@ -1,1 +1,1 @@
-export const SUPERPOWERS_SKILL_COUNT = 14
+export const SUPERPOWERS_SKILL_COUNT = 15

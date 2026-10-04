@@ -10,7 +10,7 @@ import { XHandleLink } from '@/components/x-handle-link'
 import { OnThisPage } from '@/components/layout/on-this-page'
 import { Badge } from '@/components/ui/badge'
 import { Separator } from '@/components/ui/separator'
-import { SkillInstallBlock } from '@/components/skill-install-block'
+import { CodeBlock } from '@/components/code-block'
 import { CopyAgentRuleButton } from '@/components/copy-agent-rule-button'
 import { getCollectionBySlug } from '@/data/collections'
 import { superpowersSkills, type RichSkill } from '@/data/superpowers-skills'
@@ -249,7 +249,7 @@ function SuperpowersSkillPage() {
             <div id="install" className="scroll-mt-20 space-y-3">
               <div className="flex items-center justify-between">
                 <h2 className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">
-                  {m.skill_install_title()}
+                  {m.superpowers_skill_install_title()}
                 </h2>
                 <CopyAgentRuleButton
                   skillName={skill.name}
@@ -259,7 +259,10 @@ function SuperpowersSkillPage() {
                   howItWorks={isEn ? skill.howItWorks.en : skill.howItWorks.id}
                 />
               </div>
-              <SkillInstallBlock source="obra/superpowers" skillName={skill.name} />
+              <CodeBlock code="/plugin install superpowers@claude-plugins-official" />
+              <p className="text-xs text-muted-foreground">
+                {m.superpowers_skill_install_note()}
+              </p>
             </div>
           </div>
 

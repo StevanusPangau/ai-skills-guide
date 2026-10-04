@@ -1,1 +1,1 @@
-export const IMPECCABLE_SKILL_COUNT = 21
+export const IMPECCABLE_SKILL_COUNT = 25
