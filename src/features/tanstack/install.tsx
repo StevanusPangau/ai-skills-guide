@@ -4,9 +4,14 @@ import { CodeBlock } from '@/components/code-block'
 import { getLocale } from '@/paraglide/runtime.js'
 
 const INSTALL = [
+  '# Cara yang didokumentasikan repo komunitas (Claude Code plugin marketplace)',
+  '/plugin marketplace add tanstack-skills/tanstack-skills',
+  '/plugin install tanstack-all@tanstack-skills',
+  '',
+  '# Via skills.sh (tidak didokumentasikan upstream; pilih skill saat prompt)',
   'npx skills@latest add tanstack-skills/tanstack-skills',
-  '# Pilih skill saat prompt (mis. tanstack-router, tanstack-query, tanstack-table, tanstack-start)',
-  '# Atau via TanStack Intent: npx @tanstack/intent install',
+  '',
+  '# Resmi dari TanStack: TanStack Intent (npx @tanstack/intent install)',
 ].join('\n')
 
 export function TanStackInstall() {
@@ -18,8 +23,8 @@ export function TanStackInstall() {
         <h2 className="text-2xl font-bold tracking-tight">Installation</h2>
         <p className="mt-2 max-w-2xl text-muted-foreground">
           {isEn
-            ? 'Install official skills directly from TanStack’s upstream repository.'
-            : 'Install skill resmi langsung dari repository upstream TanStack.'}
+            ? 'Install community skills from the unaffiliated tanstack-skills/tanstack-skills repository, or use TanStack Intent for TanStack’s own agent skills.'
+            : 'Install skill komunitas dari repository tanstack-skills/tanstack-skills (tidak berafiliasi dengan TanStack), atau gunakan TanStack Intent untuk skill agent resmi TanStack.'}
         </p>
       </div>
       <Card className="border-primary/40">
@@ -35,10 +40,10 @@ export function TanStackInstall() {
           <CodeBlock code={INSTALL} shell />
           <p className="text-sm text-muted-foreground">
             {isEn
-              ? 'TanStack Intent packages skills alongside npm packages. Skills update as your dependencies update.'
-              : 'TanStack Intent mengemas skill bersama paket npm. Panduan skill otomatis terbarui saat dependensi Anda di-update.'}
+              ? 'These community skills are not published by TanStack. TanStack Intent (@tanstack/intent) is TanStack’s own mechanism: it packages agent skills alongside npm packages, so skills update as your dependencies update.'
+              : 'Skill komunitas ini tidak dirilis oleh TanStack. TanStack Intent (@tanstack/intent) adalah mekanisme resmi TanStack: ia mengemas skill agent bersama paket npm, sehingga skill ikut terbarui saat dependensi Anda di-update.'}
           </p>
-          <p className="text-xs text-muted-foreground">Licensed under the MIT License © TanStack.</p>
+          <p className="text-xs text-muted-foreground">Licensed under the MIT License © 2026 tanstack-skills (community repository, not affiliated with TanStack).</p>
         </CardContent>
       </Card>
     </section>

@@ -12,7 +12,7 @@ import { Separator } from '@/components/ui/separator'
 import { SkillInstallBlock } from '@/components/skill-install-block'
 import { CopyAgentRuleButton } from '@/components/copy-agent-rule-button'
 import { getCollectionBySlug } from '@/data/collections'
-import { anthropicSkills, type RichSkill } from '@/data/anthropic-skills'
+import { anthropicSkills, ANTHROPIC_SKILL_LICENSES, type RichSkill } from '@/data/anthropic-skills'
 import { resetSkillDetailScroll } from '@/lib/scroll-to-section'
 import { useDocumentTitle } from '@/lib/use-document-title'
 import { m } from '@/paraglide/messages.js'
@@ -54,6 +54,7 @@ function AnthropicSkillPage() {
   useDocumentTitle(`/${skill.name}`)
   const author = getCollectionBySlug('anthropic')
   const isEn = getLocale() === 'en'
+  const license = ANTHROPIC_SKILL_LICENSES[skill.name] ?? 'none'
 
   const prevSkillName = useRef<string | null>(null)
   useEffect(() => {
@@ -133,6 +134,16 @@ function AnthropicSkillPage() {
                 {skill.invocation === 'user'
                   ? m.skills_filter_user()
                   : m.skills_filter_model()}
+              </Badge>
+              <Badge
+                variant={license === 'proprietary' ? 'destructive' : 'outline'}
+                className="text-xs"
+              >
+                {license === 'apache-2.0'
+                  ? m.anthropic_license_apache()
+                  : license === 'proprietary'
+                    ? m.anthropic_license_proprietary()
+                    : m.anthropic_license_none()}
               </Badge>
             </div>
 
@@ -266,6 +277,15 @@ function AnthropicSkillPage() {
                   howItWorks={isEn ? skill.howItWorks.en : skill.howItWorks.id}
                 />
               </div>
+              {license === 'proprietary' ? (
+                <div
+                  role="note"
+                  className="rounded-md border border-destructive/40 bg-destructive/5 p-3 text-sm leading-relaxed text-foreground"
+                >
+                  <p className="font-semibold text-destructive">{m.anthropic_license_warning_title()}</p>
+                  <p className="mt-1 text-muted-foreground">{m.anthropic_license_warning_body()}</p>
+                </div>
+              ) : null}
               <SkillInstallBlock source="anthropics/skills" skillName={skill.name} />
             </div>
           </div>

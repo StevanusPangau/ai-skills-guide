@@ -14,8 +14,8 @@ export function PrismaConcepts() {
         </h2>
         <p className="mt-1 text-muted-foreground text-sm">
           {isEn
-            ? 'Key principles: driver adapter boundaries, migration safety discipline, and atomic nested writes.'
-            : 'Prinsip kunci: protokol batas driver adapter, disiplin keamanan migrasi, dan penulisan relasi atomik.'}
+            ? 'Key principles: driver adapter boundaries, migration safety discipline, and nested writes with explicit transactions.'
+            : 'Prinsip kunci: protokol batas driver adapter, disiplin keamanan migrasi, dan nested writes dengan transaksi eksplisit.'}
         </p>
       </div>
 
@@ -27,8 +27,8 @@ export function PrismaConcepts() {
           </CardTitle>
           <p className="text-xs text-muted-foreground">
             {isEn
-              ? 'Prisma 7 separates query compilation from database socket execution.'
-              : 'Prisma 7 memisahkan kompilasi kueri dari eksekusi socket jaringan database.'}
+              ? 'In Prisma 7, SQL providers reach the database through a driver adapter.'
+              : 'Di Prisma 7, provider SQL mengakses database lewat driver adapter.'}
           </p>
         </CardHeader>
         <CardContent className="space-y-4">
@@ -43,8 +43,8 @@ export function PrismaConcepts() {
               <p className="font-semibold text-foreground font-sans text-xs">Generated PrismaClient</p>
               <p className="text-[11px] text-muted-foreground leading-tight font-sans">
                 {isEn
-                  ? 'Compiles type-checked queries, applies select/include trees, validates input schemas.'
-                  : 'Mengkompilasi kueri bertipe kuat, menyusun pohon select/include, memvalidasi skema input.'}
+                  ? 'Type-safe client generated from your schema; queries are handed to the adapter.'
+                  : 'Client bertipe kuat yang dihasilkan dari schema; kueri diteruskan ke adapter.'}
               </p>
             </div>
 
@@ -58,8 +58,8 @@ export function PrismaConcepts() {
               <p className="font-semibold text-foreground font-sans text-xs">SqlDriverAdapter Contract</p>
               <p className="text-[11px] text-muted-foreground leading-tight font-sans">
                 {isEn
-                  ? 'Translates AST to parameterized SQL, manages transaction savepoints, preserves native errors.'
-                  : 'Menerjemahkan AST ke parameterized SQL, mengelola savepoint transaksi, mempreservasi error native.'}
+                  ? 'Runs parameterized queries, owns the transaction lifecycle and optional savepoints, preserves native database errors.'
+                  : 'Menjalankan kueri berparameter, memegang siklus transaksi dan savepoint opsional, mempreservasi error database asli.'}
               </p>
             </div>
 
@@ -73,8 +73,8 @@ export function PrismaConcepts() {
               <p className="font-semibold text-foreground font-sans text-xs">Native Node/Edge Driver</p>
               <p className="text-[11px] text-muted-foreground leading-tight font-sans">
                 {isEn
-                  ? 'pg Pool, @neondatabase/serverless, or Cloudflare D1. Direct TCP/WebSocket connection.'
-                  : 'pg Pool, @neondatabase/serverless, atau Cloudflare D1. Koneksi socket TCP/WebSocket langsung.'}
+                  ? 'The underlying driver, e.g. pg (via @prisma/adapter-pg), Neon (@prisma/adapter-neon), or Cloudflare D1 (@prisma/adapter-d1).'
+                  : 'Driver di bawahnya, mis. pg (via @prisma/adapter-pg), Neon (@prisma/adapter-neon), atau Cloudflare D1 (@prisma/adapter-d1).'}
               </p>
             </div>
           </div>
@@ -124,34 +124,34 @@ export function PrismaConcepts() {
 
       <Separator />
 
-      {/* Model 3: Atomic Nested Writes */}
+      {/* Model 3: Nested Writes */}
       <Card className="border border-border">
         <CardHeader className="pb-3">
           <CardTitle className="text-base font-semibold">
-            {isEn ? 'Automatic Transactional Nested Writes' : 'Penulisan Relasi Bersarang Transaksional Otomatis'}
+            {isEn ? 'Nested Writes and Explicit Transactions' : 'Nested Writes dan Transaksi Eksplisit'}
           </CardTitle>
           <p className="text-xs text-muted-foreground">
             {isEn
-              ? 'Prisma bundles multi-model relational insertions into one atomic transaction block.'
-              : 'Prisma menggabungkan insert relasional multi-tabel ke dalam satu blok transaksi atomik.'}
+              ? 'Create related records in one call, and reach for $transaction when you need explicit control.'
+              : 'Buat record relasional dalam satu panggilan, dan gunakan $transaction bila butuh kontrol eksplisit.'}
           </p>
         </CardHeader>
         <CardContent className="space-y-3 text-xs">
           <div className="grid gap-3 md:grid-cols-2">
             <div className="rounded-lg border border-border bg-card p-3 space-y-1.5">
-              <div className="font-semibold text-foreground font-mono">Single Statement Failure Rollback</div>
+              <div className="font-semibold text-foreground font-mono">Nested Writes</div>
               <p className="text-muted-foreground leading-relaxed">
                 {isEn
-                  ? 'If a nested post fails validation or triggers a foreign key conflict, the parent user insertion rolls back automatically.'
-                  : 'Jika salah satu post gagal divalidasi atau memicu konflik foreign key, pembuatan record user induk dibatalkan otomatis.'}
+                  ? 'create / connect / connectOrCreate inside data: { posts: { create: [...] } } persist a record together with its relations in a single client call.'
+                  : 'create / connect / connectOrCreate di dalam data: { posts: { create: [...] } } menyimpan record beserta relasinya dalam satu panggilan client.'}
               </p>
             </div>
             <div className="rounded-lg border border-border bg-card p-3 space-y-1.5">
-              <div className="font-semibold text-foreground font-mono">Zero Manual Transaction Boilerplate</div>
+              <div className="font-semibold text-foreground font-mono">Interactive $transaction</div>
               <p className="text-muted-foreground leading-relaxed">
                 {isEn
-                  ? 'Eliminates explicit BEGIN/COMMIT/ROLLBACK queries and savepoint management for standard relational mutations.'
-                  : 'Menghilangkan keharusan menulis kueri BEGIN/COMMIT/ROLLBACK manual untuk sebagian besar mutasi relasional.'}
+                  ? 'Use prisma.$transaction(async (tx) => { ... }) when a later step depends on an earlier one, with isolation level and timeout options.'
+                  : 'Gunakan prisma.$transaction(async (tx) => { ... }) saat langkah berikutnya bergantung pada langkah sebelumnya, dengan opsi isolation level dan timeout.'}
               </p>
             </div>
           </div>

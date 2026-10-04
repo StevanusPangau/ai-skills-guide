@@ -4,10 +4,24 @@ import { emilCategoryLabel } from '@/features/emilkowalski/labels'
 import { prefersReducedMotion } from '@/lib/motion'
 import { m } from '@/paraglide/messages.js'
 
+// The lab illustrates the original six skills; newer skills (animate, break-ui,
+// ask-sonner, ...) have no demo and are covered by the catalog and detail pages.
+const PREVIEW_SKILL_NAMES = [
+  'emil-design-eng',
+  'apple-design',
+  'animation-vocabulary',
+  'find-animation-opportunities',
+  'review-animations',
+  'improve-animations',
+]
+const previewSkills = emilkowalskiSkills.filter((item) =>
+  PREVIEW_SKILL_NAMES.includes(item.name),
+)
+
 export function EmilPreviewLab() {
-  const [skillName, setSkillName] = useState(emilkowalskiSkills[0].name)
+  const [skillName, setSkillName] = useState(previewSkills[0].name)
   const [state, setState] = useState<'before' | 'after'>('after')
-  const skill = emilkowalskiSkills.find((item) => item.name === skillName) ?? emilkowalskiSkills[0]
+  const skill = previewSkills.find((item) => item.name === skillName) ?? previewSkills[0]
 
   const getExplanation = () => {
     switch (skill.name) {
@@ -56,7 +70,7 @@ export function EmilPreviewLab() {
           role="group"
           aria-label={m.emil_preview_choose_skill()}
         >
-          {emilkowalskiSkills.map((item) => (
+          {previewSkills.map((item) => (
             <button
               key={item.name}
               type="button"
@@ -172,7 +186,8 @@ function InteractivePreview({
 /* =========================================================================
    1. /emil-design-eng Demo (Dropdown / Popover)
    Before: 500ms ease-in, scale(0) from center, no active press feedback
-   After: 160ms cubic-bezier(0.16, 1, 0.3, 1), scale(0.96) origin-top-left, active:scale(0.97)
+   After: 160ms --ease-out cubic-bezier(0.23, 1, 0.32, 1), scale(0.95) + opacity from the trigger, active:scale(0.97)
+   Values follow emil-design-eng (strong ease-out, scale(0.95) entrance, 100-160ms press); before-values are illustrative anti-patterns.
    ========================================================================= */
 function PopoverDemo({ quality }: { quality: 'before' | 'after' }) {
   const [open, setOpen] = useState(false)
@@ -186,7 +201,7 @@ function PopoverDemo({ quality }: { quality: 'before' | 'after' }) {
       polished={polished}
       specs={
         polished
-          ? 'duration: 160ms · ease-out cubic-bezier(0.16,1,0.3,1) · scale(0.96) → 1.0 · origin-top-left'
+          ? 'duration: 160ms · ease-out cubic-bezier(0.23,1,0.32,1) · scale(0.95) → 1.0 + opacity · origin at trigger'
           : 'duration: 500ms · ease-in · scale(0) → 1.0 · origin-center · no tactile feedback'
       }
     >
@@ -213,12 +228,12 @@ function PopoverDemo({ quality }: { quality: 'before' | 'after' }) {
           style={{
             transitionDuration: polished ? '160ms' : '500ms',
             transitionTimingFunction: polished
-              ? 'cubic-bezier(0.16, 1, 0.3, 1)'
+              ? 'cubic-bezier(0.23, 1, 0.32, 1)'
               : 'ease-in',
             transform: open
               ? 'scale(1) translateY(0)'
               : polished
-                ? 'scale(0.96) translateY(-4px)'
+                ? 'scale(0.95) translateY(-4px)'
                 : 'scale(0) translateY(0)',
             opacity: open ? 1 : 0,
             pointerEvents: open ? 'auto' : 'none',
@@ -423,7 +438,7 @@ function VocabularyDemo({ quality }: { quality: 'before' | 'after' }) {
       polished={polished}
       specs={
         polished
-          ? 'Canonical Term: "Scale in" · Target: scale(0.95→1.0) + opacity(0→1) · Avoid: Bouncy/pop'
+          ? 'Glossary term: "Scale in" (grows from smaller to full size, often with a fade) · not "Pop in" (slight overshoot)'
           : 'Ambiguous prompt: "Make it pop smoothly" → results in inconsistent, jarring springs'
       }
     >
@@ -447,11 +462,11 @@ function VocabularyDemo({ quality }: { quality: 'before' | 'after' }) {
               </span>
               <p className="mt-1 text-[11px] text-muted-foreground">
                 <code className="font-mono text-[10px] bg-background/80 px-1.5 py-0.5 rounded border border-border">
-                  scale(0.95 → 1.0) + opacity(0 → 1)
+                  Scale in
                 </code>
               </p>
               <p className="mt-1 text-[10px] text-emerald-700/80 dark:text-emerald-400/80 font-medium">
-                Easing: cubic-bezier(0.16, 1, 0.3, 1) · duration: 160ms
+                Grows from smaller to full size as it appears, often paired with a fade
               </p>
             </div>
           ) : (
@@ -546,9 +561,8 @@ function ReviewDemo({ quality }: { quality: 'before' | 'after' }) {
   ]
 
   const afterCode = [
-    '+ transition: transform 160ms cubic-bezier(0.16, 1, 0.3, 1), opacity 160ms ease-out;',
-    '+ transform: scale(0.96);',
-    '+ will-change: transform, opacity; /* compositor only */',
+    '+ transition: transform 200ms cubic-bezier(0.23, 1, 0.32, 1), opacity 200ms ease-out;',
+    '+ transform: scale(0.95); /* + opacity: 0 */',
   ]
 
   return (
@@ -559,8 +573,8 @@ function ReviewDemo({ quality }: { quality: 'before' | 'after' }) {
       polished={polished}
       specs={
         polished
-          ? 'VERDICT: APPROVE ✓ · Sub-200ms · Transform/Opacity compositor only · scale(0.96)'
-          : 'VERDICT: BLOCK ✕ · Transition: all layout property · 400ms ease-in sluggish · scale(0)'
+          ? 'VERDICT: APPROVE ✓ · under 300ms · transform/opacity only · strong ease-out · scale(0.95) + opacity'
+          : 'VERDICT: BLOCK ✕ · transition: all · ease-in on UI · scale(0) entrance · layout property animated'
       }
     >
       <div className="mx-auto w-full max-w-sm rounded-xl border border-border bg-card p-3.5 font-mono text-xs shadow-xs space-y-3">
@@ -605,18 +619,18 @@ function AuditDemo({ quality }: { quality: 'before' | 'after' }) {
       polished={polished}
       specs={
         polished
-          ? 'Structured Audit: 8 Kategori Emil · Prioritas Severity · Output: plans/001-motion.md'
-          : 'Unstructured Audit: Keluhan acak tanpa hierarki, target file tidak jelas'
+          ? 'Structured audit: audit categories · severity HIGH / MEDIUM / LOW · output: plans/NNN-short-slug.md'
+          : 'Unstructured audit: random complaints, no hierarchy, no clear target files'
       }
     >
       <div className="mx-auto w-full max-w-sm">
         {!polished ? (
           <div className="relative h-36 rounded-xl border border-dashed border-destructive/40 bg-destructive/5 p-4 flex flex-col items-center justify-center text-center">
             <span className="font-mono text-xs font-semibold text-destructive">
-              {audited ? '⚠️ 18 Temuan Acak Ditemukan' : 'Belum Ada Standarisasi Motion'}
+              {audited ? '⚠️ Random, unprioritised complaints' : 'No motion standard yet'}
             </span>
             <p className="mt-1 text-[11px] text-muted-foreground max-w-xs">
-              Animasi tersebar dengan 6 easing berbeda, durasi mulai dari 100ms hingga 900ms tanpa acuan.
+              Different easings and durations scattered across the codebase with no shared tokens.
             </p>
           </div>
         ) : (
@@ -624,13 +638,13 @@ function AuditDemo({ quality }: { quality: 'before' | 'after' }) {
             <div className="rounded-lg border border-border bg-card p-2.5 flex items-center justify-between">
               <div>
                 <span className="font-bold text-destructive">01 · HIGH</span>
-                <span className="ml-2 text-muted-foreground font-sans">Dropdown modal thrashing</span>
+                <span className="ml-2 text-muted-foreground font-sans">Dropdown animates a layout property</span>
               </div>
               <span className="text-[10px] text-muted-foreground">timing</span>
             </div>
             <div className="rounded-lg border border-border bg-card p-2.5 flex items-center justify-between">
               <div>
-                <span className="font-bold text-amber-500">02 · MED</span>
+                <span className="font-bold text-amber-500">02 · MEDIUM</span>
                 <span className="ml-2 text-muted-foreground font-sans">Missing prefers-reduced-motion</span>
               </div>
               <span className="text-[10px] text-muted-foreground">a11y</span>
@@ -638,7 +652,7 @@ function AuditDemo({ quality }: { quality: 'before' | 'after' }) {
             <div className="rounded-lg border border-border bg-card p-2.5 flex items-center justify-between">
               <div>
                 <span className="font-bold text-primary">03 · LOW</span>
-                <span className="ml-2 text-muted-foreground font-sans">Sidebar button ease-in curve</span>
+                <span className="ml-2 text-muted-foreground font-sans">Sidebar button uses ease-in</span>
               </div>
               <span className="text-[10px] text-muted-foreground">cohesion</span>
             </div>
@@ -646,7 +660,7 @@ function AuditDemo({ quality }: { quality: 'before' | 'after' }) {
             {audited && (
               <div className="mt-2 text-right">
                 <span className="inline-flex items-center gap-1 text-[11px] font-mono text-emerald-700 dark:text-emerald-400 font-semibold bg-emerald-500/10 px-2.5 py-1 rounded-md border border-emerald-500/20">
-                  📄 Generated: plans/001-motion.md
+                  📄 Written: plans/NNN-short-slug.md
                 </span>
               </div>
             )}

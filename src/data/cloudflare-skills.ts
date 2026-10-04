@@ -1,13 +1,34 @@
-import type { RichSkill } from '@/data/vercel-skills'
+import type { BilingualString, BilingualList } from '@/types/skill'
 
 // Koleksi: Cloudflare — github.com/cloudflare/skills.
-// Lisensi upstream: Apache-2.0. Guide ini hanya mendokumentasikan ringkasan;
-// install langsung dari repo upstream.
+// Lisensi upstream: Apache-2.0 (LICENSE di root repo + plugin.json). Guide ini
+// hanya mendokumentasikan ringkasan; install langsung dari repo upstream.
 //
-// Sumber: https://github.com/cloudflare/skills.
+// Sumber: https://github.com/cloudflare/skills (diverifikasi 2026-10-04 pada
+// commit 41e0d19; 16 skill, termasuk basin, k2, dan nextjs-on-cloudflare).
 export const CLOUDFLARE_SOURCE_REPO = 'github.com/cloudflare/skills'
-export const CLOUDFLARE_SOURCE_SHA = 'f96bff754e428838818017f75817f0f9428acd48'
+export const CLOUDFLARE_SOURCE_SHA = '41e0d19858946d18af9ee2c2feebbe2e11d829ff'
 export const CLOUDFLARE_SOURCE_LICENSE = 'Apache-2.0'
+
+export type RichSkill = {
+  name: string
+  category: string
+  invocation: 'user' | 'model'
+  description: BilingualString
+  detailedDescription: BilingualString
+  useWhen: BilingualList
+  avoidWhen: BilingualList
+  howItWorks: BilingualList
+  coreRules: BilingualList
+  tips: BilingualList
+  pairsWellWith: string[]
+  sourcePath: string
+  /** Section khusus unik per skill — hanya dirender bila ada. */
+  spotlight?: {
+    title: BilingualString
+    body: BilingualString
+  }
+}
 
 export const cloudflareSkills: RichSkill[] = [
 {
@@ -19,8 +40,8 @@ export const cloudflareSkills: RichSkill[] = [
       en: 'Guidance for writing, reviewing, and configuring production Cloudflare Workers.',
     },
     detailedDescription: {
-      id: 'Skill ini memprioritaskan API, tipe, dan konfigurasi yang sesuai versi proyek serta mendorong retrieval dokumentasi Cloudflare. Aktifkan Workers Logs dan Traces dengan observability.enabled serta observability.traces.enabled. Gunakan wrangler types untuk menghasilkan tipe binding, crypto.randomUUID() atau crypto.getRandomValues() untuk token, dan ctx.waitUntil() untuk pekerjaan latar belakang.',
-      en: 'This skill prioritizes project-version APIs, types, and configuration, with Cloudflare documentation retrieval. Enable Workers Logs and Traces using observability.enabled and observability.traces.enabled. Generate binding types with wrangler types, use crypto.randomUUID() or crypto.getRandomValues() for tokens, and attach background work to ctx.waitUntil().',
+      id: 'Skill ini memprioritaskan API, tipe, dan konfigurasi yang sesuai versi proyek serta mendorong retrieval dokumentasi Cloudflare. Aktifkan Workers Logs dan Traces dengan observability.enabled serta observability.traces.enabled. Gunakan wrangler types untuk menghasilkan tipe binding, crypto.randomUUID() atau crypto.getRandomValues() untuk token, dan ctx.waitUntil() untuk pekerjaan latar belakang. Detailnya dipecah ke tiga referensi: configuration.md (compatibility date, binding, secret, logs/traces), runtime-patterns.md (streaming, promise lifetime, request state), dan platform-apis.md (signature handler, binding access, serialisasi).',
+      en: 'This skill prioritizes project-version APIs, types, and configuration, with Cloudflare documentation retrieval. Enable Workers Logs and Traces using observability.enabled and observability.traces.enabled. Generate binding types with wrangler types, use crypto.randomUUID() or crypto.getRandomValues() for tokens, and attach background work to ctx.waitUntil(). The details live in three references: configuration.md (compatibility dates, bindings, secrets, logs/traces), runtime-patterns.md (streaming, promise lifetime, request state), and platform-apis.md (handler signatures, binding access, serialization).',
     },
     useWhen: {
       id: ['Menulis atau mereview handler Workers.', 'Menyiapkan Worker untuk produksi dan observability.', 'Memeriksa binding, streaming, keamanan, atau umur pekerjaan async.'],
@@ -35,7 +56,7 @@ export const cloudflareSkills: RichSkill[] = [
       id: ['Jangan buffer body tak terbatas dengan await response.text().', 'Jangan hardcode secret atau memakai any pada Env/handler.', 'Jangan menyimpan mutable request state di module level.'],
       en: ['Do not buffer unbounded bodies with await response.text().', 'Do not hardcode secrets or use any for Env/handler parameters.', 'Do not keep mutable request state at module scope.'],
     },
-    tips: { id: ['Panggil ctx.waitUntil(...) tanpa destructuring method.', 'Gunakan Worker binding alih-alih REST API bila operasi tersedia.'], en: ['Call ctx.waitUntil(...) without destructuring its method.', 'Use a Worker binding instead of the REST API when the operation is available.'] },
+    tips: { id: ['Panggil ctx.waitUntil(...) tanpa destructuring method.', 'Gunakan Worker binding alih-alih REST API bila operasi tersedia.', 'Gunakan tanggal hari ini sebagai compatibility date Worker baru; untuk Worker lama, majukan berkala sambil meninjau perubahan dan menjalankan test.'], en: ['Call ctx.waitUntil(...) without destructuring its method.', 'Use a Worker binding instead of the REST API when the operation is available.', 'Use today\'s date as the compatibility date for new Workers; for existing Workers, advance it periodically while reviewing changes and running tests.'] },
     pairsWellWith: ['wrangler', 'cloudflare', 'web-perf'],
     spotlight: {
       title: { id: 'Hindari Tiga Jebakan Workers yang Sering Menyamar sebagai Penanganan Error', en: 'Avoid Three Workers Traps That Masquerade as Error Handling' },
@@ -46,20 +67,20 @@ export const cloudflareSkills: RichSkill[] = [
   {
     name: 'wrangler',
     category: 'workers-platform',
-    invocation: 'user',
+    invocation: 'model',
     description: {
-      id: 'Menjalankan dan mendiagnosis Wrangler serta mengonfigurasi proyek Worker.',
-      en: 'Run and troubleshoot Wrangler while configuring Worker projects.',
+      id: 'Menjalankan dan mendiagnosis Wrangler serta mengonfigurasi proyek Worker untuk pengembangan lokal, Previews, deployment, dan manajemen resource.',
+      en: 'Run and troubleshoot Wrangler while configuring Worker projects for local development, Previews, deployment, and resource management.',
     },
     detailedDescription: {
-      id: 'Skill ini mewajibkan pemeriksaan package manager, versi Wrangler, scripts, framework, dan config proyek sebelum bertindak. Gunakan wrangler --help, schema lokal node_modules/wrangler/config-schema.json, dan dokumentasi command yang relevan. Untuk perubahan binding TypeScript, jalankan wrangler types; untuk deployment, gunakan build proyek dan wrangler deploy --dry-run bila tersedia (catatan: dry-run tidak memvalidasi resource remote atau runtime).',
-      en: 'This skill requires inspecting the package manager, Wrangler version, scripts, framework, and project config before acting. Use wrangler --help, the local node_modules/wrangler/config-schema.json, and the relevant command documentation. For TypeScript binding changes run wrangler types; for deployments use the project build and wrangler deploy --dry-run when supported (note: dry-run does not validate remote resources or runtime).',
+      id: 'Aturan teratas: jika proyek punya cloudflare.config.ts atau pengguna meminta CLI cf, jangan pakai skill ini; ikuti dokumentasi Cloudflare CLI. Skill ini mewajibkan pemeriksaan package manager, versi Wrangler, scripts, framework, dan config proyek sebelum bertindak. Gunakan wrangler --help, schema lokal node_modules/wrangler/config-schema.json, dan dokumentasi command yang relevan. Untuk perubahan binding TypeScript, jalankan wrangler types; untuk deployment, gunakan build proyek dan wrangler deploy --dry-run bila tersedia (catatan: dry-run tidak memvalidasi resource remote atau runtime). Untuk branch/PR environment ada panduan Workers Previews (butuh Wrangler lokal 4.135.0+), dan sebelum perintah remote skill meminta identifikasi member/API token serta role dan scope paling sempit yang dibutuhkan.',
+      en: 'Top rule: if the project has a cloudflare.config.ts file or the user asked for the cf CLI, do not use this skill; follow the Cloudflare CLI documentation instead. This skill requires inspecting the package manager, Wrangler version, scripts, framework, and project config before acting. Use wrangler --help, the local node_modules/wrangler/config-schema.json, and the relevant command documentation. For TypeScript binding changes run wrangler types; for deployments use the project build and wrangler deploy --dry-run when supported (note: dry-run does not validate remote resources or runtime). It also covers Workers Previews for branch/PR environments (requires project-local Wrangler 4.135.0+), and before remote commands it asks you to identify the authenticated member or API token and the narrowest role and scope the operation needs.',
     },
     useWhen: { id: ['Menjalankan lokal atau deploy Worker.', 'Menambah binding, environment, atau konfigurasi Wrangler.', 'Mendiagnosis akun, resource, secret, atau rollback.'], en: ['Running locally or deploying a Worker.', 'Adding bindings, environments, or Wrangler configuration.', 'Diagnosing accounts, resources, secrets, or rollbacks.'] },
-    avoidWhen: { id: ['Tidak ada kebutuhan CLI atau konfigurasi Wrangler.', 'Target account/environment belum ditentukan untuk operasi yang mengubah state.'], en: ['There is no Wrangler CLI or configuration need.', 'The target account/environment is unspecified for a state-changing operation.'] },
+    avoidWhen: { id: ['Proyek punya cloudflare.config.ts atau pengguna meminta CLI cf (ikuti dokumentasi cf; jangan jalankan cf dev/build/deploy di proyek yang hanya punya config Wrangler tanpa migrasi).', 'Tidak ada kebutuhan CLI atau konfigurasi Wrangler.', 'Target account/environment belum ditentukan untuk operasi yang mengubah state.'], en: ['The project has cloudflare.config.ts or the user asked for the cf CLI (follow the cf docs; do not run cf dev/build/deploy in a project that has only a Wrangler config without migrating it first).', 'There is no Wrangler CLI or configuration need.', 'The target account/environment is unspecified for a state-changing operation.'] },
     howItWorks: { id: ['Inspeksi versi, scripts, config, dan target environment.', 'Verifikasi flags serta field melalui help dan schema lokal.', 'Ubah source config, jaga secret tetap terlindungi, dan bedakan local dari remote.', 'Regenerasi types lalu validasi dengan build atau dry run.'], en: ['Inspect versions, scripts, config, and target environment.', 'Verify flags and fields through local help and schema.', 'Change source config, protect secrets, and distinguish local from remote.', 'Regenerate types, then validate with the build or dry run.'] },
-    coreRules: { id: ['Jalankan versi Wrangler lokal dari package manager proyek.', 'Jangan taruh secret di argumen, source, atau log.', 'Periksa inheritance environment sebelum menambah binding.'], en: ['Run the project package manager’s local Wrangler version.', 'Keep secrets out of arguments, source, and logs.', 'Check environment inheritance before adding bindings.'] },
-    tips: { id: ['Gunakan wrangler.jsonc untuk config baru.', 'Anggap wrangler secret put/delete sebagai deployment langsung.'], en: ['Prefer wrangler.jsonc for new configuration.', 'Treat wrangler secret put/delete as immediate deployments.'] },
+    coreRules: { id: ['Jalankan versi Wrangler lokal dari package manager proyek.', 'Jangan taruh secret di argumen, source, atau log.', 'Periksa inheritance environment sebelum menambah binding.', 'Sebelum perintah remote, identifikasi member atau API token dan pilih scope paling sempit; login OAuth wrangler tidak mendukung otorisasi granular, jadi pakai API token milik akun bila perlu dan jangan minta nilainya ditempel di chat.'], en: ['Run the project package manager’s local Wrangler version.', 'Keep secrets out of arguments, source, and logs.', 'Check environment inheritance before adding bindings.', 'Before a remote command, identify the member or API token and choose the narrowest scope; the wrangler login OAuth flow does not support granular authorization, so use an account-owned API token when needed and never ask for its value in chat.'] },
+    tips: { id: ['Gunakan wrangler.jsonc untuk config baru.', 'Anggap wrangler secret put/delete sebagai deployment langsung.', 'Workers Previews: pakai untuk environment branch/PR di bawah Worker yang sama (Version URL untuk memeriksa satu versi dengan resource produksi, environment Wrangler untuk Worker permanen terpisah). URL Preview bersifat publik kecuali access control dikonfigurasi, dan saat menarget environment Wrangler, beri --env yang sama pada setiap perintah Preview.'], en: ['Prefer wrangler.jsonc for new configuration.', 'Treat wrangler secret put/delete as immediate deployments.', 'Workers Previews: use them for branch/PR environments under the same Worker (Version URLs to inspect one uploaded version with production resources, Wrangler environments for persistent separate Workers). Preview URLs are public unless access controls are configured, and when targeting a Wrangler environment, pass the same --env to every Preview command.'] },
     pairsWellWith: ['workers-best-practices', 'cloudflare'],
     spotlight: {
       title: { id: 'Rahasia Wrangler Bisa Langsung Menjadi Deployment', en: 'Wrangler Secrets Can Deploy Immediately' },
@@ -72,13 +93,13 @@ export const cloudflareSkills: RichSkill[] = [
     category: 'workers-platform',
     invocation: 'model',
     description: { id: 'Memilih produk Cloudflare yang tepat berdasarkan kebutuhan aplikasi.', en: 'Choose the right Cloudflare product from an application need.' },
-    detailedDescription: { id: 'Skill ini memetakan kebutuhan ke produk seperti Workers, Workers Static Assets, R2, D1, Queues, Workflows, dan Workers for Platforms. Untuk proyek baru, rekomendasikan Workers dan Workers Static Assets; gunakan Pages untuk deployment Pages yang sudah ada. Pilih Workers Cache sebagai default caching aplikasi dan gunakan binding di dalam Worker bila operasi didukung.', en: 'This skill maps needs to products such as Workers, Workers Static Assets, R2, D1, Queues, Workflows, and Workers for Platforms. For new projects recommend Workers and Workers Static Assets; preserve Pages for existing Pages deployments. Prefer Workers Cache for application caching and bindings inside Workers when the operation is supported.' },
+    detailedDescription: { id: 'Langkah pertama: jika proyek punya cloudflare.config.ts atau pengguna meminta CLI cf (beta), baca dokumentasi Cloudflare CLI dan jangan muat skill wrangler; panduan produk tetap berlaku. Skill ini memetakan kebutuhan ke produk seperti Workers, Workers Static Assets, R2, D1, Queues, Workflows, Workers for Platforms, serta produk yang lebih baru seperti Basin, K2 Streams, vinext (Next.js), Flue, Artifacts, Dynamic Workers, dan Roles/permissions. Untuk proyek baru, rekomendasikan Workers dan Workers Static Assets; gunakan Pages untuk deployment Pages yang sudah ada. Pilih Workers Cache sebagai default caching aplikasi dan gunakan binding di dalam Worker bila operasi didukung.', en: 'First check: if the project has cloudflare.config.ts or the user asked for the cf CLI (beta), read the Cloudflare CLI documentation and do not load the wrangler skill; the product guidance still applies. This skill maps needs to products such as Workers, Workers Static Assets, R2, D1, Queues, Workflows, Workers for Platforms, plus newer products like Basin, K2 Streams, vinext (Next.js), Flue, Artifacts, Dynamic Workers, and Roles/permissions. For new projects recommend Workers and Workers Static Assets; preserve Pages for existing Pages deployments. Prefer Workers Cache for application caching and bindings inside Workers when the operation is supported.' },
     useWhen: { id: ['Memilih arsitektur atau produk Cloudflare.', 'User menjelaskan kebutuhan tanpa menyebut produk.', 'Mengkombinasikan compute, storage, queues, AI, atau security.'], en: ['Choosing a Cloudflare architecture or product.', 'The user describes a need without naming a product.', 'Combining compute, storage, queues, AI, or security.'] },
     avoidWhen: { id: ['Produk dan arsitektur sudah jelas serta implementasinya membutuhkan skill khusus.'], en: ['The product and architecture are already clear and implementation needs a specialized skill.'] },
     howItWorks: { id: ['Mulai dari tujuan dan kebutuhan data, konsistensi, atau lifecycle.', 'Petakan kebutuhan ke produk yang koheren.', 'Baca referensi produk dan cek availability, limit, pricing, atau migration.', 'Rekomendasikan hanya komponen yang benar-benar diperlukan.'], en: ['Start from goals and data, consistency, or lifecycle needs.', 'Map the need to a coherent product set.', 'Read product references and check availability, limits, pricing, or migration.', 'Recommend only components the behavior actually needs.'] },
     coreRules: { id: ['Jangan menjanjikan limit, harga, atau availability tanpa pengecekan terkini.', 'Gunakan produk sekecil dan sekoheren mungkin.', 'Pilih bindings untuk operasi Worker yang didukung.'], en: ['Do not promise limits, pricing, or availability without current verification.', 'Choose the smallest coherent product combination.', 'Use bindings for supported Worker operations.'] },
-    tips: { id: ['Pair R2 dengan D1 bila metadata perlu query SQL.', 'Pair Queues dengan Workflows saat pekerjaan perlu orkestrasi durable multi-step.'], en: ['Pair R2 with D1 when metadata needs SQL queries.', 'Pair Queues with Workflows when work needs durable multi-step orchestration.'] },
-    pairsWellWith: ['workers-best-practices', 'wrangler', 'web-perf'],
+    tips: { id: ['Cek dulu apakah proyek memakai cf (cloudflare.config.ts); cf masih beta, jadi ambil dokumentasinya dan gunakan cf cli search "<task>" untuk menemukan perintah, bukan menghafal.', 'Pair R2 dengan D1 bila metadata perlu query SQL.', 'Pair Queues dengan Workflows saat pekerjaan perlu orkestrasi durable multi-step.'], en: ['Check first whether the project uses cf (cloudflare.config.ts); cf is in beta, so retrieve its docs and use cf cli search "<task>" to find a command rather than relying on memory.', 'Pair R2 with D1 when metadata needs SQL queries.', 'Pair Queues with Workflows when work needs durable multi-step orchestration.'] },
+    pairsWellWith: ['workers-best-practices', 'wrangler', 'nextjs-on-cloudflare', 'web-perf'],
     spotlight: {
       title: { id: 'Mulai dari Kebutuhan, Bukan Nama Produk', en: 'Start with the Need, Not the Product Name' },
       body: { id: 'Petakan upload ke Workers + R2 + D1 bila metadata perlu dicari; pilih Queues untuk pekerjaan background yang perlu menyerap burst. Gunakan Workflows untuk proses multi-step yang harus retry dan resume, serta Vectorize + Workers AI untuk retrieval semantik yang dikendalikan sendiri.', en: 'Map uploads to Workers + R2 + D1 when searchable metadata is needed; choose Queues for background work that must absorb bursts. Use Workflows for multi-step processes that retry and resume, and Vectorize + Workers AI for retrieval you control end to end.' },
@@ -88,7 +109,7 @@ export const cloudflareSkills: RichSkill[] = [
   {
     name: 'web-perf',
     category: 'workers-platform',
-    invocation: 'user',
+    invocation: 'model',
     description: { id: 'Mengaudit dan mengoptimalkan loading, interaksi, dan Core Web Vitals memakai Chrome DevTools performance tooling.', en: 'Audit and optimize loading, interaction, and Core Web Vitals with Chrome DevTools performance tooling.' },
     detailedDescription: { id: 'Skill ini memulai dengan verifikasi tool browser/performance dan mengukur trace cold-load menggunakan performance_start_trace(autoStop: true, reload: true). Analisis LCPBreakdown, CLSCulprits, RenderBlocking, dan network requests; cek threshold LCP 2.5s serta INP 200ms sebagai batas baik. Untuk codebase, deteksi bundler dari vite.config.ts atau konfigurasi lain dan periksa tree-shaking, dynamic imports, compression, serta source maps.', en: 'This skill starts by verifying browser/performance tools and measuring a cold-load trace with performance_start_trace(autoStop: true, reload: true). Analyze LCPBreakdown, CLSCulprits, RenderBlocking, and network requests; use 2.5s LCP and 200ms INP as good thresholds. For a codebase, detect the bundler from vite.config.ts or other config and inspect tree-shaking, dynamic imports, compression, and source maps.' },
     useWhen: { id: ['Mengaudit Core Web Vitals atau Lighthouse.', 'Menyelidiki bottleneck network, render, atau bundle.', 'Mengoptimalkan website dengan codebase yang tersedia.'], en: ['Auditing Core Web Vitals or Lighthouse.', 'Investigating network, rendering, or bundle bottlenecks.', 'Optimizing a website with codebase access.'] },
@@ -104,14 +125,14 @@ export const cloudflareSkills: RichSkill[] = [
     sourcePath: 'skills/web-perf/SKILL.md',
   },
 {
-    name: 'durable-objects', category: 'compute-state', invocation: 'user',
+    name: 'durable-objects', category: 'compute-state', invocation: 'model',
     description: { id: 'Bangun state persisten dan koordinasi kuat di edge Cloudflare.', en: 'Build persistent state and strong coordination at the Cloudflare edge.' },
-    detailedDescription: { id: 'Gunakan Durable Objects untuk chat room, inventory, WebSocket, dan state per entitas. Routing deterministik memakai getByName(), storage SQLite memakai ctx.storage.sql.exec(), dan inisialisasi schema memakai blockConcurrencyWhile(). RPC methods, alarm setAlarm(), serta migrasi new_sqlite_classes adalah pola khasnya.', en: 'Use Durable Objects for chat rooms, inventory, WebSockets, and per-entity state. Deterministic routing uses getByName(), SQLite uses ctx.storage.sql.exec(), and schema initialization uses blockConcurrencyWhile(). RPC methods, setAlarm(), and new_sqlite_classes migrations are its defining patterns.' },
+    detailedDescription: { id: 'Gunakan Durable Objects untuk chat room, inventory, WebSocket, dan state per entitas. Routing deterministik memakai getByName(), storage SQLite memakai ctx.storage.sql.exec(), dan inisialisasi schema memakai blockConcurrencyWhile(). RPC methods, alarm setAlarm(), serta migrasi new_sqlite_classes adalah pola khasnya. Durable Objects tidak punya role atau permission sendiri: akses mengikuti Worker yang mengimplementasikannya, jadi persempit role Workers ke Worker atau produk yang dituju sebelum memberi akses observability atau Data Studio.', en: 'Use Durable Objects for chat rooms, inventory, WebSockets, and per-entity state. Deterministic routing uses getByName(), SQLite uses ctx.storage.sql.exec(), and schema initialization uses blockConcurrencyWhile(). RPC methods, setAlarm(), and new_sqlite_classes migrations are its defining patterns. Durable Objects have no separate roles or permissions: access follows the Worker that implements them, so scope the Workers role to the intended Worker or product before granting observability or Data Studio access.' },
     useWhen: { id: ['Membangun koordinasi stateful per room, user, atau entitas.', 'Membutuhkan strong consistency atau persistent WebSockets.', 'Mengonfigurasi binding, migrasi, RPC, alarm, atau pengujian Durable Objects.'], en: ['Building stateful coordination per room, user, or entity.', 'Needing strong consistency or persistent WebSockets.', 'Configuring bindings, migrations, RPC, alarms, or Durable Object tests.'] },
     avoidWhen: { id: ['Request sepenuhnya stateless atau membutuhkan fan-out global tinggi.'], en: ['Requests are fully stateless or require high global fan-out.'] },
     howItWorks: { id: ['Modelkan satu DO per coordination atom, bukan satu DO global.', 'Tambahkan binding dan migration new_sqlite_classes di Wrangler.', 'Inisialisasi schema di constructor dengan blockConcurrencyWhile(), lalu persist sebelum cache.', 'Akses instance dengan getByName() dan expose RPC/alarm sesuai kebutuhan.'], en: ['Model one DO per coordination atom, not one global DO.', 'Add the binding and new_sqlite_classes migration in Wrangler.', 'Initialize schema in the constructor with blockConcurrencyWhile(), then persist before caching.', 'Access the instance with getByName() and expose RPC/alarm as needed.'] },
     coreRules: { id: ['Gunakan getByName() untuk routing deterministik.', 'Jangan menahan blockConcurrencyWhile() selama fetch atau external I/O.', 'setAlarm() hanya mempertahankan satu alarm dan menggantikan alarm lama.'], en: ['Use getByName() for deterministic routing.', 'Never hold blockConcurrencyWhile() across fetch or external I/O.', 'setAlarm() keeps one alarm and replaces the existing alarm.'] },
-    tips: { id: ['Gunakan SQLite synchronous sebagai storage yang direkomendasikan.', 'Baca references/testing.md sebelum memilih setup Vitest.'], en: ['Use synchronous SQLite as the recommended storage.', 'Read references/testing.md before choosing a Vitest setup.'] },
+    tips: { id: ['Gunakan SQLite synchronous sebagai storage yang direkomendasikan.', 'Baca references/testing.md sebelum memilih setup Vitest.', 'Otorisasi: tidak ada role khusus Durable Objects; ambil panduan otorisasi terbaru sebelum memberi akses observability/Data Studio dan batasi role Workers ke Worker yang dituju.'], en: ['Use synchronous SQLite as the recommended storage.', 'Read references/testing.md before choosing a Vitest setup.', 'Authorization: Durable Objects have no dedicated roles; retrieve the current authorization guidance before granting observability or Data Studio access and scope the Workers role to the intended Worker.'] },
     pairsWellWith: ['agents-sdk', 'sandbox-next'], spotlight: {
       title: { id: 'Pilih Stub Durable Object Sesuai Identitasnya', en: 'Choose the Durable Object Stub for Its Identity Model' },
       body: { id: 'Gunakan getByName untuk routing deterministik, idFromString untuk ID yang sudah tersimpan, dan newUniqueId saat membuat identitas baru yang pemetaannya harus disimpan. Sebelum menulis test, baca testing.md dan uji perilaku koordinasi, persistensi, serta pemulihan—bukan sekadar bentuk API.', en: 'Use getByName for deterministic routing, idFromString for an existing stored ID, and newUniqueId when creating a new identity whose mapping must be persisted. Before writing tests, read testing.md and test coordination, persistence, and recovery behavior—not just API shape.' },
@@ -119,7 +140,7 @@ export const cloudflareSkills: RichSkill[] = [
     sourcePath: 'skills/durable-objects/SKILL.md',
   },
   {
-    name: 'agents-sdk', category: 'compute-state', invocation: 'user',
+    name: 'agents-sdk', category: 'compute-state', invocation: 'model',
     description: { id: 'Bangun agent Cloudflare dengan state persisten, RPC, scheduling, dan workflow durable.', en: 'Build Cloudflare agents with persistent state, RPC, scheduling, and durable workflows.' },
     detailedDescription: { id: 'Agents SDK memakai class Agent<Env, State>, setState(), validateStateChange(), dan @callable() untuk RPC via WebSocket. routeAgentRequest menangani URL /agents/{agent-name}/{instance-name}; API penting lain mencakup schedule(), scheduleEvery(), runWorkflow(), runFiber(), queue(), dan retry(). Konfigurasi memerlukan binding DO, migration SQLite, serta tanpa experimentalDecorators.', en: 'The Agents SDK uses Agent<Env, State>, setState(), validateStateChange(), and @callable() for WebSocket RPC. routeAgentRequest handles /agents/{agent-name}/{instance-name}; other key APIs include schedule(), scheduleEvery(), runWorkflow(), runFiber(), queue(), and retry(). Configuration requires a DO binding, SQLite migration, and no experimentalDecorators.' },
     useWhen: { id: ['Membangun agent stateful atau chat agent.', 'Membutuhkan callable RPC, scheduling, queue, retry, atau durable execution.', 'Mengintegrasikan routing agent, workflow, MCP, atau React client hooks.'], en: ['Building a stateful agent or chat agent.', 'Needing callable RPC, scheduling, queues, retries, or durable execution.', 'Integrating agent routing, workflows, MCP, or React client hooks.'] },
@@ -134,7 +155,7 @@ export const cloudflareSkills: RichSkill[] = [
     sourcePath: 'skills/agents-sdk/SKILL.md',
   },
   {
-    name: 'sandbox-next', category: 'compute-state', invocation: 'user',
+    name: 'sandbox-next', category: 'compute-state', invocation: 'model',
     description: { id: 'Jalankan lingkungan Linux terisolasi memakai Sandbox SDK @next preview.', en: 'Run isolated Linux environments with the @next preview Sandbox SDK.' },
     detailedDescription: { id: 'Sandbox @next memakai getSandbox() dan sandbox.exec(argv), yang segera mengembalikan process handle. Hasil dikumpulkan dengan output(), logs(), atau waitForExit(); exec tidak memakai implicit shell dan setiap launch independen. Package Worker dan image container harus sama-sama @next, tanpa live secret di sandbox.', en: 'Sandbox @next uses getSandbox() and sandbox.exec(argv), which returns a process handle as soon as the process starts. Collect results with output(), logs(), or waitForExit(); exec has no implicit shell and each launch is independent. The Worker package and container image must both be @next, with no live secrets in the sandbox.' },
     useWhen: { id: ['Membangun project baru di Sandbox 1.0 preview.', 'Menjalankan command argv, menunggu port/log, atau mengelola process handle.', 'Membutuhkan interpreter, terminal, file, mount, backup, atau tunnel pada line preview.'], en: ['Starting a new project on the Sandbox 1.0 preview.', 'Running argv commands or waiting for ports/logs via process handles.', 'Needing interpreter, terminals, files, mounts, backups, or tunnels on the preview line.'] },
@@ -149,7 +170,7 @@ export const cloudflareSkills: RichSkill[] = [
     sourcePath: 'skills/sandbox-next/SKILL.md',
   },
   {
-    name: 'sandbox-stable', category: 'compute-state', invocation: 'user',
+    name: 'sandbox-stable', category: 'compute-state', invocation: 'model',
     description: { id: 'Kelola aplikasi Cloudflare Sandbox existing pada package stable dengan command completion dan session (proyek baru disarankan mulai di @next).', en: 'Maintain existing Cloudflare Sandbox apps on the stable package with command completion and sessions (new projects should start on @next).' },
     detailedDescription: { id: 'Sandbox stable memakai sandbox.exec(command string) yang selesai setelah command berakhir dan mengembalikan stdout, stderr, exitCode, serta success. Pekerjaan panjang memakai startProcess atau execStream, sedangkan sessions mempertahankan cwd dan environment. Jangan menerapkan argv/process.output() preview, dan pastikan package serta image stable cocok.', en: 'Stable Sandbox uses sandbox.exec(command string), which resolves after completion and returns stdout, stderr, exitCode, and success. Long-running work uses startProcess or execStream, while sessions preserve cwd and environment. Do not apply preview argv/process.output() APIs, and keep the package and image on the matching stable line.' },
     useWhen: { id: ['Memelihara app dengan dependency @cloudflare/sandbox default.', 'Menjalankan command string yang harus selesai atau memakai session.', 'Menggunakan process streaming, terminal stable, tunnel, mount, atau cleanup deprecation.'], en: ['Maintaining an app using the default @cloudflare/sandbox dependency.', 'Running completing command strings or preserving state with sessions.', 'Using stable streaming processes, terminals, tunnels, mounts, or deprecation cleanup.'] },
@@ -166,7 +187,7 @@ export const cloudflareSkills: RichSkill[] = [
 {
     name: 'sandbox-migrate-to-next',
     category: 'compute-state',
-    invocation: 'user',
+    invocation: 'model',
     description: {
       id: 'Panduan migrasi Cloudflare Sandbox stabil ke SDK 1.0 preview.',
       en: 'Guide for migrating Cloudflare Sandbox from stable to the SDK 1.0 preview.',
@@ -214,7 +235,7 @@ export const cloudflareSkills: RichSkill[] = [
   {
     name: 'cloudflare-one-migrations',
     category: 'security-access',
-    invocation: 'user',
+    invocation: 'model',
     description: { id: 'Rencana migrasi VPN, SWG, atau SASE ke Cloudflare One dengan mapping dan rollout terukur.', en: 'Measured migration planning from VPN, SWG, or SASE to Cloudflare One.' },
     detailedDescription: { id: 'Skill ini meminta export terstruktur dan inventory identities, apps, connectors, routes, lists, policy, hit counts, serta logging sebelum mapping. ZPA dipetakan terpisah menjadi Access apps, Tunnel routes, DNS, dan reusable policies; ZIA biasanya menjadi Gateway traffic policies/lists. Setiap rule harus punya target Cloudflare atau baris Not Migrated beserta alasan dan dampak keamanan.', en: 'This skill requires structured exports and an inventory of identities, apps, connectors, routes, lists, policies, hit counts, and logging before mapping. ZPA is split into Access apps, Tunnel routes, DNS, and reusable policies; ZIA usually maps to Gateway traffic policies and lists. Every rule must have a Cloudflare target or a Not Migrated row with its reason and security impact.' },
     useWhen: { id: ['Memigrasikan Zscaler ZIA/ZPA, Palo Alto, VPN, SWG, atau SD-WAN.', 'Membangun mapping object, dependency, parity gap, dan keputusan manual.', 'Menyiapkan pilot, parallel run, validasi, dan rollback migrasi.'], en: ['Migrating Zscaler ZIA/ZPA, Palo Alto, VPN, SWG, or SD-WAN.', 'Building object, dependency, parity-gap, and manual-decision mappings.', 'Preparing migration pilots, parallel runs, validation, and rollback.'] },
@@ -232,7 +253,7 @@ export const cloudflareSkills: RichSkill[] = [
 {
     name: 'turnstile-spin',
     category: 'security-access',
-    invocation: 'user',
+    invocation: 'model',
     description: {
       id: 'Integrasi verifikasi bot Cloudflare Turnstile end-to-end untuk frontend dan backend yang sudah ada.',
       en: 'End-to-end Cloudflare Turnstile bot-verification integration for an existing frontend and backend.',
@@ -271,7 +292,7 @@ export const cloudflareSkills: RichSkill[] = [
   {
     name: 'cloudflare-email-service',
     category: 'messaging',
-    invocation: 'user',
+    invocation: 'model',
     description: {
       id: 'Panduan implementasi dan troubleshooting Cloudflare Email Sending serta Email Routing.',
       en: 'Implementation and troubleshooting guidance for Cloudflare Email Sending and Email Routing.',
@@ -307,5 +328,122 @@ export const cloudflareSkills: RichSkill[] = [
     },
     sourcePath: 'skills/cloudflare-email-service/SKILL.md',
   },
+  {
+    name: 'nextjs-on-cloudflare',
+    category: 'workers-platform',
+    invocation: 'model',
+    description: {
+      id: 'Membangun, memigrasikan, dan men-deploy aplikasi Next.js di Cloudflare Workers dengan vinext.',
+      en: 'Build, migrate, and deploy Next.js apps on Cloudflare Workers with vinext.',
+    },
+    detailedDescription: {
+      id: 'Skill ini menetapkan vinext (bukan OpenNext) sebagai default untuk proyek Next.js baru di Cloudflare Workers, sesuai panduan Next.js Cloudflare. vinext mengimplementasikan ulang API Next.js di atas Vite: App Router, Pages Router, React Server Components, import next/* yang didukung, HMR Vite, dan eksekusi lokal di workerd dengan akses binding Cloudflare. Untuk setup, migrasi, atau deployment, skill ini meminta memasang skill upstream vinext (npx skills add cloudflare/vinext) bila belum ada, lalu mengikuti SKILL.md yang relevan.',
+      en: 'This skill makes vinext (not OpenNext) the default for new Next.js projects on Cloudflare Workers, matching the Cloudflare Next.js guide. vinext reimplements the Next.js API surface on Vite: App Router, Pages Router, React Server Components, supported next/* imports, Vite HMR, and local execution in workerd with access to Cloudflare bindings. For setup, migration, or deployment it asks you to install vinext\'s upstream skills (npx skills add cloudflare/vinext) if missing, then follow the applicable SKILL.md.',
+    },
+    useWhen: {
+      id: ['Memulai proyek Next.js baru di Cloudflare.', 'Memindahkan aplikasi Next.js yang ada ke Workers.', 'Memilih antara vinext dan OpenNext, atau menyiapkan vinext untuk Workers.'],
+      en: ['Starting a new Next.js project on Cloudflare.', 'Moving an existing Next.js app to Workers.', 'Choosing between vinext and OpenNext, or setting up vinext for Workers.'],
+    },
+    avoidWhen: {
+      id: ['Pemeliharaan yang tidak terkait pada setup OpenNext yang sudah ada: pertahankan setup tersebut.', 'Pengguna secara eksplisit memilih pendekatan lain.'],
+      en: ['Unrelated maintenance on an existing OpenNext setup: preserve it.', 'The user explicitly chose a different approach.'],
+    },
+    howItWorks: {
+      id: ['Periksa apakah skill upstream vinext sudah tersedia; jika belum, pasang dengan npx skills add cloudflare/vinext.', 'Proyek baru: ikuti setup new-project vinext dengan create-vinext-app target Cloudflare.', 'Proyek Next.js yang ada: ikuti skill upstream migrate-to-vinext, termasuk compatibility check, dengan Cloudflare sebagai target deployment.', 'Untuk pengembangan dan deployment, ikuti dokumentasi integrasi Workers vinext terbaru.'],
+      en: ['Check whether vinext\'s upstream skills are available; if not, install them with npx skills add cloudflare/vinext.', 'New project: follow vinext\'s new-project setup with create-vinext-app targeting Cloudflare.', 'Existing Next.js project: follow the upstream migrate-to-vinext skill, including its compatibility check, with Cloudflare as the deployment target.', 'For development and deployment, follow the current vinext Workers integration docs.'],
+    },
+    coreRules: {
+      id: ['Gunakan vinext, bukan OpenNext, untuk proyek Next.js baru di Workers.', 'Pertahankan setup OpenNext yang sudah ada saat pemeliharaan yang tidak terkait, dan hormati pilihan eksplisit pengguna.', 'Jangan menerapkan skill migrasi upstream pada direktori kosong; skill itu butuh proyek Next.js yang sudah ada.'],
+      en: ['Use vinext rather than OpenNext for new Next.js projects on Workers.', 'Preserve existing OpenNext setups during unrelated maintenance and respect explicit user choices.', 'Do not apply the upstream migration skill to an empty directory; it requires an existing Next.js project.'],
+    },
+    tips: {
+      id: ['Cek kompatibilitas fitur yang dibutuhkan aplikasi; jangan berasumsi paritas penuh dengan Next.js.', 'Jika instalasi skill tidak memungkinkan, baca langsung SKILL.md upstream dan referensinya.'],
+      en: ['Check compatibility for the features the application needs; do not assume complete Next.js parity.', 'If installing the skills is unavailable, read the upstream SKILL.md and its references directly.'],
+    },
+    pairsWellWith: ['cloudflare', 'wrangler', 'workers-best-practices'],
+    spotlight: {
+      title: { id: 'Skill Ini Mendelegasikan ke Skill Upstream vinext', en: 'This Skill Delegates to vinext\'s Own Skills' },
+      body: { id: 'nextjs-on-cloudflare sengaja tipis: ia memilih jalur (vinext untuk proyek baru, migrate-to-vinext untuk proyek yang ada) lalu menyerahkan langkah detail ke skill di repo cloudflare/vinext. Pastikan skill upstream itu terpasang sebelum setup, migrasi, atau deployment.', en: 'nextjs-on-cloudflare is intentionally thin: it picks the path (vinext for new projects, migrate-to-vinext for existing ones) and hands the detailed steps to the skills in the cloudflare/vinext repo. Make sure those upstream skills are installed before setup, migration, or deployment.' },
+    },
+    sourcePath: 'skills/nextjs-on-cloudflare/SKILL.md',
+  },
+  {
+    name: 'basin',
+    category: 'data-streaming',
+    invocation: 'model',
+    description: {
+      id: 'Membangun dan men-troubleshoot alur analitik Cloudflare Basin: Basin Pipelines, Basin Catalog, dan Basin SQL.',
+      en: 'Build and troubleshoot Cloudflare Basin analytics workflows with Basin Pipelines, Basin Catalog, and Basin SQL.',
+    },
+    detailedDescription: {
+      id: 'Basin menyerap dan mentransformasi event, mengelola tabel Apache Iceberg di R2, dan mengkuerinya dengan SQL terdistribusi. Cloudflare Data Platform kini bernama Basin; Pipelines, R2 Data Catalog, dan R2 SQL menjadi Basin Pipelines, Basin Catalog, dan Basin SQL. Resource dan konfigurasi lama tetap berjalan, begitu juga perintah wrangler pipelines, wrangler r2 bucket catalog, dan wrangler r2 sql. Alur umumnya: Basin Pipelines, lalu tabel Basin Catalog di R2, lalu Basin SQL atau engine eksternal yang kompatibel. Skill ini juga dipakai untuk permintaan yang masih memakai nama lama (Data Platform, Pipelines, R2 Data Catalog, R2 SQL).',
+      en: 'Basin ingests and transforms events, manages Apache Iceberg tables in R2, and queries them with distributed SQL. Cloudflare Data Platform is now Basin; Pipelines, R2 Data Catalog, and R2 SQL are now Basin Pipelines, Basin Catalog, and Basin SQL. Existing resources and configurations keep working, as do wrangler pipelines, wrangler r2 bucket catalog, and wrangler r2 sql. The typical flow is Basin Pipelines, then Basin Catalog tables in R2, then Basin SQL or a compatible external engine. The skill is also used for requests that still use the former names (Data Platform, Pipelines, R2 Data Catalog, R2 SQL).',
+    },
+    useWhen: {
+      id: ['Mengalirkan data streaming ke tabel Iceberg di R2.', 'Mengelola katalog Iceberg, pemeliharaan tabel, atau akses engine.', 'Mengkueri tabel Iceberg dengan SQL analitik, atau permintaan yang memakai nama lama Pipelines / R2 Data Catalog / R2 SQL.'],
+      en: ['Streaming data into Iceberg tables in R2.', 'Managing Iceberg catalogs, table maintenance, or engine access.', 'Querying Iceberg tables with analytical SQL, or requests that use the old Pipelines / R2 Data Catalog / R2 SQL names.'],
+    },
+    avoidWhen: {
+      id: ['Kebutuhan hanya log durable dengan consumer independen tanpa tabel analitik (lihat k2).', 'Pemrosesan job asinkron biasa (pertimbangkan Queues).'],
+      en: ['You only need a durable log with independent consumers and no analytical tables (see k2).', 'Ordinary asynchronous job processing (consider Queues).'],
+    },
+    howItWorks: {
+      id: ['Pilih workflow: Pipelines untuk menerima event dan mengirim ke R2, Catalog untuk metadata dan maintenance Iceberg, SQL untuk kueri analitik.', 'Ambil dokumentasi terbaru, terutama untuk limit, harga, permission, dan sintaks CLI, sebelum mengimplementasikan perubahan.', 'Mulai dari panduan getting started Basin untuk setup end-to-end.', 'Cek versi Wrangler terpasang dan halaman referensi terbaru sebelum menjalankan perintah, karena migrasi nama masih berjalan.'],
+      en: ['Pick the workflow: Pipelines to receive events and deliver to R2, Catalog for Iceberg metadata and maintenance, SQL for analytical queries.', 'Retrieve current docs, especially for limits, pricing, permissions, and CLI syntax, before implementing changes.', 'Start from the Basin getting started guide for an end-to-end setup.', 'Check the installed Wrangler version and current reference pages before running commands, because the rename migration is ongoing.'],
+    },
+    coreRules: {
+      id: ['Gunakan nama dan URL dokumentasi Basin yang baru pada panduan baru; pengenal API dan nama metrik lama mungkin masih memakai istilah lama.', 'Ambil dokumentasi terkini sebelum menyebut limit, harga, permission, atau sintaks CLI.', 'Famili perintah Wrangler Basin masih diusulkan (wrangler basin pipelines/catalog/sql); verifikasi terhadap versi Wrangler terpasang.'],
+      en: ['Use the new Basin names and documentation URLs in new guidance; legacy API identifiers and metric names may still use the old terms.', 'Retrieve current docs before stating limits, pricing, permissions, or CLI syntax.', 'The Basin Wrangler command families are still proposed (wrangler basin pipelines/catalog/sql); verify against the installed Wrangler version.'],
+    },
+    tips: {
+      id: ['Basin SQL memakai WRANGLER_BASIN_SQL_AUTH_TOKEN, dan jalur REST kuerinya adalah /basin-sql/query/{BUCKET}.', 'Sumber menyebut halaman dokumentasi baru masih dalam PR yang terbuka; bila URL belum terbit, pakai halaman yang diusulkan di PR tersebut.'],
+      en: ['Basin SQL uses WRANGLER_BASIN_SQL_AUTH_TOKEN, and its REST query path is /basin-sql/query/{BUCKET}.', 'The source notes the new documentation pages are still in an open PR; if the URLs are not yet published, use the pages proposed in that PR.'],
+    },
+    pairsWellWith: ['k2', 'cloudflare', 'wrangler'],
+    spotlight: {
+      title: { id: 'Rebrand Data Platform menjadi Basin', en: 'Data Platform Is Now Basin' },
+      body: { id: 'Pipelines menjadi Basin Pipelines, R2 Data Catalog menjadi Basin Catalog, dan R2 SQL menjadi Basin SQL. Karena migrasi masih berjalan, skill ini meminta Anda memverifikasi perintah dan dokumentasi terhadap versi Wrangler dan halaman referensi saat ini.', en: 'Pipelines becomes Basin Pipelines, R2 Data Catalog becomes Basin Catalog, and R2 SQL becomes Basin SQL. Because the migration is ongoing, the skill asks you to verify commands and documentation against the current Wrangler version and reference pages.' },
+    },
+    sourcePath: 'skills/basin/SKILL.md',
+  },
+  {
+    name: 'k2',
+    category: 'data-streaming',
+    invocation: 'model',
+    description: {
+      id: 'Membangun dan men-troubleshoot log durable Cloudflare K2 / K2 Streams: setup stream, produce, retention, dan consume.',
+      en: 'Build and troubleshoot Cloudflare K2 or K2 Streams durable logs: stream setup, producing, retention, and consuming.',
+    },
+    detailedDescription: {
+      id: 'K2 adalah log durable untuk memisahkan producer dan consumer event. Skill ini memakai dokumentasi sebagai sumber kebenaran: untuk setup stream, produce dari Workers atau HTTP, konfigurasi retention dan input, serta consume lewat subscription, ambil halaman dokumentasi yang sesuai (Get started, Concepts, Configuration, Produce, Consume, Limits) sebelum memberi instruksi, kode, limit, availability, permission, atau detail API. Untuk transformasi SQL dan pengiriman ke tabel Iceberg R2 pakai skill basin; untuk pemrosesan task, pertimbangkan Queues.',
+      en: 'K2 is a durable log for decoupling event producers and consumers. The skill treats the docs as the source of truth: for stream setup, producing from Workers or HTTP, configuring retention and inputs, and consuming through subscriptions, retrieve the matching docs page (Get started, Concepts, Configuration, Produce, Consume, Limits) before giving instructions, code, limits, availability, permissions, or API details. For SQL transformation and delivery to R2 Iceberg tables use the basin skill; for task processing, consider Queues.',
+    },
+    useWhen: {
+      id: ['Membuat stream K2 dan mencobanya.', 'Memproduksi record dari Workers atau HTTP.', 'Mengonfigurasi retention, input, autentikasi, atau CORS, dan mengonsumsi lewat subscription.'],
+      en: ['Creating a K2 stream and trying it.', 'Producing records from Workers or HTTP.', 'Configuring retention, inputs, authentication, or CORS, and consuming through subscriptions.'],
+    },
+    avoidWhen: {
+      id: ['Transformasi SQL dan pengiriman ke tabel Iceberg di R2 (gunakan basin).', 'Pemrosesan task biasa (pertimbangkan Queues).'],
+      en: ['SQL transformation and delivery to R2 Iceberg tables (use basin).', 'Ordinary task processing (consider Queues).'],
+    },
+    howItWorks: {
+      id: ['Mulai dari ikhtisar K2 lalu ambil halaman dokumentasi yang cocok dengan tugas.', 'Buat stream dan konfigurasikan input, autentikasi, CORS, serta retention.', 'Produce record dari HTTP atau binding Worker, perhatikan encoding, error, dan retry.', 'Consume lewat subscription dengan memperhatikan lease, acknowledgement, dan retry.'],
+      en: ['Start from the K2 overview, then retrieve the docs page that matches the task.', 'Create a stream and configure inputs, authentication, CORS, and retention.', 'Produce records over HTTP or a Worker binding, watching encoding, errors, and retries.', 'Consume through subscriptions, minding leases, acknowledgements, and retries.'],
+    },
+    coreRules: {
+      id: ['Dokumentasi adalah sumber kebenaran di atas skill ini; ambil halaman yang cocok untuk setiap tugas dan pakai contoh terkininya.', 'Untuk pertanyaan kapasitas atau biaya, cek limit dan harga yang dipublikasikan sebelum menyebut angka.', 'Nyatakan bila detail harga atau availability yang diminta belum dipublikasikan.'],
+      en: ['The docs are the source of truth over this skill; retrieve the matching page for each task and use its current examples.', 'For capacity or cost questions, check current limits and any published pricing before quoting values.', 'State when a requested pricing or availability detail is not yet published.'],
+    },
+    tips: {
+      id: ['Sumber menyebut halaman dokumentasi K2 masih dalam PR cloudflare-docs yang terbuka; bila URL publik belum terbit, pakai halaman yang diusulkan di PR tersebut.'],
+      en: ['The source notes the K2 docs are still in an open cloudflare-docs PR; if the public URLs are not yet published, use the pages proposed in that PR.'],
+    },
+    pairsWellWith: ['basin', 'workers-best-practices'],
+    spotlight: {
+      title: { id: 'Produce dan Consume Terpisah', en: 'Producers and Consumers Are Decoupled' },
+      body: { id: 'K2 memisahkan produser dan konsumer lewat log durable: produce dari HTTP atau Worker, konsumsi lewat subscription dengan lease dan acknowledgement. Karena detail API dan limit bisa berubah, selalu ambil halaman Produce, Consume, dan Limits yang terbaru.', en: 'K2 decouples producers and consumers through a durable log: produce over HTTP or from a Worker, consume through subscriptions with leases and acknowledgements. Because API details and limits can change, always retrieve the latest Produce, Consume, and Limits pages.' },
+    },
+    sourcePath: 'skills/k2/SKILL.md',
+  },
 ]
-export const CLOUDFLARE_SKILL_COUNT = 13
+export const CLOUDFLARE_SKILL_COUNT = 16

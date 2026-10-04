@@ -8,30 +8,26 @@ function getWorkflows() {
       title: m.david_workflow_1_title(),
       description: m.david_workflow_1_description(),
       why: m.david_workflow_1_why(),
-      steps: [
-        'folder-specific-claude-and-agents-md',
-        'brain-to-docs',
-        'README + docs/adr/*',
-      ],
+      steps: ['before-building', 'ask-then-build', 'adr-verbatim'],
     },
     {
       title: m.david_workflow_2_title(),
       description: m.david_workflow_2_description(),
       why: m.david_workflow_2_why(),
-      steps: ['level-up', 'LEARNING-PLAN.md', 'teach (reuse Matt)'],
+      steps: ['teach', 'MISSION.md + reference/*.html', 'remind (recap)'],
     },
     {
       title: m.david_workflow_3_title(),
       description: m.david_workflow_3_description(),
       why: m.david_workflow_3_why(),
-      steps: ['research-prompt', 'deep-research (optional)', 'markdown report'],
+      steps: ['deep-research', 'cited Markdown report', 'deep-scrape (dossiers)'],
     },
     {
       title: m.david_workflow_4_title(),
       description: m.david_workflow_4_description(),
       why: m.david_workflow_4_why(),
       steps: [
-        'goal-loop (5-part contract)',
+        'goal-loop (4-part contract)',
         'anti-sleep',
         'validate command loop',
       ],
@@ -41,9 +37,10 @@ function getWorkflows() {
       description: m.david_workflow_5_description(),
       why: m.david_workflow_5_why(),
       steps: [
-        'agent-self-scheduling',
-        'heartbeat / zero-token',
-        'silent when idle',
+        'fable-review',
+        'gpt-review',
+        'total-review (merge + triage)',
+        'fix approved only',
       ],
     },
     {
@@ -59,7 +56,7 @@ function getWorkflows() {
       steps: [
         'effective-agent-skills',
         'write SKILL.md',
-        'folder-specific context',
+        'distribute-skill-to-all-agents',
       ],
     },
   ]

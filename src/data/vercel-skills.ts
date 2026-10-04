@@ -35,7 +35,7 @@ export const vercelSkills: RichSkill[] = [
       en: 'Scalable React composition patterns: kill boolean prop proliferation with compound components, lifted state, and composed internals.',
     },
     detailedDescription: {
-      id: 'Skill ini berisi panduan arsitektur komponen Vercel yang tersusun berdasarkan prioritas: component architecture (HIGH), state management, implementation patterns, dan React 19 APIs. Aturan intinya architecture-avoid-boolean-prop mencegah komponen meledak jadi kombinasi isThread/isEditing/isDMThread, lalu digantikan compound components dengan shared context. Interface context generik (state, actions, meta) membuat state dependency-injectable sehingga UI yang sama bisa dipakai provider lokal maupun global, dan aturan react19-no-forwardref menghapus forwardRef serta memakai use() alih-alih useContext() di React 19.',
+      id: 'Skill ini berisi panduan arsitektur komponen Vercel yang tersusun berdasarkan prioritas: component architecture (HIGH), state management, implementation patterns, dan React 19 APIs. Aturan intinya architecture-avoid-boolean-props mencegah komponen meledak jadi kombinasi isThread/isEditing/isDMThread, lalu digantikan compound components dengan shared context. Interface context generik (state, actions, meta) membuat state dependency-injectable sehingga UI yang sama bisa dipakai provider lokal maupun global, dan aturan react19-no-forwardref menghapus forwardRef serta memakai use() alih-alih useContext() di React 19.',
       en: 'This skill packages Vercel\'s component architecture guidance, prioritized into component architecture (HIGH), state management, implementation patterns, and React 19 APIs. The core rule architecture-avoid-boolean-props stops components from exploding into isThread/isEditing/isDMThread combinations, replaced by compound components with a shared context. A generic context interface (state, actions, meta) makes state dependency-injectable so the same UI works with local or global providers, and react19-no-forwardref drops forwardRef in favor of ref-as-prop and use() instead of useContext() on React 19.',
     },
     useWhen: {
@@ -61,7 +61,7 @@ export const vercelSkills: RichSkill[] = [
     pairsWellWith: ['vercel-react-best-practices', 'web-design-guidelines'],
     spotlight: {
       title: { id: 'Komposisi React yang Tahan Perubahan', en: 'React Composition That Scales' },
-      body: { id: 'Hindari boolean props yang menumpuk; pilih compound components, state-context interface, dan children over render props agar API komponen tetap fleksibel. Pastikan prasyaratnya sesuai: pola ini memanfaatkan React 19, sementara React 18 memerlukan pendekatan kompatibel yang dijelaskan sumber.', en: 'Avoid accumulating boolean props; use compound components, a state-context interface, and children over render props to keep component APIs flexible. Check the prerequisite first: these patterns target React 19, while React 18 needs the compatibility approach described in the source.' },
+      body: { id: 'Hindari boolean props yang menumpuk; pilih compound components, state-context interface, dan children over render props agar API komponen tetap fleksibel. Pastikan prasyaratnya sesuai: pola ini memanfaatkan React 19, sementara sumber menyatakan bagian React 19 dilewati jika proyek memakai React 18.', en: 'Avoid accumulating boolean props; use compound components, a state-context interface, and children over render props to keep component APIs flexible. Check the prerequisite first: these patterns target React 19, while the source says to skip the React 19 section if the project uses React 18.' },
     },
     sourcePath: 'skills/composition-patterns/SKILL.md',
   },
@@ -94,8 +94,8 @@ export const vercelSkills: RichSkill[] = [
       en: ['Waterfalls are the #1 performance killer: independent async operations must run in parallel (source claims 2-10x on suitable workloads — measure on your own).', 'Authenticate Server Actions like API routes since they are exposed as public endpoints.', 'Do not wrap simple primitive-result expressions in useMemo; hook overhead can exceed the computation.'],
     },
     tips: {
-      id: ['Di Next.js 13.5+, biarkan import barrel biasa; optimizePackageImports mengubahnya jadi direct import tanpa kehilangan type safety (verifikasi terhadap versi Next.js yang dipakai, aturan ini tidak tercantum di SKILL.md).', 'Ingat React.cache() hanya berlaku per-request; untuk cache lintas-request pakai LRU cache, efektif di Fluid Compute karena instance shared.'],
-      en: ['On Next.js 13.5+, keep plain barrel imports; optimizePackageImports rewrites them to direct imports without losing type safety (verify against your Next.js version — this rule is not in SKILL.md).', 'Remember React.cache() is per-request only; use an LRU cache across requests, especially effective on Fluid Compute with shared instances.'],
+      id: ['Di Next.js 13.5+, biarkan import barrel biasa; optimizePackageImports mengubahnya jadi direct import tanpa kehilangan type safety (aturan bundle-barrel-imports; verifikasi terhadap versi Next.js yang dipakai, dan perhatikan deep import lucide-react tidak punya .d.ts sehingga jatuh ke implicit any).', 'Ingat React.cache() hanya berlaku per-request; untuk cache lintas-request pakai LRU cache, efektif di Fluid Compute karena instance shared.'],
+      en: ['On Next.js 13.5+, keep plain barrel imports; optimizePackageImports rewrites them to direct imports without losing type safety (rule bundle-barrel-imports; verify against your Next.js version, and note that lucide-react deep imports ship no .d.ts and fall back to implicit any).', 'Remember React.cache() is per-request only; use an LRU cache across requests, especially effective on Fluid Compute with shared instances.'],
     },
     pairsWellWith: ['vercel-composition-patterns', 'vercel-optimize', 'vercel-react-view-transitions'],
     spotlight: {
@@ -114,7 +114,7 @@ export const vercelSkills: RichSkill[] = [
     },
     detailedDescription: {
       id: 'Panduan resmi Vercel untuk React Native/Expo dengan kategori berprioritas: List Performance (CRITICAL menurut SKILL.md; kompilasi AGENTS.md menempatkan Core Rendering sebagai CRITICAL dan List sebagai HIGH — virtualisasi dengan LegendList/FlashList, referensi objek stabil, props primitif agar memo() bekerja), Animation (hanya transform dan opacity yang GPU-accelerated, gunakan useDerivedValue dan GestureDetector dengan worklet UI thread), Navigation (native stack dan native tabs di atas navigator berbasis JS), hingga aturan rendering kritis seperti melarang {value && <Component/>} ketika value bisa falsy (crash di production) dan mewajibkan string dibungkus <Text>. Mencakup juga monorepo, fonts via config plugins, dan kompatibilitas React Compiler.',
-      en: 'Vercel\'s official React Native/Expo guide with prioritized categories: List Performance (CRITICAL, virtualize with LegendList/FlashList, keep object references stable, pass primitive props so memo() works), Animation (only transform and opacity are GPU-accelerated; use useDerivedValue and GestureDetector with UI-thread worklets), Navigation (native stack and native tabs over JS navigators), plus critical rendering rules like banning {value && <Component/>} when value can be falsy (production crash) and requiring strings wrapped in <Text>. Also covers monorepos, fonts via config plugins, and React Compiler compatibility.',
+      en: 'Vercel\'s official React Native/Expo guide with prioritized categories: List Performance (CRITICAL per SKILL.md; the AGENTS.md compilation ranks Core Rendering as CRITICAL and List as HIGH; virtualize with LegendList/FlashList, keep object references stable, pass primitive props so memo() works), Animation (only transform and opacity are GPU-accelerated; use useDerivedValue and GestureDetector with UI-thread worklets), Navigation (native stack and native tabs over JS navigators), plus critical rendering rules like banning {value && <Component/>} when value can be falsy (production crash) and requiring strings wrapped in <Text>. Also covers monorepos, fonts via config plugins, and React Compiler compatibility.',
     },
     useWhen: {
       id: ['Membangun atau merefaktor aplikasi React Native dan Expo.', 'Mengoptimalkan performa list panjang, scroll, atau animasi Reanimated.', 'Mengonfigurasi native modules, fonts, atau struktur monorepo dengan dependensi native.'],
@@ -185,7 +185,7 @@ export const vercelSkills: RichSkill[] = [
   {
     name: 'deploy-to-vercel',
     category: 'deployment',
-    invocation: 'user',
+    invocation: 'model',
     description: {
       id: 'Deploy aplikasi apa pun ke Vercel: pilih metode terbaik (git push, vercel deploy, atau fallback sandbox) dan selalu preview kecuali diminta produksi.',
       en: 'Deploy any project to Vercel: pick the best method (git push, vercel deploy, or sandbox fallback) and always ship preview unless production is requested.',
@@ -199,7 +199,7 @@ export const vercelSkills: RichSkill[] = [
       en: ['The user asks to "deploy my app", "deploy and give me the link", or "push this live".', 'Setting a project up linked to Vercel with automatic git-push deployments.', 'Deploying from sandboxes (claude.ai/Codex) that cannot install or authenticate the CLI.'],
     },
     avoidWhen: {
-      id: ['Deploy ke production; hanya dilakukan jika pengguna memintanya secara eksplisit.', 'Direktori belum ter-link: jangan pakai vercel project inspect atau vercel ls untuk mendeteksi state karena bisa memicu prompt interaktif atau link diam-diam.'],
+      id: ['Deploy ke production; hanya dilakukan jika pengguna memintanya secara eksplisit.', 'Direktori belum ter-link: jangan pakai vercel project inspect atau vercel link untuk mendeteksi state karena bisa memicu prompt interaktif atau link diam-diam.'],
       en: ['Production deploys; only when the user explicitly requests them.', 'Unlinked directories: never detect state with vercel project inspect or vercel link, which can prompt interactively or silently link as a side-effect.'],
     },
     howItWorks: {
@@ -224,7 +224,7 @@ export const vercelSkills: RichSkill[] = [
   {
     name: 'vercel-cli-with-tokens',
     category: 'deployment',
-    invocation: 'user',
+    invocation: 'model',
     description: {
       id: 'Kelola Vercel lewat CLI dengan token-based auth (VERCEL_TOKEN di environment) tanpa vercel login interaktif.',
       en: 'Manage Vercel via the CLI with token-based auth (VERCEL_TOKEN in the environment) without interactive vercel login.',
@@ -263,14 +263,14 @@ export const vercelSkills: RichSkill[] = [
   {
     name: 'vercel-optimize',
     category: 'deployment',
-    invocation: 'user',
+    invocation: 'model',
     description: {
       id: 'Audit optimasi biaya dan performa Vercel berbasis observability: kumpulkan metrik dulu, investigasi kandidat berbasis gate deterministik, hasilkan rekomendasi berperingkat.',
       en: 'Observability-first Vercel cost and performance audit: collect metrics first, investigate gate-selected candidates, produce ranked recommendations.',
     },
     detailedDescription: {
-      id: 'Skill audit paling prosedural di koleksi: ia menolak repo-wide grep sebelum signals.json terkumpul dari vercel metrics, vercel usage, dan vercel contract pada window 14 hari. Alurnya: collect-signals dan scan-codebase digabung via merge-signals, gate-investigations memilih maksimal 6 kandidat dengan diversity guardrail, deep-dive menyusun brief per kandidat (3+ brief memicu satu sub-agent per brief; host tanpa sub-agent jalan inline serial), verify-and-regen memverifikasi file dan sitasi secara mekanis, lalu render-report menghasilkan rekomendasi berperingkat dengan bukti metrik. Mendukung Next.js paling kuat, SvelteKit/Nuxt didukung, Astro terbatas; butuh Vercel CLI v53+, link direktori proyek, dan Observability Plus untuk rekomendasi route-level.',
-      en: 'The most procedural audit skill in the collection: it refuses repo-wide grep until signals.json exists, built from vercel metrics, vercel usage, and vercel contract over a 14-day window. Its flow: collect-signals and scan-codebase merge into signals, gate-investigations picks at most 6 candidates with a diversity guardrail, deep-dive writes one brief per candidate (3+ briefs spawn one sub-agent per brief; hosts without sub-agents run inline serially), verify-and-regen mechanically checks files and citations, then render-report emits ranked recommendations grounded in metric evidence. Next.js is supported most strongly, SvelteKit/Nuxt are supported, Astro is limited; it needs Vercel CLI v53+, a linked project directory, and Observability Plus for route-level recommendations.',
+      id: 'Skill audit paling prosedural di koleksi: ia menolak repo-wide grep sebelum signals.json terkumpul dari vercel metrics, vercel usage, dan vercel contract pada window 14 hari. Alurnya: collect-signals dan scan-codebase digabung via merge-signals, gate-investigations memilih maksimal 6 kandidat dengan diversity guardrail, deep-dive mengumpulkan bukti per kandidat, lalu prepare-investigation-brief menyusun satu brief per entri (3+ brief memicu satu sub-agent per brief; host tanpa sub-agent jalan inline serial), verify-and-regen memverifikasi file dan sitasi secara mekanis, lalu render-report menghasilkan rekomendasi berperingkat dengan bukti metrik. Mendukung Next.js paling kuat, SvelteKit/Nuxt didukung, Astro terbatas; butuh Vercel CLI v53+, link direktori proyek, dan Observability Plus untuk rekomendasi route-level.',
+      en: 'The most procedural audit skill in the collection: it refuses repo-wide grep until signals.json exists, built from vercel metrics, vercel usage, and vercel contract over a 14-day window. Its flow: collect-signals and scan-codebase merge into signals, gate-investigations picks at most 6 candidates with a diversity guardrail, deep-dive gathers evidence per candidate, then prepare-investigation-brief writes one brief per entry (3+ briefs spawn one sub-agent per brief; hosts without sub-agents run inline serially), verify-and-regen mechanically checks files and citations, then render-report emits ranked recommendations grounded in metric evidence. Next.js is supported most strongly, SvelteKit/Nuxt are supported, Astro is limited; it needs Vercel CLI v53+, a linked project directory, and Observability Plus for route-level recommendations.',
     },
     useWhen: {
       id: ['Menurunkan tagihan Vercel (Fast Data Transfer, Function Invocations, Build Minutes).', 'Menyelidiki route yang lambat atau mahal, peluang caching, atau Core Web Vitals.', 'Minta breakdown biaya atau audit Fluid compute pada proyek yang sudah deployed dan punya traffic.'],
@@ -281,8 +281,8 @@ export const vercelSkills: RichSkill[] = [
       en: ['Projects not deployed on Vercel, greenfield apps without 14 days of traffic, or general code review.', 'Users without Observability Plus who decline the limited audit; the skill forbids silently falling back to code-only mode.'],
     },
     howItWorks: {
-      id: ['Collect: jalankan collect-signals.mjs dan scan-codebase.mjs dari direktori ter-link, lalu gabungkan jadi signals.json dengan scope proyek yang terverifikasi.', 'Gate: gate-investigations.mjs menentukan kandidat layak investigasi (toLaunch, platform, gated) berdasarkan bukti metrik.', 'Investigate: deep-dive memverifikasi berkas per brief; brief 3+ dikerjakan paralel oleh sub-agent dengan cakupan terikat kandidat.', 'Verify dan render: verify-and-regen memvalidasi klaim, file, dan sitasi versi framework; render-report menghasilkan laporan Markdown plus pesan akhir yang dicetak verbatim.'],
-      en: ['Collect: run collect-signals.mjs and scan-codebase.mjs from the linked directory, merging into signals.json under a verified project scope.', 'Gate: gate-investigations.mjs decides which candidates merit investigation (toLaunch, platform, gated) from metric evidence.', 'Investigate: deep-dive verifies files per brief; 3+ briefs fan out to candidate-bound sub-agents in parallel.', 'Verify and render: verify-and-regen validates claims, files, and framework-version citations; render-report produces the Markdown report plus a final message printed verbatim.'],
+      id: ['Collect: jalankan collect-signals.mjs dan scan-codebase.mjs dari direktori ter-link, lalu gabungkan jadi signals.json dengan scope proyek yang terverifikasi.', 'Gate: gate-investigations.mjs menentukan kandidat layak investigasi (toLaunch, platform, gated) berdasarkan bukti metrik.', 'Investigate: deep-dive.mjs mengumpulkan bukti, brief dibuat oleh prepare-investigation-brief.mjs, lalu setiap brief diinvestigasi; brief 3+ dikerjakan paralel oleh sub-agent dengan cakupan terikat kandidat.', 'Verify dan render: verify-and-regen memvalidasi klaim, file, dan sitasi versi framework; render-report menghasilkan laporan Markdown plus pesan akhir yang dicetak verbatim.'],
+      en: ['Collect: run collect-signals.mjs and scan-codebase.mjs from the linked directory, merging into signals.json under a verified project scope.', 'Gate: gate-investigations.mjs decides which candidates merit investigation (toLaunch, platform, gated) from metric evidence.', 'Investigate: deep-dive.mjs gathers evidence, briefs are generated by prepare-investigation-brief.mjs, and each brief is investigated; 3+ briefs fan out to candidate-bound sub-agents in parallel.', 'Verify and render: verify-and-regen validates claims, files, and framework-version citations; render-report produces the Markdown report plus a final message printed verbatim.'],
     },
     coreRules: {
       id: ['Metrics first: rekomendasi harus dilacak ke kandidat berbasis metrik atau temuan scanner yang traffic-independent; dilarang repo-wide grep di luar cakupan kandidat.', 'Jangan pernah menaruh token auth di perintah shell (VERCEL_TOKEN=..., --token, atau Authorization header).', 'Gunakan frasa magnitudo biaya, bukan angka penghematan $N; respons yang tidak aman tetap dinamis sampai bukti membuktikan aman di-cache.'],
@@ -302,7 +302,7 @@ export const vercelSkills: RichSkill[] = [
   {
     name: 'web-design-guidelines',
     category: 'design-quality',
-    invocation: 'user',
+    invocation: 'model',
     description: {
       id: 'Review kode UI terhadap Web Interface Guidelines: fetch panduan terbaru, periksa file target, laporkan temuan dalam format ringkas file:line.',
       en: 'Review UI code against the Web Interface Guidelines: fetch the latest handbook, check target files, report findings in terse file:line format.',
@@ -341,7 +341,7 @@ export const vercelSkills: RichSkill[] = [
   {
     name: 'writing-guidelines',
     category: 'authoring',
-    invocation: 'user',
+    invocation: 'model',
     description: {
       id: 'Review dokumentasi dan prosa terhadap Writing Guidelines Vercel: fetch handbook terbaru, periksa file, laporkan temuan file:line.',
       en: 'Review docs and prose against Vercel\'s Writing Guidelines: fetch the latest handbook, check files, report file:line findings.',

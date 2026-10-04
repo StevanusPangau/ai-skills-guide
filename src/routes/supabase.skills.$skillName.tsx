@@ -265,7 +265,7 @@ function SupabaseSkillPage() {
               </h2>
               <SkillInstallBlock
                 skillName={skill.name}
-                source={author?.source ?? 'supabase/agent-skills'}
+                source={(author?.source ?? 'supabase/agent-skills').replace(/^github\.com\//, '')}
               />
             </section>
           </div>

@@ -12,7 +12,7 @@ import { Separator } from '@/components/ui/separator'
 import { SkillInstallBlock } from '@/components/skill-install-block'
 import { CopyAgentRuleButton } from '@/components/copy-agent-rule-button'
 import { getCollectionBySlug } from '@/data/collections'
-import { impeccableSkills, type RichSkill } from '@/data/impeccable-skills'
+import { impeccableSkills, IMPECCABLE_SOURCE_SHA, type RichSkill } from '@/data/impeccable-skills'
 import { resetSkillDetailScroll } from '@/lib/scroll-to-section'
 import { useDocumentTitle } from '@/lib/use-document-title'
 import { m } from '@/paraglide/messages.js'
@@ -135,7 +135,7 @@ function ImpeccableSkillPage() {
                   howItWorks={isEn ? skill.howItWorks.en : skill.howItWorks.id}
                 />
                 <a
-                  href={`https://${author?.source}/tree/main/${skill.sourcePath}`}
+                  href={`https://github.com/pbakaus/impeccable/blob/${IMPECCABLE_SOURCE_SHA}/${skill.sourcePath}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-1 rounded-md border border-border bg-card px-3 py-1.5 font-mono text-xs text-foreground transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50"
@@ -251,9 +251,19 @@ function ImpeccableSkillPage() {
                 </h2>
                 <div className="flex flex-wrap gap-2">
                   {skill.pairsWellWith.map((pair) => (
-                    <Badge key={pair} variant="secondary" className="font-mono text-xs">
-                      /{pair}
-                    </Badge>
+                    <Link
+                      key={pair}
+                      to="/impeccable/skills/$skillName"
+                      params={{ skillName: pair }}
+                      className="rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50"
+                    >
+                      <Badge
+                        variant="secondary"
+                        className="cursor-pointer font-mono text-xs transition-colors hover:border-primary"
+                      >
+                        /{pair}
+                      </Badge>
+                    </Link>
                   ))}
                 </div>
               </section>
@@ -265,7 +275,7 @@ function ImpeccableSkillPage() {
               </h2>
               <SkillInstallBlock
                 skillName={skill.name}
-                source={author?.source ?? 'pbakaus/impeccable'}
+                source="pbakaus/impeccable"
               />
             </section>
           </div>

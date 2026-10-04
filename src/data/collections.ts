@@ -180,9 +180,8 @@ export function getCollections(): Collection[] {
     {
       slug: 'tanstack',
       to: '/tanstack',
-      author: 'TanStack',
-      avatarSrc: '/avatars/tanstack.svg',
-      title: 'Official TanStack Skills',
+      author: 'tanstack-skills (community)',
+      title: 'TanStack Community Skills',
       description: m.collection_tanstack_description(),
       skillCount: TANSTACK_SKILL_COUNT,
       status: 'available',

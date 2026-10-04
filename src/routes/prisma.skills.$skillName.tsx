@@ -265,7 +265,7 @@ function PrismaSkillPage() {
               </h2>
               <SkillInstallBlock
                 skillName={skill.name}
-                source={author?.source ?? 'prisma/skills'}
+                source={(author?.source ?? 'prisma/skills').replace(/^github\.com\//, '')}
               />
             </section>
           </div>

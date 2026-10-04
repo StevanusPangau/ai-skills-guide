@@ -1,15 +1,45 @@
 import type { BilingualString, BilingualList } from '@/types/skill'
 
 // Koleksi: Anthropic — github.com/anthropics/skills.
-// Lisensi upstream: Copyright Anthropic PBC, All rights reserved (LICENSE.txt
-// per skill). Guide ini hanya mendokumentasikan ringkasan; install langsung
-// dari repo upstream.
+// Lisensi upstream bervariasi per skill (diverifikasi 2026-10-04 pada commit
+// 8a1541c): 14 skill Apache-2.0, 4 skill dokumen (docx/pdf/pptx/xlsx)
+// proprietary / source-available (bukan open source; LICENSE.txt melarang
+// menyalin, membuat derivatif, dan mendistribusikan di luar layanan Anthropic),
+// dan doc-coauthoring tanpa file lisensi. Lihat ANTHROPIC_SKILL_LICENSES.
+// Guide ini hanya mendokumentasikan ringkasan; install langsung dari repo
+// upstream. Upstream juga memuat THIRD_PARTY_NOTICES.md (BSD-2, dll.).
 //
-// Sumber: https://github.com/anthropics/skills.
+// Sumber: https://github.com/anthropics/skills (diverifikasi 2026-10-04,
+// HEAD 8a1541c; claude-api disinkronkan ke revisi ini).
 export const ANTHROPIC_SOURCE_REPO = 'github.com/anthropics/skills'
-export const ANTHROPIC_SOURCE_SHA = '41bbe19d1a1a7eaab5e7bb9050a417e5c6cffc8f'
+export const ANTHROPIC_SOURCE_SHA = '8a1541c4a3ffa5a20a5a91de0dcf3f0bab1d1ef4'
 export const SOURCE_REPO = ANTHROPIC_SOURCE_REPO
 export const SOURCE_SHA = ANTHROPIC_SOURCE_SHA
+
+export type AnthropicLicense = 'apache-2.0' | 'proprietary' | 'none'
+
+/** Lisensi per skill, sesuai LICENSE.txt / frontmatter `license:` upstream. */
+export const ANTHROPIC_SKILL_LICENSES: Record<string, AnthropicLicense> = {
+  'academy-guide': 'apache-2.0',
+  'algorithmic-art': 'apache-2.0',
+  'brand-guidelines': 'apache-2.0',
+  'canvas-design': 'apache-2.0',
+  'claude-api': 'apache-2.0',
+  'discernment-nudge': 'apache-2.0',
+  'doc-coauthoring': 'none',
+  docx: 'proprietary',
+  'frontend-design': 'apache-2.0',
+  'internal-comms': 'apache-2.0',
+  'mcp-builder': 'apache-2.0',
+  pdf: 'proprietary',
+  pptx: 'proprietary',
+  'skill-creator': 'apache-2.0',
+  'slack-gif-creator': 'apache-2.0',
+  'theme-factory': 'apache-2.0',
+  'web-artifacts-builder': 'apache-2.0',
+  'webapp-testing': 'apache-2.0',
+  xlsx: 'proprietary',
+}
 
 export type RichSkill = {
   name: string
@@ -35,7 +65,7 @@ export const anthropicSkills: RichSkill[] = [
 {
   name: 'docx',
   category: 'document-creation',
-  invocation: 'user',
+  invocation: 'model',
   description: {
     id: 'Buat, baca, edit, dan analisis dokumen Word serta template .docx atau .dotx.',
     en: 'Create, read, edit, and analyze Word documents and .docx or .dotx templates.',
@@ -112,7 +142,7 @@ export const anthropicSkills: RichSkill[] = [
 {
   name: 'pdf',
   category: 'document-creation',
-  invocation: 'user',
+  invocation: 'model',
   description: {
     id: 'Proses PDF: buat, baca, ekstrak, gabung, pecah, rotasi, watermark, OCR, formulir, dan enkripsi.',
     en: 'Process PDFs: create, read, extract, merge, split, rotate, watermark, OCR, fill forms, and encrypt.',
@@ -193,7 +223,7 @@ export const anthropicSkills: RichSkill[] = [
 {
   name: 'pptx',
   category: 'document-creation',
-  invocation: 'user',
+  invocation: 'model',
   description: {
     id: 'Buat, baca, edit, dan analisis presentation deck, slide, serta template .pptx atau .potx.',
     en: 'Create, read, edit, and analyze presentation decks, slides, and .pptx or .potx templates.',
@@ -272,7 +302,7 @@ export const anthropicSkills: RichSkill[] = [
 {
   name: 'xlsx',
   category: 'document-creation',
-  invocation: 'user',
+  invocation: 'model',
   description: {
     id: 'Buat, baca, edit, dan analisis spreadsheet .xlsx, .xlsm, .xltx, .csv, dan .tsv.',
     en: 'Create, read, edit, and analyze .xlsx, .xlsm, .xltx, .csv, and .tsv spreadsheets.',
@@ -426,7 +456,7 @@ export const anthropicSkills: RichSkill[] = [
   {
     name: 'canvas-design',
     category: 'design-brand',
-    invocation: 'user',
+    invocation: 'model',
     description: {
       id: 'Membuat visual art original pada canvas sebagai file .png atau .pdf, diawali visual philosophy dan disempurnakan dengan craftsmanship tinggi.',
       en: 'Creates original visual art as .png or .pdf artifacts, beginning with a visual philosophy and refined through careful craftsmanship.',
@@ -580,7 +610,7 @@ export const anthropicSkills: RichSkill[] = [
   {
     name: 'theme-factory',
     category: 'design-brand',
-    invocation: 'user',
+    invocation: 'model',
     description: {
       id: 'Toolkit untuk memilih atau membuat theme dengan cohesive color palette, font pairing, dan visual identity bagi slides, docs, reports, atau HTML.',
       en: 'A toolkit for selecting or creating themes with cohesive palettes, font pairings, and visual identity for slides, docs, reports, or HTML.',
@@ -657,7 +687,7 @@ export const anthropicSkills: RichSkill[] = [
   {
     name: 'algorithmic-art',
     category: 'design-brand',
-    invocation: 'user',
+    invocation: 'model',
     description: {
       id: 'Membuat generative art original dengan p5.js, seeded randomness, parameter exploration, dan interactive HTML viewer.',
       en: 'Creates original generative art with p5.js, seeded randomness, parameter exploration, and an interactive HTML viewer.',
@@ -732,7 +762,7 @@ export const anthropicSkills: RichSkill[] = [
     sourcePath: 'skills/algorithmic-art/SKILL.md',
   },
 {
-    name: 'skill-creator', category: 'agent-development', invocation: 'user',
+    name: 'skill-creator', category: 'agent-development', invocation: 'model',
     description: { id: 'Membuat, menguji, dan mengiterasi skills Claude.', en: 'Create, test, and iteratively improve Claude skills.' },
     detailedDescription: { id: 'Panduan end-to-end untuk menangkap intent, menulis draft SKILL.md, lalu menguji skill dengan prompt realistis. Workflow ini membandingkan run with-skill dan baseline, mengumpulkan feedback, serta memperbaiki triggering dan isi secara iteratif.', en: 'An end-to-end workflow for capturing intent, drafting SKILL.md, and testing a skill with realistic prompts. It compares with-skill runs against baselines, collects feedback, and iterates on triggering and content.' },
     useWhen: { id: ['Membuat skill baru dari nol.', 'Mengubah atau memperbaiki skill yang sudah ada.', 'Menjalankan eval, benchmark, atau optimasi deskripsi skill.'], en: ['Creating a new skill from scratch.', 'Modifying or improving an existing skill.', 'Running skill evals, benchmarks, or description-trigger optimization.'] },
@@ -742,12 +772,12 @@ export const anthropicSkills: RichSkill[] = [
     tips: { id: ['Mulai dari 2-3 test prompt realistis.', 'Bundel helper yang berulang ke scripts/ daripada menulis ulang.'], en: ['Start with 2-3 realistic test prompts.', 'Bundle repeated helpers in scripts/ instead of reinventing them.'] },
     pairsWellWith: ['mcp-builder', 'webapp-testing'], spotlight: {
       title: { id: 'Evaluasi Skill Harus Membandingkan Baseline', en: 'Skill Evaluation Must Include a Baseline' },
-      body: { id: 'Bandingkan evaluasi with-skill dengan baseline agar manfaat instruksi dapat diukur, bukan hanya diasumsikan. Deliverable evaluasi mencakup eval_metadata.json, grading.json, dan benchmark yang dibuat melalui generate_review.py.', en: 'Compare with-skill evaluation against a baseline so the instruction’s value is measured rather than assumed. Evaluation deliverables include eval_metadata.json, grading.json, and a benchmark generated through generate_review.py.' },
+      body: { id: 'Bandingkan evaluasi with-skill dengan baseline agar manfaat instruksi dapat diukur, bukan hanya diasumsikan. Deliverable evaluasi mencakup eval_metadata.json, grading.json, dan benchmark yang dihasilkan aggregate_benchmark (generate_review.py hanyalah viewer untuk meninjaunya).', en: 'Compare with-skill evaluation against a baseline so the instruction’s value is measured rather than assumed. Evaluation deliverables include eval_metadata.json, grading.json, and a benchmark produced by aggregate_benchmark (generate_review.py is only the viewer for reviewing it).' },
     },
     sourcePath: 'skills/skill-creator/SKILL.md'
   },
   {
-    name: 'mcp-builder', category: 'agent-development', invocation: 'user',
+    name: 'mcp-builder', category: 'agent-development', invocation: 'model',
     description: { id: 'Membangun server MCP berkualitas tinggi dengan integrasi API yang andal.', en: 'Build high-quality MCP servers with reliable API integrations.' },
     detailedDescription: { id: 'Skill ini memandu perancangan MCP server dari riset API dan pemilihan tools hingga implementasi, testing, dan evaluasi kualitas. Fokusnya adalah tool yang jelas, error handling yang baik, pagination, autentikasi, serta output yang berguna bagi model.', en: 'This skill guides MCP server design from API research and tool selection through implementation, testing, and quality evaluation. It emphasizes clear tools, robust error handling, pagination, authentication, and model-useful outputs.' },
     useWhen: { id: ['Membangun MCP server baru.', 'Membungkus REST API atau layanan eksternal menjadi tools MCP.', 'Mereview kualitas desain tools MCP.'], en: ['Building a new MCP server.', 'Wrapping a REST API or external service as MCP tools.', 'Reviewing MCP tool design quality.'] },
@@ -764,20 +794,20 @@ export const anthropicSkills: RichSkill[] = [
   {
     name: 'claude-api', category: 'agent-development', invocation: 'model',
     description: { id: 'Referensi Claude API dan SDK resmi dengan mekanisme trigger: dibaca sebelum membuka file target, jangan pernah dari memori.', en: 'Claude API and official SDK reference with a trigger mechanism: read before opening the target file, never from memory.' },
-    detailedDescription: { id: 'Referensi trigger-first untuk model ids, pricing, params, streaming, tool use, MCP, agents, caching, token counting, dan migrasi model lintas SDK. Mekanisme TRIGGER mewajibkan membaca referensi yang tepat (sesuai bahasa dan fitur) sebelum membuka file target dan melarang menjawab dari memori; aturan SKIP mengecualikan task provider lain seperti OpenAI, Gemini, atau Ollama. Catatan: sumber memuat info model/harga yang bisa basi — selalu live lookup untuk info terkini, jangan anggap ringkasan ini selalu current.', en: 'A trigger-first reference for model ids, pricing, params, streaming, tool use, MCP, agents, caching, token counting, and model migration across SDKs. Its TRIGGER mechanism requires reading the matching reference (by language and feature) before opening the target file and forbids answering from memory; SKIP rules exclude other-provider tasks such as OpenAI, Gemini, or Ollama. Note: the source contains model/pricing info that can go stale — always do a live lookup for current info instead of treating this summary as current.' },
+    detailedDescription: { id: 'Referensi trigger-first untuk model ids, pricing, params, streaming, tool use, MCP, agents, caching, token counting, dan migrasi model lintas SDK. Mekanisme TRIGGER mewajibkan membaca referensi yang tepat (sesuai bahasa dan fitur) sebelum membuka file target dan melarang menjawab dari memori; aturan SKIP mengecualikan task provider lain seperti OpenAI, Gemini, atau Ollama. Default sumber saat ini adalah Claude Opus 5.5 (claude-opus-5-5) dengan adaptive thinking dan streaming untuk request panjang; ada juga tabel API drift (mis. budget_tokens ditolak 400 pada model terbaru, tipe tool web search/fetch terbaru, Files API dan Skills sudah keluar dari beta). Catatan: sumber memuat info model/harga yang bisa basi — selalu live lookup untuk info terkini, jangan anggap ringkasan ini selalu current.', en: 'A trigger-first reference for model ids, pricing, params, streaming, tool use, MCP, agents, caching, token counting, and model migration across SDKs. Its TRIGGER mechanism requires reading the matching reference (by language and feature) before opening the target file and forbids answering from memory; SKIP rules exclude other-provider tasks such as OpenAI, Gemini, or Ollama. The source currently defaults to Claude Opus 5.5 (claude-opus-5-5) with adaptive thinking and streaming for long requests, and carries an API-drift table (e.g. budget_tokens is rejected with a 400 on the newest models, newer web search/fetch tool types, Files API and Skills are out of beta). Note: the source contains model/pricing info that can go stale — always do a live lookup for current info instead of treating this summary as current.' },
     useWhen: { id: ['Mengintegrasikan Claude API atau SDK Anthropic.', 'Membangun agent dengan tools, MCP, atau caching.', 'Menggunakan batches, files API, token counting, atau migrasi model.'], en: ['Integrating the Claude API or Anthropic SDK.', 'Building an agent with tools, MCP, or caching.', 'Using batches, the Files API, token counting, or model migration.'] },
     avoidWhen: { id: ['Task memakai provider lain (OpenAI, Gemini, Ollama); aturan SKIP berlaku.', 'Tidak ada integrasi LLM atau SDK yang dikerjakan.'], en: ['The task uses another provider (OpenAI, Gemini, Ollama); SKIP rules apply.', 'No LLM or SDK integration is involved.'] },
     howItWorks: { id: ['Deteksi bahasa dan fitur yang diperlukan.', 'Baca README SDK terlebih dahulu lalu referensi fitur terkait.', 'Implementasikan dengan tipe SDK resmi dan pola error handling yang tepat.', 'Verifikasi dukungan model, beta header, dan parameter API.'], en: ['Detect the language and required feature.', 'Read the SDK README first, then the relevant feature reference.', 'Implement with official SDK types and appropriate error handling.', 'Verify model support, beta headers, and API parameters.'] },
     coreRules: { id: ['Baca referensi DULU sebelum membuka file target; jangan pernah menjawab dari memori.', 'Gunakan API surface dan helper SDK resmi, bukan reimplementasi.', 'Jangan memotong input diam-diam.'], en: ['Read the reference FIRST before opening the target file; never answer from memory.', 'Use the official API surface and SDK helpers rather than reimplementing them.', 'Never silently truncate input.'] },
-    tips: { id: ['Gunakan streaming untuk output besar atau timeout panjang.', 'Key hasil batch dengan custom_id karena urutan hasil tidak dijamin.'], en: ['Use streaming for large output or long timeouts.', 'Key batch results by custom_id because result order is not guaranteed.'] },
+    tips: { id: ['Gunakan streaming untuk output besar atau timeout panjang; untuk tool client + streaming, sumber menyarankan eager_input_streaming: true pada definisi tool.', 'Key hasil batch dengan custom_id karena urutan hasil tidak dijamin.'], en: ['Use streaming for large output or long timeouts; for streaming with client tools the source recommends eager_input_streaming: true on the tool definition.', 'Key batch results by custom_id because result order is not guaranteed.'] },
     pairsWellWith: ['mcp-builder', 'web-artifacts-builder'], spotlight: {
       title: { id: 'Migrasi Claude Dimulai dari README Bahasa', en: 'Start Claude API Migration with the Language README' },
-      body: { id: 'Sebelum memakai workflow, baca {lang}/claude-api/README.md untuk bahasa yang dipilih. Subcommand utamanya adalah migrate, prompt-audit, upgrade, dan cost-optimize, masing-masing untuk tahap perbaikan yang berbeda.', en: 'Before using the workflow, read {lang}/claude-api/README.md for the selected language. Its core subcommands are migrate, prompt-audit, upgrade, and cost-optimize, each targeting a different improvement stage.' },
+      body: { id: 'Sebelum memakai workflow, baca {lang}/claude-api/README.md untuk bahasa yang dipilih. Subcommand-nya: migrate, prompt-audit, upgrade, cost-optimize, build-eval, preserved-thinking-migration, hillclimb, dan managed-agents-onboard, masing-masing untuk tahap yang berbeda (mis. build-eval menyusun eval set, hillclimb memperbaiki app terhadap eval yang sudah ada).', en: 'Before using the workflow, read {lang}/claude-api/README.md for the selected language. Its subcommands are migrate, prompt-audit, upgrade, cost-optimize, build-eval, preserved-thinking-migration, hillclimb, and managed-agents-onboard, each targeting a different stage (e.g. build-eval builds an eval set, hillclimb improves the app against an existing eval).' },
     },
     sourcePath: 'skills/claude-api/SKILL.md'
   },
   {
-    name: 'webapp-testing', category: 'agent-development', invocation: 'user',
+    name: 'webapp-testing', category: 'agent-development', invocation: 'model',
     description: { id: 'Testing web app lokal dengan Playwright untuk verifikasi UI dan perilaku.', en: 'Test local web apps with Playwright to verify UI and behavior.' },
     detailedDescription: { id: 'Gunakan native Python Playwright untuk menguji web app statis maupun dinamis. Workflow membedakan server yang sudah berjalan, memakai with_server.py bila perlu, lalu melakukan reconnaissance DOM sebelum action.', en: 'Use native Python Playwright to test static and dynamic web apps. The workflow distinguishes already-running servers, uses with_server.py when needed, and performs DOM reconnaissance before actions.' },
     useWhen: { id: ['Memverifikasi frontend atau UI web app lokal.', 'Debugging perilaku browser dan mengambil screenshot atau browser logs.', 'Menjalankan automation Playwright pada app dinamis.'], en: ['Verifying a local web app frontend or UI.', 'Debugging browser behavior and capturing screenshots or browser logs.', 'Running Playwright automation against a dynamic app.'] },
@@ -792,7 +822,7 @@ export const anthropicSkills: RichSkill[] = [
     sourcePath: 'skills/webapp-testing/SKILL.md'
   },
   {
-    name: 'web-artifacts-builder', category: 'agent-development', invocation: 'user',
+    name: 'web-artifacts-builder', category: 'agent-development', invocation: 'model',
     description: { id: 'Membangun HTML artifact kompleks berbasis React, Tailwind, dan shadcn/ui.', en: 'Build complex HTML artifacts with React, Tailwind, and shadcn/ui.' },
     detailedDescription: { id: 'Skill ini menyediakan workflow untuk membuat artifact multi-komponen dengan React 18, TypeScript, Vite, Tailwind CSS, shadcn/ui, dan Parcel. Proyek diinisialisasi, dikembangkan, dibundle menjadi satu HTML mandiri, lalu dibagikan dan opsional diuji.', en: 'This skill provides a workflow for multi-component artifacts using React 18, TypeScript, Vite, Tailwind CSS, shadcn/ui, and Parcel. Initialize the project, develop it, bundle it into one self-contained HTML file, then share it and optionally test it.' },
     useWhen: { id: ['Membuat artifact HTML kompleks untuk claude.ai.', 'Membutuhkan state management, routing, atau banyak shadcn/ui components.', 'Membundle frontend React menjadi satu file HTML.'], en: ['Creating a complex HTML artifact for claude.ai.', 'Needing state management, routing, or many shadcn/ui components.', 'Bundling a React frontend into one HTML file.'] },
@@ -807,7 +837,7 @@ export const anthropicSkills: RichSkill[] = [
     sourcePath: 'skills/web-artifacts-builder/SKILL.md'
   },
 {
-    name: 'doc-coauthoring', category: 'writing-comms', invocation: 'user',
+    name: 'doc-coauthoring', category: 'writing-comms', invocation: 'model',
     description: { id: 'Workflow kolaboratif untuk menulis dokumentasi terstruktur bersama.', en: 'A collaborative workflow for writing structured documentation.' },
     detailedDescription: { id: 'Skill ini memandu pembuatan proposal, spec, RFC, dan decision doc melalui tiga tahap: Context Gathering, Refinement & Structure, dan Reader Testing. Claude mengumpulkan konteks, menyusun dokumen secara iteratif, lalu menguji apakah pembaca baru dapat memahaminya.', en: 'This skill guides proposals, specs, RFCs, and decision docs through Context Gathering, Refinement & Structure, and Reader Testing. Claude gathers context, iteratively builds the document, then tests whether a fresh reader can understand it.' },
     useWhen: { id: ['Menulis proposal, technical spec, RFC, atau decision doc.', 'Memulai dokumentasi substantial dengan banyak konteks.', 'Menguji apakah dokumen mudah dipahami pembaca.'], en: ['Writing a proposal, technical spec, RFC, or decision doc.', 'Starting substantial documentation with substantial context.', 'Testing whether a document works for readers.'] },
@@ -822,7 +852,7 @@ export const anthropicSkills: RichSkill[] = [
     sourcePath: 'skills/doc-coauthoring/SKILL.md'
   },
   {
-    name: 'internal-comms', category: 'writing-comms', invocation: 'user',
+    name: 'internal-comms', category: 'writing-comms', invocation: 'model',
     description: { id: 'Panduan menulis berbagai komunikasi internal sesuai format organisasi.', en: 'Guidance for writing internal communications in the organization’s preferred formats.' },
     detailedDescription: { id: 'Skill ini membantu menulis 3P updates, newsletter perusahaan, FAQ, status report, leadership update, project update, dan incident report. Workflow-nya mengidentifikasi tipe komunikasi lalu memuat guideline yang sesuai dari direktori examples.', en: 'This skill supports 3P updates, company newsletters, FAQs, status reports, leadership updates, project updates, and incident reports. Its workflow identifies the communication type and loads the matching guideline from the examples directory.' },
     useWhen: { id: ['Menulis 3P update Progress, Plans, Problems.', 'Membuat newsletter, FAQ, status, leadership, atau project update.', 'Menulis incident report atau internal company comms.'], en: ['Writing a Progress, Plans, Problems (3P) update.', 'Creating a newsletter, FAQ, status, leadership, or project update.', 'Writing an incident report or other internal company comms.'] },
@@ -837,7 +867,7 @@ export const anthropicSkills: RichSkill[] = [
     sourcePath: 'skills/internal-comms/SKILL.md'
   },
   {
-    name: 'slack-gif-creator', category: 'writing-comms', invocation: 'user',
+    name: 'slack-gif-creator', category: 'writing-comms', invocation: 'model',
     description: { id: 'Toolkit membuat animated GIF yang optimal untuk Slack.', en: 'A toolkit for creating animated GIFs optimized for Slack.' },
     detailedDescription: { id: 'Skill ini menyediakan constraint Slack, GIFBuilder, validators, easing, frame helpers, dan konsep animasi berbasis PIL. Ia mendukung emoji GIF 128x128 dan message GIF 480x480, dengan perhatian pada FPS, warna, durasi, dan optimasi ukuran.', en: 'This skill provides Slack constraints, GIFBuilder, validators, easing, frame helpers, and PIL-based animation concepts. It supports 128x128 emoji GIFs and 480x480 message GIFs while accounting for FPS, colors, duration, and file-size optimization.' },
     useWhen: { id: ['Membuat animated GIF untuk Slack.', 'Mengubah uploaded image menjadi animasi atau memakainya sebagai inspirasi.', 'Memvalidasi atau mengoptimalkan GIF Slack.'], en: ['Creating an animated GIF for Slack.', 'Animating an uploaded image or using it as inspiration.', 'Validating or optimizing a Slack GIF.'] },
@@ -877,7 +907,7 @@ export const anthropicSkills: RichSkill[] = [
     tips: { id: ['Pilih satu rekomendasi terbaik; jangan membuat daftar panjang.', 'Gunakan product hub Claude, Claude Code, Claude Cowork, AI Fluency, atau developer platform untuk eksplorasi luas.'], en: ['Choose one best recommendation rather than a long list.', 'Use the Claude, Claude Code, Claude Cowork, AI Fluency, or developer platform hub for broad exploration.'] },
     pairsWellWith: ['doc-coauthoring', 'discernment-nudge'], spotlight: {
       title: { id: 'Catalog Akademi dengan Data Kedaluwarsa yang Terlihat', en: 'An Academy Catalog with Visible Freshness Data' },
-      body: { id: 'Sertakan catalog.json bersama staleAfter dan generatedAt agar pembaca dapat menilai kesegaran data. Jika katalog gagal dimuat atau sudah stale, tampilkan hanya hub/resources, bukan data yang mungkin sudah tidak berlaku.', en: 'Include catalog.json with staleAfter and generatedAt so readers can judge data freshness. If the catalog fails to load or is stale, show only hub/resources rather than potentially outdated data.' },
+      body: { id: 'Skill ini sengaja tidak menyematkan daftar course; ia mengambil catalog.json dari academy.claude.com saat runtime dan memeriksa staleAfter serta generatedAt untuk menilai kesegaran data. Jika katalog gagal dimuat atau sudah stale, tampilkan hanya hub/resources, bukan data yang mungkin sudah tidak berlaku.', en: 'The skill deliberately embeds no course list; it fetches catalog.json from academy.claude.com at runtime and checks staleAfter and generatedAt to judge data freshness. If the catalog fails to load or is stale, show only hub/resources rather than potentially outdated data.' },
     },
     sourcePath: 'skills/academy-guide/SKILL.md'
   }

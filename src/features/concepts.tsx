@@ -295,10 +295,10 @@ export function Concepts() {
             {m.concepts_context_description()}
           </p>
           <div className="text-xs border border-border rounded p-3 space-y-1 text-muted-foreground">
-            <p><span className="font-semibold text-foreground">CONTEXT.md:</span> Pure glossary. Bukan spec, scratchpad, atau implementation detail.</p>
-            <p><span className="font-semibold text-foreground">ADR (docs/adr/):</span> Sparingly. Hanya 3-syarat decisions. Most sessions = 0 ADRs.</p>
-            <p><span className="font-semibold text-foreground">Prototype:</span> Disposable. Capture answer → delete code.</p>
-            <p><span className="font-semibold text-foreground">Handoff docs:</span> Temp dir. Disposable working docs, bukan permanent.</p>
+            <p><span className="font-semibold text-foreground">GLOSSARY.md:</span> {m.concepts_ctx_glossary()}</p>
+            <p><span className="font-semibold text-foreground">ADR (docs/adr/):</span> {m.concepts_ctx_adr()}</p>
+            <p><span className="font-semibold text-foreground">Prototype:</span> {m.concepts_ctx_prototype()}</p>
+            <p><span className="font-semibold text-foreground">Handoff docs:</span> {m.concepts_ctx_handoff()}</p>
           </div>
         </CardContent>
       </Card>

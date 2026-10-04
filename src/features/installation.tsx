@@ -7,14 +7,21 @@ import {
 } from '@/lib/external-link'
 import { m } from '@/paraglide/messages.js'
 
-// skills.sh CLI — installs to Claude Code, Codex, OpenCode, Cursor, and more.
-const SKILLS_SH_STEPS = [
-  'npx skills@latest add mattpocock/skills',
-  '# Pilih skills di prompt; pastikan pilih /setup-matt-pocock-skills',
-  '# Lalu jalankan /setup-matt-pocock-skills di agent untuk setup awal',
-].join('\n')
-
 export function Installation() {
+  // Plugin (Claude Code, managed) and skills.sh (editable copies) are alternatives:
+  // upstream warns that installing both leaves every skill twice.
+  const pluginSteps = [
+    'claude plugins install mattpocock-skills',
+    m.installation_plugin_inside(),
+    '/plugin install mattpocock-skills',
+  ].join('\n')
+  // skills.sh CLI — installs to Claude Code, Codex, OpenCode, Cursor, and more.
+  const skillsShSteps = [
+    'npx skills@latest add mattpocock/skills',
+    m.installation_skills_sh_comment_pick(),
+    m.installation_skills_sh_comment_run(),
+  ].join('\n')
+
   return (
     <section id="installation" className="scroll-mt-20 space-y-8">
       <div>
@@ -31,13 +38,30 @@ export function Installation() {
           <CardHeader className="pb-3">
             <div className="flex flex-wrap items-center gap-3">
               <CardTitle as="h3" className="text-base">
-                Universal CLI (skills.sh)
+                {m.installation_plugin_title()}
               </CardTitle>
-              <Badge variant="default">Recommended</Badge>
+              <Badge variant="default">{m.installation_plugin_badge()}</Badge>
             </div>
           </CardHeader>
           <CardContent className="space-y-3">
-            <CodeBlock code={SKILLS_SH_STEPS} shell />
+            <CodeBlock code={pluginSteps} shell />
+            <p className="text-sm text-muted-foreground">
+              {m.installation_plugin_note()}
+            </p>
+          </CardContent>
+        </Card>
+
+        <Card className="border-border">
+          <CardHeader className="pb-3">
+            <div className="flex flex-wrap items-center gap-3">
+              <CardTitle as="h3" className="text-base">
+                {m.installation_skills_sh_title()}
+              </CardTitle>
+              <Badge variant="secondary">{m.installation_skills_sh_badge()}</Badge>
+            </div>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            <CodeBlock code={skillsShSteps} shell />
             <p className="text-sm text-muted-foreground">
               {m.installation_notes_skills_sh()}
             </p>

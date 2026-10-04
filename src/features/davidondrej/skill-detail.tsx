@@ -41,7 +41,7 @@ export function DavidSkillDetailBody({ skill }: { skill: DavidSkill }) {
 
       <DetailSection id="adaptation" label={m.david_detail_adaptation()}>
         <p className="text-sm leading-relaxed text-muted-foreground">
-          {skill.adaptationNotes}
+          {skill.notes}
         </p>
       </DetailSection>
 

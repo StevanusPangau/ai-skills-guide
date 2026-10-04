@@ -16,7 +16,6 @@ import {
   davidondrejSkills,
 } from '@/data/davidondrej-skills'
 import {
-  bundleLabel,
   compatibilityBorder,
   compatibilityLabel,
   invocationLabel,
@@ -132,9 +131,6 @@ function DavidSkillPage() {
                   </Badge>
                   <Badge variant="outline" className="text-xs">
                     {compatibilityLabel(skill.compatibility)}
-                  </Badge>
-                  <Badge variant="secondary" className="text-xs">
-                    {bundleLabel(skill.bundleStatus)}
                   </Badge>
                   <span
                     className={`text-xs font-medium ${riskBadgeClass(skill.risk)}`}

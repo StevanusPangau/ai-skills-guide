@@ -1,13 +1,9 @@
 import { RiGithubFill } from '@remixicon/react'
-import { AuthorAvatar } from '@/components/author-avatar'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { TANSTACK_SOURCE_REPO, tanstackSkills } from '@/data/tanstack-skills'
-import { getCollectionBySlug } from '@/data/collections'
 import { m } from '@/paraglide/messages.js'
 
 export function TanStackOverview() {
-  const author = getCollectionBySlug('tanstack')
-
   return (
     <section id="overview" className="scroll-mt-20 space-y-7">
       <div>
@@ -20,14 +16,13 @@ export function TanStackOverview() {
           {TANSTACK_SOURCE_REPO}
         </a>
         <div className="mt-3 flex items-start gap-4">
-          {author?.avatarSrc ? (
-            <AuthorAvatar src={author.avatarSrc} name={author.author} size="lg" className="mt-1" />
-          ) : null}
           <div className="min-w-0">
             <h1 className="font-heading text-3xl font-bold tracking-tight text-balance sm:text-4xl">
               {m.tanstack_hero_title()}
             </h1>
-            <p className="mt-1.5 text-sm font-medium text-foreground/90">Tanner Linsley & TanStack Team</p>
+            <p className="mt-1.5 text-sm font-medium text-foreground/90">
+              {m.tanstack_community_notice()}
+            </p>
           </div>
         </div>
         <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted-foreground">

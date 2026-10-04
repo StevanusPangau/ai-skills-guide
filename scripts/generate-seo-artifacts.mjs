@@ -27,9 +27,24 @@ const llmsSections = []
 
 for (const [slug, file, skillPrefix] of collections) {
   const source = await readFile(resolve(root, 'src/data', file), 'utf8')
-  const names = [...source.matchAll(/^\s{4}name:\s*['"]([^'"]+)['"],/gm)].map(
-    (match) => match[1],
+  // Top-level skill records are indented 2 spaces (anthropic) or 4 spaces (others).
+  const names = [
+    ...new Set(
+      [...source.matchAll(/^ {2,4}name:\s*['"]([^'"]+)['"],/gm)].map(
+        (match) => match[1],
+      ),
+    ),
+  ]
+  const metaSource = await readFile(
+    resolve(root, 'src/data', file.replace(/\.ts$/, '-meta.ts')),
+    'utf8',
   )
+  const expected = Number(metaSource.match(/=\s*(\d+)/)?.[1])
+  if (names.length !== expected) {
+    throw new Error(
+      `${slug}: found ${names.length} skills in ${file} but meta count is ${expected}`,
+    )
+  }
   const skillPath = (name) =>
     skillPrefix ? `/${skillPrefix}/skills/${name}` : `/skills/${name}`
   urls.push(`/${slug}`)

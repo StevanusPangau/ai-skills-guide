@@ -5,7 +5,6 @@ import {
   notFound,
   useNavigate,
 } from '@tanstack/react-router'
-import { AuthorAvatar } from '@/components/author-avatar'
 import { OnThisPage } from '@/components/layout/on-this-page'
 import { Badge } from '@/components/ui/badge'
 import { Separator } from '@/components/ui/separator'
@@ -92,7 +91,7 @@ function TanStackSkillPage() {
               </Link>
               <span>/</span>
               <Link to="/tanstack" className={crumbLinkClass}>
-                TanStack
+                TanStack (community)
               </Link>
               <span>/</span>
               <span className="font-mono text-foreground">{skill.name}</span>
@@ -115,14 +114,15 @@ function TanStackSkillPage() {
 
             <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
               <div className="flex items-center gap-3">
-                {author?.avatarSrc ? (
-                  <AuthorAvatar src={author.avatarSrc} name={author.author} size="md" />
-                ) : null}
                 <div>
                   <h1 className="font-mono text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
                     /{skill.name}
                   </h1>
-                  <p className="text-xs text-muted-foreground">by {author?.author}</p>
+                  <p className="text-xs text-muted-foreground">
+                    {isEn
+                      ? 'Community skill (tanstack-skills), not published by TanStack'
+                      : 'Skill komunitas (tanstack-skills), bukan rilisan TanStack'}
+                  </p>
                 </div>
               </div>
 
@@ -265,7 +265,7 @@ function TanStackSkillPage() {
               </h2>
               <SkillInstallBlock
                 skillName={skill.name}
-                source={author?.source ?? 'tanstack-skills/tanstack-skills'}
+                source={(author?.source ?? 'tanstack-skills/tanstack-skills').replace(/^github\.com\//, '')}
               />
             </section>
           </div>

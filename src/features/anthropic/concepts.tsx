@@ -23,12 +23,12 @@ export function AnthropicConcepts() {
       <Card className="border border-border">
         <CardHeader className="pb-3">
           <CardTitle className="text-base font-semibold">
-            {isEn ? 'The 3-Tier Skill Anatomy' : 'Anatomi 3-Tier Skill Anthropic'}
+            {isEn ? 'Three-Level Progressive Disclosure' : 'Progressive Disclosure Tiga Level'}
           </CardTitle>
           <p className="text-xs text-muted-foreground">
             {isEn
-              ? 'Never cram everything into a single prompt file. Separate workflow, reference knowledge, and deterministic tools.'
-              : 'Jangan jejalkan semua instruksi ke satu file prompt. Pisahkan workflow, pengetahuan referensi, dan tools deterministik.'}
+              ? 'skill-creator describes a three-level loading system: metadata, SKILL.md body, and bundled resources loaded as needed.'
+              : 'skill-creator menjelaskan sistem pemuatan tiga level: metadata, badan SKILL.md, dan resource terbundel yang dimuat sesuai kebutuhan.'}
           </p>
         </CardHeader>
         <CardContent className="space-y-4">
@@ -36,45 +36,45 @@ export function AnthropicConcepts() {
             <div className="rounded-lg border-2 border-emerald-500/70 bg-emerald-500/5 p-3 space-y-2">
               <div className="flex items-center justify-between">
                 <Badge className="bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 text-[10px]">
-                  TIER 1: MAP
+                  LEVEL 1: METADATA
                 </Badge>
-                <span className="text-[10px] text-muted-foreground">&lt; 100 lines</span>
+                <span className="text-[10px] text-muted-foreground">~100 words</span>
               </div>
-              <p className="font-semibold text-foreground font-sans text-xs">SKILL.md Workflow Guide</p>
+              <p className="font-semibold text-foreground font-sans text-xs">name + description</p>
               <p className="text-[11px] text-muted-foreground leading-tight font-sans">
                 {isEn
-                  ? 'High-level instructions, trigger keywords, safety invariants, and pointers to references.'
-                  : 'Instruksi tingkat tinggi, keyword pemicu, batasan keamanan, dan petunjuk ke referensi.'}
+                  ? 'Always in context. The description is the primary triggering mechanism: what the skill does and when to use it.'
+                  : 'Selalu ada di context. Description adalah mekanisme pemicu utama: apa yang dilakukan skill dan kapan dipakai.'}
               </p>
             </div>
 
             <div className="rounded-lg border-2 border-sky-500/70 bg-sky-500/5 p-3 space-y-2">
               <div className="flex items-center justify-between">
                 <Badge className="bg-sky-500/20 text-sky-600 dark:text-sky-400 border border-sky-500/30 text-[10px]">
-                  TIER 2: REFERENCE
+                  LEVEL 2: SKILL.md BODY
                 </Badge>
-                <span className="text-[10px] text-muted-foreground">On-Demand</span>
+                <span className="text-[10px] text-muted-foreground">&lt; 500 lines ideal</span>
               </div>
-              <p className="font-semibold text-foreground font-sans text-xs">references/*.md Knowledge</p>
+              <p className="font-semibold text-foreground font-sans text-xs">SKILL.md body</p>
               <p className="text-[11px] text-muted-foreground leading-tight font-sans">
                 {isEn
-                  ? 'Deep specifications, styling rules, color palettes, XML tables. Loaded only when matched.'
-                  : 'Spesifikasi mendalam, aturan styling, palet warna, tabel XML. Dimuat hanya saat cocok.'}
+                  ? 'In context whenever the skill triggers. When it nears the limit, add a layer of hierarchy with clear pointers to follow-up files.'
+                  : 'Ada di context setiap kali skill terpicu. Saat mendekati batas, tambahkan lapisan hierarki dengan penunjuk jelas ke berkas lanjutan.'}
               </p>
             </div>
 
             <div className="rounded-lg border-2 border-purple-500/70 bg-purple-500/5 p-3 space-y-2">
               <div className="flex items-center justify-between">
                 <Badge className="bg-purple-500/20 text-purple-600 dark:text-purple-400 border border-purple-500/30 text-[10px]">
-                  TIER 3: CODE
+                  LEVEL 3: RESOURCES
                 </Badge>
-                <span className="text-[10px] text-muted-foreground">Subprocess</span>
+                <span className="text-[10px] text-muted-foreground">As needed</span>
               </div>
-              <p className="font-semibold text-foreground font-sans text-xs">scripts/*.py Determinism</p>
+              <p className="font-semibold text-foreground font-sans text-xs">references, scripts, assets</p>
               <p className="text-[11px] text-muted-foreground leading-tight font-sans">
                 {isEn
-                  ? 'Byte-level parsers, document linters, table generators. Zero LLM context token tax.'
-                  : 'Parser tingkat byte, linter dokumen, generator tabel. Nol pajak token konteks LLM.'}
+                  ? 'Loaded as needed; scripts can be executed without being loaded into context.'
+                  : 'Dimuat sesuai kebutuhan; skrip bisa dijalankan tanpa dimuat ke context.'}
               </p>
             </div>
           </div>
@@ -89,21 +89,21 @@ export function AnthropicConcepts() {
           </CardTitle>
           <p className="text-xs text-muted-foreground">
             {isEn
-              ? 'Anthropic rejects subjective prompt vibes. Skill improvements are proven via measurable test suites.'
-              : 'Anthropic menolak rekayasa prompt berbasis intuisi semata. Penyempurnaan skill dibuktikan lewat test suite terukur.'}
+              ? 'skill-creator iterates on test prompts with a baseline comparison, quantitative metrics, and human review.'
+              : 'skill-creator beriterasi pada test prompt dengan pembanding baseline, metrik kuantitatif, dan review manusia.'}
           </p>
         </CardHeader>
         <CardContent className="space-y-3 text-xs">
           <div className="rounded-lg bg-muted/30 p-4 border border-border">
             <div className="flex flex-wrap items-center justify-between gap-2 font-mono text-xs">
               <div className="border border-border rounded p-2 text-center bg-card flex-1 min-w-[120px]">
-                <span className="font-semibold text-foreground block">1. evals.json</span>
-                <span className="text-[10px] text-muted-foreground">Test cases & assertions</span>
+                <span className="font-semibold text-foreground block">1. Test cases</span>
+                <span className="text-[10px] text-muted-foreground">Prompts & assertions</span>
               </div>
               <span className="text-muted-foreground text-sm">→</span>
               <div className="border border-destructive/40 rounded p-2 text-center bg-destructive/5 flex-1 min-w-[120px]">
                 <span className="font-semibold text-destructive block">2. Run Baseline</span>
-                <span className="text-[10px] text-muted-foreground">Raw Claude (No Skill)</span>
+                <span className="text-[10px] text-muted-foreground">No skill / old version</span>
               </div>
               <span className="text-muted-foreground text-sm">→</span>
               <div className="border border-emerald-500/40 rounded p-2 text-center bg-emerald-500/5 flex-1 min-w-[120px]">
@@ -112,15 +112,15 @@ export function AnthropicConcepts() {
               </div>
               <span className="text-muted-foreground text-sm">→</span>
               <div className="border border-sky-500/40 rounded p-2 text-center bg-sky-500/5 flex-1 min-w-[120px]">
-                <span className="font-semibold text-sky-600 dark:text-sky-400 block">4. Delta Review</span>
-                <span className="text-[10px] text-muted-foreground">generate_review.py</span>
+                <span className="font-semibold text-sky-600 dark:text-sky-400 block">4. Grade & Review</span>
+                <span className="text-[10px] text-muted-foreground">benchmark + generate_review.py</span>
               </div>
             </div>
           </div>
           <p className="text-muted-foreground leading-relaxed text-[11px] italic">
             {isEn
-              ? 'If With-Skill does not beat Baseline with statistical significance, the skill instructions are refined or pruned.'
-              : 'Bila With-Skill tidak mengungguli Baseline secara statistik signifikan, instruksi skill direvisi atau dipangkas.'}
+              ? 'Benchmark results show mean ± stddev and the delta against baseline; the user reviews outputs in the viewer, then the skill is revised and the next iteration is rerun.'
+              : 'Hasil benchmark menampilkan mean ± stddev dan delta terhadap baseline; pengguna meninjau output di viewer, lalu skill direvisi dan iterasi berikutnya dijalankan ulang.'}
           </p>
         </CardContent>
       </Card>
@@ -131,37 +131,37 @@ export function AnthropicConcepts() {
       <Card className="border border-border">
         <CardHeader className="pb-3">
           <CardTitle className="text-base font-semibold">
-            {isEn ? 'Trigger Precision & Invariant Boundaries' : 'Presisi Trigger & Batasan Invarian'}
+            {isEn ? 'Trigger Precision via Description' : 'Presisi Trigger lewat Description'}
           </CardTitle>
           <p className="text-xs text-muted-foreground">
             {isEn
-              ? 'Avoid eager activation: skills must declare exactly when to wake up and when to stay dormant.'
-              : 'Cegah aktivasi prematur: skill wajib menyatakan kapan harus aktif dan kapan harus dorman.'}
+              ? 'The description field is the primary mechanism that decides whether Claude invokes a skill.'
+              : 'Field description adalah mekanisme utama yang menentukan apakah Claude memakai sebuah skill.'}
           </p>
         </CardHeader>
         <CardContent className="space-y-3 text-xs">
           <div className="grid gap-3 md:grid-cols-2">
             <div className="rounded-lg border border-border bg-card p-3 space-y-1.5">
               <div className="font-semibold text-foreground font-mono flex items-center justify-between">
-                <span>Model-Invoked Trigger</span>
+                <span>Description-Driven Trigger</span>
                 <Badge variant="outline" className="font-mono text-[10px]">skill-creator</Badge>
               </div>
               <p className="text-muted-foreground leading-relaxed">
                 {isEn
-                  ? 'Activated automatically by the agent when inspecting, improving, or authoring other skills. Silent during regular coding.'
-                  : 'Diaktifkan otomatis oleh agen saat memeriksa, menyempurnakan, atau menulis skill lain. Dorman saat coding biasa.'}
+                  ? 'skill-creator notes that Claude tends to undertrigger skills, so descriptions should say both what the skill does and the specific contexts for using it.'
+                  : 'skill-creator mencatat Claude cenderung undertrigger, sehingga description harus memuat apa yang dilakukan skill dan konteks spesifik pemakaiannya.'}
               </p>
             </div>
 
             <div className="rounded-lg border border-border bg-card p-3 space-y-1.5">
               <div className="font-semibold text-foreground font-mono flex items-center justify-between">
-                <span>User-Invoked Commands</span>
-                <Badge variant="outline" className="font-mono text-[10px]">/theme-factory</Badge>
+                <span>Trigger Eval Queries</span>
+                <Badge variant="outline" className="font-mono text-[10px]">description optimizer</Badge>
               </div>
               <p className="text-muted-foreground leading-relaxed">
                 {isEn
-                  ? 'Activated explicitly by user command to apply style systems without polluting the general agent prompt context.'
-                  : 'Diaktifkan secara eksplisit melalui perintah pengguna untuk menerapkan sistem gaya tanpa mencemari konteks umum agen.'}
+                  ? 'A separate script optimizes the description: about 20 should-trigger and should-not-trigger queries (including near-misses) are split into train and held-out test sets.'
+                  : 'Skrip terpisah mengoptimalkan description: sekitar 20 query should-trigger dan should-not-trigger (termasuk near-miss) dibagi menjadi set train dan test.'}
               </p>
             </div>
           </div>

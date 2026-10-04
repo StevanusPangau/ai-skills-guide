@@ -35,7 +35,7 @@ export function CloudflareOverview() {
       </div>
       <div className="flex flex-wrap gap-x-10 gap-y-4">
         <Stat value={String(cloudflareSkills.length)} label={m.cloudflare_stat_skills()} />
-        <Stat value="4" label={m.cloudflare_stat_categories()} />
+        <Stat value={String(new Set(cloudflareSkills.map((s) => s.category)).size)} label={m.cloudflare_stat_categories()} />
       </div>
       <Card className="border-2 border-primary/30 bg-primary/5">
         <CardHeader className="pb-2"><CardTitle as="h2" className="text-base">{m.cloudflare_overview_question()}</CardTitle></CardHeader>

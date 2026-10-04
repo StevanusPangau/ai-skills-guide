@@ -27,8 +27,8 @@ export function TanStackLab() {
         </div>
         <p className="text-muted-foreground mt-1 text-sm">
           {isEn
-            ? 'Interactive demonstration of TanStack core superpowers: Zod-validated search params as state, SWR cache freshness lifecycles, and fine-grained form re-render boundaries.'
-            : 'Simulasi interaktif keunggulan inti TanStack: search params tervalidasi Zod sebagai state, siklus kesegaran cache SWR, dan isolasi render form reaktif.'}
+            ? 'Illustrative demonstration of TanStack ideas: Zod-validated search params as state, stale-while-revalidate cache lifecycles, and fine-grained form re-render boundaries. Values shown are illustrative, not benchmarks.'
+            : 'Demonstrasi ilustratif ide inti TanStack: search params tervalidasi Zod sebagai state, siklus cache stale-while-revalidate, dan isolasi render form reaktif. Angka yang tampil hanya ilustrasi, bukan benchmark.'}
         </p>
       </div>
 
@@ -143,7 +143,7 @@ export function TanStackLab() {
                       : 'text-muted-foreground hover:text-foreground'
                   }`}
                 >
-                  Fresh (&lt; 5s)
+                  Fresh (within staleTime)
                 </button>
                 <button
                   type="button"
@@ -154,7 +154,7 @@ export function TanStackLab() {
                       : 'text-muted-foreground hover:text-foreground'
                   }`}
                 >
-                  Stale (5s+)
+                  Stale (past staleTime)
                 </button>
                 <button
                   type="button"
@@ -177,7 +177,7 @@ export function TanStackLab() {
                     {queryState === 'fetching' && (isEn ? 'Background HTTP Hop' : 'Panggilan HTTP Latar Belakang')}
                   </span>
                   <Badge variant="outline" className="font-mono text-[10px]">
-                    {queryState === 'fresh' ? '0ms render' : queryState === 'stale' ? 'Instant SWR' : '~120ms network'}
+                    {queryState === 'fresh' ? 'cache hit' : queryState === 'stale' ? 'SWR' : 'network'}
                   </Badge>
                 </div>
                 <p className="text-muted-foreground text-[11px] leading-relaxed">
@@ -204,7 +204,7 @@ export function TanStackLab() {
             <CardContent className="space-y-3 text-xs">
               <div className="flex justify-between items-center font-mono">
                 <span>
-                  {isEn ? 'Simulated Keystrokes:' : 'Ketikan Karakter:'}{' '}
+                  {isEn ? 'Illustrative Keystrokes:' : 'Ketikan Karakter (ilustrasi):'}{' '}
                   <strong>{formKeystrokes}</strong>
                 </span>
                 <button

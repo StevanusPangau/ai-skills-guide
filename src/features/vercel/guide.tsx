@@ -51,7 +51,7 @@ export function VercelOverview() {
 
       <div className="flex flex-wrap gap-x-10 gap-y-4">
         <Stat value={String(vercelSkills.length)} label={m.vercel_stat_skills()} />
-        <Stat value="8" label={m.vercel_stat_categories()} />
+        <Stat value={String(new Set(vercelSkills.map((s) => s.category)).size)} label={m.vercel_stat_categories()} />
         <Stat value="Official" label={m.vercel_stat_focus()} />
       </div>
 

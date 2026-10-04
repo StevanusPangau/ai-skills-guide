@@ -17,12 +17,12 @@ export function DavidConcepts() {
     {
       title: m.david_concept_3_title(),
       body: m.david_concept_3_body(),
-      tags: ['objective', 'constraints', 'validate', 'stop', 'docs'],
+      tags: ['objective', 'constraints', 'validate', 'stop'],
     },
     {
       title: m.david_concept_4_title(),
       body: m.david_concept_4_body(),
-      tags: ['Camp A external clock', 'Camp B Hermes cron'],
+      tags: ['disable-model-invocation', '/skill-name'],
     },
     {
       title: m.david_concept_5_title(),
@@ -32,7 +32,7 @@ export function DavidConcepts() {
     {
       title: m.david_concept_6_title(),
       body: m.david_concept_6_body(),
-      tags: ['first-wave', 'optional', 'catalog-only'],
+      tags: ['compatibility', 'risk'],
     },
   ]
 

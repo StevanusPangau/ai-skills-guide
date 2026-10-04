@@ -13,7 +13,7 @@ import { SkillInstallBlock } from '@/components/skill-install-block'
 import { CopyAgentRuleButton } from '@/components/copy-agent-rule-button'
 import { getCollectionBySlug } from '@/data/collections'
 import { cloudflareSkills } from '@/data/cloudflare-skills'
-import type { RichSkill } from '@/data/vercel-skills'
+import type { RichSkill } from '@/data/cloudflare-skills'
 import { resetSkillDetailScroll } from '@/lib/scroll-to-section'
 import { useDocumentTitle } from '@/lib/use-document-title'
 import { m } from '@/paraglide/messages.js'
@@ -267,7 +267,7 @@ function CloudflareSkillPage() {
                   howItWorks={isEn ? skill.howItWorks.en : skill.howItWorks.id}
                 />
               </div>
-              <SkillInstallBlock source="cloudflares/skills" skillName={skill.name} />
+              <SkillInstallBlock source="cloudflare/skills" skillName={skill.name} />
             </div>
           </div>
 

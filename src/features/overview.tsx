@@ -10,6 +10,7 @@ import {
   MATTPOCOCK_SOURCE_VERSION,
   skills,
 } from '@/data/skills'
+import { getWorkflows } from '@/features/workflows-data'
 import { externalLinkAriaLabel } from '@/lib/external-link'
 import { m } from '@/paraglide/messages.js'
 
@@ -30,7 +31,7 @@ export function Overview() {
     {
       title: m.overview_problem_2_title(),
       description: m.overview_problem_2_description(),
-      fix: ['/domain-modeling', 'CONTEXT.md'],
+      fix: ['/domain-modeling', 'GLOSSARY.md'],
       borderClass: 'border-l-4 border-sky-600',
     },
     {
@@ -113,7 +114,7 @@ export function Overview() {
         <Stat value={String(total)} label={m.matt_stat_skills()} />
         <Stat value={String(engineering)} label={m.matt_stat_engineering()} />
         <Stat value={String(productivity)} label={m.matt_stat_productivity()} />
-        <Stat value="7" label={m.matt_stat_workflows()} />
+        <Stat value={String(getWorkflows().length)} label={m.matt_stat_workflows()} />
       </div>
 
       {/* Main Build Chain */}
@@ -151,33 +152,23 @@ export function Overview() {
           <div className="mt-2 grid gap-2 text-xs text-muted-foreground">
             <div className="flex gap-2">
               <span className="shrink-0 font-semibold text-foreground">1. grill-with-docs:</span>
-              <span>
-                Interview relentless → shared understanding + CONTEXT.md glossary + ADRs
-              </span>
+              <span>{m.overview_chain_1()}</span>
             </div>
             <div className="flex gap-2">
               <span className="shrink-0 font-semibold text-foreground">2. to-spec:</span>
-              <span>
-                Synthesize (TANPA interview ulang) → spec dengan user stories, decisions,
-                out-of-scope
-              </span>
+              <span>{m.overview_chain_2()}</span>
             </div>
             <div className="flex gap-2">
               <span className="shrink-0 font-semibold text-foreground">3. to-tickets:</span>
-              <span>
-                Break spec → tracer-bullet tickets dengan blocking edges (tickets.md atau
-                tracker)
-              </span>
+              <span>{m.overview_chain_3()}</span>
             </div>
             <div className="flex gap-2">
               <span className="shrink-0 font-semibold text-foreground">4. implement:</span>
-              <span>
-                Red→Green per slice via /tdd, test at seams; refactor diserahkan ke code-review
-              </span>
+              <span>{m.overview_chain_4()}</span>
             </div>
             <div className="flex gap-2">
               <span className="shrink-0 font-semibold text-foreground">5. code-review:</span>
-              <span>Two-axis: Standards (Fowler smells) ∥ Spec (matches spec/ticket?)</span>
+              <span>{m.overview_chain_5()}</span>
             </div>
           </div>
         </CardContent>
