@@ -7,47 +7,44 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v1.7.0] - 2026-10-04
+
 ### Added
-- **Redesigned skill detail pages** on one shared component (`src/features/skill-page/`) replacing 14 copy-pasted routes:
-  - Per-skill identity: a deterministic accent colour and 5×5 glyph derived from the skill name (decorative, dark-mode safe).
-  - "Skill at a glance" brief: what it does (with read-more), how it is called (copyable command), quick facts (category, invocation, steps, rules, license/risk/compatibility, link to `SKILL.md`).
-  - Dedicated sections that only render when the skill has data: spotlight card, use/avoid decision cards, step-by-step timeline, flow chain, output, rule cards, "signs it is working", tips, collection-specific extras, related-skill cards with summaries, and prev/next with context and position.
-  - Every skill page sets its own meta description from the skill summary; all new strings are bilingual (`skillpage_*`).
-- **New skills synced from upstream**: mattpocock `implement-spec`, `pr`, `retro`; emilkowalski `animate`, `animate-expo`, `ask-sonner`, `break-ui`, `mobile-native`, `pick-ui-library`, `prototype`, `write-swift`; davidondrej 42 new skills; brooklyn `triage` (+ `defaults.md`); superpowers `diagnosing-superpowers`; cloudflare `basin`, `k2`, `nextjs-on-cloudflare`; prisma `prisma-orm-setup`; impeccable `shape`, `layout`, `overdrive`, `generate` and the `craft` alias.
-- Davidondrej skills gained `useWhen`, `avoidWhen`, `steps`, `rules` and `tips`, written from the upstream `SKILL.md`; fields without an upstream basis are left empty rather than invented.
-- Anthropic: per-skill license badge and a warning above the install block for the proprietary document skills.
-- Install routes: Claude Code plugin routes (mattpocock, expo, jakubkrehel, tanstack, superpowers per harness), `npx impeccable install`, and `--skill '*'` for Expo.
+- **Redesigned skill detail pages** on one shared component (`src/features/skill-page/`) instead of 14 copy-pasted routes. Every skill gets its own accent colour and glyph, an "at a glance" brief (what it does, how to call it, quick facts), a spotlight card, use/avoid decision cards, a step-by-step timeline, rule cards, tips, related-skill cards and contextual previous/next navigation. Sections only appear when the skill has data for them.
+- **Animation previews rebuilt** on shared motion primitives (`src/features/motion/`: stage canvas, Replay with 1×/0.5×/0.25× slow motion, easing-curve plot, reduced-motion support):
+  - Emil Kowalski: Before/After side by side with the real curves and durations, grouped skill chips, and new demos for `animate`, `break-ui` and `mobile-native` (9 of 14 skills now have a demo).
+  - GSAP: a scrollable ScrollTrigger scrub demo (`scrub: true` vs `scrub: 1`), a timeline position-parameter visualiser and a layout-vs-compositor demo. These are illustrative simulations; no GSAP package is loaded.
+  - Jakub Krehel: five Wrong vs Right demos (concentric radius, optical alignment, staggered enter, scale on press, tabular numbers).
+- **New skills synced from upstream**: mattpocock `implement-spec`, `pr`, `retro`; emilkowalski `animate`, `animate-expo`, `ask-sonner`, `break-ui`, `mobile-native`, `pick-ui-library`, `prototype`, `write-swift`; davidondrej 42 skills; brooklyn `triage`; superpowers `diagnosing-superpowers`; cloudflare `basin`, `k2`, `nextjs-on-cloudflare`; prisma `prisma-orm-setup`; impeccable `shape`, `layout`, `overdrive`, `generate`.
+- Davidondrej skills now carry `useWhen`, `avoidWhen`, `steps`, `rules` and `tips`, written from the upstream `SKILL.md`; fields without an upstream basis are left empty.
+- Anthropic: a per-skill license badge and a warning above the install block for the proprietary document skills (`docx`, `pdf`, `pptx`, `xlsx`).
+- Install routes: Claude Code plugin routes (mattpocock, expo, jakubkrehel, tanstack, superpowers), `npx impeccable install`, and `--skill '*'` for Expo.
 
 ### Changed
-- **Performance: entry bundle cut from 1,282 KB (408 KB gzip) to 314 KB (96 KB gzip).** The 15 skill-page route loaders statically imported every collection's data (and so did the global search dialog), so ~1 MB of skill text shipped on first paint. Loaders now `import()` their own collection's data, and the search dialog is lazy-loaded (warmed on hover/focus of the search button). Each collection's data is its own chunk, fetched only when needed.
-- Lighthouse (mobile, simulated slow 4G, gzip): home 72 → 92, skill page 71 → 84, `/gsap` 60 → 77; LCP on home 4.7 s → 2.4 s; total transfer on home 851 → 322 KiB.
-- Avatars resized to 96 px (≈190 KB → 14 KB) and set to `loading="lazy"`; removed `favicon.svg` (a 47 KB SVG wrapping a base64 PNG; PNG/ICO favicons remain); added cache headers for `/avatars/*` and `/diagrams/*`.
-- **Animation previews redesigned** around shared motion primitives (`src/features/motion/`: dotted-grid `MotionStage`, `PlaybackBar` with Replay and 1×/0.5×/0.25× slow motion, `EasingCurve` plot with a moving dot, reduced-motion aware):
-  - **Emil Kowalski**: Before and After now sit side by side with real easing-curve plots and durations; the tall skill list became grouped chips; the preview covers 9 of 14 skills with new demos for `animate` (frequency-gated decision order), `break-ui` (worst-case, empty and single-item data) and `mobile-native` (sticky hover, tap highlight, `100vh` vs `100dvh`, 16px input zoom).
-  - **GSAP**: the slider-only ScrollTrigger demo is now a real scrollable box comparing `scrub: true` with `scrub: 1`; the position-parameter demo is a timeline track visualiser that recomputes from `<`, `>`, `+=`, `-=`, absolute and label positions; the layout-vs-compositor demo shows which pipeline stages each approach triggers. All are labelled illustrative and load no GSAP package.
-  - **Jakub Krehel**: five Wrong vs Right demos (concentric radius, optical alignment, staggered enter, scale on press, tabular numbers) with values taken from the upstream skill references.
-- **Every collection is pinned to a real, verified upstream commit** (never `main`): mattpocock `d81f3a1`, emilkowalski `e8a175d`, davidondrej `88a3d7c`, jakubkrehel `267330e`, brooklyn `3649573`, superpowers `8ca22db`, vercel `063bee9`, anthropic `8a1541c`, cloudflare `41e0d19`, supabase `c9be0e9`, prisma `be16a87`, tanstack `6f5521e`, expo `13ad8e0`, gsap `aed9cfd`, impeccable `e103efe`.
-- Skill counts are now 272 across 15 collections (mattpocock 27, emilkowalski 14, davidondrej 57, brooklyn 22, superpowers 15, cloudflare 16, prisma 8, impeccable 25 commands, others unchanged).
-- Skill descriptions, behaviors, commands and APIs were re-verified against upstream `SKILL.md` and rewritten where wrong or outdated, including: mattpocock grilling (whole frontier per round), `to-tickets` (one file per ticket) and the `CONTEXT.md` → `GLOSSARY.md` rename; Supabase security guidance (SECURITY INVOKER first, `search_path = ''`, `TO` clause instead of `auth.role()`); Prisma 7/8 claims (`prisma.config.ts`, driver adapters, `@prisma/cli app`, Rust engine); TanStack Start/Store/Table v9/Form/AI/Pacer APIs; Expo (all 25 skills rewritten per-skill, `--auto-submit`); GSAP (`matchMedia`, plugins now free, `contextSafe`); Brooklyn, Superpowers and Jakub Krehel behavior descriptions.
-- **Impeccable** is presented as one user-invocable skill (`/impeccable`) with its commands; the guide counts commands, and `normalize` (removed upstream) is gone.
-- **TanStack** is labelled as a community collection that is not affiliated with TanStack; the TanStack logo and "Official" wording were removed from the collection card.
+- **Performance**: the entry bundle dropped from 1,282 KB (408 KB gzip) to 314 KB (96 KB gzip). Route loaders and the global search dialog statically imported every collection's data, so about 1 MB of skill text shipped on first paint. Loaders now `import()` their own collection and the search dialog is lazy-loaded. Lighthouse (mobile, simulated slow 4G): home 72 → 92, skill page 71 → 84, `/gsap` 60 → 77; home LCP 4.7 s → 2.4 s; home transfer 851 → 322 KiB.
+- Avatars are resized to 96 px (about 190 KB → 14 KB) and lazy-loaded; static images and diagrams get cache headers.
+- **Every collection is pinned to a verified upstream commit** (never `main`): mattpocock `d81f3a1`, emilkowalski `e8a175d`, davidondrej `88a3d7c`, jakubkrehel `267330e`, brooklyn `3649573`, superpowers `8ca22db`, vercel `063bee9`, anthropic `8a1541c`, cloudflare `41e0d19`, supabase `c9be0e9`, prisma `be16a87`, tanstack `6f5521e`, expo `13ad8e0`, gsap `aed9cfd`, impeccable `e103efe`.
+- The guide now covers 272 skills across 15 collections (mattpocock 27, emilkowalski 14, davidondrej 57, brooklyn 22, superpowers 15, cloudflare 16, prisma 8, impeccable 25 commands).
+- Skill descriptions, behaviors, commands and APIs were re-verified against upstream and rewritten where wrong or outdated, including mattpocock grilling and `to-tickets` (and the `CONTEXT.md` → `GLOSSARY.md` rename), Supabase security guidance, Prisma 7/8 claims, TanStack Start/Store/Table/Form APIs, all 25 Expo skills, GSAP `matchMedia` and plugin licensing, and Brooklyn, Superpowers and Jakub Krehel behaviors.
+- **Impeccable** is presented as one user-invocable skill (`/impeccable`) with its commands.
+- **TanStack** is labelled as a community collection that is not affiliated with TanStack.
 - Invocation badges follow upstream frontmatter (`disable-model-invocation`); where upstream gives no signal, skills are shown as model-invoked.
-- The SEO generator handles 2-space-indented records and fails the build when a skill count disagrees with its `*-skills-meta.ts`.
+- The SEO generator includes 2-space-indented records and fails the build when a skill count disagrees with its `*-skills-meta.ts`.
+- Each skill page sets its own meta description from the skill summary.
 
 ### Fixed
-- Global search: the focus timer is cleared on close/unmount; GSAP scrub lab no longer writes a ref during render; `window.open` for source links now uses `noopener,noreferrer`.
-- Install blocks: the `github.com/` prefix was passed as the skills.sh source for expo, gsap, impeccable, prisma, supabase and tanstack; the Cloudflare route used `cloudflares/skills`.
-- `public/sitemap.xml` and `public/llms.txt` omitted `docx`, `pdf`, `pptx` and `xlsx`; they now list all 289 canonical URLs.
-- Broken or self-referencing "Pairs well with" links (cross-collection names, nonexistent skills, a skill pairing with itself) now resolve within their own collection.
-- Fabricated numbers, benchmarks and APIs were removed from the lab, arena, matrix and concepts pages (Vercel, Anthropic, Cloudflare, Supabase, Prisma, TanStack, GSAP, Expo, Emil, Jakub Krehel), including the Anthropic arena benchmarks and the Cloudflare matrix (`startProcess`, `agents` import, latency figures).
+- Install blocks passed `github.com/owner/repo` instead of `owner/repo` for expo, gsap, impeccable, prisma, supabase and tanstack, and the Cloudflare route used `cloudflares/skills`.
+- `public/sitemap.xml` and `public/llms.txt` omitted `docx`, `pdf`, `pptx` and `xlsx`; all 289 canonical URLs are now listed.
+- "Pairs well with" links that pointed to other collections, nonexistent skills, or the skill itself now resolve within their own collection.
+- Fabricated numbers, benchmarks and APIs were removed from the lab, arena, matrix and concepts pages.
 - Anthropic: the blanket "all rights reserved" notice is replaced by per-skill licenses (14 Apache-2.0; the four document skills are proprietary/source-available).
-- Davidondrej: stale claims removed (4-part goal contract, `anti-sleep` is manual, 13 skills deleted upstream).
-- README, README.id and CLAUDE.md no longer describe a `skills/` Hermes bundle that was removed.
+- Global search: the focus timer is cleared on close; the GSAP scrub lab no longer writes a ref during render; source links opened with `window.open` now use `noopener,noreferrer`.
+- README, README.id and CLAUDE.md no longer describe a removed `skills/` Hermes bundle.
 
 ### Removed
-- Prisma `prisma-database-setup` and `prisma-postgres` (deprecated stubs upstream; their deep links now return not-found).
+- Prisma `prisma-database-setup` and `prisma-postgres` (deprecated stubs upstream); their deep links now return "Skill not found".
 - Mattpocock `resolving-merge-conflicts` (removed upstream).
-- Unused per-collection skill detail components and `public/avatars/tanstack.svg`.
+- `public/favicon.svg` (a 47 KB SVG wrapping a base64 PNG; PNG and ICO favicons remain) and unused per-collection skill detail components.
 
 ## [v1.6.0] - 2026-09-11
 
@@ -234,7 +231,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Deployed to Cloudflare Workers (static SPA)
 - Security headers, SPA fallback routing, immutable asset caching
 
-[Unreleased]: https://github.com/StevanusPangau/ai-skills-guide/compare/v1.6.0...HEAD
+[Unreleased]: https://github.com/StevanusPangau/ai-skills-guide/compare/v1.7.0...HEAD
+[v1.7.0]: https://github.com/StevanusPangau/ai-skills-guide/compare/v1.6.0...v1.7.0
 [v1.6.0]: https://github.com/StevanusPangau/ai-skills-guide/compare/v1.5.0...v1.6.0
 [v1.5.0]: https://github.com/StevanusPangau/ai-skills-guide/compare/v1.4.0...v1.5.0
 [v1.4.0]: https://github.com/StevanusPangau/ai-skills-guide/compare/v1.3.0...v1.4.0
