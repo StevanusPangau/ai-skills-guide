@@ -1,14 +1,21 @@
 import type { BilingualString, BilingualList } from '@/types/skill'
 
-// Koleksi: Cloudflare — github.com/cloudflare/skills.
-// Lisensi upstream: Apache-2.0 (LICENSE di root repo + plugin.json). Guide ini
-// hanya mendokumentasikan ringkasan; install langsung dari repo upstream.
+// Koleksi: Cloudflare — github.com/cloudflare/skills (+ satu skill dari repo
+// terpisah, github.com/cloudflare/security-audit-skill).
+// Lisensi upstream: Apache-2.0 untuk cloudflare/skills (LICENSE di root repo +
+// plugin.json) dan MIT untuk security-audit-skill. Guide ini hanya
+// mendokumentasikan ringkasan; install langsung dari repo upstream.
 //
 // Sumber: https://github.com/cloudflare/skills (diverifikasi 2026-10-04 pada
-// commit 41e0d19; 16 skill, termasuk basin, k2, dan nextjs-on-cloudflare).
+// commit 41e0d19; 16 skill, termasuk basin, k2, dan nextjs-on-cloudflare) dan
+// https://github.com/cloudflare/security-audit-skill (commit c1c8a8c, HEAD
+// upstream saat diverifikasi; 1 skill: security-audit). Total 17 skill.
 export const CLOUDFLARE_SOURCE_REPO = 'github.com/cloudflare/skills'
 export const CLOUDFLARE_SOURCE_SHA = '41e0d19858946d18af9ee2c2feebbe2e11d829ff'
 export const CLOUDFLARE_SOURCE_LICENSE = 'Apache-2.0'
+export const CLOUDFLARE_SECURITY_AUDIT_REPO = 'github.com/cloudflare/security-audit-skill'
+export const CLOUDFLARE_SECURITY_AUDIT_SHA = 'c1c8a8c1471069fb0e188eeaff69b8e8db6564a8'
+export const CLOUDFLARE_SECURITY_AUDIT_LICENSE = 'MIT'
 
 export type RichSkill = {
   name: string
@@ -23,6 +30,8 @@ export type RichSkill = {
   tips: BilingualList
   pairsWellWith: string[]
   sourcePath: string
+  /** Hanya bila skill berasal dari repo lain selain cloudflare/skills. */
+  upstream?: { repo: string; sha: string; license: string }
   /** Section khusus unik per skill — hanya dirender bila ada. */
   spotlight?: {
     title: BilingualString
@@ -445,5 +454,104 @@ export const cloudflareSkills: RichSkill[] = [
     },
     sourcePath: 'skills/k2/SKILL.md',
   },
+  {
+    name: 'security-audit',
+    category: 'security-access',
+    invocation: 'model',
+    description: {
+      id: 'Panduan keamanan dan review kerentanan berbasis sumber untuk codebase, API, service, CLI, library, dan daemon; audit penuh enam fase hanya dijalankan atas permintaan eksplisit.',
+      en: 'Security guidance and source-first vulnerability review for codebases, APIs, services, CLI tools, libraries, and daemons; the full six-phase audit runs only on explicit request.',
+    },
+    detailedDescription: {
+      id: 'Skill defensif dan source-first ini mencari kerentanan yang benar-benar melanggar trust boundary, lalu memberi pemilik kode bukti sumber, reproduksi yang aman, prioritas, dan perbaikan terkecil yang efektif. Kandidat tanpa principal, resource, atau hasil keamanan yang konkret bukan temuan terkonfirmasi.\n\nAda dua mode: guidance mode (default) untuk pertanyaan keamanan, review terfokus, dan triase; serta full audit mode untuk permintaan audit atau pen-test eksplisit, review menyeluruh end-to-end, atau permintaan artefak laporan. Memuat skill ini tidak pernah mengotorisasi workflow penuh atau pembuatan file.\n\nSkill ini ada di repo terpisah (cloudflare/security-audit-skill, MIT), bukan di cloudflare/skills, dan merupakan titik awal single-repo dari harness penemuan kerentanan yang dijelaskan Cloudflare di tulisan "Build your own vulnerability harness".',
+      en: 'This defensive, source-first skill looks for vulnerabilities that violate a real trust boundary, then gives code owners the source evidence, a safe reproduction, a priority, and the smallest effective fix. A candidate without a concrete affected principal, resource, or security outcome is not a confirmed finding.\n\nIt has two modes: guidance mode (the default) for security questions, focused reviews, and triage; and full audit mode for an explicit audit or pen-test request, a comprehensive end-to-end review, or requested report artifacts. Loading the skill never authorizes the full workflow or file creation.\n\nIt lives in a separate repository (cloudflare/security-audit-skill, MIT), not in cloudflare/skills, and is the single-repo starting point of the vulnerability-discovery harness Cloudflare describes in "Build your own vulnerability harness".',
+    },
+    useWhen: {
+      id: [
+        'Menjawab pertanyaan keamanan, melakukan review keamanan terfokus, atau melakukan triase satu temuan tertentu.',
+        'Menjalankan audit keamanan atau pen-test codebase penuh, review menyeluruh end-to-end, atau menghasilkan artefak laporan.',
+        'Vulnerability research yang butuh bukti sumber dan reproduksi lokal yang aman dan terbatas.',
+      ],
+      en: [
+        'Answering security questions, doing a focused security review, or triaging a specific finding.',
+        'Running a full security audit or pen test of a codebase, a comprehensive end-to-end review, or producing report artifacts.',
+        'Vulnerability research that needs source evidence and a safe, bounded local reproduction.',
+      ],
+    },
+    avoidWhen: {
+      id: [
+        'Permintaan tanpa konteks keamanan sama sekali.',
+        'Memprobe endpoint yang sudah di-deploy, infrastruktur bersama, identitas produksi, atau control plane live: skill ini source-first dan hanya lokal.',
+        'Pekerjaan ofensif yang butuh persistence atau concealment: skill berhenti di efek lokal minimum yang membuktikan sebuah cacat.',
+      ],
+      en: [
+        'Requests with no security context at all.',
+        'Probing deployed endpoints, shared infrastructure, production identities, or live control planes: the skill is source-first and local-only.',
+        'Offensive work that needs persistence or concealment: the skill stops at the minimum local effect that proves a defect.',
+      ],
+    },
+    howItWorks: {
+      id: [
+        'Tentukan mode: guidance untuk pertanyaan dan review terfokus, audit penuh hanya atas permintaan audit atau pen-test eksplisit. Bila ambigu, ajukan satu pertanyaan fokus sebelum membuat file.',
+        'Reconnaissance: petakan arsitektur, trust boundary, permukaan input, run sebelumnya, dan coverage ledger yang deterministik (architecture.md, coverage-ledger.json).',
+        'Hunting berbasis coverage: hunter terisolasi mengambil unit dari ledger dan mengembalikan kandidat terstruktur; coverage critic mencari celah per gelombang.',
+        'Validasi kandidat: setiap kandidat unik diberikan ke verifier baru yang mencoba membantahnya.',
+        'Output terstruktur: record confirmed, needs_validation, dan rejected ditulis ke findings.json dan divalidasi dengan report-schema.json (validate-findings.cjs dan validate-coverage-ledger.cjs).',
+        'Verifikasi record independen oleh agent baru, lalu laporan netral-target: REPORT.md, FINDINGS-DETAIL.md, dan NEEDS-VALIDATION.md.',
+      ],
+      en: [
+        'Decide the mode: guidance for questions and focused reviews, full audit only for an explicit audit or pen-test request. If it could mean either, ask one focused question before creating files.',
+        'Reconnaissance: map architecture, trust boundaries, input surfaces, prior runs, and a deterministic coverage ledger (architecture.md, coverage-ledger.json).',
+        'Coverage-led hunting: isolated hunters take ledger units and return structured candidates; coverage critics look for gaps wave by wave.',
+        'Candidate validation: every unique candidate goes to a fresh verifier that tries to disprove it.',
+        'Structured output: confirmed, needs_validation, and rejected records go to findings.json and are validated against report-schema.json (validate-findings.cjs and validate-coverage-ledger.cjs).',
+        'Independent record verification by fresh agents, then a target-neutral report: REPORT.md, FINDINGS-DETAIL.md, and NEEDS-VALIDATION.md.',
+      ],
+    },
+    coreRules: {
+      id: [
+        'Setiap kandidat wajib menyebut principal ber-trust lebih rendah, input atau aksi yang diterima, kontrol yang dimaksud, boundary yang dilintasi, dan hasil konkret yang teramati; best practice yang kurang, crash parser generik, atau self-impact bukan temuan.',
+        'Inspeksi sumber bersifat read-only. Kode yang dikontrol target hanya dijalankan di sandbox yang ditegakkan OS (tanpa jaringan eksternal, environment allowlist, target read-only, batas resource rendah); bila ada kontrol yang tidak terpenuhi, laporkan needs_validation, jangan dieksekusi.',
+        'Hanya record confirmed yang diberi severity; needs_validation menyebut fakta tepat yang belum diketahui dan tidak punya severity.',
+        'Pakai principal, fixture, dan secret dummy; jangan memprobe endpoint yang sudah di-deploy atau infrastruktur bersama.',
+        'Hanya parent yang menulis file run bersama; tiap agent bekerja di direktori scratch sendiri, dan audit hanya menjelaskan perbaikan, tidak pernah memodifikasi source target.',
+      ],
+      en: [
+        'Every candidate must name the lower-trust principal, the accepted input or action, the intended control, the crossed boundary, and a concrete observed result; a missing best practice, a generic parser crash, or self-impact is not a finding.',
+        'Source inspection is read-only. Target-controlled code runs only in an OS-enforced sandbox (no external network, an allowlisted environment, a read-only target, low resource limits); if any control is missing, report needs_validation instead of executing.',
+        'Only confirmed records get a severity; needs_validation names the exact missing fact and has none.',
+        'Use dummy principals, fixtures, and secrets; never probe deployed endpoints or shared infrastructure.',
+        'Only the parent writes the shared run files; each agent works in its own scratch directory, and the audit describes fixes but never modifies the target source.',
+      ],
+    },
+    tips: {
+      id: [
+        'Pilih profile: quick untuk pass singkat berbatas, standard (default), deep untuk target besar atau berisiko tinggi; run yang scoped atau quick selalu menyatakan dirinya cakupan parsial.',
+        'Untuk target besar, set budget (jumlah maksimum pemanggilan agent): workflow mencadangkan panggilan critic dan validasi sebelum hunting, dan menandai run incomplete alih-alih melampaui budget.',
+        'Run berulang bersifat aditif: ledger dan findings sebelumnya mengarahkan run berikutnya ke celah dan source yang berubah. Di pengujian upstream, satu run menemukan sekitar separuh dari total temuan run berulang.',
+        'Butuh Node.js untuk validator tanpa dependency; tambahkan companion domain (web/auth, cloud, AI/LLM, supply chain, dan lainnya) yang sesuai dengan target.',
+      ],
+      en: [
+        'Pick a profile: quick for a bounded first look, standard (the default), deep for large or high-stakes targets; a scoped or quick run always presents itself as partial coverage.',
+        'For large targets, set a budget (a maximum number of agent invocations): the workflow reserves critic and validation calls before hunting and marks the run incomplete rather than overspending.',
+        'Repeated runs are additive: prior ledgers and findings steer later runs to gaps and changed source. In the upstream tests, a single run found roughly half of what repeated runs found in total.',
+        'It needs Node.js for the zero-dependency validators; add the domain companions (web/auth, cloud, AI/LLM, supply chain, and more) that match the target.',
+      ],
+    },
+    pairsWellWith: ['workers-best-practices', 'cloudflare-one'],
+    spotlight: {
+      title: { id: 'Tanpa Trust Boundary, Bukan Temuan', en: 'No Trust Boundary, No Finding' },
+      body: {
+        id: 'Disiplin inti skill ini: kandidat kerentanan harus menyebut principal ber-trust rendah, kontrol yang dilintasi, dan hasil keamanan yang teramati, bukan sekadar praktik yang kurang.\n\nSeverity dikalibrasi dengan jangkar: critical bila aktor tanpa autentikasi mendapat code execution, akses penuh data store, atau pengambilalihan akun sembarang; high bila sebuah kontrol keamanan eksplisit dikalahkan sepenuhnya dengan konsekuensi nyata; medium bila pelanggaran boundary nyata tetapi terbatas. Bila dampak konkretnya tidak bisa disebut, severity lebih rendah dari yang terasa.\n\nMode penuh menambah infrastruktur anti-hand-waving: coverage ledger, verifikasi independen per temuan, dan budget gate agar audit tidak diam-diam menipiskan buktinya.',
+        en: 'The core discipline: a vulnerability candidate must name the lower-trust principal, the control crossed, and the observed security outcome, not merely a missing practice.\n\nSeverity is calibrated with anchors: critical when an unauthenticated actor gains code execution, full data-store access, or takeover of arbitrary accounts; high when an explicit security control is fully defeated with real consequences; medium for a real but limited boundary violation. If you cannot state the concrete damage, the severity is lower than it feels.\n\nFull mode adds anti-hand-waving infrastructure: a coverage ledger, independent per-finding verification, and a budget gate so an audit never quietly thins its evidence.',
+      },
+    },
+    sourcePath: 'skills/security-audit/SKILL.md',
+    upstream: {
+      repo: CLOUDFLARE_SECURITY_AUDIT_REPO,
+      sha: CLOUDFLARE_SECURITY_AUDIT_SHA,
+      license: CLOUDFLARE_SECURITY_AUDIT_LICENSE,
+    },
+  },
 ]
-export const CLOUDFLARE_SKILL_COUNT = 16
+export const CLOUDFLARE_SKILL_COUNT = 17

@@ -1,1 +1,1 @@
-export const CLOUDFLARE_SKILL_COUNT = 16
+export const CLOUDFLARE_SKILL_COUNT = 17

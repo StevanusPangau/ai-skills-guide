@@ -14,6 +14,7 @@ import {
   richToView,
 } from '@/features/skill-page/adapters'
 import { SkillPage, SkillPageNotFound } from '@/features/skill-page/skill-page'
+import { m } from '@/paraglide/messages.js'
 
 export const Route = createFileRoute('/cloudflare/skills/$skillName')({
   // Dynamic import keeps this collection's data out of the entry bundle: route
@@ -42,10 +43,24 @@ function summaryOf(skill: RichSkill): string {
 function CloudflareSkillPage() {
   const { index } = Route.useLoaderData()
   const skill = cloudflareSkills[index]
+  const upstream = skill.upstream
   return (
     <SkillPage
       view={richToView(skill, cloudflareSkills, {
-        sourceUrl: githubBlobUrl(CLOUDFLARE_SOURCE_REPO, CLOUDFLARE_SOURCE_SHA, skill.sourcePath),
+        sourceUrl: githubBlobUrl(
+          upstream?.repo ?? CLOUDFLARE_SOURCE_REPO,
+          upstream?.sha ?? CLOUDFLARE_SOURCE_SHA,
+          skill.sourcePath,
+        ),
+        // A skill that lives in another repo shows where it comes from and under which license.
+        extra: upstream
+          ? {
+              facts: [
+                { label: m.skillpage_fact_license(), value: upstream.license },
+                { label: m.skillpage_fact_repo(), value: upstream.repo.replace(/^github\.com\//, '') },
+              ],
+            }
+          : undefined,
       })}
       ctx={ctx}
       prev={neighbour(cloudflareSkills, index - 1, summaryOf)}
@@ -54,7 +69,7 @@ function CloudflareSkillPage() {
       total={cloudflareSkills.length}
       install={
         <SkillInstallBlock
-          source="cloudflare/skills"
+          source={upstream ? upstream.repo.replace(/^github\.com\//, '') : 'cloudflare/skills'}
           skillName={skill.name}
           hideHeading
         />

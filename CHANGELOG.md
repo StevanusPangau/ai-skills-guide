@@ -15,7 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Emil Kowalski: Before/After side by side with the real curves and durations, grouped skill chips, and new demos for `animate`, `break-ui` and `mobile-native` (9 of 14 skills now have a demo).
   - GSAP: a scrollable ScrollTrigger scrub demo (`scrub: true` vs `scrub: 1`), a timeline position-parameter visualiser and a layout-vs-compositor demo. These are illustrative simulations; no GSAP package is loaded.
   - Jakub Krehel: five Wrong vs Right demos (concentric radius, optical alignment, staggered enter, scale on press, tabular numbers).
-- **New skills synced from upstream**: mattpocock `implement-spec`, `pr`, `retro`; emilkowalski `animate`, `animate-expo`, `ask-sonner`, `break-ui`, `mobile-native`, `pick-ui-library`, `prototype`, `write-swift`; davidondrej 42 skills; brooklyn `triage`; superpowers `diagnosing-superpowers`; cloudflare `basin`, `k2`, `nextjs-on-cloudflare`; prisma `prisma-orm-setup`; impeccable `shape`, `layout`, `overdrive`, `generate`.
+- **New skills synced from upstream**: mattpocock `implement-spec`, `pr`, `retro`; emilkowalski `animate`, `animate-expo`, `ask-sonner`, `break-ui`, `mobile-native`, `pick-ui-library`, `prototype`, `write-swift`; davidondrej 42 skills; brooklyn `triage`; superpowers `diagnosing-superpowers`; cloudflare `basin`, `k2`, `nextjs-on-cloudflare`, and `security-audit` (a source-first security audit skill from the separate `cloudflare/security-audit-skill` repo, MIT); prisma `prisma-orm-setup`; impeccable `shape`, `layout`, `overdrive`, `generate`.
 - Davidondrej skills now carry `useWhen`, `avoidWhen`, `steps`, `rules` and `tips`, written from the upstream `SKILL.md`; fields without an upstream basis are left empty.
 - Anthropic: a per-skill license badge and a warning above the install block for the proprietary document skills (`docx`, `pdf`, `pptx`, `xlsx`).
 - Install routes: Claude Code plugin routes (mattpocock, expo, jakubkrehel, tanstack, superpowers), `npx impeccable install`, and `--skill '*'` for Expo.
@@ -23,8 +23,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - **Performance**: the entry bundle dropped from 1,282 KB (408 KB gzip) to 314 KB (96 KB gzip). Route loaders and the global search dialog statically imported every collection's data, so about 1 MB of skill text shipped on first paint. Loaders now `import()` their own collection and the search dialog is lazy-loaded. Lighthouse (mobile, simulated slow 4G): home 72 → 92, skill page 71 → 84, `/gsap` 60 → 77; home LCP 4.7 s → 2.4 s; home transfer 851 → 322 KiB.
 - Avatars are resized to 96 px (about 190 KB → 14 KB) and lazy-loaded; static images and diagrams get cache headers.
-- **Every collection is pinned to a verified upstream commit** (never `main`): mattpocock `d81f3a1`, emilkowalski `e8a175d`, davidondrej `88a3d7c`, jakubkrehel `267330e`, brooklyn `3649573`, superpowers `8ca22db`, vercel `063bee9`, anthropic `8a1541c`, cloudflare `41e0d19`, supabase `c9be0e9`, prisma `be16a87`, tanstack `6f5521e`, expo `13ad8e0`, gsap `aed9cfd`, impeccable `e103efe`.
-- The guide now covers 272 skills across 15 collections (mattpocock 27, emilkowalski 14, davidondrej 57, brooklyn 22, superpowers 15, cloudflare 16, prisma 8, impeccable 25 commands).
+- **Every collection is pinned to a verified upstream commit** (never `main`): mattpocock `d81f3a1`, emilkowalski `e8a175d`, davidondrej `88a3d7c`, jakubkrehel `267330e`, brooklyn `3649573`, superpowers `8ca22db`, vercel `063bee9`, anthropic `8a1541c`, cloudflare `41e0d19` (plus `security-audit` from `cloudflare/security-audit-skill` at `c1c8a8c`), supabase `c9be0e9`, prisma `be16a87`, tanstack `6f5521e`, expo `13ad8e0`, gsap `aed9cfd`, impeccable `e103efe`.
+- The guide now covers 273 skills across 15 collections (mattpocock 27, emilkowalski 14, davidondrej 57, brooklyn 22, superpowers 15, cloudflare 17, prisma 8, impeccable 25 commands).
 - Skill descriptions, behaviors, commands and APIs were re-verified against upstream and rewritten where wrong or outdated, including mattpocock grilling and `to-tickets` (and the `CONTEXT.md` → `GLOSSARY.md` rename), Supabase security guidance, Prisma 7/8 claims, TanStack Start/Store/Table/Form APIs, all 25 Expo skills, GSAP `matchMedia` and plugin licensing, and Brooklyn, Superpowers and Jakub Krehel behaviors.
 - **Impeccable** is presented as one user-invocable skill (`/impeccable`) with its commands.
 - **TanStack** is labelled as a community collection that is not affiliated with TanStack.
@@ -34,7 +34,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 - Install blocks passed `github.com/owner/repo` instead of `owner/repo` for expo, gsap, impeccable, prisma, supabase and tanstack, and the Cloudflare route used `cloudflares/skills`.
-- `public/sitemap.xml` and `public/llms.txt` omitted `docx`, `pdf`, `pptx` and `xlsx`; all 289 canonical URLs are now listed.
+- `public/sitemap.xml` and `public/llms.txt` omitted `docx`, `pdf`, `pptx` and `xlsx`; all 290 canonical URLs are now listed.
 - "Pairs well with" links that pointed to other collections, nonexistent skills, or the skill itself now resolve within their own collection.
 - Fabricated numbers, benchmarks and APIs were removed from the lab, arena, matrix and concepts pages.
 - Anthropic: the blanket "all rights reserved" notice is replaced by per-skill licenses (14 Apache-2.0; the four document skills are proprietary/source-available).
