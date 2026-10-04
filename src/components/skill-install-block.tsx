@@ -10,17 +10,25 @@ type SkillInstallBlockProps = {
   source: string
   /** Skill folder/name as known by skills.sh */
   skillName: string
+  /** Hide the built-in heading when the caller already renders a section title. */
+  hideHeading?: boolean
 }
 
-export function SkillInstallBlock({ source, skillName }: SkillInstallBlockProps) {
+export function SkillInstallBlock({
+  source,
+  skillName,
+  hideHeading = false,
+}: SkillInstallBlockProps) {
   const command = `npx skills@latest add ${source} --skill ${skillName}`
   const pageUrl = `https://skills.sh/${source}/${skillName}`
 
   return (
     <div className="space-y-2 border-t border-border pt-4">
-      <h2 className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">
-        {m.skill_install_title()}
-      </h2>
+      {hideHeading ? null : (
+        <h2 className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">
+          {m.skill_install_title()}
+        </h2>
+      )}
       <CodeBlock code={command} shell />
       <a
         href={pageUrl}

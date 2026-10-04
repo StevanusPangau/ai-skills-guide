@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+- **Skill detail pages redesigned** on one shared component (`src/features/skill-page/`) instead of 14 copy-pasted routes: per-skill accent colour and glyph, a "Skill at a glance" brief (what it does, how it is called, quick facts), spotlight card, use/avoid decision cards, step-by-step timeline, rule cards, tips, related-skill cards with summaries, and prev/next with context. Sections only appear when the skill has that data; all new strings are bilingual.
+- Davidondrej skills gained `useWhen`, `avoidWhen`, `steps`, `rules` and `tips` taken from upstream SKILL.md.
+- Each skill page now sets its own meta description from the skill summary.
+
 ### Fixed
 - **Content audit of all 15 collections against upstream** (now 272 skills/commands): re-pinned every collection to a verified upstream commit, synced skills added/removed upstream (mattpocock 27, emilkowalski 14, davidondrej 57, brooklyn 22, superpowers 15, cloudflare 16, prisma 8, impeccable 25 commands) and corrected inaccurate skill descriptions, behaviors, commands and APIs.
 - Removed fabricated numbers, benchmarks and APIs from the lab/arena/matrix/concepts pages (Vercel, Anthropic, Cloudflare, Supabase, Prisma, TanStack, GSAP, Expo).

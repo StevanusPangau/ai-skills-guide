@@ -30,6 +30,8 @@ Package manager is **npm** (`package-lock.json` is canonical). `bun.lock` is git
 
 **Routing** — TanStack Router file-based routes in `src/routes/`. The router plugin (vite.config.ts) auto-generates `routeTree.gen.ts` and must load before the React plugin. `__root.tsx` holds the header/nav/theme/locale shell; each collection gets a top-level route (`mattpocock.tsx`, `davidondrej.tsx`) plus deep-link skill pages (`*.skills.$skillName.tsx`).
 
+**Skill detail pages** — every `*.skills.$skillName.tsx` route is a thin wrapper around the shared `src/features/skill-page/` (`SkillPage`). A route maps its data record to a `SkillView` (`adapters.ts` for the rich bilingual shape, `adapters-special.ts` for mattpocock/davidondrej/emilkowalski) and supplies the install block. Each skill gets a deterministic accent colour + glyph (`identity.ts`) and sections only render when the data has them, so richer records give richer pages. Don't copy a route per collection or add per-collection page chrome; extend `SkillView` instead. Strings live in `skillpage_*` messages.
+
 **Collection pattern** — each collection is a self-contained slice:
 - data: `src/data/<collection>-skills.ts` (skill records) — registered in `src/data/collections.ts`
 - UI: `src/features/<collection>/` (or shared `src/features/*` for mattpocock, the original collection)
