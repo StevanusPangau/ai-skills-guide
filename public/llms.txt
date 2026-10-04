@@ -233,6 +233,7 @@ The guide curates and explains work by the attributed upstream authors. Each col
 - nextjs-on-cloudflare: https://skills.stevanuspangau.dev/cloudflare/skills/nextjs-on-cloudflare
 - basin: https://skills.stevanuspangau.dev/cloudflare/skills/basin
 - k2: https://skills.stevanuspangau.dev/cloudflare/skills/k2
+- security-audit: https://skills.stevanuspangau.dev/cloudflare/skills/security-audit
 
 ## supabase
 
