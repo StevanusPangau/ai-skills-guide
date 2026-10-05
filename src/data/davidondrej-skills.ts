@@ -1,7 +1,9 @@
 // Koleksi kedua: David Ondrej — davidondrej/skills.
 //
-// Snapshot sumber dipin ke commit SHA yang diverifikasi pada 2026-10-03
-// (HEAD 88a3d7c7, rolling sanitized mirror, tidak ada tag/release; 57 SKILL.md).
+// Snapshot sumber dipin ke commit SHA yang diverifikasi pada 2026-10-05
+// (HEAD f025cb43, rolling sanitized mirror, tidak ada tag/release; 57 SKILL.md).
+// f025cb43 menerbitkan ulang snapshot yang sama: tree identik dengan 88a3d7c7
+// (yang diverifikasi 2026-10-03), jadi isi record tidak berubah.
 // Setiap record menyertakan status kompatibilitas + tingkat risiko sehingga
 // guide dapat memisahkan "ada di upstream" dari "cocok dipakai di stack Anda".
 // Katalog ini edukatif: guide ini tidak mengirim bundle skill sendiri; install
@@ -10,7 +12,7 @@
 // Sumber: https://github.com/davidondrej/skills (MIT, Copyright 2026 David Ondrej)
 
 export const DAVIDONDREJ_SOURCE_REPO = 'github.com/davidondrej/skills'
-export const DAVIDONDREJ_SOURCE_SHA = '88a3d7c7c3d2c16f542baea0ed40e0db5fb3f4a0'
+export const DAVIDONDREJ_SOURCE_SHA = 'f025cb43cbbfe5810b130a207c4353c8555af7cb'
 
 export type DavidCategory =
   | 'agent-orchestration'

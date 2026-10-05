@@ -29,9 +29,9 @@ Ringkasan yang tersedia hari ini (220+ skills di 15 koleksi):
 
 | Koleksi | Route | Upstream | Katalog | Install |
 |---|---|---|---|---|
-| Matt Pocock — AI Coding Skills | [`/mattpocock`](https://skills.stevanuspangau.dev/mattpocock) | [mattpocock/skills](https://github.com/mattpocock/skills) `v1.2.3+` (`d81f3a1…`) | 27 | Upstream (skills.sh / plugin) |
+| Matt Pocock — AI Coding Skills | [`/mattpocock`](https://skills.stevanuspangau.dev/mattpocock) | [mattpocock/skills](https://github.com/mattpocock/skills) `v1.3.1` (`24fe0ef…`) | 27 | Upstream (skills.sh / plugin) |
 | Emil Kowalski — Design Engineering Skills | [`/emilkowalski`](https://skills.stevanuspangau.dev/emilkowalski) | [emilkowalski/skills](https://github.com/emilkowalski/skills) pin `e8a175d…` | 14 | Upstream (skills.sh / plugin) |
-| David Ondrej — Personal Agent Skills | [`/davidondrej`](https://skills.stevanuspangau.dev/davidondrej) | [davidondrej/skills](https://github.com/davidondrej/skills) pin `88a3d7c…` | 57 | Upstream via skills.sh |
+| David Ondrej — Personal Agent Skills | [`/davidondrej`](https://skills.stevanuspangau.dev/davidondrej) | [davidondrej/skills](https://github.com/davidondrej/skills) pin `f025cb4…` | 57 | Upstream via skills.sh |
 | Jakub Krehel — UI & Design Engineering | [`/jakubkrehel`](https://skills.stevanuspangau.dev/jakubkrehel) | [jakubkrehel/skills](https://github.com/jakubkrehel/skills) pin `267330e…` | 11 | Upstream (skills.sh / plugin) |
 | Brooklyn — Autonomous Engineering & PR | [`/brooklyn`](https://skills.stevanuspangau.dev/brooklyn) | [OutThisLife/brooklyn-skills](https://github.com/OutThisLife/brooklyn-skills) | 22 | Upstream (copy / `external_dirs`) |
 | Jesse Vincent — Agentic SDLC & Superpowers | [`/superpowers`](https://skills.stevanuspangau.dev/superpowers) | [obra/superpowers](https://github.com/obra/superpowers) | 15 | Upstream plugin per harness |

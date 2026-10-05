@@ -13,7 +13,7 @@ export function getWorkflows() {
       title: m.workflow_2_title(),
       description: m.workflow_2_description(),
       mengapa: m.workflow_2_why(),
-      steps: ['diagnosing-bugs (6 phases)', 'fix + regression test', 'code-review'],
+      steps: ['diagnosing-bugs (6 phases)', 'fix + regression test', 'code-review', '/retro (same session, once the fix is in)'],
     },
     {
       title: m.workflow_3_title(),

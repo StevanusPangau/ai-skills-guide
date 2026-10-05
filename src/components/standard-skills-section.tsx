@@ -1,17 +1,7 @@
-import { useMemo, useState } from 'react'
-import { Link } from '@tanstack/react-router'
-import { AuthorAvatar } from '@/components/author-avatar'
-import { Badge } from '@/components/ui/badge'
-import { FilterChip } from '@/components/filter-chip'
-import { Input } from '@/components/ui/input'
-import { ScrollArea } from '@/components/ui/scroll-area'
-import { getCollectionBySlug } from '@/data/collections'
-import { RiGithubFill } from '@remixicon/react'
-import { m } from '@/paraglide/messages.js'
+import { useMemo } from 'react'
+import { SkillCatalog, type CatalogItem } from '@/components/skill-catalog'
 import { getLocale } from '@/paraglide/runtime.js'
 import type { RichSkill } from '@/data/jakubkrehel-skills'
-
-const CATALOG_VIEWPORT_CLASS = 'h-[28rem] sm:h-[30rem]'
 
 type Props = {
   collectionSlug: string
@@ -22,6 +12,7 @@ type Props = {
   repoUrl: string
 }
 
+/** Catalog for the "rich" bilingual collections; maps each record to a catalog row. */
 export function StandardSkillsSection({
   collectionSlug,
   skills,
@@ -30,179 +21,35 @@ export function StandardSkillsSection({
   description,
   repoUrl,
 }: Props) {
-  const [search, setSearch] = useState('')
-  const [activeFilter, setActiveFilter] = useState<string>('all')
-  const author = getCollectionBySlug(collectionSlug)
   const isEn = getLocale() === 'en'
-
-  const filtered = useMemo(() => {
-    return skills.filter((skill) => {
-      const q = search.trim().toLowerCase()
-      const descText = isEn ? skill.description.en : skill.description.id
-      const rules = isEn ? skill.coreRules.en : skill.coreRules.id
-      const uses = isEn ? skill.useWhen.en : skill.useWhen.id
-
-      const matchesSearch =
-        !q ||
-        skill.name.toLowerCase().includes(q) ||
-        descText.toLowerCase().includes(q) ||
-        uses.some((u: string) => u.toLowerCase().includes(q)) ||
-        rules.some((r: string) => r.toLowerCase().includes(q))
-
-      const matchesFilter =
-        activeFilter === 'all' ||
-        skill.category === activeFilter ||
-        skill.invocation === activeFilter
-
-      return matchesSearch && matchesFilter
-    })
-  }, [skills, search, activeFilter, isEn])
-
-  const allFilters = [
-    { label: m.catalog_filter_all(), value: 'all' },
-    ...categories,
-    { label: m.skills_filter_user(), value: 'user' },
-    { label: m.skills_filter_model(), value: 'model' },
-  ]
+  const items = useMemo<CatalogItem[]>(
+    () =>
+      skills.map((skill) => {
+        const rules = isEn ? skill.coreRules.en : skill.coreRules.id
+        const uses = isEn ? skill.useWhen.en : skill.useWhen.id
+        return {
+          name: skill.name,
+          category: skill.category,
+          categoryLabel: skill.category,
+          invocation: skill.invocation,
+          description: isEn ? skill.description.en : skill.description.id,
+          highlights: rules,
+          searchText: [...uses, ...rules].join(' '),
+          sourceUrl: skill.sourcePath
+            ? `https://${repoUrl}/tree/main/${skill.sourcePath}`
+            : undefined,
+        }
+      }),
+    [skills, isEn, repoUrl],
+  )
 
   return (
-    <section id="skills" className="scroll-mt-20 space-y-6">
-      <div>
-        <h2 className="text-2xl font-bold tracking-tight text-balance">
-          {title}
-        </h2>
-        <p className="mt-1 text-muted-foreground">{description}</p>
-      </div>
-
-      <div className="space-y-3">
-        <Input
-          type="search"
-          name="skill-search"
-          autoComplete="off"
-          spellCheck={false}
-          placeholder={m.catalog_search_placeholder({ count: String(skills.length) })}
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          className="max-w-sm"
-          aria-label={m.catalog_search_placeholder({ count: String(skills.length) })}
-        />
-        <div
-          className="flex flex-wrap gap-2"
-          role="group"
-          aria-label={m.nav_filters()}
-        >
-          {allFilters.map((f) => (
-            <FilterChip
-              key={f.value}
-              pressed={activeFilter === f.value}
-              onClick={() => setActiveFilter(f.value)}
-            >
-              {f.label}
-            </FilterChip>
-          ))}
-        </div>
-      </div>
-
-      {filtered.length === 0 ? (
-        <div className="rounded-lg border border-border bg-card py-10 text-center">
-          <p className="text-sm text-muted-foreground">
-            {m.catalog_no_results()}
-          </p>
-        </div>
-      ) : (
-        <div className="overflow-hidden rounded-lg border border-border bg-card shadow-sm">
-          <ScrollArea className={CATALOG_VIEWPORT_CLASS}>
-            <div className="space-y-3 p-3 pr-4">
-              {filtered.map((skill) => {
-                const desc = isEn ? skill.description.en : skill.description.id
-                const rules = isEn ? skill.coreRules.en : skill.coreRules.id
-
-                return (
-                  <Link
-                    key={skill.name}
-                    to={`/${collectionSlug}/skills/$skillName` as any}
-                    params={{ skillName: skill.name } as any}
-                    className="block w-full rounded-lg border border-border bg-background px-4 py-3.5 text-left transition-colors hover:border-primary/40 hover:bg-muted/40 cursor-pointer"
-                  >
-                    <div className="flex gap-3">
-                      {author?.avatarSrc ? (
-                        <AuthorAvatar
-                          src={author.avatarSrc}
-                          name={author.author}
-                          size="md"
-                          className="mt-0.5"
-                        />
-                      ) : null}
-                      <div className="min-w-0 flex-1">
-                        <div className="flex flex-wrap items-center justify-between gap-2">
-                          <div className="flex flex-wrap items-center gap-2">
-                            <span className="font-mono text-sm font-semibold text-foreground">
-                              /{skill.name}
-                            </span>
-                            <Badge variant="outline" className="text-xs uppercase font-mono">
-                              {skill.category}
-                            </Badge>
-                            <Badge
-                              variant={
-                                skill.invocation === 'user'
-                                  ? 'default'
-                                  : 'secondary'
-                              }
-                              className="text-xs"
-                            >
-                              {skill.invocation === 'user'
-                                ? m.skills_filter_user()
-                                : m.skills_filter_model()}
-                            </Badge>
-                          </div>
-                          {skill.sourcePath ? (
-                            <span
-                              onClick={(e) => {
-                                e.preventDefault()
-                                e.stopPropagation()
-                                window.open(`https://${repoUrl}/tree/main/${skill.sourcePath}`, '_blank', 'noopener,noreferrer')
-                              }}
-                              className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-primary transition-colors"
-                            >
-                              <RiGithubFill className="size-3.5" />
-                              <span>{m.catalog_view_skill_md()}</span>
-                            </span>
-                          ) : null}
-                        </div>
-                        <p className="mt-2 text-sm leading-relaxed text-muted-foreground line-clamp-2">
-                          {desc}
-                        </p>
-                        {rules && rules.length > 0 && (
-                          <div className="mt-3 flex flex-wrap gap-1.5 border-t border-border/50 pt-2">
-                            {rules.slice(0, 2).map((rule: string, idx: number) => (
-                              <span
-                                key={idx}
-                                className="inline-flex items-center rounded-md bg-muted px-2 py-0.5 text-[11px] text-muted-foreground line-clamp-1"
-                              >
-                                • {rule}
-                              </span>
-                            ))}
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                  </Link>
-                )
-              })}
-            </div>
-          </ScrollArea>
-        </div>
-      )}
-
-      <p
-        className="text-xs text-muted-foreground tabular-nums"
-        aria-live="polite"
-      >
-        {m.catalog_showing({
-          count: String(filtered.length),
-          total: String(skills.length),
-        })}
-      </p>
-    </section>
+    <SkillCatalog
+      collectionSlug={collectionSlug}
+      items={items}
+      categories={categories}
+      title={title}
+      description={description}
+    />
   )
 }

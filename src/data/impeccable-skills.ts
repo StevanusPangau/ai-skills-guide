@@ -1,14 +1,14 @@
 import type { BilingualString, BilingualList } from '@/types/skill'
 
-// Verified against pbakaus/impeccable @ e103efe779e2dd01274dabae83531fef00bf2563
-// (2026-10-03; skill release 4.5.0, package 4.1.0; Apache-2.0). Checked 2026-10-04.
+// Verified against pbakaus/impeccable @ dea6cff23c21791a471d87da120f8ae13e6261a7
+// (2026-10-05; skill release 4.5.0, package 4.1.0; Apache-2.0). Checked 2026-10-05.
 // Upstream ships ONE user-invocable skill, `impeccable` (skill/SKILL.src.md), invoked as
 // `/impeccable <command> [target]`. Each record below is a COMMAND of that skill (24 commands
 // from the upstream Commands table, plus the `doctor` maintenance verb), not a separate skill.
 // Categories follow the upstream table: build, evaluate, refine, enhance, fix, iterate
 // (+ maintenance for doctor). sourcePath points at the command's reference playbook.
 export const IMPECCABLE_SOURCE_REPO = 'github.com/pbakaus/impeccable'
-export const IMPECCABLE_SOURCE_SHA = 'e103efe779e2dd01274dabae83531fef00bf2563'
+export const IMPECCABLE_SOURCE_SHA = 'dea6cff23c21791a471d87da120f8ae13e6261a7'
 export const SOURCE_REPO = IMPECCABLE_SOURCE_REPO
 export const SOURCE_SHA = IMPECCABLE_SOURCE_SHA
 /** The single upstream skill name that every command below belongs to. */
