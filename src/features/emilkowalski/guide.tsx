@@ -1,13 +1,15 @@
+import { useMemo } from 'react'
 import { Link } from '@tanstack/react-router'
 import { RiGithubFill } from '@remixicon/react'
 import { AuthorAvatar } from '@/components/author-avatar'
 import { XHandleLink } from '@/components/x-handle-link'
-import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { CodeBlock } from '@/components/code-block'
+import { SkillCatalog, type CatalogItem } from '@/components/skill-catalog'
 import {
   EMILKOWALSKI_SOURCE_REPO,
   EMILKOWALSKI_SOURCE_SHA,
+  emilSourceUrl,
   emilkowalskiSkills,
 } from '@/data/emilkowalski-skills'
 import {
@@ -133,35 +135,41 @@ export function EmilWorkflow() {
   )
 }
 
+function buildEmilCatalogItems(): CatalogItem[] {
+  return emilkowalskiSkills.map((skill) => ({
+    name: skill.name,
+    category: skill.category,
+    categoryLabel: emilCategoryLabel(skill.category),
+    // "manual" skills (disable-model-invocation) map onto the shared "user" filter.
+    invocation: skill.invocation === 'manual' ? 'user' : 'model',
+    invocationLabel: emilInvocationLabel(skill.invocation),
+    description: skill.description,
+    meta: emilModeLabel(skill.mode),
+    highlights: skill.coreRules,
+    searchText: [...skill.useWhen, ...skill.coreRules, skill.output].join(' '),
+    sourceUrl: emilSourceUrl(skill.sourcePath),
+  }))
+}
+
 export function EmilCatalog() {
+  const items = useMemo(buildEmilCatalogItems, [])
+  // Only the groups that actually have skills, in data order.
+  const categories = [...new Set(emilkowalskiSkills.map((skill) => skill.category))].map(
+    (value) => ({ value, label: emilCategoryLabel(value) }),
+  )
   return (
-    <section id="catalog" className="scroll-mt-20 space-y-6">
-      <div>
-        <h2 className="font-heading text-2xl font-bold tracking-tight">{m.emil_catalog_title()}</h2>
-        <p className="mt-1 text-muted-foreground">{m.emil_catalog_description()}</p>
-      </div>
-      <ul className="grid gap-3">
-        {emilkowalskiSkills.map((skill) => (
-          <li key={skill.name}>
-          <Link
-            to="/emilkowalski/skills/$skillName"
-            params={{ skillName: skill.name }}
-            className="block h-full rounded-lg border border-border bg-card p-4 transition-colors hover:border-primary/40 hover:bg-muted/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50"
-          >
-            <div className="flex flex-wrap items-center gap-2">
-              <span className="font-mono text-sm font-semibold">/{skill.name}</span>
-              <Badge variant="outline" className="text-xs">{emilCategoryLabel(skill.category)}</Badge>
-              <Badge variant={skill.invocation === 'manual' ? 'default' : 'secondary'} className="text-xs">
-                {emilInvocationLabel(skill.invocation)}
-              </Badge>
-            </div>
-            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{skill.description}</p>
-            <p className="mt-2 font-mono text-xs text-muted-foreground">{emilModeLabel(skill.mode)}</p>
-          </Link>
-          </li>
-        ))}
-      </ul>
-    </section>
+    <SkillCatalog
+      collectionSlug="emilkowalski"
+      sectionId="catalog"
+      items={items}
+      categories={categories}
+      title={m.emil_catalog_title()}
+      description={m.emil_catalog_description()}
+      invocationFilterLabels={{
+        user: emilInvocationLabel('manual'),
+        model: emilInvocationLabel('model'),
+      }}
+    />
   )
 }
 

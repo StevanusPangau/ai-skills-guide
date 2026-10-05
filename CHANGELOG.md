@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+- **Emil Kowalski catalog now matches the other collections.** It was a flat list of 14 full-height cards; it now has the shared search box, category and invocation filter chips, a scrollable list with the author avatar, a `SKILL.md` link, core-rule chips, an empty state and a "Showing X of Y" counter. The catalog UI moved into a generic `SkillCatalog` component (`src/components/skill-catalog.tsx`) that `StandardSkillsSection` and the Emil page both use, so the catalogs can no longer drift apart.
+
 ## [v1.7.0] - 2026-10-04
 
 ### Added
