@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v1.7.1] - 2026-10-05
+
 ### Changed
 - **Matt Pocock collection synced to upstream v1.3.1** (`24fe0ef`). Reflects the post-1.3.0 plugin: `diagnosing-bugs` ends at "Phase 6: Cleanup" and the post-mortem hand-off moved to `/retro`; `ask-matt` and `diagnosing-bugs` link to `retro`; refreshed `grill-with-docs`, `domain-modeling`, `wayfinder`, `setup-matt-pocock-skills` and `implement` descriptions, the workflow card and the pipeline diagram.
 - Provenance pins bumped: David Ondrej to `f025cb4` (content identical to the previous pin) and Impeccable to `dea6cff` (no record text changed). Emil Kowalski verified unchanged upstream (14 skills at `e8a175d`). README tables updated.
@@ -237,6 +239,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Security headers, SPA fallback routing, immutable asset caching
 
 [Unreleased]: https://github.com/StevanusPangau/ai-skills-guide/compare/v1.7.0...HEAD
+[v1.7.1]: https://github.com/StevanusPangau/ai-skills-guide/compare/v1.7.0...v1.7.1
 [v1.7.0]: https://github.com/StevanusPangau/ai-skills-guide/compare/v1.6.0...v1.7.0
 [v1.6.0]: https://github.com/StevanusPangau/ai-skills-guide/compare/v1.5.0...v1.6.0
 [v1.5.0]: https://github.com/StevanusPangau/ai-skills-guide/compare/v1.4.0...v1.5.0
