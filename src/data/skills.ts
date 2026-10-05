@@ -2,13 +2,13 @@ import type { Skill } from '@/types/skill'
 
 // Koleksi Matt Pocock — mattpocock/skills (MIT, (c) 2026 Matt Pocock).
 // Sumber: https://github.com/mattpocock/skills
-// Diverifikasi 2026-10-04 terhadap upstream main @ d81f3a1 (2026-09-29, merge "release/v1.3").
-// package.json/plugin.json upstream masih bertuliskan 1.2.3 (v1.3 belum di-tag), jadi
-// MATTPOCOCK_SOURCE_VERSION memakai "v1.2.3+" (= pasca-v1.2.3, main). Cek ulang saat sync upstream.
+// Diverifikasi 2026-10-05 terhadap upstream v1.3.1 @ 24fe0ef (2026-10-04); package.json/plugin.json = 1.3.1.
+// Himpunan skill terbit = 27 skill di .claude-plugin/plugin.json (engineering 20 + productivity 7);
+// misc/ dan in-progress/ sengaja tidak dimasukkan. Cek ulang saat sync upstream.
 
 export const MATTPOCOCK_SOURCE_REPO = 'github.com/mattpocock/skills'
-export const MATTPOCOCK_SOURCE_VERSION = 'v1.2.3+ (main)'
-export const MATTPOCOCK_SOURCE_SHA = 'd81f3a183412e71a5b1e84ca21bc1a35eea03a60'
+export const MATTPOCOCK_SOURCE_VERSION = 'v1.3.1'
+export const MATTPOCOCK_SOURCE_SHA = '24fe0ef7737efae15c87225755e9f6f5965e4888'
 
 export const skills: Skill[] = [
   {
@@ -23,8 +23,8 @@ export const skills: Skill[] = [
       'Routes ke skill yang tepat berdasarkan konteks',
       'Memuat pohon keputusan Phase Boundaries (continue / clear / handoff / subagent / compact)',
     ],
-    related: ['grill-with-docs', 'triage', 'improve-codebase-architecture', 'wizard', 'wait-what'],
-    detailedDescription: 'ask-matt adalah router untuk seluruh skill system — "kamu tidak hafal semua skill, jadi tanya". Ia memetakan satu main flow (idea → ship) yang dilalui kebanyakan pekerjaan, dua on-ramp yang merge ke main flow, codebase health, vocabulary layer, lalu standalone tools.\n\nMain flow: /grill-with-docs → (opsional detour prototype via /handoff) → /to-spec → /to-tickets → /implement per ticket atau /implement-spec untuk seluruh spec → /tdd + /code-review; /pr membentuk body PR, dan /retro menutup loop dengan memperbaiki environment agent. On-ramps: /triage (issue masuk), /diagnosing-bugs (bug sulit), dan /wayfinder (usaha besar yang berkabut). Codebase health: /improve-codebase-architecture. Standalone: /grill-me, /grilling, /prototype, /research, /to-questionnaire, /wizard, /wait-what, /teach, /writing-for-agents. Prasyarat: /setup-matt-pocock-skills.',
+    related: ['grill-with-docs', 'triage', 'improve-codebase-architecture', 'diagnosing-bugs', 'retro', 'wizard', 'wait-what'],
+    detailedDescription: 'ask-matt adalah router untuk seluruh skill system — "kamu tidak hafal semua skill, jadi tanya". Ia memetakan satu main flow (idea → ship) yang dilalui kebanyakan pekerjaan, dua on-ramp yang merge ke main flow, codebase health, vocabulary layer, lalu standalone tools.\n\nMain flow: /grill-with-docs → (opsional detour prototype via /handoff) → /to-spec → /to-tickets → /implement per ticket atau /implement-spec untuk seluruh spec → /tdd + /code-review; /pr membentuk body PR, dan /retro menutup loop dengan memperbaiki environment agent. On-ramps: /triage (issue masuk), /diagnosing-bugs (bug sulit; setelah fix masuk, jalankan /retro di sesi yang sama, dan bila temuannya adalah tidak ada seam yang baik, itu pekerjaan /improve-codebase-architecture), dan /wayfinder (usaha besar yang berkabut). Codebase health: /improve-codebase-architecture. Standalone: /grill-me, /grilling, /prototype, /research, /to-questionnaire, /wizard, /wait-what, /teach, /writing-for-agents. Prasyarat: /setup-matt-pocock-skills.',
     howItWorks: [
       'Dengarkan situasi user saat ini',
       'Petakan ke salah satu: main flow, on-ramp, atau standalone',
@@ -35,6 +35,9 @@ export const skills: Skill[] = [
     tips: [
       'Gunakan saat pertama kali memulai atau saat merasa stuck',
       'Jika sudah tahu alurnya, langsung panggil skill yang tepat',
+      'Setelah bug sulit selesai di-fix lewat /diagnosing-bugs, jalankan /retro di sesi yang sama; /improve-codebase-architecture hanya bila temuannya adalah tidak ada seam yang baik',
+      'Jalankan /retro di sesi yang ditinjau sebelum /clear; setelah clear, arahkan ke log sesi itu',
+      'Rute yang bergantung pada tracker (triage, /to-spec, /to-tickets, /implement) mengasumsikan /setup-matt-pocock-skills sudah dijalankan; router tetap merekomendasikannya sebelum itu',
     ],
     pairsWellWith: ['grill-with-docs', 'triage', 'improve-codebase-architecture', 'handoff'],
   },
@@ -45,14 +48,14 @@ export const skills: Skill[] = [
     description: 'Relentless interview (/grilling) + domain modeling (/domain-modeling). Updates GLOSSARY.md dan ADRs inline. Start here.',
     whenToUse: 'Awal setiap perubahan signifikan di working directory. Saat plan masih fuzzy dan domain language belum settled.',
     keyBehaviors: [
-      'Memanggil dua skill: /grilling (interview) dan /domain-modeling (glossary + ADR)',
+      'Memanggil dua skill lewat dua panggilan Skill tool terpisah: /grilling (interview) dan /domain-modeling (glossary + ADR)',
       'Interview per ronde: seluruh frontier ditanya sekaligus, tiap pertanyaan disertai recommended answer',
       'Tulis term ke GLOSSARY.md saat itu juga (bukan di akhir)',
       'Fakta dari environment dicari sendiri oleh agent (sub-agent), bukan ditanyakan ke user',
       'ADR hanya untuk keputusan hard-to-reverse + surprising + real trade-off',
     ],
     related: ['grilling', 'domain-modeling', 'to-spec'],
-    detailedDescription: 'grill-with-docs hanya satu instruksi: panggil Skill tool untuk "grilling" dan "domain-modeling". Hasilnya interview relentless tentang plan/design sampai tercapai shared understanding — sambil menulis vocabulary dan keputusan langsung saat berjalan.\n\nYang membedakannya dari /grill-me: ia meninggalkan paper trail. Plain interview memperjelas pemikiran tapi menguap saat session berakhir. Skill ini menangkap setiap term yang resolved ke GLOSSARY.md dan mencatat keputusan besar sebagai ADR, sehingga alignment bertahan melampaui conversation. Menurut ask-matt, ini titik awal main flow setiap kali kamu bekerja di working directory.\n\nGLOSSARY.md tetap murni glossary (bukan spec/scratchpad). ADR dibuat sparingly — hanya ketika keputusan hard-to-reverse, surprising tanpa context, dan hasil real trade-off.',
+    detailedDescription: 'grill-with-docs hanya satu instruksi: panggil Skill tool dua kali, untuk "grilling" dan "domain-modeling". Hasilnya interview relentless tentang plan/design sampai tercapai shared understanding — sambil menulis vocabulary dan keputusan langsung saat berjalan.\n\nYang membedakannya dari /grill-me: ia meninggalkan paper trail. Plain interview memperjelas pemikiran tapi menguap saat session berakhir. Skill ini menangkap setiap term yang resolved ke GLOSSARY.md dan mencatat keputusan besar sebagai ADR, sehingga alignment bertahan melampaui conversation. Menurut ask-matt, ini titik awal main flow setiap kali kamu bekerja di working directory.\n\nGLOSSARY.md tetap murni glossary (bukan spec/scratchpad). ADR dibuat sparingly — hanya ketika keputusan hard-to-reverse, surprising tanpa context, dan hasil real trade-off.',
     howItWorks: [
       'Mulai dengan plan/idea yang masih fuzzy',
       '/grilling memetakan design tree lalu bertanya per ronde: seluruh frontier sekaligus, bernomor, dengan recommended answer',
@@ -73,6 +76,7 @@ export const skills: Skill[] = [
       'Jika plan sudah clear dan hanya perlu pin terminology, gunakan /domain-modeling saja',
       'Jika tidak ada working directory / tidak butuh paper trail, gunakan /grill-me',
       'Keep langkah grilling → to-spec → to-tickets dalam satu context window; compact di phase boundary terdekat bila mendekati smart zone (~150k)',
+      'Jika agent bertanya semuanya sekaligus tanpa recommended answer atau tidak menyentuh GLOSSARY.md, kemungkinan ia gagal memuat /grilling atau /domain-modeling; tanyakan langsung skill mana yang dimuat',
     ],
     pairsWellWith: ['grilling', 'domain-modeling', 'to-spec', 'handoff'],
   },
@@ -80,7 +84,7 @@ export const skills: Skill[] = [
     name: 'wayfinder',
     category: 'engineering',
     invocation: 'user',
-    description: 'Plan pekerjaan besar (lebih dari 1 sesi agent) sebagai peta investigation tickets di issue tracker.',
+    description: 'Plan pekerjaan besar (lebih dari 1 sesi agent) sebagai peta decision tickets di issue tracker.',
     whenToUse: 'Saat usaha terlalu besar untuk satu sesi agent dan jalan ke tujuan belum terlihat (greenfield / fitur raksasa yang berkabut). Untuk ide yang masih muat satu sesi, pakai /grill-with-docs.',
     keyBehaviors: [
       'Chart "peta" sebagai issue berlabel wayfinder:map + child tickets',
@@ -90,7 +94,7 @@ export const skills: Skill[] = [
       'JANGAN resolve lebih dari satu ticket per sesi (kecuali research ticket)',
     ],
     related: ['grill-with-docs', 'to-spec', 'research'],
-    detailedDescription: 'wayfinder untuk situasi di mana ada begitu banyak yang harus di-plan sampai tidak muat dalam satu sesi agent — kamu akan blow out dari smart zone atau bahkan hit context window limit. Menurut ask-matt, wayfinder lebih lambat dan lebih padat daripada /grill-with-docs, jadi simpan hanya untuk usaha yang tidak muat satu sesi — jangan untuk fitur yang sudah well-scoped.\n\nKonsepnya: sebuah ide longgar tiba, terlalu besar untuk satu sesi dan diselimuti kabut — jalan ke DESTINATION belum terlihat. Wayfinding adalah menemukan jalan itu, bukan langsung menyerbu destination. Skill ini memetakan jalan sebagai shared map di issue tracker repo, lalu mengerjakan tickets-nya satu per satu sampai rute jelas.\n\nMap = satu issue berlabel wayfinder:map (index, bukan store) dengan section Destination, Notes, Decisions so far, Not yet specified, dan Out of scope. Tickets = child issues, tiap ticket satu pertanyaan berukuran ~satu sesi 100K token, dengan label wayfinder:<type>. "Fog of war": jangan chart yang belum terlihat — resolving satu ticket membuka kabut di depannya, menggraduasi yang sudah bisa dispesifikasi jadi ticket baru. Pekerjaan di luar destination bukan fog melainkan out of scope: ticket-nya ditutup dan dicatat satu baris di section Out of scope, tidak pernah di-graduate.\n\nBegitu semua ticket closed, informasi tersimpan di map dengan tickets asli sebagai primary sources — lalu bisa diubah jadi spec cara biasa. Semua tersimpan di tracker: kolaboratif dan shareable lintas tim.',
+    detailedDescription: 'wayfinder untuk situasi di mana ada begitu banyak yang harus di-plan sampai tidak muat dalam satu sesi agent — kamu akan blow out dari smart zone atau bahkan hit context window limit. Ticket-nya disebut decision ticket: pertanyaan yang resolusinya adalah sebuah keputusan, bukan potongan build yang dieksekusi. Menurut ask-matt, wayfinder lebih lambat dan lebih padat daripada /grill-with-docs, jadi simpan hanya untuk usaha yang tidak muat satu sesi — jangan untuk fitur yang sudah well-scoped.\n\nKonsepnya: sebuah ide longgar tiba, terlalu besar untuk satu sesi dan diselimuti kabut — jalan ke DESTINATION belum terlihat. Wayfinding adalah menemukan jalan itu, bukan langsung menyerbu destination. Skill ini memetakan jalan sebagai shared map di issue tracker repo, lalu mengerjakan tickets-nya satu per satu sampai rute jelas.\n\nMap = satu issue berlabel wayfinder:map (index, bukan store) dengan section Destination, Notes, Decisions so far, Not yet specified, dan Out of scope. Tickets = child issues, tiap ticket satu pertanyaan berukuran ~satu sesi 100K token, dengan label wayfinder:<type>. "Fog of war": jangan chart yang belum terlihat — resolving satu ticket membuka kabut di depannya, menggraduasi yang sudah bisa dispesifikasi jadi ticket baru. Pekerjaan di luar destination bukan fog melainkan out of scope: ticket-nya ditutup dan dicatat satu baris di section Out of scope, tidak pernah di-graduate.\n\nBegitu semua ticket closed, informasi tersimpan di map dengan tickets asli sebagai primary sources — lalu bisa diubah jadi spec cara biasa. Semua tersimpan di tracker: kolaboratif dan shareable lintas tim.',
     howItWorks: [
       'Chart map: Name the destination (memanggil /grilling + /domain-modeling)',
       'Map the frontier breadth-first — surface open decisions + first steps',
@@ -111,6 +115,8 @@ export const skills: Skill[] = [
       'Never resolve >1 ticket per sesi (kecuali research ticket, yang dijalankan paralel oleh sub-agent saat charting) — charting map itu sendiri satu sesi kerja',
       'Selesai charting, research ticket langsung dijalankan sub-agent paralel; hasilnya di branch throwaway research/<name> dengan context pointer dari ticket',
       'HITL ticket: agent JANGAN jawab sendiri sisi manusia (grilling agent yang jawab sendiri = broken)',
+      'Ticket wayfinder adalah decision ticket (pertanyaan yang jawabannya berupa keputusan), bukan irisan build; ticket yang berbunyi "build X" salah tipe atau milik hilir peta',
+      'Tracker belum dikonfigurasi? Agent meminta kamu menjalankan /setup-matt-pocock-skills (tidak memanggilnya sendiri, karena user-invoked); tanpa tracker, skill memakai tracker local-markdown',
     ],
     pairsWellWith: ['grill-with-docs', 'to-spec', 'research', 'prototype'],
   },
@@ -136,7 +142,7 @@ export const skills: Skill[] = [
       'Kategorikan setiap item (bug/enhancement)',
       'Gerakkan melalui state machine',
       'Cek redundancy (sudah ada implementasinya?) dan .out-of-scope/*.md (pernah ditolak?), lalu rekomendasikan dan tunggu arahan maintainer',
-      'Verifikasi klaim (reproduce bug / cek diff PR); grilling bila perlu, per ronde pertanyaan',
+      'Verifikasi klaim (reproduce bug / cek diff PR); bila perlu dipertajam, panggil Skill tool dua kali untuk /grilling dan /domain-modeling: grilling per ronde pertanyaan, GLOSSARY.md/ADR diperbarui inline',
       'Terapkan hasil: agent brief (ready-for-agent), triage notes (needs-info), atau close dengan penjelasan (wontfix)',
       'Maintain exactly satu category + satu state per issue',
     ],
@@ -152,6 +158,7 @@ export const skills: Skill[] = [
       'State machine mencegah konflik (tidak bisa needs-triage DAN ready-for-agent)',
       'Tulis ke .out-of-scope/ untuk enhancement yang ditolak (bukan untuk yang sudah ter-implement atau bug)',
       'Prefer AFK (agent bisa sendiri) over HITL (butuh human)',
+      'Mapping label belum ada? Agent meminta kamu menjalankan /setup-matt-pocock-skills (user-invoked, tidak dipanggil agent)',
     ],
     pairsWellWith: ['diagnosing-bugs', 'to-tickets', 'improve-codebase-architecture'],
   },
@@ -162,7 +169,7 @@ export const skills: Skill[] = [
     description: 'Scan codebase untuk deepening opportunities (shallow→deep modules). HTML report.',
     whenToUse: 'Saat code terasa rotting, sulit dinavigasi agent, atau setelah development surge.',
     keyBehaviors: [
-      'Gunakan vocabulary ketat: Module, Interface, Depth, Seam, Adapter, Locality',
+      'Gunakan vocabulary ketat: Module, Interface, Depth, Seam, Adapter, Leverage, Locality (dimuat lewat Skill tool /codebase-design)',
       'Scope dulu (YAGNI): ikuti arahan user, atau cari hot spot dari git history',
       'Baca GLOSSARY.md dan ADRs terlebih dahulu',
       'Explore organically (lewat sub-agent), cari friction',
@@ -178,7 +185,7 @@ export const skills: Skill[] = [
       'Identifikasi shallow modules dan tight coupling',
       'Apply deletion test: jika dihapus, complexity hilang atau menyebar?',
       'Tulis HTML report self-contained ke temp dir OS, buka untuk user, lalu tanya candidate mana yang mau di-explore',
-      'User pilih candidate; grilling atas candidate itu (/grill-with-docs) menjadi ide yang masuk main flow',
+      'User pilih candidate; grilling atas candidate itu (/grilling, dengan /domain-modeling menjaga GLOSSARY.md) menjadi ide yang masuk main flow lewat /grill-with-docs',
     ],
     itsWorkingIf: [
       'Menggunakan vocabulary yang konsisten (Module, Interface, Depth, dll)',
@@ -263,6 +270,7 @@ export const skills: Skill[] = [
       'Wide refactor → expand (tambah bentuk baru) → migrate per batch → contract (hapus lama)',
       'Hindari file path dan code snippet di ticket — cepat basi (kecuali snippet dari prototype yang meng-encode keputusan)',
       'Kerjakan satu ticket per fresh context dengan /implement, clear di antaranya — atau serahkan seluruh graph ke /implement-spec',
+      'Tracker belum dikonfigurasi? Agent meminta kamu menjalankan /setup-matt-pocock-skills (user-invoked, tidak dipanggil agent)',
     ],
     pairsWellWith: ['to-spec', 'implement', 'implement-spec', 'tdd', 'triage'],
   },
@@ -280,7 +288,7 @@ export const skills: Skill[] = [
       'Panggil /code-review setelah selesai, lalu commit ke current branch',
     ],
     related: ['to-tickets', 'tdd', 'code-review', 'implement-spec'],
-    detailedDescription: 'Endpoint eksekusi main flow. Skill-nya sangat pendek (enam baris): implement pekerjaan yang dijelaskan user di spec/tickets, pakai /tdd di seams pre-agreed, typecheck dan single test file secara rutin, full test suite sekali di akhir, lalu /code-review, dan commit ke branch saat ini. Refactor ditangani di /code-review, bukan di loop TDD.\n\nPada tracker lokal tiap ticket adalah file di .scratch/<feature>/issues/ yang dikerjakan blockers-first; pada tracker nyata, ticket yang blocker-nya selesai bisa diambil. Karena tiap ticket self-contained, context ticket sebelumnya disposable — /clear di antara ticket. Untuk mengerjakan seluruh spec dalam satu run dengan banyak subagent paralel, lihat /implement-spec.',
+    detailedDescription: 'Endpoint eksekusi main flow. Skill-nya sangat pendek (lima kalimat): implement pekerjaan yang dijelaskan user di spec/tickets, pakai /tdd di seams pre-agreed, typecheck dan single test file secara rutin, full test suite sekali di akhir, lalu /code-review, dan commit ke branch saat ini. Refactor ditangani di /code-review, bukan di loop TDD.\n\nPada tracker lokal tiap ticket adalah file di .scratch/<feature>/issues/ yang dikerjakan blockers-first; pada tracker nyata, ticket yang blocker-nya selesai bisa diambil. Karena tiap ticket self-contained, context ticket sebelumnya disposable — /clear di antara ticket. Untuk mengerjakan seluruh spec dalam satu run dengan banyak subagent paralel, lihat /implement-spec.',
     howItWorks: [
       'Ambil satu ticket atau spec yang akan dikerjakan',
       'Implement, pakai /tdd di seams yang disepakati',
@@ -314,7 +322,7 @@ export const skills: Skill[] = [
       'Membaca tickets sebagai task graph (bukan daftar langkah) dengan frontier tickets yang siap diambil',
       'Seluruh spec masuk satu integration branch; tiap ticket di-resolve sesuai cara tracker menutup pekerjaan',
       'Implementer subagent per ticket, masing-masing di worktree + branch sendiri, dijalankan background untuk konkurensi',
-      'Tiap implementer memanggil /tdd; hasilnya di-merge ke integration branch oleh merger subagent',
+      'Tiap implementer memastikan worktree-nya berbasis integration branch, memanggil /tdd, dan merge tip integration branch ke branch-nya sebelum lapor selesai; hasilnya di-merge oleh merger subagent',
       'Satu /code-review atas integration branch di akhir; semua temuan diperbaiki oleh satu implementer subagent',
     ],
     related: ['implement', 'to-tickets', 'code-review'],
@@ -333,6 +341,7 @@ export const skills: Skill[] = [
       'Butuh tickets dari /to-tickets lebih dulu — skill ini membaca task graph-nya',
       'Pilih /implement bila kamu ingin menyetir tiap ticket sendiri dengan /clear di antaranya',
       'Jaga komunikasi dengan subagent tetap sparse: kirim pointer, bukan salinan informasi',
+      'Tracker belum dikonfigurasi? Agent meminta kamu menjalankan /setup-matt-pocock-skills (user-invoked, tidak dipanggil agent)',
     ],
     pairsWellWith: ['to-tickets', 'implement', 'tdd', 'code-review'],
   },
@@ -370,6 +379,7 @@ export const skills: Skill[] = [
       'User stories harus PANJANG dan detailed, bukan 3-4 generic',
       'Testing decisions harus menyebut di seam mana test akan berjalan',
       'Jangan include file paths atau code snippets — cepat outdated (kecuali snippet dari prototype yang meng-encode keputusan lebih presisi daripada prosa)',
+      'Tracker dan label belum dikonfigurasi? Agent meminta kamu menjalankan /setup-matt-pocock-skills (user-invoked, tidak dipanggil agent)',
     ],
     pairsWellWith: ['grill-with-docs', 'to-tickets', 'tdd'],
   },
@@ -425,12 +435,12 @@ export const skills: Skill[] = [
       'Phase 3: Hypothesise (3-5 ranked, falsifiable)',
       'Phase 4: Instrument (one variable at a time)',
       'Phase 5: Fix + regression test (hanya jika ada seam yang benar; bila tidak, itu sendiri temuannya)',
-      'Phase 6: Cleanup + post-mortem',
+      'Phase 6: Cleanup (tanpa hand-off post-mortem; /retro dijalankan user setelah fix)',
       'Redact setiap secret (<REDACTED>) di command, output, dan artifact yang ditampilkan',
       'JANGAN hypothesise tanpa feedback loop!',
     ],
-    related: ['triage', 'tdd'],
-    detailedDescription: 'Disiplin untuk hard bugs. Phase 1 (Build feedback loop) adalah THE SKILL — semua lainnya mechanical. Jika kamu punya tight pass/fail signal, kamu AKAN menemukan cause. Jika tidak, staring at code tidak akan menyelamatkan.\n\nFeedback loop harus: red-capable (bisa tangkap bug ini), deterministic (sama setiap run), fast (detik bukan menit), agent-runnable (tanpa human). Jika kamu catch yourself reading code untuk build theory SEBELUM command ini ada — STOP.\n\nPhase 3: generate 3-5 ranked hypotheses SEBELUM testing any. Single-hypothesis = anchoring bias. Setiap hypothesis harus falsifiable: "If X is the cause, then Y will make bug disappear."',
+    related: ['triage', 'tdd', 'retro'],
+    detailedDescription: 'Disiplin untuk hard bugs. Phase 1 (Build feedback loop) adalah THE SKILL — semua lainnya mechanical. Jika kamu punya tight pass/fail signal, kamu AKAN menemukan cause. Jika tidak, staring at code tidak akan menyelamatkan.\n\nFeedback loop harus: red-capable (bisa tangkap bug ini), deterministic (sama setiap run), fast (detik bukan menit), agent-runnable (tanpa human). Jika kamu catch yourself reading code untuk build theory SEBELUM command ini ada — STOP.\n\nPhase 3: generate 3-5 ranked hypotheses SEBELUM testing any. Single-hypothesis = anchoring bias. Setiap hypothesis harus falsifiable: "If X is the cause, then Y will make bug disappear."\n\nPhase 5: regression test ditulis sebelum fix, tapi hanya bila ada seam yang benar; bila tidak ada, itu sendiri temuannya dan dicatat. Phase 6 hanya Cleanup (tidak ada lagi hand-off post-mortem ke /improve-codebase-architecture): setelah fix masuk, kamu menjalankan /retro di sesi yang sama; bila temuannya adalah tidak ada seam yang baik, itu pekerjaan /improve-codebase-architecture.',
     howItWorks: [
       'Build tight feedback loop (failing test, curl script, headless browser, dll)',
       'Tighten loop: faster, sharper signal, more deterministic',
@@ -448,14 +458,15 @@ export const skills: Skill[] = [
       'Regression test ditulis sebelum fix diterapkan (atau ketiadaan seam yang benar didokumentasikan)',
       'Secret di command/output ditampilkan sebagai <REDACTED>',
     ],
-    workflow: 'Standalone — trigger dari /triage (bugs) atau langsung saat bug ditemukan',
+    workflow: 'Standalone — trigger dari /triage (bugs) atau langsung saat bug ditemukan; setelah fix: /retro di sesi yang sama',
     tips: [
       'JANGAN skip Phase 1 — jumping to hypothesis adalah failure mode utama',
       'Non-deterministic bugs: loop 100x, parallelise, raise reproduction rate',
       'Tag setiap debug log dengan prefix unik [DEBUG-xxxx] untuk cleanup',
-      'Setelah fix: tanya "apa yang bisa prevent bug ini?" → mungkin perlu /improve-codebase-architecture',
+      'Setelah fix masuk: jalankan /retro di sesi yang sama untuk bertanya "apa yang bisa prevent bug ini?" — skill ini tidak memanggilnya sendiri karena /retro user-invoked',
+      'Jika temuannya adalah tidak ada seam yang baik untuk mengunci bug, itu pekerjaan /improve-codebase-architecture, yang kamu mulai sendiri',
     ],
-    pairsWellWith: ['triage', 'tdd', 'improve-codebase-architecture'],
+    pairsWellWith: ['triage', 'tdd', 'retro', 'improve-codebase-architecture'],
   },
   {
     name: 'research',
@@ -528,13 +539,14 @@ export const skills: Skill[] = [
     category: 'engineering',
     invocation: 'model',
     description: 'Build/sharpen domain model. Challenge terms, stress-test scenarios. GLOSSARY.md = glossary only.',
-    whenToUse: 'Saat membangun shared vocabulary atau mengklarifikasi istilah yang ambigu.',
+    whenToUse: 'Saat membahas terminologi codebase, menulis atau menyunting GLOSSARY.md, atau mencatat/menyunting ADR; juga saat membangun shared vocabulary atau mengklarifikasi istilah yang ambigu.',
     keyBehaviors: [
       'Challenge existing terms untuk precision (terhadap GLOSSARY.md; GLOSSARY-MAP.md menandai repo multi-context)',
       'Stress-test model dengan edge-case scenarios',
       'GLOSSARY.md hanya berisi glossary (bukan spec/scratchpad)',
       'ADR dibuat sparingly untuk keputusan kunci',
       'Cross-reference dengan code — surface contradictions',
+      'File dibuat lazily: GLOSSARY.md atau docs/adr/ baru dibuat saat ada yang perlu ditulis',
     ],
     related: ['grill-with-docs', 'grilling'],
     detailedDescription: 'domain-modeling secara aktif membangun dan mempertajam domain model project. Ini adalah disiplin AKTIF — challenge terms, invent edge-case scenarios, tulis glossary dan decisions saat itu juga.\n\nSaat user menggunakan term yang konflik dengan GLOSSARY.md, panggil langsung: "Glossary defines cancellation as X, but you seem to mean Y — which is it?" Saat term vague, propose canonical term yang precise.\n\nGLOSSARY.md harus totally devoid of implementation details — ia glossary dan nothing else. ADR hanya saat ketiga syarat terpenuhi: hard to reverse + surprising without context + real trade-off.',
@@ -630,6 +642,7 @@ export const skills: Skill[] = [
       'Setiap smell = judgement call, bukan hard violation',
       'Jangan pick single winner across axes — keep terpisah',
       '12 Fowler smells: Mysterious Name, Duplicated Code, Feature Envy, Data Clumps, Primitive Obsession, Repeated Switches, Shotgun Surgery, Divergent Change, Speculative Generality, Message Chains, Middle Man, Refused Bequest',
+      'Fixed point yang tidak ter-resolve atau diff kosong gagal di langkah 1, bukan di dalam dua sub-agent; docs/agents/issue-tracker.md hilang → agent meminta kamu menjalankan /setup-matt-pocock-skills',
     ],
     pairsWellWith: ['tdd', 'codebase-design', 'to-tickets'],
   },
@@ -673,6 +686,7 @@ export const skills: Skill[] = [
       'Tujuh kategori kandidat: Navigation, Automated checks, Coding standards, Global AGENTS.md, Tool economy, No-ops, Information access',
       'Kesalahan mekanis → cek deterministik (linter/pre-commit/CI); judgement call → CODING_STANDARDS.md',
       'Kandidat disajikan berurutan dari yang paling parah',
+      'Hanya mengusulkan; user-invoked, agent tidak memanggilnya sendiri',
     ],
     related: ['writing-for-agents', 'code-review', 'implement'],
     detailedDescription: 'retro meminta agent melakukan retrospektif atas sebuah sesi coding dan mengusulkan perbaikan pada environment agent agar run berikutnya lebih baik. Langkahnya: panggil /writing-for-agents untuk style guide, baca primary source sesi yang ditunjuk user (default: sesi saat ini; bisa berarti mencari di session log mesin), cari kandidat perbaikan, lalu sajikan berurutan menurut severity.\n\nKategori kandidat: Navigation (pointer agar file mudah ditemukan), Automated checks (linting, typing, tests — baca dulu check yang sudah ada di repo; repo tanpa guardrail sama sekali adalah temuan tersendiri), Coding standards (aturan untuk reviewer agent: pelanggaran mekanis mendapat cek deterministik, judgement call masuk CODING_STANDARDS.md), Global AGENTS.md (pindahkan instruksi ke coding standards/automated checks bila membengkak), Tool economy, No-ops, dan Information access.\n\nReferensi di dalam skill: implementasi punya context pressure paling tinggi, sedangkan review agent menerima diff dan paling sedikit tekanannya — jadi reviewer yang sebaiknya menegakkan coding standards.',
@@ -682,7 +696,7 @@ export const skills: Skill[] = [
       'Cari kandidat di tujuh kategori: Navigation, Automated checks, Coding standards, Global AGENTS.md, Tool economy, No-ops, Information access',
       'Sajikan kandidat ke user, berurutan dari yang paling parah',
     ],
-    workflow: 'Penutup main flow: ... → code-review → (pr) → ▸ retro; jalankan sebelum /clear',
+    workflow: 'Penutup main flow: ... → code-review → (pr) → ▸ retro; jalankan sebelum /clear. Juga dipakai setelah /diagnosing-bugs selesai',
     tips: [
       'Jalankan di sesi yang ditinjau sebelum clear; setelah clear arahkan ke log sesi',
       'Default: bangun cek deterministik, bukan menulis aturan, untuk pelanggaran mekanis',
@@ -935,6 +949,7 @@ export const skills: Skill[] = [
     keyBehaviors: [
       'Peta sebagai design tree: tiap keputusan bercabang ke keputusan di bawahnya',
       'Kerja per ronde: tanyakan seluruh FRONTIER sekaligus (pertanyaan bernomor + recommended answer), lalu tunggu jawaban',
+      'Pertanyaan dalam satu ronde dipisah garis horizontal (---) agar tidak menyatu',
       'Frontier = keputusan yang prasyaratnya sudah settled; pertanyaan yang bergantung pada pertanyaan terbuka ditunda ke ronde berikutnya',
       'Fakta dicari agent sendiri (sub-agent), keputusan milik user',
       'Selesai saat frontier kosong; JANGAN bertindak sampai user konfirmasi shared understanding',
@@ -961,6 +976,7 @@ export const skills: Skill[] = [
       'Recommended answer membantu user berpikir, bukan memaksa pilihan',
       'Confirmation gate: do NOT act until confirmed',
       'Biasanya dipanggil lewat /grill-me atau /grill-with-docs; panggil langsung hanya bila ingin interview tanpa wrapper',
+      'Satu skill yang menyebut skill lain dengan prosa biasa tidak andal memuatnya; upstream memakai instruksi eksplisit "Call the Skill tool with ...", yang hanya berlaku untuk skill model-invoked seperti ini',
     ],
     pairsWellWith: ['grill-with-docs', 'grill-me', 'domain-modeling'],
   },
