@@ -20,6 +20,7 @@ const collections = [
   ['expo', 'expo-skills.ts', 'expo'],
   ['gsap', 'gsap-skills.ts', 'gsap'],
   ['impeccable', 'impeccable-skills.ts', 'impeccable'],
+  ['taste', 'taste-skills.ts', 'taste'],
 ]
 
 const urls = ['/', '/collections']

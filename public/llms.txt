@@ -340,3 +340,21 @@ The guide curates and explains work by the attributed upstream authors. Each col
 - live: https://skills.stevanuspangau.dev/impeccable/skills/live
 - generate: https://skills.stevanuspangau.dev/impeccable/skills/generate
 - doctor: https://skills.stevanuspangau.dev/impeccable/skills/doctor
+
+## taste
+
+- Collection: https://skills.stevanuspangau.dev/taste
+- design-taste-frontend: https://skills.stevanuspangau.dev/taste/skills/design-taste-frontend
+- redesign-existing-projects: https://skills.stevanuspangau.dev/taste/skills/redesign-existing-projects
+- image-to-code: https://skills.stevanuspangau.dev/taste/skills/image-to-code
+- gpt-taste: https://skills.stevanuspangau.dev/taste/skills/gpt-taste
+- high-end-visual-design: https://skills.stevanuspangau.dev/taste/skills/high-end-visual-design
+- minimalist-ui: https://skills.stevanuspangau.dev/taste/skills/minimalist-ui
+- industrial-brutalist-ui: https://skills.stevanuspangau.dev/taste/skills/industrial-brutalist-ui
+- stitch-design-taste: https://skills.stevanuspangau.dev/taste/skills/stitch-design-taste
+- full-output-enforcement: https://skills.stevanuspangau.dev/taste/skills/full-output-enforcement
+- imagegen-frontend-web: https://skills.stevanuspangau.dev/taste/skills/imagegen-frontend-web
+- imagegen-frontend-mobile: https://skills.stevanuspangau.dev/taste/skills/imagegen-frontend-mobile
+- brandkit: https://skills.stevanuspangau.dev/taste/skills/brandkit
+- design-taste-frontend-v1: https://skills.stevanuspangau.dev/taste/skills/design-taste-frontend-v1
+- design-taste-frontend-v2-experimental: https://skills.stevanuspangau.dev/taste/skills/design-taste-frontend-v2-experimental

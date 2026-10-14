@@ -25,7 +25,7 @@ Ini adalah **panduan referensi**, bukan pengganti upstream. Repo ini tidak menye
 
 ## Koleksi saat ini
 
-Ringkasan yang tersedia hari ini (220+ skills di 15 koleksi):
+Ringkasan yang tersedia hari ini (280+ skills di 16 koleksi):
 
 | Koleksi | Route | Upstream | Katalog | Install |
 |---|---|---|---|---|
@@ -44,6 +44,7 @@ Ringkasan yang tersedia hari ini (220+ skills di 15 koleksi):
 | Official Expo & EAS Mobile Skills | [`/expo`](https://skills.stevanuspangau.dev/expo) | [expo/skills](https://github.com/expo/skills) | 25 | Upstream via skills.sh |
 | Official GreenSock (GSAP) Motion Skills | [`/gsap`](https://skills.stevanuspangau.dev/gsap) | [greensock/gsap-skills](https://github.com/greensock/gsap-skills) | 8 | Upstream via skills.sh |
 | Impeccable Design System by Paul Bakaus | [`/impeccable`](https://skills.stevanuspangau.dev/impeccable) | [pbakaus/impeccable](https://github.com/pbakaus/impeccable) | 25 command | `npx impeccable install` |
+| Taste Skill oleh Leonxlnx | [`/taste`](https://skills.stevanuspangau.dev/taste) | [Leonxlnx/taste-skill](https://github.com/Leonxlnx/taste-skill) pin `a60a36dc…` | 14 | `npx skills add Leonxlnx/taste-skill --skill design-taste-frontend` |
 
 Tiap file data koleksi mencatat repo upstream dan commit yang di-pin tempat isinya diverifikasi. Selalu utamakan upstream untuk skill terbaru.
 

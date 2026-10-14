@@ -13,6 +13,7 @@ import { TANSTACK_SKILL_COUNT } from '@/data/tanstack-skills-meta'
 import { EXPO_SKILL_COUNT } from '@/data/expo-skills-meta'
 import { GSAP_SKILL_COUNT } from '@/data/gsap-skills-meta'
 import { IMPECCABLE_SKILL_COUNT } from '@/data/impeccable-skills-meta'
+import { TASTE_SKILL_COUNT } from '@/data/taste-skills-meta'
 import { m } from '@/paraglide/messages.js'
 
 export type CollectionStatus = 'available' | 'coming-soon'
@@ -224,6 +225,19 @@ export function getCollections(): Collection[] {
       status: 'available',
       source: 'github.com/pbakaus/impeccable',
       tags: ['design-system', 'visual-craft', 'anti-ai-slop'],
+    },
+    {
+      slug: 'taste',
+      to: '/taste',
+      author: 'Leonxlnx',
+      avatarSrc: '/avatars/taste.svg',
+      xHandle: 'lexnlin',
+      title: 'Taste Skill',
+      description: m.collection_taste_description(),
+      skillCount: TASTE_SKILL_COUNT,
+      status: 'available',
+      source: 'github.com/Leonxlnx/taste-skill',
+      tags: ['anti-slop', 'art-direction', 'frontend'],
     },
   ]
 }
