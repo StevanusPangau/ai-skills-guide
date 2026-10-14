@@ -38,7 +38,7 @@ export function Landing() {
               <SkillsGuideWordmark
                 label={`${m.hero_wordmark_skills()} ${m.hero_wordmark_guide()}`}
               />
-              <p className="mt-3 font-mono text-[15px] font-medium tracking-tight text-foreground uppercase lg:text-[19px]">
+              <p className="mt-4 max-w-xl text-sm text-muted-foreground">
                 {m.hero_eyebrow()}
               </p>
             </div>
@@ -56,7 +56,7 @@ export function Landing() {
         className="mx-auto max-w-6xl scroll-mt-20 px-4 py-12 sm:px-6 sm:py-16 lg:px-8"
       >
         <div className="mb-6">
-          <h2 className="text-[11px] font-medium tracking-[0.18em] text-muted-foreground uppercase">
+          <h2 className="label-quiet">
             {m.collections_catalog_title()}
           </h2>
           <p className="mt-2 max-w-xl text-sm text-muted-foreground">
@@ -97,7 +97,7 @@ export function Landing() {
           />
         </div>
 
-        <div className="mb-1 hidden grid-cols-[2.5rem_minmax(0,1.4fr)_minmax(0,1fr)_5.5rem] gap-3 border-b border-border px-1 pb-2 text-[11px] font-medium tracking-wider text-muted-foreground uppercase sm:grid">
+        <div className="label-quiet mb-1 hidden grid-cols-[2.5rem_minmax(0,1.4fr)_minmax(0,1fr)_5.5rem] gap-3 px-1 pb-2 sm:grid">
           <span>{m.collections_col_rank()}</span>
           <span>{m.collections_col_name()}</span>
           <span>{m.collections_col_source()}</span>
@@ -115,7 +115,7 @@ export function Landing() {
 
             const body = (
               <>
-                <span className="font-mono text-xs text-muted-foreground tabular-nums">
+                <span className="text-xs text-muted-foreground tabular-nums">
                   {rank}
                 </span>
                 <div className="flex min-w-0 items-center gap-3">

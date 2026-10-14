@@ -95,7 +95,7 @@ export function OnThisPage({ items }: { items: OnThisPageItem[] }) {
       aria-label={m.skill_detail_on_this_page()}
       className="hidden xl:block"
     >
-      <p className="mb-3 text-xs font-semibold tracking-wide text-muted-foreground uppercase">
+      <p className="label-quiet mb-3">
         {m.skill_detail_on_this_page()}
       </p>
       <ul className="space-y-1 border-l border-border">

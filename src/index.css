@@ -1,9 +1,8 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
-@import "@fontsource-variable/geist";
 @import "@fontsource-variable/inter";
-/* Fira Mono — same face skills.sh uses for the FIGlet SKILLS wordmark */
+/* Fira Mono is the face of the FIGlet wordmark and of code, commands, and keys. */
 @import "@fontsource/fira-mono/400.css";
 @import "@fontsource/fira-mono/500.css";
 /* @xyflow/react CSS is imported from flow-canvas.tsx so it only ships with the flow chunk. */
@@ -44,6 +43,9 @@
     --color-card: var(--card);
     --color-foreground: var(--foreground);
     --color-background: var(--background);
+    --color-success: var(--success);
+    --color-warning: var(--warning);
+    --color-info: var(--info);
     --radius-sm: calc(var(--radius) * 0.6);
     --radius-md: calc(var(--radius) * 0.8);
     --radius-lg: var(--radius);
@@ -61,8 +63,8 @@
     --card-foreground: oklch(0.145 0 0);
     --popover: oklch(1 0 0);
     --popover-foreground: oklch(0.145 0 0);
-    --primary: oklch(0.553 0.195 38.402);
-    --primary-foreground: oklch(0.98 0.016 73.684);
+    --primary: oklch(0.52 0.1 250);
+    --primary-foreground: oklch(0.985 0 0);
     --secondary: oklch(0.967 0.001 286.375);
     --secondary-foreground: oklch(0.21 0.006 285.885);
     --muted: oklch(0.97 0 0);
@@ -73,16 +75,16 @@
     --border: oklch(0.922 0 0);
     --input: oklch(0.922 0 0);
     --ring: oklch(0.708 0 0);
-    --chart-1: oklch(0.837 0.128 66.29);
-    --chart-2: oklch(0.705 0.213 47.604);
-    --chart-3: oklch(0.646 0.222 41.116);
-    --chart-4: oklch(0.553 0.195 38.402);
-    --chart-5: oklch(0.47 0.157 37.304);
+    --chart-1: oklch(0.62 0.12 250);
+    --chart-2: oklch(0.7 0.13 175);
+    --chart-3: oklch(0.75 0.14 95);
+    --chart-4: oklch(0.65 0.16 25);
+    --chart-5: oklch(0.6 0.14 330);
     --radius: 0.45rem;
     --sidebar: oklch(0.985 0 0);
     --sidebar-foreground: oklch(0.145 0 0);
-    --sidebar-primary: oklch(0.646 0.222 41.116);
-    --sidebar-primary-foreground: oklch(0.98 0.016 73.684);
+    --sidebar-primary: oklch(0.52 0.1 250);
+    --sidebar-primary-foreground: oklch(0.985 0 0);
     --sidebar-accent: oklch(0.97 0 0);
     --sidebar-accent-foreground: oklch(0.205 0 0);
     --sidebar-border: oklch(0.922 0 0);
@@ -100,8 +102,8 @@
     --card-foreground: oklch(0.985 0 0);
     --popover: oklch(0.205 0 0);
     --popover-foreground: oklch(0.985 0 0);
-    --primary: oklch(0.47 0.157 37.304);
-    --primary-foreground: oklch(0.98 0.016 73.684);
+    --primary: oklch(0.75 0.1 250);
+    --primary-foreground: oklch(0.2 0.02 250);
     --secondary: oklch(0.274 0.006 286.033);
     --secondary-foreground: oklch(0.985 0 0);
     --muted: oklch(0.269 0 0);
@@ -112,15 +114,15 @@
     --border: oklch(1 0 0 / 10%);
     --input: oklch(1 0 0 / 15%);
     --ring: oklch(0.556 0 0);
-    --chart-1: oklch(0.837 0.128 66.29);
-    --chart-2: oklch(0.705 0.213 47.604);
-    --chart-3: oklch(0.646 0.222 41.116);
-    --chart-4: oklch(0.553 0.195 38.402);
-    --chart-5: oklch(0.47 0.157 37.304);
+    --chart-1: oklch(0.62 0.12 250);
+    --chart-2: oklch(0.7 0.13 175);
+    --chart-3: oklch(0.75 0.14 95);
+    --chart-4: oklch(0.65 0.16 25);
+    --chart-5: oklch(0.6 0.14 330);
     --sidebar: oklch(0.205 0 0);
     --sidebar-foreground: oklch(0.985 0 0);
-    --sidebar-primary: oklch(0.705 0.213 47.604);
-    --sidebar-primary-foreground: oklch(0.98 0.016 73.684);
+    --sidebar-primary: oklch(0.75 0.1 250);
+    --sidebar-primary-foreground: oklch(0.2 0.02 250);
     --sidebar-accent: oklch(0.269 0 0);
     --sidebar-accent-foreground: oklch(0.985 0 0);
     --sidebar-border: oklch(1 0 0 / 10%);
@@ -143,6 +145,15 @@
   }
 }
 
+/* A section label is a sentence in the text face. Tracked capitals read as an
+   eyebrow, which the catalog treats as a tell rather than a heading. */
+@utility label-quiet {
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-weight: 500;
+  color: var(--muted-foreground);
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -154,16 +165,14 @@
   }
 }
 
-/* Landing wordmark: stacked block type with subtle offset edge (skills.sh-inspired). */
+/* The FIGlet wordmark is a picture of the name, so its case is part of the
+   glyph, not an eyebrow label. No offset shadow: one ground, one ink. */
 .landing-wordmark {
   font-weight: 900;
   text-transform: uppercase;
   letter-spacing: -0.06em;
   line-height: 0.88;
-  color: #fafafa;
-  text-shadow:
-    3px 3px 0 #27272a,
-    -1px -1px 0 #52525b;
+  color: var(--foreground);
 }
 
 /* Safe-area helpers for fixed chrome (notches / home indicator). */

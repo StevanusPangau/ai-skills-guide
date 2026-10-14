@@ -84,13 +84,13 @@ export function SupabaseRlsLab() {
           <CardContent className="space-y-4">
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 font-mono text-xs">
               <div className="border border-border rounded p-2.5 bg-muted/30">
-                <span className="text-[10px] text-muted-foreground block uppercase">
+                <span className="label-quiet block">
                   {isEn ? 'Illustrative Table Size' : 'Ukuran Tabel Ilustrasi'}
                 </span>
                 <span className="text-base font-bold text-foreground">1,000,000 rows</span>
               </div>
               <div className="border border-border rounded p-2.5 bg-muted/30">
-                <span className="text-[10px] text-muted-foreground block uppercase">
+                <span className="label-quiet block">
                   {isEn ? 'auth.uid() Executions' : 'Frekuensi Eksekusi auth.uid()'}
                 </span>
                 <span
@@ -104,7 +104,7 @@ export function SupabaseRlsLab() {
                 </span>
               </div>
               <div className="border border-border rounded p-2.5 bg-muted/30 col-span-2 sm:col-span-1">
-                <span className="text-[10px] text-muted-foreground block uppercase">
+                <span className="label-quiet block">
                   {isEn ? 'Evaluation' : 'Evaluasi'}
                 </span>
                 <span

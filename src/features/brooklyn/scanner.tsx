@@ -84,7 +84,7 @@ export function BrooklynScanner() {
               &ldquo;{current.raw}&rdquo;
             </p>
             <div className="space-y-1">
-              <span className="text-[10px] font-mono uppercase text-muted-foreground">{t('Kata/struktur bermasalah:', 'Flagged words/structures:')}</span>
+              <span className="label-quiet">{t('Kata/struktur bermasalah:', 'Flagged words/structures:')}</span>
               <div className="flex flex-wrap gap-1.5">
                 {current.flags.map((flag) => (
                   <span key={flag} className="text-[11px] font-mono px-2 py-0.5 rounded bg-destructive/10 text-destructive border border-destructive/20">

@@ -18,7 +18,7 @@ export function VercelOverview() {
           href="https://github.com/vercel-labs/agent-skills"
           target="_blank"
           rel="noopener noreferrer"
-          className="rounded-sm text-xs font-medium tracking-wide text-muted-foreground uppercase hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50"
+          className="rounded-sm label-quiet hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50"
         >
           {VERCEL_SOURCE_REPO}
         </a>

@@ -15,7 +15,7 @@ export function ExpoOverview() {
           href="https://github.com/expo/skills"
           target="_blank"
           rel="noopener noreferrer"
-          className="rounded-sm text-xs font-medium tracking-wide text-muted-foreground uppercase hover:text-primary"
+          className="rounded-sm label-quiet hover:text-primary"
         >
           {EXPO_SOURCE_REPO}
         </a>

@@ -50,7 +50,7 @@ export function GsapConcepts() {
 
             <div className="rounded-lg border-2 border-sky-500/70 bg-sky-500/5 p-3 space-y-2">
               <div className="flex items-center justify-between">
-                <Badge className="bg-sky-500/20 text-sky-600 dark:text-sky-400 border border-sky-500/30 text-[10px]">
+                <Badge variant="outline" className="text-[10px] text-info">
                   REVERT
                 </Badge>
                 <span className="text-[10px] text-muted-foreground">context · matchMedia</span>
@@ -65,7 +65,7 @@ export function GsapConcepts() {
 
             <div className="rounded-lg border-2 border-purple-500/70 bg-purple-500/5 p-3 space-y-2">
               <div className="flex items-center justify-between">
-                <Badge className="bg-purple-500/20 text-purple-600 dark:text-purple-400 border border-purple-500/30 text-[10px]">
+                <Badge variant="outline" className="text-[10px]">
                   TRANSFORMS
                 </Badge>
                 <span className="text-[10px] text-muted-foreground">gsap-performance</span>

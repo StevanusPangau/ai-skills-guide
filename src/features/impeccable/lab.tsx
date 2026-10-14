@@ -1,188 +1,149 @@
 import { useState } from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import { getLocale } from '@/paraglide/runtime.js'
+import { cn } from '@/lib/utils'
+import { m } from '@/paraglide/messages.js'
+
+function Choice({
+  pressed,
+  onClick,
+  tone,
+  children,
+}: {
+  pressed: boolean
+  onClick: () => void
+  tone: 'bad' | 'good'
+  children: string
+}) {
+  return (
+    <button
+      type="button"
+      aria-pressed={pressed}
+      onClick={onClick}
+      className={cn(
+        'rounded border px-3 py-1 text-xs transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50',
+        pressed
+          ? tone === 'bad'
+            ? 'border-destructive bg-destructive/10 font-semibold text-destructive'
+            : 'border-emerald-600 bg-emerald-600/10 font-semibold text-emerald-700 dark:text-emerald-400'
+          : 'border-border text-muted-foreground hover:text-foreground',
+      )}
+    >
+      {children}
+    </button>
+  )
+}
 
 export function ImpeccableLab() {
-  const isEn = getLocale() === 'en'
-  const [designStyle, setDesignStyle] = useState<'slop' | 'impeccable'>('impeccable')
-  const [spacingRhythm, setSpacingRhythm] = useState<'random' | 'grid8'>('grid8')
+  const [strong, setStrong] = useState(true)
+  const [even, setEven] = useState(true)
 
   return (
     <section id="impeccable-lab" className="scroll-mt-20 space-y-6">
       <div>
         <div className="flex items-center gap-2">
-          <h2 className="text-2xl font-bold tracking-tight text-balance">
-            {isEn ? 'Anti-AI Slop & Craft Lab' : 'Lab Anti-AI Slop & Craft'}
-          </h2>
+          <h2 className="text-2xl font-bold tracking-tight text-balance">{m.impeccable_lab_title()}</h2>
           <Badge variant="secondary" className="font-mono text-xs">
-            Interactive
+            {m.impeccable_lab_badge()}
           </Badge>
         </div>
-        <p className="text-muted-foreground mt-1 text-sm">
-          {isEn
-            ? 'Interactive comparison between a generic AI-template look and a more deliberate one. The sample copy and styling are illustrative only.'
-            : 'Perbandingan interaktif antara tampilan template AI generik dan yang lebih disengaja. Contoh copy dan styling hanya ilustrasi.'}
-        </p>
+        <p className="text-muted-foreground mt-1 text-sm">{m.impeccable_lab_lead()}</p>
       </div>
 
       <div className="grid gap-6">
-        {/* Module 1: AI Slop vs Impeccable Design */}
         <Card className="border border-border">
           <CardHeader className="pb-3">
             <div className="flex flex-wrap items-center justify-between gap-2">
               <div>
-                <CardTitle className="text-base font-semibold">
-                  {isEn
-                    ? '1. Generic AI UI Slop vs Impeccable Craft'
-                    : '1. Antarmuka AI Slop Generik vs Craft Impeccable'}
-                </CardTitle>
-                <p className="text-xs text-muted-foreground mt-0.5">
-                  {isEn
-                    ? 'Rules (bolder, colorize): amplify what the system owns, add color roles, keep body contrast at WCAG AA.'
-                    : 'Aturan (bolder, colorize): perkuat apa yang dimiliki sistem, tambah peran warna, jaga kontras body di batas WCAG AA.'}
-                </p>
+                <CardTitle className="text-base font-semibold">{m.impeccable_lab_mod1_title()}</CardTitle>
+                <p className="text-muted-foreground mt-0.5 text-xs">{m.impeccable_lab_mod1_rule()}</p>
               </div>
-              <div className="flex gap-2 font-mono">
-                <button
-                  type="button"
-                  onClick={() => setDesignStyle('slop')}
-                  className={`px-3 py-1 rounded text-xs transition-colors border ${
-                    designStyle === 'slop'
-                      ? 'border-destructive bg-destructive/10 text-destructive font-bold'
-                      : 'border-border text-muted-foreground hover:text-foreground'
-                  }`}
-                >
-                  ✕ AI Slop (Bland)
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setDesignStyle('impeccable')}
-                  className={`px-3 py-1 rounded text-xs transition-colors border ${
-                    designStyle === 'impeccable'
-                      ? 'border-emerald-500 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-bold'
-                      : 'border-border text-muted-foreground hover:text-foreground'
-                  }`}
-                >
-                  ✓ Impeccable Craft
-                </button>
+              <div className="flex gap-2">
+                <Choice pressed={!strong} onClick={() => setStrong(false)} tone="bad">
+                  {m.impeccable_lab_weak()}
+                </Choice>
+                <Choice pressed={strong} onClick={() => setStrong(true)} tone="good">
+                  {m.impeccable_lab_strong()}
+                </Choice>
               </div>
             </div>
           </CardHeader>
-          <CardContent className="space-y-4 text-xs">
-            {designStyle === 'slop' ? (
-              <div className="rounded-xl border border-zinc-300 bg-zinc-100 dark:bg-zinc-900/50 p-6 space-y-4 shadow-sm">
-                <div className="space-y-1">
-                  <span className="text-[10px] uppercase font-mono tracking-widest text-zinc-400">
-                    AI Generated Feature Card
-                  </span>
-                  <h3 className="text-base font-normal text-zinc-600 dark:text-zinc-400">
-                    Seamless solutions for modern teams
-                  </h3>
-                  <p className="text-[11px] text-zinc-400 leading-relaxed">
-                    Empowering teams to effortlessly unlock value with cutting-edge synergy.
-                  </p>
-                </div>
-                <div className="flex gap-2">
-                  <div className="px-3 py-1.5 rounded bg-zinc-300 text-zinc-600 text-xs font-normal">
-                    Learn more
-                  </div>
-                  <div className="px-3 py-1.5 rounded border border-zinc-300 text-zinc-400 text-xs font-normal">
-                    Documentation
-                  </div>
-                </div>
-                <div className="text-[10px] text-destructive italic">
-                  Tells: weak hierarchy, gray text on gray, vague jargon, indistinct buttons.
-                </div>
-              </div>
-            ) : (
-              <div className="rounded-xl border-2 border-primary/40 bg-card p-6 space-y-4 shadow-lg">
+          <CardContent className="text-xs">
+            {strong ? (
+              <div className="bg-card space-y-4 rounded-xl border border-border p-6">
                 <div className="space-y-1.5">
-                  <div className="flex items-center justify-between">
-                    <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-primary">
-                      Sample card
-                    </span>
-                    <Badge variant="outline" className="text-[10px] font-mono">
-                      Illustrative
-                    </Badge>
-                  </div>
-                  <h3 className="text-lg font-bold text-foreground tracking-tight">
-                    Ship your first project today
+                  <span className="text-primary text-xs font-medium">{m.impeccable_lab_strong_kicker()}</span>
+                  <h3 className="text-foreground text-lg font-bold tracking-tight">
+                    {m.impeccable_lab_strong_title()}
                   </h3>
-                  <p className="text-xs text-muted-foreground leading-relaxed">
-                    Concrete headline, plain language, and one clear primary action.
-                  </p>
+                  <p className="text-muted-foreground text-sm leading-relaxed">{m.impeccable_lab_strong_body()}</p>
                 </div>
                 <div className="flex items-center gap-3">
-                  <button type="button" className="px-4 py-2 rounded-lg bg-primary text-primary-foreground text-xs font-semibold shadow-sm hover:opacity-90">
-                    Get Started Free →
+                  <button
+                    type="button"
+                    className="bg-primary text-primary-foreground rounded-lg px-4 py-2 text-xs font-semibold hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50"
+                  >
+                    {m.impeccable_lab_primary()}
                   </button>
-                  <button type="button" className="px-3 py-2 rounded-lg border border-border text-foreground text-xs font-medium hover:bg-muted">
-                    Read Architecture
+                  <button
+                    type="button"
+                    className="border-border text-foreground hover:bg-muted rounded-lg border px-3 py-2 text-xs font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50"
+                  >
+                    {m.impeccable_lab_secondary()}
                   </button>
                 </div>
-                <div className="text-[10px] text-emerald-600 dark:text-emerald-400 font-semibold">
-                  ✓ Clear hierarchy, readable contrast, specific copy, one primary action.
+                <p className="text-emerald-700 dark:text-emerald-400 text-[11px]">{m.impeccable_lab_strong_note()}</p>
+              </div>
+            ) : (
+              <div className="space-y-4 rounded-xl border border-zinc-300 bg-zinc-100 p-6 dark:bg-zinc-900/50">
+                <div className="space-y-1">
+                  <span className="text-xs text-zinc-400">{m.impeccable_lab_weak_kicker()}</span>
+                  <h3 className="text-base font-normal text-zinc-500 dark:text-zinc-400">
+                    {m.impeccable_lab_weak_title()}
+                  </h3>
+                  <p className="text-[11px] leading-relaxed text-zinc-400">{m.impeccable_lab_weak_body()}</p>
                 </div>
+                <div className="flex gap-2">
+                  <div className="rounded bg-zinc-300 px-3 py-1.5 text-xs font-normal text-zinc-600">
+                    {m.impeccable_lab_primary()}
+                  </div>
+                  <div className="rounded border border-zinc-300 px-3 py-1.5 text-xs font-normal text-zinc-400">
+                    {m.impeccable_lab_secondary()}
+                  </div>
+                </div>
+                <p className="text-destructive text-[11px]">{m.impeccable_lab_weak_note()}</p>
               </div>
             )}
           </CardContent>
         </Card>
 
-        {/* Module 2 & 3 */}
         <div className="grid gap-6 md:grid-cols-2">
-          {/* Module 2: Spacing Rhythm */}
           <Card className="border border-border">
             <CardHeader className="pb-3">
-              <CardTitle className="text-base font-semibold">
-                {isEn ? '2. Spacing Rhythm (layout)' : '2. Ritme Spasi (layout)'}
-              </CardTitle>
-              <p className="text-xs text-muted-foreground mt-0.5">
-                {isEn
-                  ? 'Rule (layout, craft floor): tight groups, generous separation, more space above a heading than below. Values here are illustrative.'
-                  : 'Aturan (layout, craft floor): grup rapat, pemisahan lega, lebih banyak ruang di atas heading daripada di bawah. Nilai di sini hanya ilustrasi.'}
-              </p>
+              <CardTitle className="text-base font-semibold">{m.impeccable_lab_mod2_title()}</CardTitle>
+              <p className="text-muted-foreground mt-0.5 text-xs">{m.impeccable_lab_mod2_rule()}</p>
             </CardHeader>
             <CardContent className="space-y-4 text-xs">
-              <div className="flex gap-2 font-mono">
-                <button
-                  type="button"
-                  onClick={() => setSpacingRhythm('random')}
-                  className={`flex-1 py-1.5 rounded border transition-colors ${
-                    spacingRhythm === 'random'
-                      ? 'border-destructive bg-destructive/10 text-destructive font-bold'
-                      : 'border-border text-muted-foreground hover:text-foreground'
-                  }`}
-                >
-                  Arbitrary values
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setSpacingRhythm('grid8')}
-                  className={`flex-1 py-1.5 rounded border transition-colors ${
-                    spacingRhythm === 'grid8'
-                      ? 'border-emerald-500 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-bold'
-                      : 'border-border text-muted-foreground hover:text-foreground'
-                  }`}
-                >
-                  Deliberate scale
-                </button>
+              <div className="flex gap-2">
+                <Choice pressed={!even} onClick={() => setEven(false)} tone="bad">
+                  {m.impeccable_lab_spacing_random()}
+                </Choice>
+                <Choice pressed={even} onClick={() => setEven(true)} tone="good">
+                  {m.impeccable_lab_spacing_scale()}
+                </Choice>
               </div>
-
-              <div className="border border-border rounded-lg p-3 bg-muted/20 space-y-2">
-                <div className="flex justify-between items-center font-mono text-[11px]">
-                  <span>Visual Rhythm:</span>
-                  <span className={spacingRhythm === 'grid8' ? 'text-emerald-600 font-bold' : 'text-destructive'}>
-                    {spacingRhythm === 'grid8' ? 'Harmonious Cadence' : 'Visual Friction / Uneasy Eye'}
+              <div className="bg-muted/20 space-y-2 rounded-lg border border-border p-3">
+                <div className="flex items-center justify-between font-mono text-[11px]">
+                  <span>{m.impeccable_lab_rhythm_label()}</span>
+                  <span className={even ? 'text-emerald-700 dark:text-emerald-400' : 'text-destructive'}>
+                    {even ? m.impeccable_lab_rhythm_good() : m.impeccable_lab_rhythm_bad()}
                   </span>
                 </div>
-                <div className="flex items-end gap-2 h-16 pt-2">
-                  {(spacingRhythm === 'grid8' ? [8, 16, 24, 32, 48] : [11, 19, 23, 37, 43]).map((h, i) => (
+                <div className="flex h-16 items-end gap-2 pt-2">
+                  {(even ? [8, 16, 24, 32, 48] : [11, 19, 23, 37, 43]).map((h) => (
                     <div
-                      key={i}
-                      className={`flex-1 rounded-t transition-all ${
-                        spacingRhythm === 'grid8' ? 'bg-primary' : 'bg-destructive/60'
-                      }`}
+                      key={h}
+                      className={cn('flex-1 rounded-t', even ? 'bg-primary' : 'bg-destructive/60')}
                       style={{ height: `${h}px` }}
                     />
                   ))}
@@ -191,49 +152,31 @@ export function ImpeccableLab() {
             </CardContent>
           </Card>
 
-          {/* Module 3: P0-P3 Severity Scoring */}
           <Card className="border border-border">
             <CardHeader className="pb-3">
-              <CardTitle className="text-base font-semibold">
-                {isEn ? '3. Audit Severity (P0-P3)' : '3. Severity Audit (P0-P3)'}
-              </CardTitle>
-              <p className="text-xs text-muted-foreground mt-0.5">
-                {isEn
-                  ? 'Rule (audit): every issue is tagged P0-P3, and each dimension is scored 0-4.'
-                  : 'Aturan (audit): setiap isu ditandai P0-P3, dan tiap dimensi diberi skor 0-4.'}
-              </p>
+              <CardTitle className="text-base font-semibold">{m.impeccable_lab_mod3_title()}</CardTitle>
+              <p className="text-muted-foreground mt-0.5 text-xs">{m.impeccable_lab_mod3_rule()}</p>
             </CardHeader>
-            <CardContent className="space-y-3 text-xs">
-              <div className="grid grid-cols-2 gap-2 font-mono">
-                <div className="border border-destructive/40 bg-destructive/5 rounded p-2 space-y-1">
-                  <span className="font-bold text-destructive block">P0: Blocking</span>
-                  <p className="text-[10px] text-muted-foreground font-sans">
-                    Prevents task completion. Fix immediately.
-                  </p>
-                </div>
-                <div className="border border-amber-500/40 bg-amber-500/5 rounded p-2 space-y-1">
-                  <span className="font-bold text-amber-600 dark:text-amber-400 block">P1: Major</span>
-                  <p className="text-[10px] text-muted-foreground font-sans">
-                    Significant difficulty or a WCAG AA violation. Fix before release.
-                  </p>
-                </div>
-                <div className="border border-sky-500/40 bg-sky-500/5 rounded p-2 space-y-1">
-                  <span className="font-bold text-sky-600 dark:text-sky-400 block">P2: Minor</span>
-                  <p className="text-[10px] text-muted-foreground font-sans">
-                    Annoyance, a workaround exists. Fix in the next pass.
-                  </p>
-                </div>
-                <div className="border border-zinc-500/40 bg-zinc-500/5 rounded p-2 space-y-1">
-                  <span className="font-bold text-zinc-400 block">P3: Polish</span>
-                  <p className="text-[10px] text-muted-foreground font-sans">
-                    Nice-to-fix, no real user impact. Fix if time permits.
-                  </p>
-                </div>
+            <CardContent className="text-xs">
+              <div className="grid grid-cols-2 gap-2">
+                <Severity tone="border-destructive/40 bg-destructive/5 text-destructive" title={m.impeccable_lab_p0()} body={m.impeccable_lab_p0_body()} />
+                <Severity tone="border-warning/40 bg-warning/5 text-warning" title={m.impeccable_lab_p1()} body={m.impeccable_lab_p1_body()} />
+                <Severity tone="border-info/40 bg-info/5 text-info" title={m.impeccable_lab_p2()} body={m.impeccable_lab_p2_body()} />
+                <Severity tone="border-border bg-muted text-muted-foreground" title={m.impeccable_lab_p3()} body={m.impeccable_lab_p3_body()} />
               </div>
             </CardContent>
           </Card>
         </div>
       </div>
     </section>
+  )
+}
+
+function Severity({ tone, title, body }: { tone: string; title: string; body: string }) {
+  return (
+    <div className={cn('space-y-1 rounded border p-2', tone)}>
+      <span className="block font-mono text-[11px] font-semibold">{title}</span>
+      <p className="text-muted-foreground text-[11px] leading-relaxed">{body}</p>
+    </div>
   )
 }

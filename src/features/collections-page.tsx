@@ -61,7 +61,7 @@ export function CollectionsPage() {
               <Card
                 className={
                   available
-                    ? 'h-full transition-[box-shadow,ring-color] hover:ring-primary/30 hover:shadow-md'
+                    ? 'h-full transition-colors hover:bg-muted/40'
                     : 'h-full opacity-70'
                 }
               >
@@ -92,7 +92,7 @@ export function CollectionsPage() {
                   </div>
                 </CardHeader>
                 <CardContent className="pt-0">
-                  <p className="font-mono text-xs text-muted-foreground tabular-nums">
+                  <p className="text-xs text-muted-foreground tabular-nums">
                     {available ? countLabel : m.collections_coming_soon()}
                   </p>
                   {c.author ? (

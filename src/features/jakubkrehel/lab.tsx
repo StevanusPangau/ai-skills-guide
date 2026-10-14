@@ -1,4 +1,4 @@
-import { useEffect, useState, type ReactNode } from 'react'
+import { useEffect, useRef, useState, type ReactNode } from 'react'
 import { cn } from '@/lib/utils'
 import { m } from '@/paraglide/messages.js'
 import { MotionStage, PlaybackBar } from '@/features/motion/primitives'
@@ -42,7 +42,7 @@ function Demo({
   children: ReactNode
 }) {
   return (
-    <article className="space-y-4 rounded-xl border border-border bg-card p-4 shadow-xs sm:p-6">
+    <article className="space-y-4 rounded-xl border border-border bg-card p-4 sm:p-6">
       <header className="space-y-2">
         <div className="flex flex-wrap items-center justify-between gap-2">
           <h3 className="font-mono text-base font-semibold">{title}</h3>
@@ -97,7 +97,7 @@ function RadiusDemo() {
   const inner = Math.max(0, outer - padding)
   const box = (innerRadius: number, good: boolean) => (
     <div
-      className="flex h-32 w-full max-w-60 items-stretch border border-border bg-card shadow-sm"
+      className="flex h-32 w-full max-w-60 items-stretch border border-border bg-card"
       style={{ borderRadius: outer, padding }}
     >
       <div
@@ -150,7 +150,7 @@ function RadiusDemo() {
 
 function OpticalDemo() {
   const btn = (shift: number) => (
-    <div className="relative flex size-28 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg">
+    <div className="relative flex size-28 items-center justify-center rounded-full bg-primary text-primary-foreground">
       <div className="absolute inset-y-0 left-1/2 w-px bg-primary-foreground/40" aria-hidden="true" />
       <div className="absolute inset-x-0 top-1/2 h-px bg-primary-foreground/40" aria-hidden="true" />
       <svg
@@ -284,7 +284,7 @@ function PressButton({ scale, playback }: { scale: boolean; playback: Playback }
       onPointerUp={() => setHeld(false)}
       onPointerLeave={() => setHeld(false)}
       onPointerCancel={() => setHeld(false)}
-      className="rounded-lg bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+      className="rounded-lg bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
       style={{
         scale: pressed ? 0.96 : 1,
         transitionProperty: 'scale',
@@ -321,11 +321,27 @@ const TICKS = ['1111', '0808', '1181', '0000', '1818', '0101']
 
 function TabularDemo({ playback }: { playback: Playback }) {
   const [i, setI] = useState(0)
+  const [visible, setVisible] = useState(false)
+  const ref = useRef<HTMLDivElement>(null)
   const { speed } = playback
   useEffect(() => {
+    const el = ref.current
+    if (!el || typeof IntersectionObserver === 'undefined') {
+      setVisible(true)
+      return
+    }
+    const io = new IntersectionObserver(
+      ([entry]) => setVisible(entry.isIntersecting),
+      { threshold: 0.2 },
+    )
+    io.observe(el)
+    return () => io.disconnect()
+  }, [])
+  useEffect(() => {
+    if (!visible) return
     const id = setInterval(() => setI((n) => (n + 1) % TICKS.length), Math.round(900 / speed))
     return () => clearInterval(id)
-  }, [speed])
+  }, [speed, visible])
   const v = TICKS[i]
   const text = `${v.slice(0, 2)}:${v.slice(2)}`
   const num = (variant: 'proportional-nums' | 'tabular-nums') => (
@@ -340,18 +356,20 @@ function TabularDemo({ playback }: { playback: Playback }) {
     </div>
   )
   return (
-    <Demo
-      title={m.jakub_lab_tabular_title()}
-      rule={m.jakub_lab_tabular_rule()}
-      body={m.jakub_lab_tabular_body()}
-    >
-      <Side tone="bad" caption={m.jakub_lab_tabular_wrong_cap()}>
-        {num('proportional-nums')}
-      </Side>
-      <Side tone="good" caption={m.jakub_lab_tabular_right_cap()}>
-        {num('tabular-nums')}
-      </Side>
-    </Demo>
+    <div ref={ref}>
+      <Demo
+        title={m.jakub_lab_tabular_title()}
+        rule={m.jakub_lab_tabular_rule()}
+        body={m.jakub_lab_tabular_body()}
+      >
+        <Side tone="bad" caption={m.jakub_lab_tabular_wrong_cap()}>
+          {num('proportional-nums')}
+        </Side>
+        <Side tone="good" caption={m.jakub_lab_tabular_right_cap()}>
+          {num('tabular-nums')}
+        </Side>
+      </Demo>
+    </div>
   )
 }
 

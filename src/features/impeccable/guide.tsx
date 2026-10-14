@@ -15,7 +15,7 @@ export function ImpeccableOverview() {
           href="https://github.com/pbakaus/impeccable"
           target="_blank"
           rel="noopener noreferrer"
-          className="rounded-sm text-xs font-medium tracking-wide text-muted-foreground uppercase hover:text-primary"
+          className="rounded-sm label-quiet hover:text-primary"
         >
           {IMPECCABLE_SOURCE_REPO}
         </a>

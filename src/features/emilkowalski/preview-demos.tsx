@@ -363,9 +363,9 @@ export function ReviewDemo({ playback }: DemoProps) {
 export function AuditDemo({ playback }: DemoProps) {
   const [audited, setAudited] = useAutoOn(450)
   const rows = [
-    { sev: '01 · HIGH', color: 'text-destructive', text: 'Dropdown animates a layout property', tag: 'timing' },
-    { sev: '02 · MEDIUM', color: 'text-amber-600 dark:text-amber-400', text: 'Missing prefers-reduced-motion', tag: 'a11y' },
-    { sev: '03 · LOW', color: 'text-primary', text: 'Sidebar button uses ease-in', tag: 'cohesion' },
+    { sev: 'High', color: 'text-destructive', text: 'Dropdown animates a layout property', tag: 'timing' },
+    { sev: 'Medium', color: 'text-warning', text: 'Missing prefers-reduced-motion', tag: 'a11y' },
+    { sev: 'Low', color: 'text-info', text: 'Sidebar button uses ease-in', tag: 'cohesion' },
   ]
   return (
     <Compare

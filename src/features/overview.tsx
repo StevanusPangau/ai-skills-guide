@@ -56,7 +56,7 @@ export function Overview() {
           href="https://github.com/mattpocock/skills"
           target="_blank"
           rel="noopener noreferrer"
-          className="rounded-sm text-xs font-medium tracking-wide text-muted-foreground uppercase transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50"
+          className="rounded-sm label-quiet transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50"
           aria-label={externalLinkAriaLabel(MATTPOCOCK_SOURCE_REPO)}
         >
           {MATTPOCOCK_SOURCE_REPO}

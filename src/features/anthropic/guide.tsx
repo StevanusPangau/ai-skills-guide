@@ -11,7 +11,7 @@ export function AnthropicOverview() {
   return (
     <section id="overview" className="scroll-mt-20 space-y-7">
       <div>
-        <a href="https://github.com/anthropics/skills" target="_blank" rel="noopener noreferrer" className="rounded-sm text-xs font-medium tracking-wide text-muted-foreground uppercase hover:text-primary">
+        <a href="https://github.com/anthropics/skills" target="_blank" rel="noopener noreferrer" className="rounded-sm label-quiet hover:text-primary">
           {ANTHROPIC_SOURCE_REPO}
         </a>
         <div className="mt-3 flex items-start gap-4">

@@ -20,7 +20,7 @@ export function BrooklynOverview() {
           href="https://github.com/OutThisLife/brooklyn-skills"
           target="_blank"
           rel="noopener noreferrer"
-          className="rounded-sm text-xs font-medium tracking-wide text-muted-foreground uppercase hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50"
+          className="rounded-sm label-quiet hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50"
         >
           {BROOKLYN_SOURCE_REPO}
         </a>

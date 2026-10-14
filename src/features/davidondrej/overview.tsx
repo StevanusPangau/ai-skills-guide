@@ -54,7 +54,7 @@ export function DavidOverview() {
           href="https://github.com/davidondrej/skills"
           target="_blank"
           rel="noopener noreferrer"
-          className="rounded-sm text-xs font-medium tracking-wide text-muted-foreground uppercase transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50"
+          className="rounded-sm label-quiet transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50"
           aria-label={externalLinkAriaLabel(DAVIDONDREJ_SOURCE_REPO)}
         >
           {DAVIDONDREJ_SOURCE_REPO}

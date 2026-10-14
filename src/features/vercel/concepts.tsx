@@ -35,7 +35,7 @@ export function VercelConcepts() {
           <div className="grid gap-3 sm:grid-cols-4 font-mono text-xs">
             <div className="rounded-lg border-2 border-red-500/80 bg-red-500/5 p-3 space-y-1.5">
               <div className="flex items-center justify-between">
-                <Badge variant="destructive" className="text-[10px] uppercase font-bold">
+                <Badge variant="destructive" className="text-[10px] font-medium">
                   CRITICAL
                 </Badge>
                 <span className="text-[11px] text-muted-foreground">react-best-practices #1</span>
@@ -50,7 +50,7 @@ export function VercelConcepts() {
 
             <div className="rounded-lg border-2 border-amber-500/80 bg-amber-500/5 p-3 space-y-1.5">
               <div className="flex items-center justify-between">
-                <Badge variant="destructive" className="text-[10px] uppercase font-bold">
+                <Badge variant="destructive" className="text-[10px] font-medium">
                   CRITICAL
                 </Badge>
                 <span className="text-[11px] text-muted-foreground">react-best-practices #2</span>
@@ -65,7 +65,7 @@ export function VercelConcepts() {
 
             <div className="rounded-lg border border-sky-500/80 bg-sky-500/5 p-3 space-y-1.5">
               <div className="flex items-center justify-between">
-                <Badge className="bg-amber-500/20 text-amber-600 dark:text-amber-400 border border-amber-500/30 text-[10px] uppercase font-bold">
+                <Badge variant="outline" className="text-[10px] font-medium text-warning">
                   HIGH
                 </Badge>
                 <span className="text-[11px] text-muted-foreground">react-best-practices #3</span>
@@ -80,7 +80,7 @@ export function VercelConcepts() {
 
             <div className="rounded-lg border border-zinc-500/50 bg-zinc-500/5 p-3 space-y-1.5">
               <div className="flex items-center justify-between">
-                <Badge variant="outline" className="text-[10px] uppercase font-bold">
+                <Badge variant="outline" className="text-[10px] font-medium">
                   MEDIUM / LOW
                 </Badge>
                 <span className="text-[11px] text-muted-foreground">#4 - #8</span>

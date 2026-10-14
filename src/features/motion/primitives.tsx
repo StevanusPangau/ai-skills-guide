@@ -86,7 +86,7 @@ export function MotionStage({
       {label ? (
         <span
           className={cn(
-            'absolute top-2.5 left-3 z-10 rounded-md px-1.5 py-0.5 font-mono text-[10px] font-semibold tracking-wide uppercase',
+            'label-quiet absolute top-2.5 left-3 z-10 rounded-md px-1.5 py-0.5',
             tone === 'bad' && 'bg-destructive/10 text-destructive',
             tone === 'good' &&
               'bg-emerald-600/10 text-emerald-700 dark:text-emerald-400',
