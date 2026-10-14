@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v1.8.0] - 2026-10-14
+
+### Added
+- **Taste Skill collection (14 skills)** — `Leonxlnx/taste-skill` pin `a60a36dc` (MIT). Default `design-taste-frontend` is current v2: a direction draw (`draw.mjs`, 3 of 20), credited open-collection pictures, and a real-browser house-rule inspector at 1440 / 768 / 390. Also catalogs the redesign, image-to-code, GPT/GSAP, soft, minimalist, brutalist, and Stitch skills, three image-generation skills, and the two legacy pins (`design-taste-frontend-v1`, `design-taste-frontend-v2-experimental`). Interactive house-rule lab at `/taste#taste-lab`.
+
 ## [v1.7.1] - 2026-10-05
 
 ### Changed

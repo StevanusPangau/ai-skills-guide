@@ -13,6 +13,7 @@ import { tanstackSkills } from '@/data/tanstack-skills'
 import { expoSkills } from '@/data/expo-skills'
 import { gsapSkills } from '@/data/gsap-skills'
 import { impeccableSkills } from '@/data/impeccable-skills'
+import { tasteSkills } from '@/data/taste-skills'
 import { getLocale } from '@/paraglide/runtime.js'
 
 export type SearchableSkill = {
@@ -219,6 +220,18 @@ export function getAllSearchableSkills(): SearchableSkill[] {
       category: s.category,
       description: isEn ? s.description.en : s.description.id,
       href: `/impeccable/skills/${s.name}`,
+    })
+  }
+
+  for (const s of tasteSkills) {
+    list.push({
+      id: `taste-${s.name}`,
+      name: s.name,
+      collection: 'taste',
+      collectionName: 'Taste Skill',
+      category: s.category,
+      description: isEn ? s.description.en : s.description.id,
+      href: `/taste/skills/${s.name}`,
     })
   }
 

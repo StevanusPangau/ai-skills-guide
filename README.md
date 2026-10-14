@@ -25,7 +25,7 @@ This is a **reference guide**, not a replacement for upstream. It ships no skill
 
 ## Current collections
 
-Snapshot of what ships today (270+ skills across 15 collections):
+Snapshot of what ships today (280+ skills across 16 collections):
 
 | Collection | Route | Upstream | Catalog | Install |
 |---|---|---|---|---|
@@ -44,6 +44,7 @@ Snapshot of what ships today (270+ skills across 15 collections):
 | Official Expo & EAS Mobile Skills | [`/expo`](https://skills.stevanuspangau.dev/expo) | [expo/skills](https://github.com/expo/skills) | 25 | Upstream via skills.sh |
 | Official GreenSock (GSAP) Motion Skills | [`/gsap`](https://skills.stevanuspangau.dev/gsap) | [greensock/gsap-skills](https://github.com/greensock/gsap-skills) | 8 | Upstream via skills.sh |
 | Impeccable Design System by Paul Bakaus | [`/impeccable`](https://skills.stevanuspangau.dev/impeccable) | [pbakaus/impeccable](https://github.com/pbakaus/impeccable) | 25 commands | `npx impeccable install` |
+| Taste Skill by Leonxlnx | [`/taste`](https://skills.stevanuspangau.dev/taste) | [Leonxlnx/taste-skill](https://github.com/Leonxlnx/taste-skill) pin `a60a36dc…` | 14 | `npx skills add Leonxlnx/taste-skill --skill design-taste-frontend` |
 
 Each collection data file records the upstream repository and the pinned commit its content was verified against. Always prefer upstream for the latest skills.
 
