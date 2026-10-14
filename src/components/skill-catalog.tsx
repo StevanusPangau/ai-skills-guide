@@ -123,7 +123,7 @@ export function SkillCatalog({
           <p className="text-sm text-muted-foreground">{m.catalog_no_results()}</p>
         </div>
       ) : (
-        <div className="overflow-hidden rounded-lg border border-border bg-card shadow-sm">
+        <div className="overflow-hidden rounded-lg border border-border bg-card">
           <ScrollArea className={CATALOG_VIEWPORT_CLASS}>
             <div className="space-y-3 p-3 pr-4">
               {filtered.map((item) => (
@@ -148,7 +148,7 @@ export function SkillCatalog({
                           <span className="font-mono text-sm font-semibold text-foreground">
                             /{item.name}
                           </span>
-                          <Badge variant="outline" className="font-mono text-xs uppercase">
+                          <Badge variant="outline" className="text-xs">
                             {item.categoryLabel}
                           </Badge>
                           <Badge

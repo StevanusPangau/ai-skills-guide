@@ -70,7 +70,7 @@ export function PrismaV7Lab() {
           <CardContent className="space-y-4 text-xs">
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 font-mono">
               <div className="border border-border rounded p-2.5 bg-muted/30">
-                <span className="text-[10px] text-muted-foreground block uppercase">
+                <span className="label-quiet block">
                   {isEn ? 'Query Engine' : 'Engine Kueri'}
                 </span>
                 <span className="text-sm font-bold text-foreground">
@@ -78,7 +78,7 @@ export function PrismaV7Lab() {
                 </span>
               </div>
               <div className="border border-border rounded p-2.5 bg-muted/30">
-                <span className="text-[10px] text-muted-foreground block uppercase">
+                <span className="label-quiet block">
                   {isEn ? 'Database Protocol' : 'Protokol Database'}
                 </span>
                 <span className="text-sm font-bold text-foreground">
@@ -86,7 +86,7 @@ export function PrismaV7Lab() {
                 </span>
               </div>
               <div className="border border-border rounded p-2.5 bg-muted/30">
-                <span className="text-[10px] text-muted-foreground block uppercase">
+                <span className="label-quiet block">
                   {isEn ? 'Configuration' : 'Konfigurasi'}
                 </span>
                 <span className="text-sm font-bold text-foreground">
@@ -94,7 +94,7 @@ export function PrismaV7Lab() {
                 </span>
               </div>
               <div className="border border-border rounded p-2.5 bg-muted/30">
-                <span className="text-[10px] text-muted-foreground block uppercase">
+                <span className="label-quiet block">
                   {isEn ? 'Env loading' : 'Pemuatan env'}
                 </span>
                 <span

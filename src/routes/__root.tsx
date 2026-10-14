@@ -107,7 +107,7 @@ function RootLayout() {
         {m.skip_to_main()}
       </a>
 
-      <header className="fixed top-0 right-0 left-0 z-50 border-b border-border bg-background/80 backdrop-blur safe-top">
+      <header className="fixed top-0 right-0 left-0 z-50 border-b border-transparent bg-background safe-top">
         <div className="flex h-14 w-full items-center justify-between gap-6 px-4 sm:px-6 lg:px-8">
           <div className="flex min-w-0 items-center gap-2 sm:gap-5">
             <Link
@@ -154,10 +154,10 @@ function RootLayout() {
               onPointerEnter={() => void loadSearchDialog()}
               onFocus={() => void loadSearchDialog()}
               className="hidden sm:flex items-center gap-2 h-8 px-2.5 text-xs text-muted-foreground border-border/80 hover:text-foreground hover:bg-muted font-normal"
-              title="Cari skill (Cmd+K)"
+              title={m.search_skills_shortcut()}
             >
               <RiSearchLine className="size-3.5" />
-              <span>{getLocale() === 'en' ? 'Search skills...' : 'Cari skill...'}</span>
+              <span>{m.search_skills_placeholder()}</span>
               <kbd className="pointer-events-none inline-flex h-4 select-none items-center gap-0.5 rounded border border-border bg-muted px-1 font-mono text-[10px] font-medium text-muted-foreground">
                 <span className="text-xs">⌘</span>K
               </kbd>
@@ -170,7 +170,7 @@ function RootLayout() {
               onPointerEnter={() => void loadSearchDialog()}
               onFocus={() => void loadSearchDialog()}
               className="sm:hidden text-muted-foreground hover:text-foreground"
-              aria-label="Cari skill"
+              aria-label={m.search_skills_placeholder()}
             >
               <RiSearchLine className="size-5" />
             </Button>
@@ -206,7 +206,7 @@ function RootLayout() {
               title={getLocale() === 'id' ? 'English' : 'Indonesia'}
               className="text-muted-foreground hover:text-foreground"
             >
-              <span className="text-xs font-semibold tracking-wide uppercase">
+              <span className="text-xs font-semibold">
                 {getLocale() === 'id' ? 'ID' : 'EN'}
               </span>
             </Button>

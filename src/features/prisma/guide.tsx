@@ -15,7 +15,7 @@ export function PrismaOverview() {
           href="https://github.com/prisma/skills"
           target="_blank"
           rel="noopener noreferrer"
-          className="rounded-sm text-xs font-medium tracking-wide text-muted-foreground uppercase hover:text-primary"
+          className="rounded-sm label-quiet hover:text-primary"
         >
           {PRISMA_SOURCE_REPO}
         </a>

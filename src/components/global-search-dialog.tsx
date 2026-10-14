@@ -131,7 +131,7 @@ export function GlobalSearchDialog({
               <RiCloseLine className="w-4 h-4" />
             </button>
           )}
-          <span className="text-[10px] uppercase font-mono px-1.5 py-0.5 border border-border rounded bg-muted text-muted-foreground hidden sm:inline">
+          <span className="label-quiet px-1.5 py-0.5 border border-border rounded bg-muted hidden sm:inline">
             ESC
           </span>
         </div>

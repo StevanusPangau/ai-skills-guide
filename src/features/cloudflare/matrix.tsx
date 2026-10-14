@@ -128,7 +128,7 @@ export function CloudflareEdgeMatrix() {
             <div className="rounded-lg border border-border bg-card p-4 space-y-3">
               <div className="flex flex-wrap items-center justify-between gap-2 border-b border-border pb-3">
                 <div>
-                  <span className="text-[10px] font-mono uppercase text-muted-foreground block">
+                  <span className="label-quiet block">
                     {isEn ? 'RECOMMENDED PRIMITIVE' : 'PRIMITIF DIREKOMENDASIKAN'}
                   </span>
                   <div className="text-base font-bold text-foreground font-mono">

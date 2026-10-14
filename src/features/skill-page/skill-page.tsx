@@ -137,11 +137,11 @@ export function SkillPage({
           </nav>
 
           {/* Hero */}
-          <header className="relative overflow-hidden rounded-2xl border border-[var(--sk-line)] bg-gradient-to-br from-[var(--sk-soft)] via-transparent to-transparent p-5 sm:p-7">
+          <header className="relative overflow-hidden rounded-2xl border border-[var(--sk-line)] bg-[var(--sk-soft)] p-5 sm:p-7">
             <div className="flex flex-col gap-5 sm:flex-row sm:items-start">
               <SkillGlyph cells={identity.cells} />
               <div className="min-w-0 flex-1 space-y-3">
-                <h1 className="font-mono text-2xl font-bold tracking-tight break-words text-balance sm:text-4xl">
+                <h1 className="text-2xl font-bold tracking-tight break-words text-balance sm:text-4xl">
                   {title}
                 </h1>
                 {view.tagline ? (
@@ -165,7 +165,7 @@ export function SkillPage({
                   {ctx.authorHandle ? <XHandleLink handle={ctx.authorHandle} /> : null}
                 </div>
                 <div className="flex flex-wrap gap-2">
-                  <Badge variant="outline" className="font-mono text-xs uppercase">
+                  <Badge variant="outline" className="text-xs">
                     {view.category}
                   </Badge>
                   <Badge
@@ -307,9 +307,9 @@ export function SkillPage({
           {view.spotlight ? (
             <section
               id="spotlight"
-              className="scroll-mt-20 rounded-2xl border border-[var(--sk-line)] bg-gradient-to-br from-[var(--sk-soft)] to-transparent p-5 sm:p-6"
+              className="scroll-mt-20 rounded-2xl border border-[var(--sk-line)] bg-[var(--sk-soft)] p-5 sm:p-6"
             >
-              <p className="flex items-center gap-1.5 text-xs font-semibold tracking-wide text-[var(--sk-strong)] uppercase">
+              <p className="label-quiet flex items-center gap-1.5 text-[var(--sk-strong)]">
                 <RiSparklingLine className="size-4" aria-hidden="true" />
                 {m.skillpage_spotlight_eyebrow()}
               </p>
@@ -671,7 +671,7 @@ function SectionTitle({ children }: { children: ReactNode }) {
 
 function Eyebrow({ children }: { children: ReactNode }) {
   return (
-    <h3 className="mb-3 text-xs font-semibold tracking-wide text-muted-foreground uppercase">
+    <h3 className="mb-3 label-quiet">
       {children}
     </h3>
   )

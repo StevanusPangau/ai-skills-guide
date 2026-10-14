@@ -11,7 +11,7 @@ export function TanStackOverview() {
           href="https://github.com/tanstack-skills/tanstack-skills"
           target="_blank"
           rel="noopener noreferrer"
-          className="rounded-sm text-xs font-medium tracking-wide text-muted-foreground uppercase hover:text-primary"
+          className="rounded-sm label-quiet hover:text-primary"
         >
           {TANSTACK_SOURCE_REPO}
         </a>

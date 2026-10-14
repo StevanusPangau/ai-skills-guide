@@ -44,7 +44,7 @@ export function EmilOverview() {
           href="https://github.com/emilkowalski/skills"
           target="_blank"
           rel="noopener noreferrer"
-          className="rounded-sm text-xs font-medium tracking-wide text-muted-foreground uppercase hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50"
+          className="rounded-sm label-quiet hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50"
           aria-label={externalLinkAriaLabel(EMILKOWALSKI_SOURCE_REPO)}
         >
           {EMILKOWALSKI_SOURCE_REPO}
@@ -116,7 +116,7 @@ export function EmilWorkflow() {
             <CardContent className="flex items-start gap-3 pt-4">
               <span className="mt-1 size-2 shrink-0 rounded-full bg-primary" aria-hidden="true" />
               <div>
-                <p className="text-xs font-medium tracking-wide text-muted-foreground uppercase">{getAction()}</p>
+                <p className="label-quiet">{getAction()}</p>
                 <Link
                   to="/emilkowalski/skills/$skillName"
                   params={{ skillName: name }}

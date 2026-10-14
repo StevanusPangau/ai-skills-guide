@@ -25,7 +25,7 @@ export function SkillInstallBlock({
   return (
     <div className="space-y-2 border-t border-border pt-4">
       {hideHeading ? null : (
-        <h2 className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">
+        <h2 className="label-quiet">
           {m.skill_install_title()}
         </h2>
       )}

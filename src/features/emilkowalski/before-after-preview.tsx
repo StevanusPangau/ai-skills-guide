@@ -81,7 +81,7 @@ export function EmilPreviewLab() {
       >
         {GROUPS.map((group) => (
           <div key={group.label()} role="group" aria-label={group.label()} className="shrink-0 space-y-1.5">
-            <p className="font-mono text-[10px] font-semibold tracking-wider text-muted-foreground uppercase">
+            <p className="label-quiet">
               {group.label()}
             </p>
             <div className="flex gap-1.5">
@@ -106,7 +106,7 @@ export function EmilPreviewLab() {
         ))}
       </div>
 
-      <div className="space-y-4 rounded-2xl border border-border bg-card p-3 shadow-xs sm:p-5">
+      <div className="space-y-4 rounded-2xl border border-border bg-card p-3 sm:p-5">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div className="flex items-center gap-2">
             <p className="font-mono text-sm font-bold">/{skill.name}</p>

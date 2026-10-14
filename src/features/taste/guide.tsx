@@ -15,7 +15,7 @@ export function TasteOverview() {
           href={`https://${TASTE_SOURCE_REPO}/tree/${TASTE_SOURCE_SHA}`}
           target="_blank"
           rel="noopener noreferrer"
-          className="rounded-sm text-xs font-medium tracking-wide text-muted-foreground uppercase hover:text-primary"
+          className="rounded-sm label-quiet hover:text-primary"
         >
           {TASTE_SOURCE_REPO}
         </a>
@@ -70,7 +70,7 @@ export function TasteOverview() {
 function Stat({ value, label }: { value: string; label: string }) {
   return (
     <div>
-      <span className="font-mono text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
+      <span className="text-2xl font-bold tracking-tight text-foreground tabular-nums sm:text-3xl">
         {value}
       </span>
       <span className="mt-0.5 block text-xs text-muted-foreground">{label}</span>

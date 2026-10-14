@@ -93,7 +93,7 @@ export function SuperpowersSimulator() {
                 : 'border-border bg-card hover:border-primary/40'
             }`}
           >
-            <span className="block font-mono text-[10px] uppercase font-bold text-muted-foreground">
+            <span className="label-quiet block">
               {t('Langkah', 'Step')} {idx + 1}
             </span>
             <span className="block font-mono text-xs font-semibold text-foreground mt-0.5">
@@ -149,7 +149,7 @@ export function SuperpowersSimulator() {
                 }`} />
                 <span className="text-xs font-mono text-foreground font-medium">{task.name}</span>
               </div>
-              <span className={`text-[10px] font-mono px-2 py-0.5 rounded font-semibold uppercase ${
+              <span className={`label-quiet px-2 py-0.5 rounded ${
                 task.status === 'complete'
                   ? 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 border border-emerald-500/30'
                   : task.status === 'in-review'

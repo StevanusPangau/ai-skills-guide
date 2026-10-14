@@ -109,7 +109,7 @@ export function DavidCatalog() {
           <p className="text-sm text-muted-foreground">{m.david_no_results()}</p>
         </div>
       ) : (
-        <div className="overflow-hidden rounded-lg border border-border bg-card shadow-sm">
+        <div className="overflow-hidden rounded-lg border border-border bg-card">
           <ScrollArea className={CATALOG_VIEWPORT_CLASS}>
             <div className="space-y-3 p-3 pr-4">
               {filtered.map((skill) => (

@@ -19,7 +19,7 @@ export function SuperpowersOverview() {
           href="https://github.com/obra/superpowers"
           target="_blank"
           rel="noopener noreferrer"
-          className="rounded-sm text-xs font-medium tracking-wide text-muted-foreground uppercase hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50"
+          className="rounded-sm label-quiet hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50"
         >
           {SUPERPOWERS_SOURCE_REPO}
         </a>
