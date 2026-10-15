@@ -9,7 +9,7 @@ Referensi interaktif **multi-koleksi** untuk skill pengembangan software berbasi
 
 **Live:** https://skills.stevanuspangau.dev
 
-> Shell UI: **Indonesia** (base) + **English**. Sebagian besar isi skill berbahasa Indonesia; istilah teknis tetap dalam bahasa Inggris.
+> Shell UI: **Indonesia** dan **English**, bisa diganti. Isi skill ditulis dalam keduanya; istilah teknis tetap dalam bahasa Inggris.
 
 ## Isi repo ini
 

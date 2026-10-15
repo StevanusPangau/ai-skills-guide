@@ -15,6 +15,7 @@
   "close_navigation": "Tutup navigasi",
   "section_navigation": "Navigasi bagian",
   "nav_primary": "Utama",
+  "nav_tasks": "Tugas",
   "nav_sections": "Bagian",
   "nav_filters": "Filter",
   "dialog_close": "Tutup",
@@ -995,5 +996,11 @@
   "taste_wf3_why": "Menulis ulang dari nol menghapus perilaku yang sudah jalan hanya demi tampilan.",
   "taste_wf_why": "Mengapa:",
   "taste_workflows_lead": "Tiga cara menggabungkan skill. Pilih satu arah per proyek.",
-  "taste_workflows_title": "Alur kerja umum"
+  "taste_workflows_title": "Alur kerja umum",
+  "tasks_breadcrumb": "tugas",
+  "tasks_description": "Mulai dari pekerjaan di depan Anda. Tiap tugas menunjuk beberapa skill dan menjelaskan mengapa skill itu, jadi Anda tidak perlu tahu namanya lebih dulu.",
+  "tasks_no_results": "Tidak ada tugas yang cocok dengan pencarian itu.",
+  "tasks_search_label": "Cari tugas",
+  "tasks_search_placeholder": "Cari berdasarkan tugas atau nama skill",
+  "tasks_title": "Mulai dari tugas"
 }

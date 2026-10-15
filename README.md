@@ -9,7 +9,7 @@ Interactive **multi-collection** reference for AI-agent software-development ski
 
 **Live:** https://skills.stevanuspangau.dev
 
-> UI shell: **Indonesian** (base) + **English**. Long skill copy is mostly Indonesian; technical terms stay English.
+> UI shell: **Indonesian** and **English**, switchable. Long skill copy is written in both; technical terms stay English.
 
 ## What this repo is
 

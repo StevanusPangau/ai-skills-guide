@@ -46,6 +46,12 @@ export function Landing() {
             <p className="max-w-3xl text-xl leading-tight tracking-tight text-pretty text-muted-foreground sm:text-2xl lg:text-3xl">
               {m.hero_description()}
             </p>
+            <Link
+              to="/tasks"
+              className="w-fit rounded-md text-sm font-medium text-primary underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50"
+            >
+              {m.tasks_title()}
+            </Link>
           </div>
         </div>
       </section>
