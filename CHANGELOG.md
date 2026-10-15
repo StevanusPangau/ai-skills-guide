@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v1.8.0] - 2026-10-15
+
 ### Added
 - **Start from a task.** A `/tasks` page lists twelve common jobs and points each one at a few skills, with one sentence on why that skill. Linked from the header and the home hero, and included in the sitemap.
 
@@ -16,7 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Taste v2 house rules applied to the guide itself.** Section labels are sentences instead of tracked capitals, the home hero intro is a paragraph, and the fixed header is a flat surface. Accent and chart colors use distinct hues instead of one orange ramp. Geist is no longer loaded (it was unused). The Taste lab starts clean, and its copy lives in the message files.
 - **Motion labs checked against their own skills.** The Impeccable comparison no longer rests on a drop shadow, and its copy moved into the message files. Flat demo panels in the Emil and Jakub labs lost their resting shadows. The Jakub number comparison pauses while it is off screen.
 
-## [v1.8.0] - 2026-10-14
+## [v1.7.2] - 2026-10-14
 
 ### Added
 - **Taste Skill collection (14 skills)** — `Leonxlnx/taste-skill` pin `a60a36dc` (MIT). Default `design-taste-frontend` is current v2: a direction draw (`draw.mjs`, 3 of 20), credited open-collection pictures, and a real-browser house-rule inspector at 1440 / 768 / 390. Also catalogs the redesign, image-to-code, GPT/GSAP, soft, minimalist, brutalist, and Stitch skills, three image-generation skills, and the two legacy pins (`design-taste-frontend-v1`, `design-taste-frontend-v2-experimental`). Interactive house-rule lab at `/taste#taste-lab`.
