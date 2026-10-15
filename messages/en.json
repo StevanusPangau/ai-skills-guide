@@ -15,6 +15,7 @@
   "close_navigation": "Close navigation",
   "section_navigation": "Section navigation",
   "nav_primary": "Primary",
+  "nav_tasks": "Tasks",
   "nav_sections": "Sections",
   "nav_filters": "Filters",
   "dialog_close": "Close",
@@ -995,5 +996,11 @@
   "taste_wf3_why": "A from-scratch rewrite deletes working behavior just to change the look.",
   "taste_wf_why": "Why:",
   "taste_workflows_lead": "Three ways to combine the skills. Pick one direction per project.",
-  "taste_workflows_title": "Common workflows"
+  "taste_workflows_title": "Common workflows",
+  "tasks_breadcrumb": "tasks",
+  "tasks_description": "Start from the job in front of you. Each one points to a few skills and says why that skill, so you do not have to know its name first.",
+  "tasks_no_results": "No task matches that search.",
+  "tasks_search_label": "Search tasks",
+  "tasks_search_placeholder": "Search by task or skill name",
+  "tasks_title": "Start from a task"
 }

@@ -81,11 +81,12 @@ export function SkillPage({
 
   const toc = [
     { id: 'brief', label: m.skillpage_brief_title() },
-    view.spotlight && { id: 'spotlight', label: view.spotlight.title },
     (view.useWhen.length > 0 || view.avoidWhen.length > 0) && {
       id: 'decision',
       label: m.skillpage_decision_title(),
     },
+    { id: 'install', label: m.skill_install_title() },
+    view.spotlight && { id: 'spotlight', label: view.spotlight.title },
     view.steps.length > 0 && {
       id: 'how-it-works',
       label: m.skillpage_steps_title(),
@@ -100,7 +101,6 @@ export function SkillPage({
     view.tips.length > 0 && { id: 'tips', label: m.skillpage_tips_title() },
     ...(view.extraSections ?? []).map((s) => ({ id: s.id, label: s.title })),
     view.pairs.length > 0 && { id: 'pairs-well-with', label: m.skillpage_related_title() },
-    { id: 'install', label: m.skill_install_title() },
   ].filter((item): item is { id: string; label: string } => Boolean(item))
 
   const command = view.invokeCommand ?? `/${view.name}`
@@ -303,26 +303,7 @@ export function SkillPage({
             </div>
           </section>
 
-          {/* Spotlight: the one section written only for this skill */}
-          {view.spotlight ? (
-            <section
-              id="spotlight"
-              className="scroll-mt-20 rounded-2xl border border-[var(--sk-line)] bg-[var(--sk-soft)] p-5 sm:p-6"
-            >
-              <p className="label-quiet flex items-center gap-1.5 text-[var(--sk-strong)]">
-                <RiSparklingLine className="size-4" aria-hidden="true" />
-                {m.skillpage_spotlight_eyebrow()}
-              </p>
-              <h2 className="mt-2 text-xl font-semibold text-balance">
-                {view.spotlight.title}
-              </h2>
-              <p className="mt-3 text-sm leading-relaxed whitespace-pre-line text-muted-foreground">
-                {view.spotlight.body}
-              </p>
-            </section>
-          ) : null}
-
-          {/* Use / avoid */}
+          {/* Decision first: most visitors arrive to answer "should I use this?" */}
           {view.useWhen.length > 0 || view.avoidWhen.length > 0 ? (
             <section id="decision" className="scroll-mt-20 space-y-4">
               <SectionTitle>{m.skillpage_decision_title()}</SectionTitle>
@@ -347,6 +328,41 @@ export function SkillPage({
                   />
                 ) : null}
               </div>
+            </section>
+          ) : null}
+
+          {/* Install next: the command should be reachable without scrolling past the essay. */}
+          <section id="install" className="scroll-mt-20 space-y-4">
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <SectionTitle>{m.skill_install_title()}</SectionTitle>
+              <CopyAgentRuleButton
+                skillName={view.agentRule.name}
+                description={view.agentRule.description}
+                useWhen={view.agentRule.useWhen}
+                coreRules={view.agentRule.coreRules}
+                howItWorks={view.agentRule.howItWorks}
+              />
+            </div>
+            {view.installNotice}
+            {install}
+          </section>
+
+          {/* Spotlight: the one section written only for this skill */}
+          {view.spotlight ? (
+            <section
+              id="spotlight"
+              className="scroll-mt-20 rounded-2xl border border-[var(--sk-line)] bg-[var(--sk-soft)] p-5 sm:p-6"
+            >
+              <p className="label-quiet flex items-center gap-1.5 text-[var(--sk-strong)]">
+                <RiSparklingLine className="size-4" aria-hidden="true" />
+                {m.skillpage_spotlight_eyebrow()}
+              </p>
+              <h2 className="mt-2 text-xl font-semibold text-balance">
+                {view.spotlight.title}
+              </h2>
+              <p className="mt-3 text-sm leading-relaxed whitespace-pre-line text-muted-foreground">
+                {view.spotlight.body}
+              </p>
             </section>
           ) : null}
 
@@ -545,22 +561,6 @@ export function SkillPage({
               </ul>
             </section>
           ) : null}
-
-          {/* Install */}
-          <section id="install" className="scroll-mt-20 space-y-4">
-            <div className="flex flex-wrap items-center justify-between gap-2">
-              <SectionTitle>{m.skill_install_title()}</SectionTitle>
-              <CopyAgentRuleButton
-                skillName={view.agentRule.name}
-                description={view.agentRule.description}
-                useWhen={view.agentRule.useWhen}
-                coreRules={view.agentRule.coreRules}
-                howItWorks={view.agentRule.howItWorks}
-              />
-            </div>
-            {view.installNotice}
-            {install}
-          </section>
 
           {/* Prev / next */}
           <nav

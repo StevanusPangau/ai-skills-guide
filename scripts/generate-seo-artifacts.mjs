@@ -23,7 +23,7 @@ const collections = [
   ['taste', 'taste-skills.ts', 'taste'],
 ]
 
-const urls = ['/', '/collections']
+const urls = ['/', '/tasks', '/collections']
 const llmsSections = []
 
 for (const [slug, file, skillPrefix] of collections) {
@@ -58,15 +58,24 @@ for (const [slug, file, skillPrefix] of collections) {
 }
 
 const today = new Date().toISOString().slice(0, 10)
+let previous = ''
+try {
+  previous = await readFile(resolve(root, 'public/sitemap.xml'), 'utf8')
+} catch {
+  // first generation
+}
+const kept = new Map()
+for (const match of previous.matchAll(/<loc>([^<]+)<\/loc>\s*<lastmod>([^<]+)<\/lastmod>/g)) {
+  kept.set(match[1], match[2])
+}
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${urls
-  .map(
-    (path) => `  <url>
-    <loc>${siteUrl}${path}</loc>
-    <lastmod>${today}</lastmod>
-  </url>`,
-  )
+  .map((path) => {
+    const loc = `${siteUrl}${path}`
+    const lastmod = kept.get(loc) ?? today
+    return `  <url>\n    <loc>${loc}</loc>\n    <lastmod>${lastmod}</lastmod>\n  </url>`
+  })
   .join('\n')}
 </urlset>
 `

@@ -20,6 +20,7 @@ export const Route = createRootRoute({
 
 const navItems = [
   { to: '/', labelKey: 'nav_home' as const, exact: true },
+  { to: '/tasks', labelKey: 'nav_tasks' as const, exact: false },
   { to: '/collections', labelKey: 'nav_collections' as const, exact: false },
 ] as const
 
@@ -89,6 +90,7 @@ function RootLayout() {
 
   const navLabels: Record<string, string> = {
     nav_home: m.nav_home(),
+    nav_tasks: m.nav_tasks(),
     nav_collections: m.nav_collections(),
   }
 

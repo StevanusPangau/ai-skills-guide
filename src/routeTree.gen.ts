@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as VercelRouteImport } from './routes/vercel'
 import { Route as TasteRouteImport } from './routes/taste'
+import { Route as TasksRouteImport } from './routes/tasks'
 import { Route as TanstackRouteImport } from './routes/tanstack'
 import { Route as SuperpowersRouteImport } from './routes/superpowers'
 import { Route as SupabaseRouteImport } from './routes/supabase'
@@ -67,6 +68,11 @@ const VercelRoute = VercelRouteImport.update({
 const TasteRoute = TasteRouteImport.update({
   id: '/taste',
   path: '/taste',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TasksRoute = TasksRouteImport.update({
+  id: '/tasks',
+  path: '/tasks',
   getParentRoute: () => rootRouteImport,
 } as any)
 const TanstackRoute = TanstackRouteImport.update({
@@ -329,6 +335,7 @@ export interface FileRoutesByFullPath {
   '/supabase': typeof SupabaseRouteWithChildren
   '/superpowers': typeof SuperpowersRouteWithChildren
   '/tanstack': typeof TanstackRouteWithChildren
+  '/tasks': typeof TasksRoute
   '/taste': typeof TasteRouteWithChildren
   '/vercel': typeof VercelRouteWithChildren
   '/skills/$skillName': typeof SkillsSkillNameRoute
@@ -367,6 +374,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/collections': typeof CollectionsRoute
   '/mattpocock': typeof MattpocockRoute
+  '/tasks': typeof TasksRoute
   '/skills/$skillName': typeof SkillsSkillNameRoute
   '/anthropic': typeof AnthropicIndexRoute
   '/brooklyn': typeof BrooklynIndexRoute
@@ -417,6 +425,7 @@ export interface FileRoutesById {
   '/supabase': typeof SupabaseRouteWithChildren
   '/superpowers': typeof SuperpowersRouteWithChildren
   '/tanstack': typeof TanstackRouteWithChildren
+  '/tasks': typeof TasksRoute
   '/taste': typeof TasteRouteWithChildren
   '/vercel': typeof VercelRouteWithChildren
   '/skills/$skillName': typeof SkillsSkillNameRoute
@@ -470,6 +479,7 @@ export interface FileRouteTypes {
     | '/supabase'
     | '/superpowers'
     | '/tanstack'
+    | '/tasks'
     | '/taste'
     | '/vercel'
     | '/skills/$skillName'
@@ -508,6 +518,7 @@ export interface FileRouteTypes {
     | '/'
     | '/collections'
     | '/mattpocock'
+    | '/tasks'
     | '/skills/$skillName'
     | '/anthropic'
     | '/brooklyn'
@@ -557,6 +568,7 @@ export interface FileRouteTypes {
     | '/supabase'
     | '/superpowers'
     | '/tanstack'
+    | '/tasks'
     | '/taste'
     | '/vercel'
     | '/skills/$skillName'
@@ -609,6 +621,7 @@ export interface RootRouteChildren {
   SupabaseRoute: typeof SupabaseRouteWithChildren
   SuperpowersRoute: typeof SuperpowersRouteWithChildren
   TanstackRoute: typeof TanstackRouteWithChildren
+  TasksRoute: typeof TasksRoute
   TasteRoute: typeof TasteRouteWithChildren
   VercelRoute: typeof VercelRouteWithChildren
   SkillsSkillNameRoute: typeof SkillsSkillNameRoute
@@ -628,6 +641,13 @@ declare module '@tanstack/react-router' {
       path: '/taste'
       fullPath: '/taste'
       preLoaderRoute: typeof TasteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tasks': {
+      id: '/tasks'
+      path: '/tasks'
+      fullPath: '/tasks'
+      preLoaderRoute: typeof TasksRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/tanstack': {
@@ -1181,6 +1201,7 @@ const rootRouteChildren: RootRouteChildren = {
   SupabaseRoute: SupabaseRouteWithChildren,
   SuperpowersRoute: SuperpowersRouteWithChildren,
   TanstackRoute: TanstackRouteWithChildren,
+  TasksRoute: TasksRoute,
   TasteRoute: TasteRouteWithChildren,
   VercelRoute: VercelRouteWithChildren,
   SkillsSkillNameRoute: SkillsSkillNameRoute,
