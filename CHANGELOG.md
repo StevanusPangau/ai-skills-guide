@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v1.9.0] - 2026-10-21
+
+### Added
+- **Remotion** (`remotion-dev/skills` @ `039e8a2`, `@remotion/skills` 4.0.537, 12 skills). The skills repo has no LICENSE file at this pin. Catalog links for this collection point at that commit.
+- **Neon** (`neondatabase/agent-skills` @ `d814689`, Apache-2.0, 9 skills). `neon-postgres-agent-platforms` stays out; it lives in another repo.
+- **shadcn/ui** (`shadcn-ui/ui` @ `ba1503c`, MIT, 2 skills: `shadcn` and `migrate-radix-to-base`).
+
+### Changed
+- The guide now covers 310 skills across 19 collections.
+
 ## [v1.8.0] - 2026-10-15
 
 ### Added
@@ -254,7 +264,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Deployed to Cloudflare Workers (static SPA)
 - Security headers, SPA fallback routing, immutable asset caching
 
-[Unreleased]: https://github.com/StevanusPangau/ai-skills-guide/compare/v1.7.0...HEAD
+[Unreleased]: https://github.com/StevanusPangau/ai-skills-guide/compare/v1.9.0...HEAD
+[v1.9.0]: https://github.com/StevanusPangau/ai-skills-guide/compare/v1.8.0...v1.9.0
+[v1.8.0]: https://github.com/StevanusPangau/ai-skills-guide/compare/v1.7.1...v1.8.0
 [v1.7.1]: https://github.com/StevanusPangau/ai-skills-guide/compare/v1.7.0...v1.7.1
 [v1.7.0]: https://github.com/StevanusPangau/ai-skills-guide/compare/v1.6.0...v1.7.0
 [v1.6.0]: https://github.com/StevanusPangau/ai-skills-guide/compare/v1.5.0...v1.6.0

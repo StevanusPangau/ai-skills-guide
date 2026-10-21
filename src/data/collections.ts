@@ -14,6 +14,9 @@ import { EXPO_SKILL_COUNT } from '@/data/expo-skills-meta'
 import { GSAP_SKILL_COUNT } from '@/data/gsap-skills-meta'
 import { IMPECCABLE_SKILL_COUNT } from '@/data/impeccable-skills-meta'
 import { TASTE_SKILL_COUNT } from '@/data/taste-skills-meta'
+import { REMOTION_SKILL_COUNT } from '@/data/remotion-skills-meta'
+import { NEON_SKILL_COUNT } from '@/data/neon-skills-meta'
+import { SHADCN_SKILL_COUNT } from '@/data/shadcn-skills-meta'
 import { m } from '@/paraglide/messages.js'
 
 export type CollectionStatus = 'available' | 'coming-soon'
@@ -238,6 +241,42 @@ export function getCollections(): Collection[] {
       status: 'available',
       source: 'github.com/Leonxlnx/taste-skill',
       tags: ['anti-slop', 'art-direction', 'frontend'],
+    },
+    {
+      slug: 'remotion',
+      to: '/remotion',
+      author: 'Remotion',
+      avatarSrc: '/avatars/remotion.svg',
+      title: 'Official Remotion Skills',
+      description: m.collection_remotion_description(),
+      skillCount: REMOTION_SKILL_COUNT,
+      status: 'available',
+      source: 'github.com/remotion-dev/skills',
+      tags: ['video', 'react', 'studio'],
+    },
+    {
+      slug: 'neon',
+      to: '/neon',
+      author: 'Neon',
+      avatarSrc: '/avatars/neon.svg',
+      title: 'Official Neon Skills',
+      description: m.collection_neon_description(),
+      skillCount: NEON_SKILL_COUNT,
+      status: 'available',
+      source: 'github.com/neondatabase/agent-skills',
+      tags: ['postgres', 'branching', 'backend'],
+    },
+    {
+      slug: 'shadcn',
+      to: '/shadcn',
+      author: 'shadcn',
+      avatarSrc: '/avatars/shadcn.svg',
+      title: 'Official shadcn/ui Skills',
+      description: m.collection_shadcn_description(),
+      skillCount: SHADCN_SKILL_COUNT,
+      status: 'available',
+      source: 'github.com/shadcn-ui/ui',
+      tags: ['components', 'registry', 'base-ui'],
     },
   ]
 }

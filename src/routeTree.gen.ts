@@ -15,7 +15,10 @@ import { Route as TasksRouteImport } from './routes/tasks'
 import { Route as TanstackRouteImport } from './routes/tanstack'
 import { Route as SuperpowersRouteImport } from './routes/superpowers'
 import { Route as SupabaseRouteImport } from './routes/supabase'
+import { Route as ShadcnRouteImport } from './routes/shadcn'
+import { Route as RemotionRouteImport } from './routes/remotion'
 import { Route as PrismaRouteImport } from './routes/prisma'
+import { Route as NeonRouteImport } from './routes/neon'
 import { Route as MattpocockRouteImport } from './routes/mattpocock'
 import { Route as JakubkrehelRouteImport } from './routes/jakubkrehel'
 import { Route as ImpeccableRouteImport } from './routes/impeccable'
@@ -33,7 +36,10 @@ import { Route as TasteIndexRouteImport } from './routes/taste.index'
 import { Route as TanstackIndexRouteImport } from './routes/tanstack.index'
 import { Route as SuperpowersIndexRouteImport } from './routes/superpowers.index'
 import { Route as SupabaseIndexRouteImport } from './routes/supabase.index'
+import { Route as ShadcnIndexRouteImport } from './routes/shadcn.index'
+import { Route as RemotionIndexRouteImport } from './routes/remotion.index'
 import { Route as PrismaIndexRouteImport } from './routes/prisma.index'
+import { Route as NeonIndexRouteImport } from './routes/neon.index'
 import { Route as JakubkrehelIndexRouteImport } from './routes/jakubkrehel.index'
 import { Route as ImpeccableIndexRouteImport } from './routes/impeccable.index'
 import { Route as GsapIndexRouteImport } from './routes/gsap.index'
@@ -49,7 +55,10 @@ import { Route as TasteSkillsSkillNameRouteImport } from './routes/taste.skills.
 import { Route as TanstackSkillsSkillNameRouteImport } from './routes/tanstack.skills.$skillName'
 import { Route as SuperpowersSkillsSkillNameRouteImport } from './routes/superpowers.skills.$skillName'
 import { Route as SupabaseSkillsSkillNameRouteImport } from './routes/supabase.skills.$skillName'
+import { Route as ShadcnSkillsSkillNameRouteImport } from './routes/shadcn.skills.$skillName'
+import { Route as RemotionSkillsSkillNameRouteImport } from './routes/remotion.skills.$skillName'
 import { Route as PrismaSkillsSkillNameRouteImport } from './routes/prisma.skills.$skillName'
+import { Route as NeonSkillsSkillNameRouteImport } from './routes/neon.skills.$skillName'
 import { Route as JakubkrehelSkillsSkillNameRouteImport } from './routes/jakubkrehel.skills.$skillName'
 import { Route as ImpeccableSkillsSkillNameRouteImport } from './routes/impeccable.skills.$skillName'
 import { Route as GsapSkillsSkillNameRouteImport } from './routes/gsap.skills.$skillName'
@@ -90,9 +99,24 @@ const SupabaseRoute = SupabaseRouteImport.update({
   path: '/supabase',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ShadcnRoute = ShadcnRouteImport.update({
+  id: '/shadcn',
+  path: '/shadcn',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RemotionRoute = RemotionRouteImport.update({
+  id: '/remotion',
+  path: '/remotion',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PrismaRoute = PrismaRouteImport.update({
   id: '/prisma',
   path: '/prisma',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NeonRoute = NeonRouteImport.update({
+  id: '/neon',
+  path: '/neon',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MattpocockRoute = MattpocockRouteImport.update({
@@ -180,10 +204,25 @@ const SupabaseIndexRoute = SupabaseIndexRouteImport.update({
   path: '/',
   getParentRoute: () => SupabaseRoute,
 } as any)
+const ShadcnIndexRoute = ShadcnIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => ShadcnRoute,
+} as any)
+const RemotionIndexRoute = RemotionIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => RemotionRoute,
+} as any)
 const PrismaIndexRoute = PrismaIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => PrismaRoute,
+} as any)
+const NeonIndexRoute = NeonIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => NeonRoute,
 } as any)
 const JakubkrehelIndexRoute = JakubkrehelIndexRouteImport.update({
   id: '/',
@@ -261,10 +300,25 @@ const SupabaseSkillsSkillNameRoute = SupabaseSkillsSkillNameRouteImport.update({
   path: '/skills/$skillName',
   getParentRoute: () => SupabaseRoute,
 } as any)
+const ShadcnSkillsSkillNameRoute = ShadcnSkillsSkillNameRouteImport.update({
+  id: '/skills/$skillName',
+  path: '/skills/$skillName',
+  getParentRoute: () => ShadcnRoute,
+} as any)
+const RemotionSkillsSkillNameRoute = RemotionSkillsSkillNameRouteImport.update({
+  id: '/skills/$skillName',
+  path: '/skills/$skillName',
+  getParentRoute: () => RemotionRoute,
+} as any)
 const PrismaSkillsSkillNameRoute = PrismaSkillsSkillNameRouteImport.update({
   id: '/skills/$skillName',
   path: '/skills/$skillName',
   getParentRoute: () => PrismaRoute,
+} as any)
+const NeonSkillsSkillNameRoute = NeonSkillsSkillNameRouteImport.update({
+  id: '/skills/$skillName',
+  path: '/skills/$skillName',
+  getParentRoute: () => NeonRoute,
 } as any)
 const JakubkrehelSkillsSkillNameRoute =
   JakubkrehelSkillsSkillNameRouteImport.update({
@@ -331,7 +385,10 @@ export interface FileRoutesByFullPath {
   '/impeccable': typeof ImpeccableRouteWithChildren
   '/jakubkrehel': typeof JakubkrehelRouteWithChildren
   '/mattpocock': typeof MattpocockRoute
+  '/neon': typeof NeonRouteWithChildren
   '/prisma': typeof PrismaRouteWithChildren
+  '/remotion': typeof RemotionRouteWithChildren
+  '/shadcn': typeof ShadcnRouteWithChildren
   '/supabase': typeof SupabaseRouteWithChildren
   '/superpowers': typeof SuperpowersRouteWithChildren
   '/tanstack': typeof TanstackRouteWithChildren
@@ -348,7 +405,10 @@ export interface FileRoutesByFullPath {
   '/gsap/': typeof GsapIndexRoute
   '/impeccable/': typeof ImpeccableIndexRoute
   '/jakubkrehel/': typeof JakubkrehelIndexRoute
+  '/neon/': typeof NeonIndexRoute
   '/prisma/': typeof PrismaIndexRoute
+  '/remotion/': typeof RemotionIndexRoute
+  '/shadcn/': typeof ShadcnIndexRoute
   '/supabase/': typeof SupabaseIndexRoute
   '/superpowers/': typeof SuperpowersIndexRoute
   '/tanstack/': typeof TanstackIndexRoute
@@ -363,7 +423,10 @@ export interface FileRoutesByFullPath {
   '/gsap/skills/$skillName': typeof GsapSkillsSkillNameRoute
   '/impeccable/skills/$skillName': typeof ImpeccableSkillsSkillNameRoute
   '/jakubkrehel/skills/$skillName': typeof JakubkrehelSkillsSkillNameRoute
+  '/neon/skills/$skillName': typeof NeonSkillsSkillNameRoute
   '/prisma/skills/$skillName': typeof PrismaSkillsSkillNameRoute
+  '/remotion/skills/$skillName': typeof RemotionSkillsSkillNameRoute
+  '/shadcn/skills/$skillName': typeof ShadcnSkillsSkillNameRoute
   '/supabase/skills/$skillName': typeof SupabaseSkillsSkillNameRoute
   '/superpowers/skills/$skillName': typeof SuperpowersSkillsSkillNameRoute
   '/tanstack/skills/$skillName': typeof TanstackSkillsSkillNameRoute
@@ -385,7 +448,10 @@ export interface FileRoutesByTo {
   '/gsap': typeof GsapIndexRoute
   '/impeccable': typeof ImpeccableIndexRoute
   '/jakubkrehel': typeof JakubkrehelIndexRoute
+  '/neon': typeof NeonIndexRoute
   '/prisma': typeof PrismaIndexRoute
+  '/remotion': typeof RemotionIndexRoute
+  '/shadcn': typeof ShadcnIndexRoute
   '/supabase': typeof SupabaseIndexRoute
   '/superpowers': typeof SuperpowersIndexRoute
   '/tanstack': typeof TanstackIndexRoute
@@ -400,7 +466,10 @@ export interface FileRoutesByTo {
   '/gsap/skills/$skillName': typeof GsapSkillsSkillNameRoute
   '/impeccable/skills/$skillName': typeof ImpeccableSkillsSkillNameRoute
   '/jakubkrehel/skills/$skillName': typeof JakubkrehelSkillsSkillNameRoute
+  '/neon/skills/$skillName': typeof NeonSkillsSkillNameRoute
   '/prisma/skills/$skillName': typeof PrismaSkillsSkillNameRoute
+  '/remotion/skills/$skillName': typeof RemotionSkillsSkillNameRoute
+  '/shadcn/skills/$skillName': typeof ShadcnSkillsSkillNameRoute
   '/supabase/skills/$skillName': typeof SupabaseSkillsSkillNameRoute
   '/superpowers/skills/$skillName': typeof SuperpowersSkillsSkillNameRoute
   '/tanstack/skills/$skillName': typeof TanstackSkillsSkillNameRoute
@@ -421,7 +490,10 @@ export interface FileRoutesById {
   '/impeccable': typeof ImpeccableRouteWithChildren
   '/jakubkrehel': typeof JakubkrehelRouteWithChildren
   '/mattpocock': typeof MattpocockRoute
+  '/neon': typeof NeonRouteWithChildren
   '/prisma': typeof PrismaRouteWithChildren
+  '/remotion': typeof RemotionRouteWithChildren
+  '/shadcn': typeof ShadcnRouteWithChildren
   '/supabase': typeof SupabaseRouteWithChildren
   '/superpowers': typeof SuperpowersRouteWithChildren
   '/tanstack': typeof TanstackRouteWithChildren
@@ -438,7 +510,10 @@ export interface FileRoutesById {
   '/gsap/': typeof GsapIndexRoute
   '/impeccable/': typeof ImpeccableIndexRoute
   '/jakubkrehel/': typeof JakubkrehelIndexRoute
+  '/neon/': typeof NeonIndexRoute
   '/prisma/': typeof PrismaIndexRoute
+  '/remotion/': typeof RemotionIndexRoute
+  '/shadcn/': typeof ShadcnIndexRoute
   '/supabase/': typeof SupabaseIndexRoute
   '/superpowers/': typeof SuperpowersIndexRoute
   '/tanstack/': typeof TanstackIndexRoute
@@ -453,7 +528,10 @@ export interface FileRoutesById {
   '/gsap/skills/$skillName': typeof GsapSkillsSkillNameRoute
   '/impeccable/skills/$skillName': typeof ImpeccableSkillsSkillNameRoute
   '/jakubkrehel/skills/$skillName': typeof JakubkrehelSkillsSkillNameRoute
+  '/neon/skills/$skillName': typeof NeonSkillsSkillNameRoute
   '/prisma/skills/$skillName': typeof PrismaSkillsSkillNameRoute
+  '/remotion/skills/$skillName': typeof RemotionSkillsSkillNameRoute
+  '/shadcn/skills/$skillName': typeof ShadcnSkillsSkillNameRoute
   '/supabase/skills/$skillName': typeof SupabaseSkillsSkillNameRoute
   '/superpowers/skills/$skillName': typeof SuperpowersSkillsSkillNameRoute
   '/tanstack/skills/$skillName': typeof TanstackSkillsSkillNameRoute
@@ -475,7 +553,10 @@ export interface FileRouteTypes {
     | '/impeccable'
     | '/jakubkrehel'
     | '/mattpocock'
+    | '/neon'
     | '/prisma'
+    | '/remotion'
+    | '/shadcn'
     | '/supabase'
     | '/superpowers'
     | '/tanstack'
@@ -492,7 +573,10 @@ export interface FileRouteTypes {
     | '/gsap/'
     | '/impeccable/'
     | '/jakubkrehel/'
+    | '/neon/'
     | '/prisma/'
+    | '/remotion/'
+    | '/shadcn/'
     | '/supabase/'
     | '/superpowers/'
     | '/tanstack/'
@@ -507,7 +591,10 @@ export interface FileRouteTypes {
     | '/gsap/skills/$skillName'
     | '/impeccable/skills/$skillName'
     | '/jakubkrehel/skills/$skillName'
+    | '/neon/skills/$skillName'
     | '/prisma/skills/$skillName'
+    | '/remotion/skills/$skillName'
+    | '/shadcn/skills/$skillName'
     | '/supabase/skills/$skillName'
     | '/superpowers/skills/$skillName'
     | '/tanstack/skills/$skillName'
@@ -529,7 +616,10 @@ export interface FileRouteTypes {
     | '/gsap'
     | '/impeccable'
     | '/jakubkrehel'
+    | '/neon'
     | '/prisma'
+    | '/remotion'
+    | '/shadcn'
     | '/supabase'
     | '/superpowers'
     | '/tanstack'
@@ -544,7 +634,10 @@ export interface FileRouteTypes {
     | '/gsap/skills/$skillName'
     | '/impeccable/skills/$skillName'
     | '/jakubkrehel/skills/$skillName'
+    | '/neon/skills/$skillName'
     | '/prisma/skills/$skillName'
+    | '/remotion/skills/$skillName'
+    | '/shadcn/skills/$skillName'
     | '/supabase/skills/$skillName'
     | '/superpowers/skills/$skillName'
     | '/tanstack/skills/$skillName'
@@ -564,7 +657,10 @@ export interface FileRouteTypes {
     | '/impeccable'
     | '/jakubkrehel'
     | '/mattpocock'
+    | '/neon'
     | '/prisma'
+    | '/remotion'
+    | '/shadcn'
     | '/supabase'
     | '/superpowers'
     | '/tanstack'
@@ -581,7 +677,10 @@ export interface FileRouteTypes {
     | '/gsap/'
     | '/impeccable/'
     | '/jakubkrehel/'
+    | '/neon/'
     | '/prisma/'
+    | '/remotion/'
+    | '/shadcn/'
     | '/supabase/'
     | '/superpowers/'
     | '/tanstack/'
@@ -596,7 +695,10 @@ export interface FileRouteTypes {
     | '/gsap/skills/$skillName'
     | '/impeccable/skills/$skillName'
     | '/jakubkrehel/skills/$skillName'
+    | '/neon/skills/$skillName'
     | '/prisma/skills/$skillName'
+    | '/remotion/skills/$skillName'
+    | '/shadcn/skills/$skillName'
     | '/supabase/skills/$skillName'
     | '/superpowers/skills/$skillName'
     | '/tanstack/skills/$skillName'
@@ -617,7 +719,10 @@ export interface RootRouteChildren {
   ImpeccableRoute: typeof ImpeccableRouteWithChildren
   JakubkrehelRoute: typeof JakubkrehelRouteWithChildren
   MattpocockRoute: typeof MattpocockRoute
+  NeonRoute: typeof NeonRouteWithChildren
   PrismaRoute: typeof PrismaRouteWithChildren
+  RemotionRoute: typeof RemotionRouteWithChildren
+  ShadcnRoute: typeof ShadcnRouteWithChildren
   SupabaseRoute: typeof SupabaseRouteWithChildren
   SuperpowersRoute: typeof SuperpowersRouteWithChildren
   TanstackRoute: typeof TanstackRouteWithChildren
@@ -671,11 +776,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SupabaseRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/shadcn': {
+      id: '/shadcn'
+      path: '/shadcn'
+      fullPath: '/shadcn'
+      preLoaderRoute: typeof ShadcnRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/remotion': {
+      id: '/remotion'
+      path: '/remotion'
+      fullPath: '/remotion'
+      preLoaderRoute: typeof RemotionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/prisma': {
       id: '/prisma'
       path: '/prisma'
       fullPath: '/prisma'
       preLoaderRoute: typeof PrismaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/neon': {
+      id: '/neon'
+      path: '/neon'
+      fullPath: '/neon'
+      preLoaderRoute: typeof NeonRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/mattpocock': {
@@ -797,12 +923,33 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SupabaseIndexRouteImport
       parentRoute: typeof SupabaseRoute
     }
+    '/shadcn/': {
+      id: '/shadcn/'
+      path: '/'
+      fullPath: '/shadcn/'
+      preLoaderRoute: typeof ShadcnIndexRouteImport
+      parentRoute: typeof ShadcnRoute
+    }
+    '/remotion/': {
+      id: '/remotion/'
+      path: '/'
+      fullPath: '/remotion/'
+      preLoaderRoute: typeof RemotionIndexRouteImport
+      parentRoute: typeof RemotionRoute
+    }
     '/prisma/': {
       id: '/prisma/'
       path: '/'
       fullPath: '/prisma/'
       preLoaderRoute: typeof PrismaIndexRouteImport
       parentRoute: typeof PrismaRoute
+    }
+    '/neon/': {
+      id: '/neon/'
+      path: '/'
+      fullPath: '/neon/'
+      preLoaderRoute: typeof NeonIndexRouteImport
+      parentRoute: typeof NeonRoute
     }
     '/jakubkrehel/': {
       id: '/jakubkrehel/'
@@ -909,12 +1056,33 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SupabaseSkillsSkillNameRouteImport
       parentRoute: typeof SupabaseRoute
     }
+    '/shadcn/skills/$skillName': {
+      id: '/shadcn/skills/$skillName'
+      path: '/skills/$skillName'
+      fullPath: '/shadcn/skills/$skillName'
+      preLoaderRoute: typeof ShadcnSkillsSkillNameRouteImport
+      parentRoute: typeof ShadcnRoute
+    }
+    '/remotion/skills/$skillName': {
+      id: '/remotion/skills/$skillName'
+      path: '/skills/$skillName'
+      fullPath: '/remotion/skills/$skillName'
+      preLoaderRoute: typeof RemotionSkillsSkillNameRouteImport
+      parentRoute: typeof RemotionRoute
+    }
     '/prisma/skills/$skillName': {
       id: '/prisma/skills/$skillName'
       path: '/skills/$skillName'
       fullPath: '/prisma/skills/$skillName'
       preLoaderRoute: typeof PrismaSkillsSkillNameRouteImport
       parentRoute: typeof PrismaRoute
+    }
+    '/neon/skills/$skillName': {
+      id: '/neon/skills/$skillName'
+      path: '/skills/$skillName'
+      fullPath: '/neon/skills/$skillName'
+      preLoaderRoute: typeof NeonSkillsSkillNameRouteImport
+      parentRoute: typeof NeonRoute
     }
     '/jakubkrehel/skills/$skillName': {
       id: '/jakubkrehel/skills/$skillName'
@@ -1104,6 +1272,18 @@ const JakubkrehelRouteWithChildren = JakubkrehelRoute._addFileChildren(
   JakubkrehelRouteChildren,
 )
 
+interface NeonRouteChildren {
+  NeonIndexRoute: typeof NeonIndexRoute
+  NeonSkillsSkillNameRoute: typeof NeonSkillsSkillNameRoute
+}
+
+const NeonRouteChildren: NeonRouteChildren = {
+  NeonIndexRoute: NeonIndexRoute,
+  NeonSkillsSkillNameRoute: NeonSkillsSkillNameRoute,
+}
+
+const NeonRouteWithChildren = NeonRoute._addFileChildren(NeonRouteChildren)
+
 interface PrismaRouteChildren {
   PrismaIndexRoute: typeof PrismaIndexRoute
   PrismaSkillsSkillNameRoute: typeof PrismaSkillsSkillNameRoute
@@ -1116,6 +1296,33 @@ const PrismaRouteChildren: PrismaRouteChildren = {
 
 const PrismaRouteWithChildren =
   PrismaRoute._addFileChildren(PrismaRouteChildren)
+
+interface RemotionRouteChildren {
+  RemotionIndexRoute: typeof RemotionIndexRoute
+  RemotionSkillsSkillNameRoute: typeof RemotionSkillsSkillNameRoute
+}
+
+const RemotionRouteChildren: RemotionRouteChildren = {
+  RemotionIndexRoute: RemotionIndexRoute,
+  RemotionSkillsSkillNameRoute: RemotionSkillsSkillNameRoute,
+}
+
+const RemotionRouteWithChildren = RemotionRoute._addFileChildren(
+  RemotionRouteChildren,
+)
+
+interface ShadcnRouteChildren {
+  ShadcnIndexRoute: typeof ShadcnIndexRoute
+  ShadcnSkillsSkillNameRoute: typeof ShadcnSkillsSkillNameRoute
+}
+
+const ShadcnRouteChildren: ShadcnRouteChildren = {
+  ShadcnIndexRoute: ShadcnIndexRoute,
+  ShadcnSkillsSkillNameRoute: ShadcnSkillsSkillNameRoute,
+}
+
+const ShadcnRouteWithChildren =
+  ShadcnRoute._addFileChildren(ShadcnRouteChildren)
 
 interface SupabaseRouteChildren {
   SupabaseIndexRoute: typeof SupabaseIndexRoute
@@ -1197,7 +1404,10 @@ const rootRouteChildren: RootRouteChildren = {
   ImpeccableRoute: ImpeccableRouteWithChildren,
   JakubkrehelRoute: JakubkrehelRouteWithChildren,
   MattpocockRoute: MattpocockRoute,
+  NeonRoute: NeonRouteWithChildren,
   PrismaRoute: PrismaRouteWithChildren,
+  RemotionRoute: RemotionRouteWithChildren,
+  ShadcnRoute: ShadcnRouteWithChildren,
   SupabaseRoute: SupabaseRouteWithChildren,
   SuperpowersRoute: SuperpowersRouteWithChildren,
   TanstackRoute: TanstackRouteWithChildren,
