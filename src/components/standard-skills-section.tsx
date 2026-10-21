@@ -9,7 +9,10 @@ type Props = {
   categories: { label: string; value: string }[]
   title: string
   description: string
+  /** `github.com/owner/repo`, no scheme. */
   repoUrl: string
+  /** Pinned commit. Without it, the SKILL.md link points at the default branch. */
+  sourceSha?: string
 }
 
 /** Catalog for the "rich" bilingual collections; maps each record to a catalog row. */
@@ -20,6 +23,7 @@ export function StandardSkillsSection({
   title,
   description,
   repoUrl,
+  sourceSha,
 }: Props) {
   const isEn = getLocale() === 'en'
   const items = useMemo<CatalogItem[]>(
@@ -36,11 +40,13 @@ export function StandardSkillsSection({
           highlights: rules,
           searchText: [...uses, ...rules].join(' '),
           sourceUrl: skill.sourcePath
-            ? `https://${repoUrl}/tree/main/${skill.sourcePath}`
+            ? sourceSha
+              ? `https://${repoUrl}/blob/${sourceSha}/${skill.sourcePath}`
+              : `https://${repoUrl}/tree/main/${skill.sourcePath}`
             : undefined,
         }
       }),
-    [skills, isEn, repoUrl],
+    [skills, isEn, repoUrl, sourceSha],
   )
 
   return (

@@ -358,3 +358,38 @@ The guide curates and explains work by the attributed upstream authors. Each col
 - brandkit: https://skills.stevanuspangau.dev/taste/skills/brandkit
 - design-taste-frontend-v1: https://skills.stevanuspangau.dev/taste/skills/design-taste-frontend-v1
 - design-taste-frontend-v2-experimental: https://skills.stevanuspangau.dev/taste/skills/design-taste-frontend-v2-experimental
+
+## remotion
+
+- Collection: https://skills.stevanuspangau.dev/remotion
+- remotion-best-practices: https://skills.stevanuspangau.dev/remotion/skills/remotion-best-practices
+- remotion-create: https://skills.stevanuspangau.dev/remotion/skills/remotion-create
+- remotion-docs: https://skills.stevanuspangau.dev/remotion/skills/remotion-docs
+- remotion-upgrade: https://skills.stevanuspangau.dev/remotion/skills/remotion-upgrade
+- remotion-markup: https://skills.stevanuspangau.dev/remotion/skills/remotion-markup
+- remotion-interactivity: https://skills.stevanuspangau.dev/remotion/skills/remotion-interactivity
+- remotion-maps: https://skills.stevanuspangau.dev/remotion/skills/remotion-maps
+- remotion-multimedia: https://skills.stevanuspangau.dev/remotion/skills/remotion-multimedia
+- remotion-captions: https://skills.stevanuspangau.dev/remotion/skills/remotion-captions
+- remotion-studio: https://skills.stevanuspangau.dev/remotion/skills/remotion-studio
+- remotion-render: https://skills.stevanuspangau.dev/remotion/skills/remotion-render
+- remotion-saas: https://skills.stevanuspangau.dev/remotion/skills/remotion-saas
+
+## neon
+
+- Collection: https://skills.stevanuspangau.dev/neon
+- neon: https://skills.stevanuspangau.dev/neon/skills/neon
+- neon-postgres: https://skills.stevanuspangau.dev/neon/skills/neon-postgres
+- neon-auth: https://skills.stevanuspangau.dev/neon/skills/neon-auth
+- neon-postgres-branches: https://skills.stevanuspangau.dev/neon/skills/neon-postgres-branches
+- neon-postgres-egress-optimizer: https://skills.stevanuspangau.dev/neon/skills/neon-postgres-egress-optimizer
+- neon-object-storage: https://skills.stevanuspangau.dev/neon/skills/neon-object-storage
+- neon-ai-gateway: https://skills.stevanuspangau.dev/neon/skills/neon-ai-gateway
+- neon-functions: https://skills.stevanuspangau.dev/neon/skills/neon-functions
+- neon-realtime: https://skills.stevanuspangau.dev/neon/skills/neon-realtime
+
+## shadcn
+
+- Collection: https://skills.stevanuspangau.dev/shadcn
+- shadcn: https://skills.stevanuspangau.dev/shadcn/skills/shadcn
+- migrate-radix-to-base: https://skills.stevanuspangau.dev/shadcn/skills/migrate-radix-to-base

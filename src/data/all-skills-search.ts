@@ -14,6 +14,9 @@ import { expoSkills } from '@/data/expo-skills'
 import { gsapSkills } from '@/data/gsap-skills'
 import { impeccableSkills } from '@/data/impeccable-skills'
 import { tasteSkills } from '@/data/taste-skills'
+import { remotionSkills } from '@/data/remotion-skills'
+import { neonSkills } from '@/data/neon-skills'
+import { shadcnSkills } from '@/data/shadcn-skills'
 import { getLocale } from '@/paraglide/runtime.js'
 
 export type SearchableSkill = {
@@ -232,6 +235,42 @@ export function getAllSearchableSkills(): SearchableSkill[] {
       category: s.category,
       description: isEn ? s.description.en : s.description.id,
       href: `/taste/skills/${s.name}`,
+    })
+  }
+
+  for (const s of remotionSkills) {
+    list.push({
+      id: `remotion-${s.name}`,
+      name: s.name,
+      collection: 'remotion',
+      collectionName: 'Remotion',
+      category: s.category,
+      description: isEn ? s.description.en : s.description.id,
+      href: `/remotion/skills/${s.name}`,
+    })
+  }
+
+  for (const s of neonSkills) {
+    list.push({
+      id: `neon-${s.name}`,
+      name: s.name,
+      collection: 'neon',
+      collectionName: 'Neon',
+      category: s.category,
+      description: isEn ? s.description.en : s.description.id,
+      href: `/neon/skills/${s.name}`,
+    })
+  }
+
+  for (const s of shadcnSkills) {
+    list.push({
+      id: `shadcn-${s.name}`,
+      name: s.name,
+      collection: 'shadcn',
+      collectionName: 'shadcn',
+      category: s.category,
+      description: isEn ? s.description.en : s.description.id,
+      href: `/shadcn/skills/${s.name}`,
     })
   }
 

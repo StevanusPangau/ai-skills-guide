@@ -21,6 +21,9 @@ const collections = [
   ['gsap', 'gsap-skills.ts', 'gsap'],
   ['impeccable', 'impeccable-skills.ts', 'impeccable'],
   ['taste', 'taste-skills.ts', 'taste'],
+  ['remotion', 'remotion-skills.ts', 'remotion'],
+  ['neon', 'neon-skills.ts', 'neon'],
+  ['shadcn', 'shadcn-skills.ts', 'shadcn'],
 ]
 
 const urls = ['/', '/tasks', '/collections']

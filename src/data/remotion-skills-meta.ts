@@ -1,0 +1,1 @@
+export const REMOTION_SKILL_COUNT = 12

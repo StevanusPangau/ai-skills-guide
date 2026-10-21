@@ -25,7 +25,7 @@ Ini adalah **panduan referensi**, bukan pengganti upstream. Repo ini tidak menye
 
 ## Koleksi saat ini
 
-Ringkasan yang tersedia hari ini (280+ skills di 16 koleksi):
+Ringkasan yang tersedia hari ini (310 skills di 19 koleksi):
 
 | Koleksi | Route | Upstream | Katalog | Install |
 |---|---|---|---|---|
@@ -45,6 +45,9 @@ Ringkasan yang tersedia hari ini (280+ skills di 16 koleksi):
 | Official GreenSock (GSAP) Motion Skills | [`/gsap`](https://skills.stevanuspangau.dev/gsap) | [greensock/gsap-skills](https://github.com/greensock/gsap-skills) | 8 | Upstream via skills.sh |
 | Impeccable Design System by Paul Bakaus | [`/impeccable`](https://skills.stevanuspangau.dev/impeccable) | [pbakaus/impeccable](https://github.com/pbakaus/impeccable) | 25 command | `npx impeccable install` |
 | Taste Skill oleh Leonxlnx | [`/taste`](https://skills.stevanuspangau.dev/taste) | [Leonxlnx/taste-skill](https://github.com/Leonxlnx/taste-skill) pin `a60a36dc…` | 14 | `npx skills add Leonxlnx/taste-skill --skill design-taste-frontend` |
+| Official Remotion Skills | [`/remotion`](https://skills.stevanuspangau.dev/remotion) | [remotion-dev/skills](https://github.com/remotion-dev/skills) pin `039e8a2…` | 12 | Upstream via skills.sh |
+| Official Neon Skills | [`/neon`](https://skills.stevanuspangau.dev/neon) | [neondatabase/agent-skills](https://github.com/neondatabase/agent-skills) pin `d814689…` | 9 | Upstream via skills.sh |
+| Official shadcn/ui Skills | [`/shadcn`](https://skills.stevanuspangau.dev/shadcn) | [shadcn-ui/ui](https://github.com/shadcn-ui/ui) pin `ba1503c…` | 2 | Upstream via skills.sh |
 
 Tiap file data koleksi mencatat repo upstream dan commit yang di-pin tempat isinya diverifikasi. Selalu utamakan upstream untuk skill terbaru.
 
